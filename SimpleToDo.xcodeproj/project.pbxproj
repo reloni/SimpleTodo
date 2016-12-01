@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */; };
-		6E15D01E1DF0A45A00B4CCA7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01D1DF0A45A00B4CCA7 /* ViewController.swift */; };
 		6E15D0211DF0A45A00B4CCA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D01F1DF0A45A00B4CCA7 /* Main.storyboard */; };
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
 		6E15D0311DF0A45A00B4CCA7 /* SimpleToDoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */; };
 		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
+		6E15D0621DF0B59B00B4CCA7 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D0611DF0B59B00B4CCA7 /* MainController.swift */; };
+		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +37,6 @@
 /* Begin PBXFileReference section */
 		6E15D0181DF0A45A00B4CCA7 /* SimpleToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6E15D01D1DF0A45A00B4CCA7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6E15D0201DF0A45A00B4CCA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E15D0251DF0A45A00B4CCA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +47,8 @@
 		6E15D0371DF0A45A00B4CCA7 /* SimpleToDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleToDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoUITests.swift; sourceTree = "<group>"; };
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E15D0611DF0B59B00B4CCA7 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +84,7 @@
 				6E15D02F1DF0A45A00B4CCA7 /* SimpleToDoTests */,
 				6E15D03A1DF0A45A00B4CCA7 /* SimpleToDoUITests */,
 				6E15D0191DF0A45A00B4CCA7 /* Products */,
+				6E15D0631DF0B62D00B4CCA7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,11 +102,11 @@
 			isa = PBXGroup;
 			children = (
 				6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */,
-				6E15D01D1DF0A45A00B4CCA7 /* ViewController.swift */,
 				6E15D01F1DF0A45A00B4CCA7 /* Main.storyboard */,
 				6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */,
 				6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */,
 				6E15D0271DF0A45A00B4CCA7 /* Info.plist */,
+				6E15D0611DF0B59B00B4CCA7 /* MainController.swift */,
 			);
 			path = SimpleToDo;
 			sourceTree = "<group>";
@@ -123,6 +127,14 @@
 				6E15D03D1DF0A45A00B4CCA7 /* Info.plist */,
 			);
 			path = SimpleToDoUITests;
+			sourceTree = "<group>";
+		};
+		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E15D01E1DF0A45A00B4CCA7 /* ViewController.swift in Sources */,
+				6E15D0621DF0B59B00B4CCA7 /* MainController.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +426,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SJMSRXG797;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo;
@@ -427,6 +443,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SJMSRXG797;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo;
@@ -512,6 +532,7 @@
 				6E15D0421DF0A45A00B4CCA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E15D0431DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "SimpleToDoTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +541,7 @@
 				6E15D0451DF0A45A00B4CCA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E15D0461DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "SimpleToDoUITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +550,7 @@
 				6E15D0481DF0A45A00B4CCA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
