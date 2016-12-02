@@ -12,8 +12,13 @@
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
 		6E15D0311DF0A45A00B4CCA7 /* SimpleToDoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */; };
 		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
-		6E15D0621DF0B59B00B4CCA7 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D0611DF0B59B00B4CCA7 /* MainController.swift */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
+		6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE247D41DF211DE001A6F39 /* MainController.swift */; };
+		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
+		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
+		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
+		6EE247E41DF21291001A6F39 /* RxState.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DC1DF21291001A6F39 /* RxState.framework */; };
+		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,8 +50,16 @@
 		6E15D0371DF0A45A00B4CCA7 /* SimpleToDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleToDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoUITests.swift; sourceTree = "<group>"; };
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E15D0611DF0B59B00B4CCA7 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		6EE247D41DF211DE001A6F39 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainController.swift; path = Controllers/MainController.swift; sourceTree = "<group>"; };
+		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
+		6EE247D81DF21291001A6F39 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		6EE247D91DF21291001A6F39 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
+		6EE247DA1DF21291001A6F39 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxHttpClient.framework; path = Carthage/Build/iOS/RxHttpClient.framework; sourceTree = "<group>"; };
+		6EE247DC1DF21291001A6F39 /* RxState.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxState.framework; path = Carthage/Build/iOS/RxState.framework; sourceTree = "<group>"; };
+		6EE247DD1DF21291001A6F39 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		6EE247DE1DF21291001A6F39 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +67,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */,
+				6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */,
+				6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */,
+				6EE247E41DF21291001A6F39 /* RxState.framework in Frameworks */,
+				6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */,
 				6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,11 +117,11 @@
 		6E15D01A1DF0A45A00B4CCA7 /* SimpleToDo */ = {
 			isa = PBXGroup;
 			children = (
+				6EE247D31DF211CF001A6F39 /* Controllers */,
 				6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */,
 				6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */,
 				6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */,
 				6E15D0271DF0A45A00B4CCA7 /* Info.plist */,
-				6E15D0611DF0B59B00B4CCA7 /* MainController.swift */,
 			);
 			path = SimpleToDo;
 			sourceTree = "<group>";
@@ -129,9 +147,25 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6EE247D71DF21291001A6F39 /* Material.framework */,
+				6EE247D81DF21291001A6F39 /* OHHTTPStubs.framework */,
+				6EE247D91DF21291001A6F39 /* RxBlocking.framework */,
+				6EE247DA1DF21291001A6F39 /* RxCocoa.framework */,
+				6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */,
+				6EE247DC1DF21291001A6F39 /* RxState.framework */,
+				6EE247DD1DF21291001A6F39 /* RxSwift.framework */,
+				6EE247DE1DF21291001A6F39 /* RxTest.framework */,
 				6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6EE247D31DF211CF001A6F39 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6EE247D41DF211DE001A6F39 /* MainController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +178,7 @@
 				6E15D0141DF0A45900B4CCA7 /* Sources */,
 				6E15D0151DF0A45900B4CCA7 /* Frameworks */,
 				6E15D0161DF0A45900B4CCA7 /* Resources */,
+				6EE247D61DF21216001A6F39 /* Copy carthage frameworks */,
 			);
 			buildRules = (
 			);
@@ -265,12 +300,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6EE247D61DF21216001A6F39 /* Copy carthage frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxState.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxHttpClient.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
+			);
+			name = "Copy carthage frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6E15D0141DF0A45900B4CCA7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E15D0621DF0B59B00B4CCA7 /* MainController.swift in Sources */,
+				6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
