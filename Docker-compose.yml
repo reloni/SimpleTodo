@@ -1,0 +1,14 @@
+version: '2'
+services:
+  web:
+    image: "reloni/todo-service:Debug-0.0.2"
+    container_name: todo-service-compose
+    links:
+      - db
+    ports:
+     - "5000:5000"
+  db:
+    image: "reloni/todo-postgres:empty-0.0.2"
+    container_name: todo-postgres-db-compose
+    ports:
+      - "5432:5432"
