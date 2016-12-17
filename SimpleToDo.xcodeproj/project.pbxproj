@@ -13,6 +13,11 @@
 		6E15D0311DF0A45A00B4CCA7 /* SimpleToDoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */; };
 		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
+		6E5752121E05ABBC002AA9B4 /* ToDoEntriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752111E05ABBC002AA9B4 /* ToDoEntriesController.swift */; };
+		6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752151E05AD06002AA9B4 /* Entities.swift */; };
+		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
+		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
+		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
 		6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE247D41DF211DE001A6F39 /* MainController.swift */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
@@ -51,6 +56,11 @@
 		6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoUITests.swift; sourceTree = "<group>"; };
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		6E5752111E05ABBC002AA9B4 /* ToDoEntriesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoEntriesController.swift; sourceTree = "<group>"; };
+		6E5752151E05AD06002AA9B4 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
+		6E5752191E05AFC4002AA9B4 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
+		6E57521C1E05B24A002AA9B4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6EE247D41DF211DE001A6F39 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainController.swift; path = Controllers/MainController.swift; sourceTree = "<group>"; };
 		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
 		6EE247D81DF21291001A6F39 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
@@ -67,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
+				6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */,
 				6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */,
 				6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */,
 				6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */,
@@ -117,6 +129,8 @@
 		6E15D01A1DF0A45A00B4CCA7 /* SimpleToDo */ = {
 			isa = PBXGroup;
 			children = (
+				6E5752171E05ADBD002AA9B4 /* Controls */,
+				6E5752141E05ACD9002AA9B4 /* Common */,
 				6EE247D31DF211CF001A6F39 /* Controllers */,
 				6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */,
 				6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */,
@@ -147,6 +161,8 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */,
+				6E5752191E05AFC4002AA9B4 /* Unbox.framework */,
 				6EE247D71DF21291001A6F39 /* Material.framework */,
 				6EE247D81DF21291001A6F39 /* OHHTTPStubs.framework */,
 				6EE247D91DF21291001A6F39 /* RxBlocking.framework */,
@@ -160,10 +176,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6E5752141E05ACD9002AA9B4 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6E5752151E05AD06002AA9B4 /* Entities.swift */,
+				6E57521C1E05B24A002AA9B4 /* Extensions.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		6E5752171E05ADBD002AA9B4 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
 		6EE247D31DF211CF001A6F39 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				6EE247D41DF211DE001A6F39 /* MainController.swift */,
+				6E5752111E05ABBC002AA9B4 /* ToDoEntriesController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -313,6 +346,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxHttpClient.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Unbox.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (
@@ -328,7 +363,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
+				6E5752121E05ABBC002AA9B4 /* ToDoEntriesController.swift in Sources */,
 				6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */,
+				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
