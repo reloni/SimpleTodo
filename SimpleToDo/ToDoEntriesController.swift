@@ -35,11 +35,6 @@ final class ToDoEntriesController : UIViewController {
 	let bag = DisposeBag()
 	
 	let dataSource = RxTableViewSectionedAnimatedDataSource<SectionOfCustomData>()
-	let items = BehaviorSubject(value: [
-		ToDoEntry(id: 55, completed: false, description: "initial 1", notes: nil),
-		ToDoEntry(id: 56, completed: false, description: "initial 2", notes: nil),
-		ToDoEntry(id: 57, completed: false, description: "initial 3", notes: nil)
-		])
 	
 	let tableView: UITableView = {
 		let table = UITableView()
@@ -63,40 +58,23 @@ final class ToDoEntriesController : UIViewController {
 		view.addSubview(addButton)
 		
 		dataSource.configureCell = { ds, tv, ip, item in
-			print("configure cell for row: \(ip.row)")
 			let cell = tv.dequeueReusableCell(withIdentifier: "Cell", for: ip)
 			cell.textLabel?.text = "Item \(item.id): \(item.description) - \(item.completed)"
 			return cell
 		}
 		
-//		addButton.rx.tap.subscribe(onNext: {
-//			print("add")
-//		}).addDisposableTo(bag)
-		
-//		addButton.rx.tap.flatMap { _ -> Observable<[SectionOfCustomData]> in
-//			print("num of sect: \(self.dataSource.numberOfSections(in: self.tableView))")
-//			return Observable.just([SectionOfCustomData(header: "test", items: [ToDoEntry(id: 55, completed: false, description: "added", notes: nil)])])
-//			}
-//			.bindTo(tableView.rx.items(dataSource: dataSource))
-//			.addDisposableTo(bag)
-
 		addButton.rx.tap.subscribe(onNext: {
-			var current = try! self.items.value().dropFirst(2)
-			current.append(ToDoEntry(id: 55, completed: false, description: "added 1", notes: nil))
-			current.append(ToDoEntry(id: 56, completed: false, description: "added 2", notes: nil))
-			self.items.onNext(Array(current))
-			//return Observable.just(Array(current))
-			//print("num of sect: \(self.dataSource.numberOfSections(in: self.tableView))")
-			//return Observable.just([SectionOfCustomData(header: "test", items: [ToDoEntry(id: 55, completed: false, description: "added", notes: nil)])])
-			})
-			.addDisposableTo(bag)
+			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
+			_ = appState.dispatch(AddToDoEntryAction(newItem: ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
+		}).addDisposableTo(bag)
 		
-		items.flatMap { entries -> Observable<[SectionOfCustomData]> in
-			return Observable.just([SectionOfCustomData(header: "test", items: entries)])
-			}
-			.observeOn(MainScheduler.instance)
-			.bindTo(tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(bag)
+		appState.state.filter { $0.setBy is LoadToDoEntriesAction || $0.setBy is AddToDoEntryAction }
+			.flatMap { newState ->  Observable<[SectionOfCustomData]> in
+				return Observable.just([SectionOfCustomData(header: "test", items: newState.state.toDoEntries)])
+		}
+		.observeOn(MainScheduler.instance)
+		.bindTo(tableView.rx.items(dataSource: dataSource))
+		.addDisposableTo(bag)
 		
 		updateViewConstraints()
 	}
@@ -124,23 +102,6 @@ final class ToDoEntriesController : UIViewController {
 		let headers = ["Authorization": "Basic \(credentialData)"]
 		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/")!, headers: headers)
 		
-		httpClient.requestData(request).flatMap { result -> Observable<[ToDoEntry]> in
-			sleep(2)
-			let entries: [ToDoEntry] = try unbox(data: result)
-			return Observable.just(entries)
-			}.subscribe(onNext: { entries in
-				self.items.onNext(entries)
-			}).addDisposableTo(bag)
-			//.bindTo(items).addDisposableTo(bag)
-		
-//		httpClient.requestData(request).flatMap { result -> Observable<[SectionOfCustomData]> in
-//			sleep(1)
-//			let entries: [ToDoEntry] = try unbox(data: result)
-//			return Observable.just([SectionOfCustomData(header: "test", items: entries)])
-//			}
-//		.observeOn(MainScheduler.instance)
-//		.bindTo(tableView.rx.items(dataSource: dataSource))
-//			.addDisposableTo(bag)
+		appState.dispatch(LoadToDoEntriesAction(httpClient: httpClient, urlRequest: request))?.addDisposableTo(bag)
 	}
-	
 }
