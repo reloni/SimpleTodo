@@ -31,6 +31,12 @@ extension SectionOfCustomData: AnimatableSectionModelType {
 	}
 }
 
+final class CustomDataSource<T : AnimatableSectionModelType> : RxTableViewSectionedAnimatedDataSource<T> {
+	public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+		print("commmit?")
+	}
+}
+
 final class ToDoEntriesController : UIViewController {
 	let bag = DisposeBag()
 	
@@ -38,6 +44,7 @@ final class ToDoEntriesController : UIViewController {
 	
 	let tableView: UITableView = {
 		let table = UITableView()
+		//table.allowsMultipleSelectionDuringEditing = false
 		table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 		return table
 	}()
@@ -62,19 +69,42 @@ final class ToDoEntriesController : UIViewController {
 			cell.textLabel?.text = "Item \(item.id): \(item.description) - \(item.completed)"
 			return cell
 		}
+		dataSource.canEditRowAtIndexPath = { _ in
+			return true
+		}
+		dataSource.canMoveRowAtIndexPath = { _ in
+				return true
+		}
+		
+		
+		//tableView.delegate = self
+		//tableView.dataSource = dataSource
+		//tableView.rx.setDelegate(dataSource)
+		
+		tableView.rx.itemDeleted.subscribe(onNext: { path in
+			guard path.row != 1 else { _ = appState.dispatch(ReloadCurrentToDoEntriesAction()); return }
+			_ = appState.dispatch(DeleteToDoEntryAction(deleteIndex: path.row))
+		}).addDisposableTo(bag)
+		
+		tableView.rx.itemMoved.subscribe(onNext: { p in
+			print("item moved")
+		}).addDisposableTo(bag)
 		
 		addButton.rx.tap.subscribe(onNext: {
 			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
 			_ = appState.dispatch(AddToDoEntryAction(newItem: ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
 		}).addDisposableTo(bag)
 		
-		appState.state.filter { $0.setBy is LoadToDoEntriesAction || $0.setBy is AddToDoEntryAction }
+		appState.state.filter { $0.setBy is LoadToDoEntriesAction || $0.setBy is AddToDoEntryAction || $0.setBy is DeleteToDoEntryAction || $0.setBy is ReloadCurrentToDoEntriesAction }
 			.flatMap { newState ->  Observable<[SectionOfCustomData]> in
 				return Observable.just([SectionOfCustomData(header: "test", items: newState.state.toDoEntries)])
 		}
 		.observeOn(MainScheduler.instance)
 		.bindTo(tableView.rx.items(dataSource: dataSource))
 		.addDisposableTo(bag)
+		
+		//tableView.rx.setDelegate(self).addDisposableTo(bag)
+		//tableView.rx.setDataSource(dataSource).addDisposableTo(bag)
 		
 		updateViewConstraints()
 	}
@@ -103,5 +133,11 @@ final class ToDoEntriesController : UIViewController {
 		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/")!, headers: headers)
 		
 		appState.dispatch(LoadToDoEntriesAction(httpClient: httpClient, urlRequest: request))?.addDisposableTo(bag)
+	}
+}
+
+extension ToDoEntriesController : UITableViewDelegate {
+	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+		return .delete
 	}
 }

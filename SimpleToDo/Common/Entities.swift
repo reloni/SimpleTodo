@@ -19,6 +19,9 @@ struct ToDoEntry {
 extension ToDoEntry : Equatable {
 	static func == (lhs: ToDoEntry, rhs: ToDoEntry) -> Bool {
 		return lhs.id == rhs.id
+			&& lhs.completed == rhs.completed
+			&& lhs.description == rhs.description
+			&& lhs.notes == rhs.notes
 	}
 }
 
