@@ -18,7 +18,8 @@
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
-		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
+		6EA7B4211E06A3940043BAA1 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* Action.swift */; };
+		6EBBD8B21E07153400C283D5 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBBD8B11E07153400C283D5 /* AppReducer.swift */; };
 		6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE247D41DF211DE001A6F39 /* MainController.swift */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
@@ -62,7 +63,8 @@
 		6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		6E5752191E05AFC4002AA9B4 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
 		6E57521C1E05B24A002AA9B4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		6EA7B4201E06A3940043BAA1 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		6EBBD8B11E07153400C283D5 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		6EE247D41DF211DE001A6F39 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainController.swift; path = Controllers/MainController.swift; sourceTree = "<group>"; };
 		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
 		6EE247D81DF21291001A6F39 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
@@ -198,7 +200,8 @@
 		6EA7B41F1E06A36D0043BAA1 /* State */ = {
 			isa = PBXGroup;
 			children = (
-				6EA7B4201E06A3940043BAA1 /* State.swift */,
+				6EA7B4201E06A3940043BAA1 /* Action.swift */,
+				6EBBD8B11E07153400C283D5 /* AppReducer.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -379,7 +382,8 @@
 				6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
-				6EA7B4211E06A3940043BAA1 /* State.swift in Sources */,
+				6EBBD8B21E07153400C283D5 /* AppReducer.swift in Sources */,
+				6EA7B4211E06A3940043BAA1 /* Action.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

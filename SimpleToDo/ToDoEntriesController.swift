@@ -82,8 +82,8 @@ final class ToDoEntriesController : UIViewController {
 		//tableView.rx.setDelegate(dataSource)
 		
 		tableView.rx.itemDeleted.subscribe(onNext: { path in
-			guard path.row != 1 else { _ = appState.dispatch(ReloadCurrentToDoEntriesAction()); return }
-			_ = appState.dispatch(DeleteToDoEntryAction(deleteIndex: path.row))
+			guard path.row != 1 else { _ = appState.dispatch(AppAction.reloadToDoEntries(appState.stateValue.state.toDoEntries)); return }
+			_ = appState.dispatch(AppAction.deleteToDoEntry(path.row))
 		}).addDisposableTo(bag)
 		
 		tableView.rx.itemMoved.subscribe(onNext: { p in
@@ -92,10 +92,18 @@ final class ToDoEntriesController : UIViewController {
 		
 		addButton.rx.tap.subscribe(onNext: {
 			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
-			_ = appState.dispatch(AddToDoEntryAction(newItem: ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
+			_ = appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
 		}).addDisposableTo(bag)
 		
-		appState.state.filter { $0.setBy is LoadToDoEntriesAction || $0.setBy is AddToDoEntryAction || $0.setBy is DeleteToDoEntryAction || $0.setBy is ReloadCurrentToDoEntriesAction }
+		appState.state.filter {
+			switch $0.setBy {
+			case AppAction.addToDoEntry: fallthrough
+			case AppAction.deleteToDoEntry: fallthrough
+			case AppAction.loadToDoEntries: fallthrough
+			case AppAction.reloadToDoEntries: return true
+			default: return false
+			}
+			}
 			.flatMap { newState ->  Observable<[SectionOfCustomData]> in
 				return Observable.just([SectionOfCustomData(header: "test", items: newState.state.toDoEntries)])
 		}
@@ -132,7 +140,7 @@ final class ToDoEntriesController : UIViewController {
 		let headers = ["Authorization": "Basic \(credentialData)"]
 		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/")!, headers: headers)
 		
-		appState.dispatch(LoadToDoEntriesAction(httpClient: httpClient, urlRequest: request))?.addDisposableTo(bag)
+		appState.dispatch(AppAction.loadToDoEntries(httpClient, request))?.addDisposableTo(bag)
 	}
 }
 
