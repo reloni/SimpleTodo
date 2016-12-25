@@ -13,32 +13,42 @@ import RxHttpClient
 import Unbox
 
 struct AppState : RxStateType {
+	let logInInfo: LogInInfo?
+	let httpClient: HttpClientType
 	let toDoEntries: [ToDoEntry]
+}
+
+extension AppState {
+	func new(toDoEntries: [ToDoEntry]) -> AppState {
+		return AppState(logInInfo: logInInfo, httpClient: httpClient, toDoEntries: toDoEntries)
+	}
 }
 
 enum AppAction : RxActionType {
 	case reloadToDoEntries([ToDoEntry])
-	case loadToDoEntries(HttpClientType, URLRequest)
+	case loadToDoEntries
 	case addToDoEntry(ToDoEntry)
 	case deleteToDoEntry(Int)
 	
 	var work: (RxStateType) -> Observable<RxActionResultType> {
 		switch self {
-		case .reloadToDoEntries(let entries): return reload(entries: entries)
-		case .loadToDoEntries(let client, let request): return reload(client: client, request: request)
+		case .reloadToDoEntries: return reload(fromRemote: false)
+		case .loadToDoEntries: return reload(fromRemote: true)
 		case .deleteToDoEntry(let id): return delete(entryId: id)
 		case .addToDoEntry(let entry): return add(entry: entry)
 		}
 	}
 }
 
-func reload(entries: [ToDoEntry]) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { _ in Observable.just(RxDefaultActionResult(entries)) }
-}
-
-func reload(client: HttpClientType, request: URLRequest) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { _ in
-		return client.requestData(request).flatMap { result -> Observable<RxActionResultType> in
+func reload(fromRemote: Bool) -> (RxStateType) -> Observable<RxActionResultType> {
+	return { state -> Observable<RxActionResultType> in
+		let state = state as! AppState
+		
+		guard fromRemote else { return Observable.just(RxDefaultActionResult(state.toDoEntries)) }
+		
+		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
+		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/")!, headers: headers)
+		return state.httpClient.requestData(request).flatMap { result -> Observable<RxActionResultType> in
 			sleep(2)
 			let entries: [ToDoEntry] = try unbox(data: result)
 			return Observable.just(RxDefaultActionResult(entries))

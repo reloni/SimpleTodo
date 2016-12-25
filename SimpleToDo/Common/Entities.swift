@@ -9,6 +9,17 @@
 import Unbox
 import RxDataSources
 
+struct LogInInfo {
+	let email: String
+	let password: String
+}
+
+extension LogInInfo {
+	func toBasicAuthKey() -> String {
+		return "Basic " + "\(email):\(password)".data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
+	}
+}
+
 struct ToDoEntry {
 	let id: UInt64
 	let completed: Bool

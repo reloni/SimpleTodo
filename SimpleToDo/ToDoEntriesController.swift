@@ -138,11 +138,7 @@ final class ToDoEntriesController : UIViewController {
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-		let credentialData = "john@domain.com:ololo".data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
-		let headers = ["Authorization": "Basic \(credentialData)"]
-		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/")!, headers: headers)
-		
-		appState.dispatch(AppAction.loadToDoEntries(httpClient, request))
+		appState.dispatch(AppAction.loadToDoEntries)
 	}
 }
 
