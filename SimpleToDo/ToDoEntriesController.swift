@@ -83,7 +83,7 @@ final class ToDoEntriesController : UIViewController {
 		
 		tableView.rx.itemDeleted.subscribe(onNext: { path in
 			guard path.row != 1 else { _ = appState.dispatch(AppAction.reloadToDoEntries(appState.stateValue.state.toDoEntries)); return }
-			_ = appState.dispatch(AppAction.deleteToDoEntry(path.row))
+			appState.dispatch(AppAction.deleteToDoEntry(path.row))
 		}).addDisposableTo(bag)
 		
 		tableView.rx.itemMoved.subscribe(onNext: { p in
@@ -92,7 +92,7 @@ final class ToDoEntriesController : UIViewController {
 		
 		addButton.rx.tap.subscribe(onNext: {
 			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
-			_ = appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
+			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
 		}).addDisposableTo(bag)
 		
 		appState.state.filter {
@@ -110,6 +110,8 @@ final class ToDoEntriesController : UIViewController {
 		.observeOn(MainScheduler.instance)
 		.bindTo(tableView.rx.items(dataSource: dataSource))
 		.addDisposableTo(bag)
+		
+		appState.errors.subscribe(onNext: { e in print("Error: \(e.error.localizedDescription)")}).addDisposableTo(bag)
 		
 		//tableView.rx.setDelegate(self).addDisposableTo(bag)
 		//tableView.rx.setDataSource(dataSource).addDisposableTo(bag)
@@ -140,7 +142,7 @@ final class ToDoEntriesController : UIViewController {
 		let headers = ["Authorization": "Basic \(credentialData)"]
 		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/")!, headers: headers)
 		
-		appState.dispatch(AppAction.loadToDoEntries(httpClient, request))?.addDisposableTo(bag)
+		appState.dispatch(AppAction.loadToDoEntries(httpClient, request))
 	}
 }
 

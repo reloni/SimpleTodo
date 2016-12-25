@@ -22,7 +22,7 @@ enum AppAction : RxActionType {
 	case addToDoEntry(ToDoEntry)
 	case deleteToDoEntry(Int)
 	
-	var work: () -> Observable<RxActionResultType> {
+	var work: (RxStateType) -> Observable<RxActionResultType> {
 		switch self {
 		case .reloadToDoEntries(let entries): return reload(entries: entries)
 		case .loadToDoEntries(let client, let request): return reload(client: client, request: request)
@@ -32,28 +32,28 @@ enum AppAction : RxActionType {
 	}
 }
 
-func reload(entries: [ToDoEntry]) -> () -> Observable<RxActionResultType> {
-	return { Observable.just(DefaultActionResult(entries)) }
+func reload(entries: [ToDoEntry]) -> (RxStateType) -> Observable<RxActionResultType> {
+	return { _ in Observable.just(RxDefaultActionResult(entries)) }
 }
 
-func reload(client: HttpClientType, request: URLRequest) -> () -> Observable<RxActionResultType> {
-	return {
+func reload(client: HttpClientType, request: URLRequest) -> (RxStateType) -> Observable<RxActionResultType> {
+	return { _ in
 		return client.requestData(request).flatMap { result -> Observable<RxActionResultType> in
 			sleep(2)
 			let entries: [ToDoEntry] = try unbox(data: result)
-			return Observable.just(DefaultActionResult(entries))
+			return Observable.just(RxDefaultActionResult(entries))
 		}
 	}
 }
 
-func delete(entryId id: Int) -> () -> Observable<RxActionResultType> {
-	return {
-		Observable.just(DefaultActionResult(id))
+func delete(entryId id: Int) -> (RxStateType) -> Observable<RxActionResultType> {
+	return { _ in
+		Observable.just(RxDefaultActionResult(id))
 	}
 }
 
-func add(entry: ToDoEntry) -> () -> Observable<RxActionResultType> {
-	return {
-		Observable.just(DefaultActionResult(entry))
+func add(entry: ToDoEntry) -> (RxStateType) -> Observable<RxActionResultType> {
+	return { _ in
+		Observable.just(RxDefaultActionResult(entry))
 	}
 }

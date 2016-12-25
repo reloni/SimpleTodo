@@ -1,7 +1,7 @@
 github "CosmicMind/Material" "2.3.21"
 github "AliSoftware/OHHTTPStubs" "57feceaabf333e72b2c637dfba6c13a7a5c49619"
 github "Reloni/RxHttpClient" "0.7.0"
-github "Reloni/RxState" "0.1.0"
+github "Reloni/RxState" "0.3.1"
 github "ReactiveX/RxSwift" "3.0.1"
 github "SnapKit/SnapKit" "3.1.1"
 github "JohnSundell/Unbox" "2.3.0"
