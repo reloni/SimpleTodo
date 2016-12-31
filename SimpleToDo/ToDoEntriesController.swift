@@ -15,12 +15,6 @@ import Unbox
 import Material
 import RxHttpClient
 
-final class CustomDataSource<T : AnimatableSectionModelType> : RxTableViewSectionedAnimatedDataSource<T> {
-	public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-		print("commmit?")
-	}
-}
-
 final class ToDoEntriesController : UIViewController {
 	let bag = DisposeBag()
 	
@@ -81,6 +75,10 @@ final class ToDoEntriesController : UIViewController {
 			print("item moved")
 		}).addDisposableTo(bag)
 		
+		tableView.rx.itemSelected.subscribe(onNext: { path in
+			appState.dispatch(AppAction.editToDoEntry(appState.stateValue.state.toDoEntries[path.row]))
+		}).addDisposableTo(bag)
+		
 		addButton.rx.tap.subscribe(onNext: {
 			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
 			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
@@ -106,7 +104,7 @@ final class ToDoEntriesController : UIViewController {
 	}
 	
 	func addNewEntry() {
-		print("tap!")
+		
 	}
 	
 	override func updateViewConstraints() {

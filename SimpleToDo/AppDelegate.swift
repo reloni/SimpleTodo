@@ -28,7 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
 		appState.stateValue.state.rootController.viewControllers.append(ToDoEntriesController())
-		_ = appState.errors.observeOn(MainScheduler.instance).subscribe(onNext: { appState.stateValue.state.rootController.showError(error: $0.error) })
+		_ = appState.errors.subscribe(onNext: {
+			appState.dispatch(AppAction.showError($0.error))
+		})
 		window?.rootViewController = appState.stateValue.state.rootController
 		window?.makeKeyAndVisible()
 		return true

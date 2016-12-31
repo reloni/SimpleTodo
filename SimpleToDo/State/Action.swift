@@ -30,6 +30,7 @@ enum AppAction : RxActionType {
 	case reloadToDoEntries([ToDoEntry])
 	case loadToDoEntries
 	case addToDoEntry(ToDoEntry)
+	case editToDoEntry(ToDoEntry)
 	case deleteToDoEntry(Int)
 	case showError(Error)
 	
@@ -39,6 +40,7 @@ enum AppAction : RxActionType {
 		case .loadToDoEntries: return reload(fromRemote: true)
 		case .deleteToDoEntry(let id): return delete(entryId: id)
 		case .addToDoEntry(let entry): return add(entry: entry)
+		case .editToDoEntry(let entry): return showEditEntryController(entry)
 		case .showError(let e): return showErrorMessage(e)
 		}
 	}
@@ -46,9 +48,23 @@ enum AppAction : RxActionType {
 
 func showErrorMessage(_ error: Error) -> (RxStateType) -> Observable<RxActionResultType> {
 	return { state in
-		let state = state as! AppState
-		state.rootController.showError(error: error)
-		return Observable.empty()
+		return Observable.create { observer in
+			let state = state as! AppState
+			state.rootController.showError(error: error)
+			observer.onCompleted()
+			return Disposables.create()
+		}.subscribeOn(MainScheduler.instance)
+	}
+}
+
+func showEditEntryController(_ entry: ToDoEntry) -> (RxStateType) -> Observable<RxActionResultType> {
+	return { state in
+		return Observable.create { observer in
+			let state = state as! AppState
+			state.rootController.pushViewController(EditToDoEntryController(entry: entry), animated: true)
+			observer.onCompleted()
+			return Disposables.create()
+			}.subscribeOn(MainScheduler.instance)
 	}
 }
 

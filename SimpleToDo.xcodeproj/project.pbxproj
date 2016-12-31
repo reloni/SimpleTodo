@@ -19,6 +19,7 @@
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
+		6E6422DC1E18255400FAFFFB /* EditToDoEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422DB1E18255400FAFFFB /* EditToDoEntryController.swift */; };
 		6EA7B4211E06A3940043BAA1 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* Action.swift */; };
 		6EBBD8B21E07153400C283D5 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBBD8B11E07153400C283D5 /* AppReducer.swift */; };
 		6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE247D41DF211DE001A6F39 /* MainController.swift */; };
@@ -65,6 +66,7 @@
 		6E5752191E05AFC4002AA9B4 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
 		6E57521C1E05B24A002AA9B4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
+		6E6422DB1E18255400FAFFFB /* EditToDoEntryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToDoEntryController.swift; sourceTree = "<group>"; };
 		6EA7B4201E06A3940043BAA1 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		6EBBD8B11E07153400C283D5 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		6EE247D41DF211DE001A6F39 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainController.swift; path = Controllers/MainController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			children = (
 				6EE247D41DF211DE001A6F39 /* MainController.swift */,
 				6E5752111E05ABBC002AA9B4 /* ToDoEntriesController.swift */,
+				6E6422DB1E18255400FAFFFB /* EditToDoEntryController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
 				6EBBD8B21E07153400C283D5 /* AppReducer.swift in Sources */,
+				6E6422DC1E18255400FAFFFB /* EditToDoEntryController.swift in Sources */,
 				6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */,
 				6EA7B4211E06A3940043BAA1 /* Action.swift in Sources */,
 			);
