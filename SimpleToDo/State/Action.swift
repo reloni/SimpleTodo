@@ -11,8 +11,10 @@ import RxState
 import RxSwift
 import RxHttpClient
 import Unbox
+import UIKit
 
 struct AppState : RxStateType {
+	let rootController: MainController
 	let logInInfo: LogInInfo?
 	let httpClient: HttpClientType
 	let toDoEntries: [ToDoEntry]
@@ -20,7 +22,7 @@ struct AppState : RxStateType {
 
 extension AppState {
 	func new(toDoEntries: [ToDoEntry]) -> AppState {
-		return AppState(logInInfo: logInInfo, httpClient: httpClient, toDoEntries: toDoEntries)
+		return AppState(rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, toDoEntries: toDoEntries)
 	}
 }
 
@@ -29,6 +31,7 @@ enum AppAction : RxActionType {
 	case loadToDoEntries
 	case addToDoEntry(ToDoEntry)
 	case deleteToDoEntry(Int)
+	case showError(Error)
 	
 	var work: (RxStateType) -> Observable<RxActionResultType> {
 		switch self {
@@ -36,7 +39,16 @@ enum AppAction : RxActionType {
 		case .loadToDoEntries: return reload(fromRemote: true)
 		case .deleteToDoEntry(let id): return delete(entryId: id)
 		case .addToDoEntry(let entry): return add(entry: entry)
+		case .showError(let e): return showErrorMessage(e)
 		}
+	}
+}
+
+func showErrorMessage(_ error: Error) -> (RxStateType) -> Observable<RxActionResultType> {
+	return { state in
+		let state = state as! AppState
+		state.rootController.showError(error: error)
+		return Observable.empty()
 	}
 }
 
@@ -59,7 +71,7 @@ func delete(entryId id: Int) -> (RxStateType) -> Observable<RxActionResultType> 
 	return { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
-		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/\(state.toDoEntries[id].id)")!, method: .delete, headers: headers)
+		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/\(state.toDoEntries[id].id + 100)")!, method: .delete, headers: headers)
 		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxActionResultType> in
 			return Observable.just(RxDefaultActionResult(id))
 		}

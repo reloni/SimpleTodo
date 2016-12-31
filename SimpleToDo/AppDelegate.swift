@@ -9,10 +9,12 @@
 import UIKit
 import RxHttpClient
 import RxState
+import RxSwift
 
 //let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
 let appState = RxStore(reducer: AppReducer(),
-                       initialState: AppState(logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
+                       initialState: AppState(rootController: MainController(),
+                                              logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
                                               httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory)),
                                               toDoEntries: []))
 
@@ -20,11 +22,14 @@ let appState = RxStore(reducer: AppReducer(),
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
+	
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = ToDoEntriesController()
+		
+		appState.stateValue.state.rootController.viewControllers.append(ToDoEntriesController())
+		_ = appState.errors.observeOn(MainScheduler.instance).subscribe(onNext: { appState.stateValue.state.rootController.showError(error: $0.error) })
+		window?.rootViewController = appState.stateValue.state.rootController
 		window?.makeKeyAndVisible()
 		return true
 	}

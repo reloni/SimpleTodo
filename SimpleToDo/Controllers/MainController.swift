@@ -9,28 +9,20 @@
 
 import UIKit
 import SnapKit
+import RxHttpClient
 
-final class MainController : UIViewController {
-	let label: UILabel = {
-		let lbl = UILabel()
-		lbl.text = "test"
-		return lbl
-	}()
-	
+final class MainController : UINavigationController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		view.backgroundColor = UIColor.white
-		view.addSubview(label)
-		
-		updateViewConstraints()
 	}
 	
-	override func updateViewConstraints() {
-		super.updateViewConstraints()
-		label.snp.remakeConstraints { make in
-			make.top.equalTo(view.snp.top).offset(10)
-			make.centerX.equalTo(view.snp.centerX)
-		}
+	func showError(error: Error) {
+		guard case HttpClientError.invalidResponse(let response, _) = error else { print("unknown error"); return }
+		print("http response code \(response.statusCode)")
+		let alert = UIAlertController(title: "Ошибка", message: error.localizedDescription, preferredStyle: .alert)
+		let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+		alert.addAction(ok)
+		present(alert, animated: true, completion: nil)
 	}
 }

@@ -28,6 +28,9 @@ final class ToDoEntriesController : UIViewController {
 	
 	let tableView: UITableView = {
 		let table = UITableView()
+		table.preservesSuperviewLayoutMargins = false
+		table.separatorInset = .zero
+		table.contentInset = .zero
 		//table.allowsMultipleSelectionDuringEditing = false
 		table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 		return table
@@ -45,6 +48,10 @@ final class ToDoEntriesController : UIViewController {
 		
 		self.view.backgroundColor = UIColor.white
 		
+		title = "To do"
+		
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewEntry))
+		
 		tableView.refreshControl = UIRefreshControl()
 		tableView.refreshControl?.rx.controlEvent(.valueChanged).filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
 			.subscribe(onNext: { [weak self] in appState.dispatch(AppAction.loadToDoEntries); self?.tableView.refreshControl?.endRefreshing() }).addDisposableTo(bag)
@@ -54,6 +61,8 @@ final class ToDoEntriesController : UIViewController {
 		
 		dataSource.configureCell = { ds, tv, ip, item in
 			let cell = tv.dequeueReusableCell(withIdentifier: "Cell", for: ip)
+			cell.separatorInset = .zero
+			cell.layoutEdgeInsets = .zero
 			cell.textLabel?.text = "Item \(item.id): \(item.description) - \(item.completed)"
 			return cell
 		}
@@ -63,11 +72,6 @@ final class ToDoEntriesController : UIViewController {
 		dataSource.canMoveRowAtIndexPath = { _ in
 				return true
 		}
-		
-		
-		//tableView.delegate = self
-		//tableView.dataSource = dataSource
-		//tableView.rx.setDelegate(dataSource)
 		
 		tableView.rx.itemDeleted.subscribe(onNext: { path in
 			appState.dispatch(AppAction.deleteToDoEntry(path.row))
@@ -98,27 +102,18 @@ final class ToDoEntriesController : UIViewController {
 		.bindTo(tableView.rx.items(dataSource: dataSource))
 		.addDisposableTo(bag)
 		
-		appState.errors.subscribe(onNext: { [weak self] e in
-			guard case HttpClientError.invalidResponse(let response, _) = e.error else { print("unknown error"); return }
-			print("http response code \(response.statusCode)")
-			guard let object = self else { return }
-			let alert = UIAlertController(title: "Ошибка", message: e.error.localizedDescription, preferredStyle: .alert)
-			let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-			alert.addAction(ok)
-			object.present(alert, animated: true, completion: nil)
-		}).addDisposableTo(bag)
-		
-		//tableView.rx.setDelegate(self).addDisposableTo(bag)
-		//tableView.rx.setDataSource(dataSource).addDisposableTo(bag)
-		
 		updateViewConstraints()
+	}
+	
+	func addNewEntry() {
+		print("tap!")
 	}
 	
 	override func updateViewConstraints() {
 		super.updateViewConstraints()
 		
 		tableView.snp.remakeConstraints { make in
-			make.top.equalTo(view.snp.top).offset(20)
+			make.top.equalTo(view.snp.top).offset(0)
 			make.leading.equalTo(view.snp.leading)
 			make.trailing.equalTo(view.snp.trailing)
 			make.bottom.equalTo(view.snp.bottom).offset(-40)
