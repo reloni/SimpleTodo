@@ -10,8 +10,11 @@ import UIKit
 import RxHttpClient
 import RxState
 
-let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
-let appState = RxStore(reducer: AppReducer(), initialState: AppState(toDoEntries: []))
+//let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
+let appState = RxStore(reducer: AppReducer(),
+                       initialState: AppState(logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
+                                              httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory)),
+                                              toDoEntries: []))
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
