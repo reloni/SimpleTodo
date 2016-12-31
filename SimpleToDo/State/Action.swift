@@ -56,8 +56,13 @@ func reload(fromRemote: Bool) -> (RxStateType) -> Observable<RxActionResultType>
 }
 
 func delete(entryId id: Int) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { _ in
-		Observable.just(RxDefaultActionResult(id))
+	return { state -> Observable<RxActionResultType> in
+		let state = state as! AppState
+		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
+		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/\(state.toDoEntries[id].id)")!, method: .delete, headers: headers)
+		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxActionResultType> in
+			return Observable.just(RxDefaultActionResult(id))
+		}
 	}
 }
 

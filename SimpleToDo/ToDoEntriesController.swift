@@ -13,6 +13,7 @@ import RxCocoa
 import RxDataSources
 import Unbox
 import Material
+import RxHttpClient
 
 final class CustomDataSource<T : AnimatableSectionModelType> : RxTableViewSectionedAnimatedDataSource<T> {
 	public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -69,7 +70,6 @@ final class ToDoEntriesController : UIViewController {
 		//tableView.rx.setDelegate(dataSource)
 		
 		tableView.rx.itemDeleted.subscribe(onNext: { path in
-			guard path.row != 1 else { _ = appState.dispatch(AppAction.reloadToDoEntries(appState.stateValue.state.toDoEntries)); return }
 			appState.dispatch(AppAction.deleteToDoEntry(path.row))
 		}).addDisposableTo(bag)
 		
@@ -98,7 +98,15 @@ final class ToDoEntriesController : UIViewController {
 		.bindTo(tableView.rx.items(dataSource: dataSource))
 		.addDisposableTo(bag)
 		
-		appState.errors.subscribe(onNext: { e in print("Error: \(e.error.localizedDescription)")}).addDisposableTo(bag)
+		appState.errors.subscribe(onNext: { [weak self] e in
+			guard case HttpClientError.invalidResponse(let response, _) = e.error else { print("unknown error"); return }
+			print("http response code \(response.statusCode)")
+			guard let object = self else { return }
+			let alert = UIAlertController(title: "Ошибка", message: e.error.localizedDescription, preferredStyle: .alert)
+			let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+			alert.addAction(ok)
+			object.present(alert, animated: true, completion: nil)
+		}).addDisposableTo(bag)
 		
 		//tableView.rx.setDelegate(self).addDisposableTo(bag)
 		//tableView.rx.setDataSource(dataSource).addDisposableTo(bag)
