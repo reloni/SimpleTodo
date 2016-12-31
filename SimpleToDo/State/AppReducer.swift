@@ -18,7 +18,6 @@ struct AppReducer : RxReducerType {
 		case .loadToDoEntries: return Observable.just(currentState.new(toDoEntries: (actionResult as! RxDefaultActionResult).value))
 		case .addToDoEntry:
 			var currentEntries = currentState.toDoEntries
-			currentEntries[0] = ToDoEntry(id: currentEntries[0].id, completed: true, description: "UPDATED!!!!!", notes: nil)
 			currentEntries.append((actionResult as! RxDefaultActionResult).value)
 			return Observable.just(currentState.new(toDoEntries: currentEntries))
 		case .deleteToDoEntry:
@@ -27,7 +26,8 @@ struct AppReducer : RxReducerType {
 			return Observable.just(currentState.new(toDoEntries: currentEntries))
 		case .reloadToDoEntries: return Observable.just(currentState.new(toDoEntries: (actionResult as! RxDefaultActionResult).value))
 		case .showError: return Observable.empty()
-		case .editToDoEntry: return Observable.empty()
+		case .showEditEntryController: return Observable.empty()
+		case .updateEntry: return Observable.just(currentState.new(toDoEntries: (actionResult as! RxDefaultActionResult).value))
 		}
 	}
 }

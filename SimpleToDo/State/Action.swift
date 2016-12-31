@@ -30,9 +30,10 @@ enum AppAction : RxActionType {
 	case reloadToDoEntries([ToDoEntry])
 	case loadToDoEntries
 	case addToDoEntry(ToDoEntry)
-	case editToDoEntry(ToDoEntry)
+	case showEditEntryController(ToDoEntry)
 	case deleteToDoEntry(Int)
 	case showError(Error)
+	case updateEntry(ToDoEntry)
 	
 	var work: (RxStateType) -> Observable<RxActionResultType> {
 		switch self {
@@ -40,9 +41,31 @@ enum AppAction : RxActionType {
 		case .loadToDoEntries: return reload(fromRemote: true)
 		case .deleteToDoEntry(let id): return delete(entryId: id)
 		case .addToDoEntry(let entry): return add(entry: entry)
-		case .editToDoEntry(let entry): return showEditEntryController(entry)
+		case .showEditEntryController(let entry): return performShowEditEntryController(entry)
+		case .updateEntry(let entry): return updateEntryAction(entry)
 		case .showError(let e): return showErrorMessage(e)
 		}
+	}
+}
+
+func updateEntryAction(_ entry: ToDoEntry) -> (RxStateType) -> Observable<RxActionResultType> {
+	return { state in
+		return Observable.create { observer in
+			let state = state as! AppState
+			
+			let newTodos = state.toDoEntries.map { t -> ToDoEntry in
+				if t.id == entry.id {
+					return entry
+				} else {
+					return t
+				}
+			}
+			
+			state.rootController.popViewController(animated: true)
+			observer.onNext(RxDefaultActionResult(newTodos))
+			observer.onCompleted()
+			return Disposables.create()
+			}.subscribeOn(MainScheduler.instance)
 	}
 }
 
@@ -57,7 +80,7 @@ func showErrorMessage(_ error: Error) -> (RxStateType) -> Observable<RxActionRes
 	}
 }
 
-func showEditEntryController(_ entry: ToDoEntry) -> (RxStateType) -> Observable<RxActionResultType> {
+func performShowEditEntryController(_ entry: ToDoEntry) -> (RxStateType) -> Observable<RxActionResultType> {
 	return { state in
 		return Observable.create { observer in
 			let state = state as! AppState
@@ -95,7 +118,13 @@ func delete(entryId id: Int) -> (RxStateType) -> Observable<RxActionResultType> 
 }
 
 func add(entry: ToDoEntry) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { _ in
-		Observable.just(RxDefaultActionResult(entry))
+	return { state in
+		return Observable.create { observer in
+			fatalError("shit happens")
+			let state = state as! AppState
+			state.rootController.popViewController(animated: true)
+			observer.onCompleted()
+			return Disposables.create()
+			}.subscribeOn(MainScheduler.instance)
 	}
 }

@@ -76,19 +76,20 @@ final class ToDoEntriesController : UIViewController {
 		}).addDisposableTo(bag)
 		
 		tableView.rx.itemSelected.subscribe(onNext: { path in
-			appState.dispatch(AppAction.editToDoEntry(appState.stateValue.state.toDoEntries[path.row]))
+			appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[path.row]))
 		}).addDisposableTo(bag)
 		
-		addButton.rx.tap.subscribe(onNext: {
-			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
-			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
-		}).addDisposableTo(bag)
+//		addButton.rx.tap.subscribe(onNext: {
+//			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
+//			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
+//		}).addDisposableTo(bag)
 		
 		appState.state.filter {
 			switch $0.setBy {
 			case AppAction.addToDoEntry: fallthrough
 			case AppAction.deleteToDoEntry: fallthrough
 			case AppAction.loadToDoEntries: fallthrough
+			case AppAction.updateEntry: fallthrough
 			case AppAction.reloadToDoEntries: return true
 			default: return false
 			}
@@ -101,6 +102,8 @@ final class ToDoEntriesController : UIViewController {
 		.addDisposableTo(bag)
 		
 		updateViewConstraints()
+		
+		appState.dispatch(AppAction.loadToDoEntries)
 	}
 	
 	func addNewEntry() {
@@ -109,6 +112,8 @@ final class ToDoEntriesController : UIViewController {
 	
 	override func updateViewConstraints() {
 		super.updateViewConstraints()
+		
+		print(view.height)
 		
 		tableView.snp.remakeConstraints { make in
 			make.top.equalTo(view.snp.top).offset(0)
@@ -126,7 +131,7 @@ final class ToDoEntriesController : UIViewController {
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-		appState.dispatch(AppAction.loadToDoEntries)
+		
 	}
 }
 

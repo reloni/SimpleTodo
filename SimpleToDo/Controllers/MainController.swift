@@ -15,6 +15,7 @@ final class MainController : UINavigationController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = UIColor.white
+		navigationBar.isTranslucent = false
 	}
 	
 	func showError(error: Error) {
@@ -25,4 +26,6 @@ final class MainController : UINavigationController {
 		alert.addAction(ok)
 		present(alert, animated: true, completion: nil)
 	}
+	
+	
 }
