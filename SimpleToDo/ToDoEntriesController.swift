@@ -14,23 +14,6 @@ import RxDataSources
 import Unbox
 import Material
 
-struct SectionOfCustomData {
-	var header: String
-	var items: [Item]
-}
-extension SectionOfCustomData: AnimatableSectionModelType {
-	typealias Item = ToDoEntry
-	
-	var identity: String {
-		return header
-	}
-	
-	init(original: SectionOfCustomData, items: [Item]) {
-		self = original
-		self.items = items
-	}
-}
-
 final class CustomDataSource<T : AnimatableSectionModelType> : RxTableViewSectionedAnimatedDataSource<T> {
 	public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 		print("commmit?")
@@ -40,7 +23,7 @@ final class CustomDataSource<T : AnimatableSectionModelType> : RxTableViewSectio
 final class ToDoEntriesController : UIViewController {
 	let bag = DisposeBag()
 	
-	let dataSource = RxTableViewSectionedAnimatedDataSource<SectionOfCustomData>()
+	let dataSource = RxTableViewSectionedAnimatedDataSource<ToDoEntrySection>()
 	
 	let tableView: UITableView = {
 		let table = UITableView()
@@ -60,6 +43,10 @@ final class ToDoEntriesController : UIViewController {
 		super.viewDidLoad()
 		
 		self.view.backgroundColor = UIColor.white
+		
+		tableView.refreshControl = UIRefreshControl()
+		tableView.refreshControl?.rx.controlEvent(.valueChanged).filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
+			.subscribe(onNext: { [weak self] in appState.dispatch(AppAction.loadToDoEntries); self?.tableView.refreshControl?.endRefreshing() }).addDisposableTo(bag)
 		
 		view.addSubview(tableView)
 		view.addSubview(addButton)
@@ -104,8 +91,8 @@ final class ToDoEntriesController : UIViewController {
 			default: return false
 			}
 			}
-			.flatMap { newState ->  Observable<[SectionOfCustomData]> in
-				return Observable.just([SectionOfCustomData(header: "test", items: newState.state.toDoEntries)])
+			.flatMap { newState ->  Observable<[ToDoEntrySection]> in
+				return Observable.just([ToDoEntrySection(header: "test", items: newState.state.toDoEntries)])
 		}
 		.observeOn(MainScheduler.instance)
 		.bindTo(tableView.rx.items(dataSource: dataSource))

@@ -49,7 +49,6 @@ func reload(fromRemote: Bool) -> (RxStateType) -> Observable<RxActionResultType>
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
 		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/")!, headers: headers)
 		return state.httpClient.requestData(request).flatMap { result -> Observable<RxActionResultType> in
-			sleep(2)
 			let entries: [ToDoEntry] = try unbox(data: result)
 			return Observable.just(RxDefaultActionResult(entries))
 		}
