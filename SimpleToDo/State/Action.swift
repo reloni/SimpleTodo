@@ -31,45 +31,52 @@ enum AppAction : RxActionType {
 	case loadToDoEntries
 	case addToDoEntry(ToDoEntry)
 	case showEditEntryController(ToDoEntry)
+	case dismisEditEntryController
 	case deleteToDoEntry(Int)
 	case showError(Error)
 	case updateEntry(ToDoEntry)
 	
 	var work: RxActionWork {
 		switch self {
-		case .reloadToDoEntries: return reload(fromRemote: false)
-		case .loadToDoEntries: return reload(fromRemote: true)
-		case .deleteToDoEntry(let id): return delete(entryId: id)
-		case .addToDoEntry(let entry): return add(entry: entry)
-		case .showEditEntryController(let entry): return performShowEditEntryController(entry)
-		case .updateEntry(let entry): return updateEntryAction(entry)
-		case .showError(let e): return showErrorMessage(e)
+		case .reloadToDoEntries: return reloadActionWork(fromRemote: false)
+		case .loadToDoEntries: return reloadActionWork(fromRemote: true)
+		case .deleteToDoEntry(let id): return deleteActionWork(entryId: id)
+		case .addToDoEntry(let entry): return addActionWork(entry: entry)
+		case .showEditEntryController(let entry): return showEditEntryControllerActionWork(entry)
+		case .dismisEditEntryController: return dismisEditEntryControllerActionWork()
+		case .updateEntry(let entry): return updateEntryActionWork(entry)
+		case .showError(let e): return showErrorMessageActionWork(e)
 		}
 	}
 }
 
-func updateEntryAction(_ entry: ToDoEntry) -> RxActionWork {
+func dismisEditEntryControllerActionWork() -> RxActionWork {
 	return RxActionWork(scheduler: MainScheduler.instance) { state in
 		return Observable.create { observer in
 			let state = state as! AppState
-			
-			let newTodos = state.toDoEntries.map { t -> ToDoEntry in
-				if t.id == entry.id {
-					return entry
-				} else {
-					return t
-				}
-			}
-			
 			state.rootController.popViewController(animated: true)
-			observer.onNext(RxDefaultActionResult(newTodos))
 			observer.onCompleted()
 			return Disposables.create()
-			}
+		}
 	}
 }
 
-func showErrorMessage(_ error: Error) -> RxActionWork {
+func updateEntryActionWork(_ entry: ToDoEntry) -> RxActionWork {
+	return RxActionWork { state in
+		let state = state as! AppState
+		
+		let newTodos = state.toDoEntries.map { t -> ToDoEntry in
+			if t.id == entry.id {
+				return entry
+			} else {
+				return t
+			}
+		}
+		return Observable.just(RxDefaultActionResult(newTodos))
+	}
+}
+
+func showErrorMessageActionWork(_ error: Error) -> RxActionWork {
 	return RxActionWork(scheduler: MainScheduler.instance) { state in
 		return Observable.create { observer in
 			let state = state as! AppState
@@ -80,7 +87,7 @@ func showErrorMessage(_ error: Error) -> RxActionWork {
 	}
 }
 
-func performShowEditEntryController(_ entry: ToDoEntry) -> RxActionWork {
+func showEditEntryControllerActionWork(_ entry: ToDoEntry) -> RxActionWork {
 	return RxActionWork(scheduler: MainScheduler.instance) { state in
 		return Observable.create { observer in
 			let state = state as! AppState
@@ -91,7 +98,7 @@ func performShowEditEntryController(_ entry: ToDoEntry) -> RxActionWork {
 	}
 }
 
-func reload(fromRemote: Bool) -> RxActionWork {
+func reloadActionWork(fromRemote: Bool) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		
@@ -106,7 +113,7 @@ func reload(fromRemote: Bool) -> RxActionWork {
 	}
 }
 
-func delete(entryId id: Int) -> RxActionWork {
+func deleteActionWork(entryId id: Int) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
@@ -117,7 +124,7 @@ func delete(entryId id: Int) -> RxActionWork {
 	}
 }
 
-func add(entry: ToDoEntry) -> RxActionWork {
+func addActionWork(entry: ToDoEntry) -> RxActionWork {
 	return RxActionWork { state in
 		return Observable.create { observer in
 			fatalError("shit happens")

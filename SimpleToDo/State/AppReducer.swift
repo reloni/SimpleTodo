@@ -27,6 +27,7 @@ struct AppReducer : RxReducerType {
 		case .reloadToDoEntries: return Observable.just(currentState.new(toDoEntries: (actionResult as! RxDefaultActionResult).value))
 		case .showError: return Observable.empty()
 		case .showEditEntryController: return Observable.empty()
+		case .dismisEditEntryController: return Observable.empty()
 		case .updateEntry: return Observable.just(currentState.new(toDoEntries: (actionResult as! RxDefaultActionResult).value))
 		}
 	}

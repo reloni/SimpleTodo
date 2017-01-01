@@ -64,6 +64,7 @@ final class EditToDoEntryController : UIViewController {
 		}
 		
 		let newEntry = ToDoEntry(id: entry.id, completed: entry.completed, description: desc, notes: notesTextField.text)
+		appState.dispatch(AppAction.dismisEditEntryController)
 		appState.dispatch(AppAction.updateEntry(newEntry))
 	}
 	
