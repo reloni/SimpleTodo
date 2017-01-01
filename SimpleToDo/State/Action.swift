@@ -35,7 +35,7 @@ enum AppAction : RxActionType {
 	case showError(Error)
 	case updateEntry(ToDoEntry)
 	
-	var work: (RxStateType) -> Observable<RxActionResultType> {
+	var work: RxActionWork {
 		switch self {
 		case .reloadToDoEntries: return reload(fromRemote: false)
 		case .loadToDoEntries: return reload(fromRemote: true)
@@ -48,8 +48,8 @@ enum AppAction : RxActionType {
 	}
 }
 
-func updateEntryAction(_ entry: ToDoEntry) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { state in
+func updateEntryAction(_ entry: ToDoEntry) -> RxActionWork {
+	return RxActionWork(scheduler: MainScheduler.instance) { state in
 		return Observable.create { observer in
 			let state = state as! AppState
 			
@@ -65,34 +65,34 @@ func updateEntryAction(_ entry: ToDoEntry) -> (RxStateType) -> Observable<RxActi
 			observer.onNext(RxDefaultActionResult(newTodos))
 			observer.onCompleted()
 			return Disposables.create()
-			}.subscribeOn(MainScheduler.instance)
+			}
 	}
 }
 
-func showErrorMessage(_ error: Error) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { state in
+func showErrorMessage(_ error: Error) -> RxActionWork {
+	return RxActionWork(scheduler: MainScheduler.instance) { state in
 		return Observable.create { observer in
 			let state = state as! AppState
 			state.rootController.showError(error: error)
 			observer.onCompleted()
 			return Disposables.create()
-		}.subscribeOn(MainScheduler.instance)
+		}
 	}
 }
 
-func performShowEditEntryController(_ entry: ToDoEntry) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { state in
+func performShowEditEntryController(_ entry: ToDoEntry) -> RxActionWork {
+	return RxActionWork(scheduler: MainScheduler.instance) { state in
 		return Observable.create { observer in
 			let state = state as! AppState
 			state.rootController.pushViewController(EditToDoEntryController(entry: entry), animated: true)
 			observer.onCompleted()
 			return Disposables.create()
-			}.subscribeOn(MainScheduler.instance)
+			}
 	}
 }
 
-func reload(fromRemote: Bool) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { state -> Observable<RxActionResultType> in
+func reload(fromRemote: Bool) -> RxActionWork {
+	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		
 		guard fromRemote else { return Observable.just(RxDefaultActionResult(state.toDoEntries)) }
@@ -106,8 +106,8 @@ func reload(fromRemote: Bool) -> (RxStateType) -> Observable<RxActionResultType>
 	}
 }
 
-func delete(entryId id: Int) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { state -> Observable<RxActionResultType> in
+func delete(entryId id: Int) -> RxActionWork {
+	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
 		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/\(state.toDoEntries[id].id + 100)")!, method: .delete, headers: headers)
@@ -117,8 +117,8 @@ func delete(entryId id: Int) -> (RxStateType) -> Observable<RxActionResultType> 
 	}
 }
 
-func add(entry: ToDoEntry) -> (RxStateType) -> Observable<RxActionResultType> {
-	return { state in
+func add(entry: ToDoEntry) -> RxActionWork {
+	return RxActionWork { state in
 		return Observable.create { observer in
 			fatalError("shit happens")
 			let state = state as! AppState
