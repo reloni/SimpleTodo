@@ -12,6 +12,7 @@ import RxSwift
 import RxHttpClient
 import Unbox
 import UIKit
+import Wrap
 
 struct AppState : RxStateType {
 	let rootController: MainController
@@ -59,17 +60,33 @@ func dismisEditEntryControllerActionWork() -> RxActionWork {
 }
 
 func updateEntryActionWork(_ entry: ToDoEntry) -> RxActionWork {
-	return RxActionWork { state -> RxActionResultType in
+	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
-		
-		let newTodos = state.toDoEntries.map { t -> ToDoEntry in
-			if t.id == entry.id {
-				return entry
-			} else {
-				return t
+		return Observable.just(entry).flatMapLatest { e -> Observable<[String : Any]> in
+			return Observable.just(try wrap(e))
 			}
+			.flatMapLatest { json -> Observable<RxActionResultType> in
+				let headers = ["Authorization": state.logInInfo!.toBasicAuthKey(),
+				               "Accept":"application/json",
+				               "Content-Type":"application/json; charset=utf-8"]
+				
+				return state.httpClient.requestData(url: URL(string: "http://localhost:5000/api/todoentries/\(entry.id)")!,
+				                                    method: .put,
+				                                    jsonBody: json,
+				                                    options: [],
+				                                    httpHeaders: headers)
+					.flatMap { result -> Observable<RxActionResultType> in
+						let updated: ToDoEntry = try unbox(data: result)
+						let newTodos = state.toDoEntries.map { t -> ToDoEntry in
+							if t.id == updated.id {
+								return updated
+							} else {
+								return t
+							}
+						}
+						return Observable.just(RxDefaultActionResult(newTodos))
+				}
 		}
-		return RxDefaultActionResult(newTodos)
 	}
 }
 

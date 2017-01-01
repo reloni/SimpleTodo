@@ -28,6 +28,7 @@
 		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
 		6EE247E41DF21291001A6F39 /* RxState.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DC1DF21291001A6F39 /* RxState.framework */; };
 		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
+		6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE91CAB1E1959430025A4BD /* Wrap.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		6EE247DC1DF21291001A6F39 /* RxState.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxState.framework; path = Carthage/Build/iOS/RxState.framework; sourceTree = "<group>"; };
 		6EE247DD1DF21291001A6F39 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		6EE247DE1DF21291001A6F39 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
+		6EE91CAB1E1959430025A4BD /* Wrap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wrap.framework; path = Carthage/Build/iOS/Wrap.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */,
 				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
 				6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */,
 				6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */,
@@ -170,6 +173,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6EE91CAB1E1959430025A4BD /* Wrap.framework */,
 				6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */,
 				6E5752191E05AFC4002AA9B4 /* Unbox.framework */,
 				6EE247D71DF21291001A6F39 /* Material.framework */,
@@ -368,6 +372,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Unbox.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Wrap.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (

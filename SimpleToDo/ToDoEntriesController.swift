@@ -113,8 +113,6 @@ final class ToDoEntriesController : UIViewController {
 	override func updateViewConstraints() {
 		super.updateViewConstraints()
 		
-		print(view.height)
-		
 		tableView.snp.remakeConstraints { make in
 			make.top.equalTo(view.snp.top).offset(0)
 			make.leading.equalTo(view.snp.leading)
