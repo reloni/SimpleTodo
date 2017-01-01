@@ -107,7 +107,7 @@ final class ToDoEntriesController : UIViewController {
 	}
 	
 	func addNewEntry() {
-		
+		appState.dispatch(AppAction.showEditEntryController(nil))
 	}
 	
 	override func updateViewConstraints() {
