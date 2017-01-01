@@ -51,18 +51,15 @@ enum AppAction : RxActionType {
 }
 
 func dismisEditEntryControllerActionWork() -> RxActionWork {
-	return RxActionWork(scheduler: MainScheduler.instance) { state in
-		return Observable.create { observer in
-			let state = state as! AppState
-			state.rootController.popViewController(animated: true)
-			observer.onCompleted()
-			return Disposables.create()
-		}
+	return RxActionWork(scheduler: MainScheduler.instance) { state -> RxActionResultType in
+		let state = state as! AppState
+		state.rootController.popViewController(animated: true)
+		return RxDefaultActionResult()
 	}
 }
 
 func updateEntryActionWork(_ entry: ToDoEntry) -> RxActionWork {
-	return RxActionWork { state in
+	return RxActionWork { state -> RxActionResultType in
 		let state = state as! AppState
 		
 		let newTodos = state.toDoEntries.map { t -> ToDoEntry in
@@ -72,29 +69,23 @@ func updateEntryActionWork(_ entry: ToDoEntry) -> RxActionWork {
 				return t
 			}
 		}
-		return Observable.just(RxDefaultActionResult(newTodos))
+		return RxDefaultActionResult(newTodos)
 	}
 }
 
 func showErrorMessageActionWork(_ error: Error) -> RxActionWork {
-	return RxActionWork(scheduler: MainScheduler.instance) { state in
-		return Observable.create { observer in
-			let state = state as! AppState
-			state.rootController.showError(error: error)
-			observer.onCompleted()
-			return Disposables.create()
-		}
+	return RxActionWork(scheduler: MainScheduler.instance) { state -> RxActionResultType in
+		let state = state as! AppState
+		state.rootController.showError(error: error)
+		return RxDefaultActionResult()
 	}
 }
 
 func showEditEntryControllerActionWork(_ entry: ToDoEntry) -> RxActionWork {
-	return RxActionWork(scheduler: MainScheduler.instance) { state in
-		return Observable.create { observer in
-			let state = state as! AppState
-			state.rootController.pushViewController(EditToDoEntryController(entry: entry), animated: true)
-			observer.onCompleted()
-			return Disposables.create()
-			}
+	return RxActionWork(scheduler: MainScheduler.instance) { state -> RxActionResultType in
+		let state = state as! AppState
+		state.rootController.pushViewController(EditToDoEntryController(entry: entry), animated: true)
+		return RxDefaultActionResult()
 	}
 }
 
