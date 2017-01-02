@@ -31,14 +31,6 @@ func showAlertActionWork(in controller: UIViewController, with error: Error) -> 
 	}
 }
 
-//func showErrorMessageActionWork(_ error: Error) -> RxActionWork {
-//	return RxActionWork(scheduler: MainScheduler.instance) { state -> RxActionResultType in
-//		let state = state as! AppState
-//		state.rootController.showError(error: error)
-//		return RxDefaultActionResult()
-//	}
-//}
-
 func showEditEntryControllerActionWork(_ entry: ToDoEntry?) -> RxActionWork {
 	return RxActionWork(scheduler: MainScheduler.instance) { state -> RxActionResultType in
 		let state = state as! AppState

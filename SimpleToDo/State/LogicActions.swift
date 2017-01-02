@@ -55,7 +55,7 @@ func deleteEntryActionWork(entryId id: Int) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
-		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/\(state.toDoEntries[id].id + 100)")!, method: .delete, headers: headers)
+		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/\(state.toDoEntries[id].id)")!, method: .delete, headers: headers)
 		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxActionResultType> in
 			return Observable.just(RxDefaultActionResult(id))
 		}

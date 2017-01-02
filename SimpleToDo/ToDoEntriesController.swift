@@ -136,9 +136,3 @@ final class ToDoEntriesController : UIViewController {
 		
 	}
 }
-
-extension ToDoEntriesController : UITableViewDelegate {
-	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-		return .delete
-	}
-}

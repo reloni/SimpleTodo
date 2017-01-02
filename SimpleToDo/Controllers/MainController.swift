@@ -17,15 +17,4 @@ final class MainController : UINavigationController {
 		view.backgroundColor = UIColor.white
 		navigationBar.isTranslucent = false
 	}
-	
-	func showError(error: Error) {
-		guard case HttpClientError.invalidResponse(let response, _) = error else { print("unknown error"); return }
-		print("http response code \(response.statusCode)")
-		let alert = UIAlertController(title: "Ошибка", message: error.localizedDescription, preferredStyle: .alert)
-		let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-		alert.addAction(ok)
-		present(alert, animated: true, completion: nil)
-	}
-	
-	
 }
