@@ -101,6 +101,10 @@ final class ToDoEntriesController : UIViewController {
 		.bindTo(tableView.rx.items(dataSource: dataSource))
 		.addDisposableTo(bag)
 		
+		_ = appState.errors.subscribe(onNext: {
+			appState.dispatch(AppAction.showAllert(in: self, with: $0.error))
+		})
+		
 		updateViewConstraints()
 		
 		appState.dispatch(AppAction.loadToDoEntries)

@@ -9,6 +9,16 @@
 import Unbox
 import RxDataSources
 
+struct ServerSideError {
+	let error: String
+}
+
+extension ServerSideError : Unboxable {
+	init(unboxer: Unboxer) throws {
+		self.error = try unboxer.unbox(key: "Error")
+	}
+}
+
 struct LogInInfo {
 	let email: String
 	let password: String
