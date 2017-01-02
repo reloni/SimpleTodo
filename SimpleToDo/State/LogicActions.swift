@@ -30,14 +30,7 @@ func updateEntryActionWork(_ entry: ToDoEntry) -> RxActionWork {
 				                                    httpHeaders: headers)
 					.flatMap { result -> Observable<RxActionResultType> in
 						let updated: ToDoEntry = try unbox(data: result)
-						let newTodos = state.toDoEntries.map { t -> ToDoEntry in
-							if t.id == updated.id {
-								return updated
-							} else {
-								return t
-							}
-						}
-						return Observable.just(RxDefaultActionResult(newTodos))
+						return Observable.just(RxDefaultActionResult(updated))
 				}
 		}
 	}

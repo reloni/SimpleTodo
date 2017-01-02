@@ -28,7 +28,16 @@ struct AppReducer : RxReducerType {
 		case .showAllert: return Observable.empty()
 		case .showEditEntryController: return Observable.empty()
 		case .dismisEditEntryController: return Observable.empty()
-		case .updateEntry: return Observable.just(currentState.new(toDoEntries: (actionResult as! RxDefaultActionResult).value))
+		case .updateEntry:
+			let updated: ToDoEntry = (actionResult as! RxDefaultActionResult).value
+			let newEntries = currentState.toDoEntries.map { t -> ToDoEntry in
+				if t.id == updated.id {
+					return updated
+				} else {
+					return t
+				}
+			}
+			return Observable.just(currentState.new(toDoEntries: newEntries))
 		}
 	}
 }
