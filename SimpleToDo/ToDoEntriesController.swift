@@ -87,13 +87,14 @@ final class ToDoEntriesController : UIViewController {
 				return Observable.just([ToDoEntrySection(header: "test", items: newState.state.toDoEntries)])
 			}
 			.observeOn(MainScheduler.instance)
+			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
 			.startWith([])
 			.bindTo(tableView.rx.items(dataSource: dataSource))
 			.addDisposableTo(bag)
 		
 		tableView.refreshControl?.rx.controlEvent(.valueChanged).filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
-			.subscribe(onNext: { [weak self] in
-				appState.dispatch(AppAction.loadToDoEntries); self?.tableView.refreshControl?.endRefreshing()
+			.subscribe(onNext: {
+					appState.dispatch(AppAction.loadToDoEntries)
 			}).addDisposableTo(bag)
 		
 		tableView.rx.itemDeleted.subscribe(onNext: { path in
