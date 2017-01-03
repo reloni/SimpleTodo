@@ -14,6 +14,13 @@ import Material
 final class EditToDoEntryController : UIViewController {
 	let entry: ToDoEntry?
 	
+	lazy var completed: Switch = {
+		let sw = Switch()
+		sw.bounceable = true
+		sw.on = self.entry?.completed ?? false
+		return sw
+	}()
+	
 	let descriptionTextField: TextField  = {
 		let text = TextField()
 		text.placeholder = "Description"
@@ -22,6 +29,9 @@ final class EditToDoEntryController : UIViewController {
 	
 	let notesTextField: UITextView = {
 		let text = UITextView()
+		text.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+		text.borderColor = UIColor.lightGray
+		text.borderWidth = 1
 		return text
 	}()
 	
@@ -45,6 +55,7 @@ final class EditToDoEntryController : UIViewController {
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
+		view.addSubview(completed)
 		view.addSubview(descriptionTextField)
 		view.addSubview(notesTextField)
 		self.view.backgroundColor = UIColor.white
@@ -60,11 +71,11 @@ final class EditToDoEntryController : UIViewController {
 		guard let entry = entry else {
 			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
 			appState.dispatch(AppAction.dismisEditEntryController)
-			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: false, description: desc, notes: notesTextField.text)))
+			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: completed.on, description: desc, notes: notesTextField.text)))
 			return
 		}
 		
-		let newEntry = ToDoEntry(id: entry.id, completed: entry.completed, description: desc, notes: notesTextField.text)
+		let newEntry = ToDoEntry(id: entry.id, completed: completed.on, description: desc, notes: notesTextField.text)
 		appState.dispatch(AppAction.dismisEditEntryController)
 		appState.dispatch(AppAction.updateEntry(newEntry))
 	}
@@ -72,8 +83,13 @@ final class EditToDoEntryController : UIViewController {
 	override func updateViewConstraints() {
 		super.updateViewConstraints()
 		
-		descriptionTextField.snp.remakeConstraints { make in
+		completed.snp.remakeConstraints { make in
 			make.top.equalTo(view.snp.top).offset(20)
+			make.leading.equalTo(view.snp.leading).offset(10)
+		}
+		
+		descriptionTextField.snp.remakeConstraints { make in
+			make.top.equalTo(completed.snp.bottom).offset(20)
 			make.leading.equalTo(view.snp.leading).offset(10)
 			make.trailing.equalTo(view.snp.trailing).offset(-10)
 		}
@@ -82,7 +98,7 @@ final class EditToDoEntryController : UIViewController {
 			make.top.equalTo(descriptionTextField.snp.bottom).offset(20)
 			make.leading.equalTo(view.snp.leading).offset(10)
 			make.trailing.equalTo(view.snp.trailing).offset(-10)
-			make.bottom.equalTo(view.snp.bottom)
+			make.bottom.equalTo(view.snp.bottom).offset(-10)
 		}
 	}
 }
