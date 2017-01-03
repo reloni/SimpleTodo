@@ -36,7 +36,7 @@ final class ToDoEntriesController : UIViewController {
 		button.title = "Add item"
 		return button
 	}()
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -47,8 +47,6 @@ final class ToDoEntriesController : UIViewController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewEntry))
 		
 		tableView.refreshControl = UIRefreshControl()
-		tableView.refreshControl?.rx.controlEvent(.valueChanged).filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
-			.subscribe(onNext: { [weak self] in appState.dispatch(AppAction.loadToDoEntries); self?.tableView.refreshControl?.endRefreshing() }).addDisposableTo(bag)
 		
 		view.addSubview(tableView)
 		view.addSubview(addButton)
@@ -64,8 +62,39 @@ final class ToDoEntriesController : UIViewController {
 			return true
 		}
 		dataSource.canMoveRowAtIndexPath = { _ in
-				return true
+			return true
 		}
+		
+		updateViewConstraints()
+		
+		bind()
+		
+		appState.dispatch(AppAction.loadToDoEntries)
+	}
+	
+	func bind() {
+		appState.state.filter {
+			switch $0.setBy {
+			case AppAction.addToDoEntry: fallthrough
+			case AppAction.deleteToDoEntry: fallthrough
+			case AppAction.loadToDoEntries: fallthrough
+			case AppAction.updateEntry: fallthrough
+			case AppAction.reloadToDoEntries: return true
+			default: return false
+			}
+			}
+			.flatMap { newState ->  Observable<[ToDoEntrySection]> in
+				return Observable.just([ToDoEntrySection(header: "test", items: newState.state.toDoEntries)])
+			}
+			.observeOn(MainScheduler.instance)
+			.startWith([])
+			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.addDisposableTo(bag)
+		
+		tableView.refreshControl?.rx.controlEvent(.valueChanged).filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
+			.subscribe(onNext: { [weak self] in
+				appState.dispatch(AppAction.loadToDoEntries); self?.tableView.refreshControl?.endRefreshing()
+			}).addDisposableTo(bag)
 		
 		tableView.rx.itemDeleted.subscribe(onNext: { path in
 			appState.dispatch(AppAction.deleteToDoEntry(path.row))
@@ -79,35 +108,9 @@ final class ToDoEntriesController : UIViewController {
 			appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[path.row]))
 		}).addDisposableTo(bag)
 		
-//		addButton.rx.tap.subscribe(onNext: {
-//			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
-//			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: false, description: "added 1", notes: nil)))
-//		}).addDisposableTo(bag)
-		
-		appState.state.filter {
-			switch $0.setBy {
-			case AppAction.addToDoEntry: fallthrough
-			case AppAction.deleteToDoEntry: fallthrough
-			case AppAction.loadToDoEntries: fallthrough
-			case AppAction.updateEntry: fallthrough
-			case AppAction.reloadToDoEntries: return true
-			default: return false
-			}
-			}
-			.flatMap { newState ->  Observable<[ToDoEntrySection]> in
-				return Observable.just([ToDoEntrySection(header: "test", items: newState.state.toDoEntries)])
-		}
-		.observeOn(MainScheduler.instance)
-		.bindTo(tableView.rx.items(dataSource: dataSource))
-		.addDisposableTo(bag)
-		
-		_ = appState.errors.subscribe(onNext: {
+		appState.errors.subscribe(onNext: {
 			appState.dispatch(AppAction.showAllert(in: self, with: $0.error))
-		})
-		
-		updateViewConstraints()
-		
-		appState.dispatch(AppAction.loadToDoEntries)
+		}).addDisposableTo(bag)
 	}
 	
 	func addNewEntry() {
@@ -130,9 +133,5 @@ final class ToDoEntriesController : UIViewController {
 			make.trailing.equalTo(view.snp.trailing).offset(-20)
 			make.bottom.equalTo(view.snp.bottom).offset(-10)
 		}
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		
 	}
 }
