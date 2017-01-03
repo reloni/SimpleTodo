@@ -97,13 +97,13 @@ final class ToDoEntriesController : UIViewController {
 					appState.dispatch(AppAction.loadToDoEntries)
 			}).addDisposableTo(bag)
 		
-		tableView.rx.itemDeleted.subscribe(onNext: { path in
-			appState.dispatch(AppAction.deleteToDoEntry(path.row))
-		}).addDisposableTo(bag)
+//		tableView.rx.itemDeleted.subscribe(onNext: { path in
+//			appState.dispatch(AppAction.deleteToDoEntry(path.row))
+//		}).addDisposableTo(bag)
 		
-		tableView.rx.itemMoved.subscribe(onNext: { p in
-			print("item moved")
-		}).addDisposableTo(bag)
+//		tableView.rx.itemMoved.subscribe(onNext: { p in
+//			print("item moved")
+//		}).addDisposableTo(bag)
 		
 		tableView.rx.itemSelected.subscribe(onNext: { path in
 			appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[path.row]))
@@ -112,6 +112,8 @@ final class ToDoEntriesController : UIViewController {
 		appState.errors.subscribe(onNext: {
 			appState.dispatch(AppAction.showAllert(in: self, with: $0.error))
 		}).addDisposableTo(bag)
+		
+		tableView.rx.setDelegate(self).addDisposableTo(bag)
 	}
 	
 	func addNewEntry() {
@@ -134,5 +136,34 @@ final class ToDoEntriesController : UIViewController {
 			make.trailing.equalTo(view.snp.trailing).offset(-20)
 			make.bottom.equalTo(view.snp.bottom).offset(-10)
 		}
+	}
+}
+
+extension ToDoEntriesController : UITableViewDelegate {
+	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+		let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+			tableView.setEditing(false, animated: true)
+			appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[index.row]))
+		}
+		edit.backgroundColor = UIColor.lightGray
+		
+		let custom = UITableViewRowAction(style: .normal, title: "Custom") { action, index in
+			tableView.setEditing(false, animated: true)
+			let entry = appState.stateValue.state.toDoEntries[index.row]
+			let changed = ToDoEntry(id: entry.id, completed: !entry.completed, description: entry.description, notes: entry.notes)
+			appState.dispatch(AppAction.updateEntry(changed))
+		}
+		custom.backgroundColor = UIColor.orange
+		
+		let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
+			appState.dispatch(AppAction.deleteToDoEntry(index.row))
+		}
+		delete.backgroundColor = UIColor.red
+		
+		return [delete, edit, custom]
+	}
+	
+	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+		return UITableViewCellEditingStyle.delete
 	}
 }
