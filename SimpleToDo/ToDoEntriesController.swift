@@ -25,6 +25,10 @@ final class ToDoEntriesController : UIViewController {
 		table.preservesSuperviewLayoutMargins = false
 		table.separatorInset = .zero
 		table.contentInset = .zero
+		table.estimatedRowHeight = 50
+		table.rowHeight = UITableViewAutomaticDimension
+		table.tableFooterView = UIView()
+		table.tableFooterView?.backgroundColor = UIColor.lightGray
 		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 		return table
 	}()
@@ -55,6 +59,7 @@ final class ToDoEntriesController : UIViewController {
 			cell.separatorInset = .zero
 			cell.layoutEdgeInsets = .zero
 			cell.selectionStyle = .none
+			cell.isExpanded = false
 			cell.taskDescription.text = "Item \(item.id): \(item.description) - \(item.completed)"
 			return cell
 		}
@@ -105,9 +110,9 @@ final class ToDoEntriesController : UIViewController {
 //			print("item moved")
 //		}).addDisposableTo(bag)
 		
-		tableView.rx.itemSelected.subscribe(onNext: { path in
-			appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[path.row]))
-		}).addDisposableTo(bag)
+//		tableView.rx.itemSelected.subscribe(onNext: { path in
+//			appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[path.row]))
+//		}).addDisposableTo(bag)
 		
 		appState.errors.subscribe(onNext: {
 			appState.dispatch(AppAction.showAllert(in: self, with: $0.error))
@@ -165,5 +170,29 @@ extension ToDoEntriesController : UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
 		return UITableViewCellEditingStyle.delete
+	}
+	
+//	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//		return 70
+//	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
+		UIView.animate(withDuration: 0.3, animations: {
+			tableView.beginUpdates()
+			cell.isExpanded = !cell.isExpanded
+			tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
+			tableView.endUpdates()
+		})
+	}
+	
+	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell
+			else { return }
+		UIView.animate(withDuration: 0.3, animations: {
+			tableView.beginUpdates()
+			cell.isExpanded = false
+			tableView.endUpdates()
+		})
 	}
 }

@@ -22,8 +22,26 @@ final class TaskCell : UITableViewCell {
 		stack.axis = .horizontal
 		stack.distribution = .fillProportionally
 		stack.spacing = 10
+		let colorView = UIView()
+		colorView.backgroundColor = UIColor.lightGray
+		stack.addArrangedSubview(colorView)
 		return stack
 	}()
+	
+	var heightConstraint: Constraint?
+	
+	var isExpanded: Bool = false
+		{
+		didSet
+		{
+			if !isExpanded {
+				heightConstraint?.update(offset: 0)
+				
+			} else {
+				heightConstraint?.update(offset: 30)
+			}
+		}
+	}
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,6 +54,7 @@ final class TaskCell : UITableViewCell {
 	
 	func setup() {
 		contentView.addSubview(taskDescription)
+		contentView.addSubview(actionsStack)
 		updateConstraints()
 	}
 	
@@ -48,6 +67,12 @@ final class TaskCell : UITableViewCell {
 			make.trailing.equalTo(contentView.snp.trailing).offset(10)
 		}
 		
-		
+		actionsStack.snp.remakeConstraints { make in
+			make.top.equalTo(taskDescription.snp.bottom).offset(5)
+			make.leading.equalTo(contentView.snp.leading)
+			make.trailing.equalTo(contentView.snp.trailing)
+			make.bottom.equalTo(contentView.snp.bottom)
+			heightConstraint = make.height.equalTo(0).priority(999).constraint
+		}
 	}
 }
