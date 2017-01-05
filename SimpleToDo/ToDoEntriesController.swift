@@ -25,8 +25,7 @@ final class ToDoEntriesController : UIViewController {
 		table.preservesSuperviewLayoutMargins = false
 		table.separatorInset = .zero
 		table.contentInset = .zero
-		//table.allowsMultipleSelectionDuringEditing = false
-		table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 		return table
 	}()
 	
@@ -52,10 +51,11 @@ final class ToDoEntriesController : UIViewController {
 		view.addSubview(addButton)
 		
 		dataSource.configureCell = { ds, tv, ip, item in
-			let cell = tv.dequeueReusableCell(withIdentifier: "Cell", for: ip)
+			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
 			cell.separatorInset = .zero
 			cell.layoutEdgeInsets = .zero
-			cell.textLabel?.text = "Item \(item.id): \(item.description) - \(item.completed)"
+			cell.selectionStyle = .none
+			cell.taskDescription.text = "Item \(item.id): \(item.description) - \(item.completed)"
 			return cell
 		}
 		dataSource.canEditRowAtIndexPath = { _ in
