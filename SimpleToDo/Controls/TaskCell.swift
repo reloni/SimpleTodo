@@ -22,9 +22,14 @@ final class TaskCell : UITableViewCell {
 		stack.axis = .horizontal
 		stack.distribution = .fillProportionally
 		stack.spacing = 10
+		
 		let colorView = UIView()
 		colorView.backgroundColor = UIColor.lightGray
 		stack.addArrangedSubview(colorView)
+		
+		stack.addArrangedSubview(TaskActonView(text: "Action 1"))
+		stack.addArrangedSubview(TaskActonView(text: "Action 2"))
+		
 		return stack
 	}()
 	
@@ -36,7 +41,6 @@ final class TaskCell : UITableViewCell {
 		{
 			if !isExpanded {
 				heightConstraint?.update(offset: 0)
-				
 			} else {
 				heightConstraint?.update(offset: 30)
 			}
