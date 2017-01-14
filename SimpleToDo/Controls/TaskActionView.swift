@@ -22,7 +22,11 @@ final class TaskActonView : UIView {
 		return img
 	}()
 	
-	init(text: String, image: UIImage? = nil) {
+	let expandHeight: CGFloat
+	
+	init(text: String, image: UIImage? = nil, expandHeight: CGFloat = 0) {
+		self.expandHeight = expandHeight
+		
 		super.init(frame: .zero)
 		
 		addSubview(actionLabel)
@@ -51,7 +55,8 @@ final class TaskActonView : UIView {
 		maker.centerY.equalTo(self.snp.centerY)
 		maker.leading.equalTo(self.snp.leading).offset(10)
 		maker.height.equalTo(self.snp.height).multipliedBy(0.7)
-		maker.width.equalTo(imageView.snp.height)
+		//maker.width.equalTo(imageView.snp.height)
+		maker.width.equalTo(expandHeight * 0.7)
 	}
 	
 	override func updateConstraints() {

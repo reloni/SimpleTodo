@@ -186,27 +186,23 @@ extension ToDoEntriesController : UITableViewDelegate {
 		return UITableViewCellEditingStyle.delete
 	}
 	
-//	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//		return 70
-//	}
-	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
-		UIView.animate(withDuration: 0.3, animations: {
+		UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
 			tableView.beginUpdates()
 			cell.isExpanded = !cell.isExpanded
 			tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
 			tableView.endUpdates()
-		})
+		}.startAnimation()
 	}
 	
 	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell
-			else { return }
-		UIView.animate(withDuration: 0.3, animations: {
+			else { return }		
+		UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
 			tableView.beginUpdates()
 			cell.isExpanded = false
 			tableView.endUpdates()
-		})
+			}.startAnimation()
 	}
 }

@@ -14,6 +14,8 @@ import RxGesture
 import RxSwift
 
 final class TaskCell : UITableViewCell {
+	static let expandHeight: CGFloat = 35
+	
 	var bag = DisposeBag()
 	
 	let taskDescription: UILabel = {
@@ -23,15 +25,15 @@ final class TaskCell : UITableViewCell {
 	}()
 	
 	let completeActionView: TaskActonView = {
-		return TaskActonView(text: "Complete", image: Theme.Images.checked)
+		return TaskActonView(text: "", image: Theme.Images.checked, expandHeight: TaskCell.expandHeight)
 	}()
 	
 	let editActionView: TaskActonView = {
-		return TaskActonView(text: "Edit", image: Theme.Images.edit)
+		return TaskActonView(text: "", image: Theme.Images.edit, expandHeight: TaskCell.expandHeight)
 	}()
 	
 	let deleteActionView: TaskActonView = {
-		return TaskActonView(text: "Delete", image: Theme.Images.delete)
+		return TaskActonView(text: "", image: Theme.Images.delete, expandHeight: TaskCell.expandHeight)
 	}()
 	
 	lazy var actionsStack: UIStackView = {
@@ -42,7 +44,7 @@ final class TaskCell : UITableViewCell {
 		
 		let spacingView: () -> UIView = {
 			let v = UIView()
-			v.width = 10
+			v.width = 25
 			return v
 		}
 		
@@ -63,9 +65,9 @@ final class TaskCell : UITableViewCell {
 		didSet
 		{
 			if !isExpanded {
-				heightConstraint?.update(offset: 0)
+				self.heightConstraint?.update(offset: 0)
 			} else {
-				heightConstraint?.update(offset: 35)
+				self.heightConstraint?.update(offset: TaskCell.expandHeight)
 			}
 		}
 	}
@@ -86,6 +88,9 @@ final class TaskCell : UITableViewCell {
 	func setup() {
 		contentView.addSubview(taskDescription)
 		contentView.addSubview(actionsStack)
+		
+		taskDescription.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.vertical)
+		taskDescription.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
 		
 		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.backgroundLightGray }
 		actionsStack.subviews.last?.setContentHuggingPriority(1, for: UILayoutConstraintAxis.horizontal)
