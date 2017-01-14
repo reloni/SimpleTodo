@@ -14,22 +14,39 @@ import UIKit
 final class TaskCell : UITableViewCell {
 	let taskDescription: UILabel = {
 		let text = UILabel()
+		text.font = Theme.Fonts.Main
 		return text
 	}()
 	
-	let actionsStack: UIStackView = {
+	let completeActionView: TaskActonView = {
+		return TaskActonView(text: "Complete", image: Theme.Images.checked)
+	}()
+	
+	let editActionView: TaskActonView = {
+		return TaskActonView(text: "Edit", image: Theme.Images.edit)
+	}()
+	
+	let deleteActionView: TaskActonView = {
+		return TaskActonView(text: "Delete", image: Theme.Images.delete)
+	}()
+	
+	let stackRightView: UIView = {
+		let view = UIView()
+		view.setContentHuggingPriority(0, for: UILayoutConstraintAxis.horizontal)
+		return view
+	}()
+	
+	lazy var actionsStack: UIStackView = {
 		let stack = UIStackView()
 		stack.axis = .horizontal
-		stack.distribution = .fillProportionally
+		stack.distribution = .fill
 		stack.spacing = 10
 		
-		let colorView = UIView()
-		colorView.backgroundColor = UIColor.lightGray
-		stack.addArrangedSubview(colorView)
-		
-		stack.addArrangedSubview(TaskActonView(text: "Action 1"))
-		stack.addArrangedSubview(TaskActonView(text: "Action 2"))
-		
+		stack.addArrangedSubview(self.completeActionView)
+		stack.addArrangedSubview(self.editActionView)
+		stack.addArrangedSubview(self.deleteActionView)
+		stack.addArrangedSubview(self.stackRightView)
+
 		return stack
 	}()
 	
@@ -66,13 +83,13 @@ final class TaskCell : UITableViewCell {
 		super.updateConstraints()
 		
 		taskDescription.snp.remakeConstraints { make in
-			make.top.equalTo(contentView.snp.top).offset(10)
+			make.top.equalTo(contentView.snp.top).offset(15)
 			make.leading.equalTo(contentView.snp.leading).offset(10)
-			make.trailing.equalTo(contentView.snp.trailing).offset(10)
+			make.trailing.equalTo(contentView.snp.trailing).offset(-10)
 		}
 		
 		actionsStack.snp.remakeConstraints { make in
-			make.top.equalTo(taskDescription.snp.bottom).offset(5)
+			make.top.equalTo(taskDescription.snp.bottom).offset(10)
 			make.leading.equalTo(contentView.snp.leading)
 			make.trailing.equalTo(contentView.snp.trailing)
 			make.bottom.equalTo(contentView.snp.bottom)

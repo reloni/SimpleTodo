@@ -9,6 +9,7 @@
 import Foundation
 import RxHttpClient
 import Unbox
+import UIKit
 
 func configure<T>(_ obj: T, config: (T) -> Void) -> T {
 	config(obj)
@@ -35,5 +36,11 @@ extension Error {
 			return (try? unbox(data: data) as ServerSideError)?.error
 		default: return nil
 		}
+	}
+}
+
+extension UIFont {
+	func new(sizeModifier: CGFloat) -> UIFont {
+		return withSize(pointSize + sizeModifier)
 	}
 }

@@ -12,7 +12,7 @@ import UIKit
 final class TaskActonView : UIView {
 	let actionLabel: UILabel = {
 		let lbl = UILabel()
-		lbl.font = UIFont.systemFont(ofSize: UIFont.systemFontSize - 3)
+		lbl.font = Theme.Fonts.Accesory
 		return lbl
 	}()
 	
@@ -41,16 +41,16 @@ final class TaskActonView : UIView {
 	}
 	
 	func makeActionLabelConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(self.snp.top)
+		maker.centerY.equalTo(self.snp.centerY)
 		maker.leading.equalTo(imageView.snp.trailing).offset(10)
 		maker.trailing.equalTo(self.snp.trailing).offset(-10)
 		maker.height.equalTo(self.snp.height)
 	}
 	
 	func makeActionImageConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(self.snp.top)
+		maker.centerY.equalTo(self.snp.centerY)
 		maker.leading.equalTo(self.snp.leading).offset(10)
-		maker.height.equalTo(self.snp.height)
+		maker.height.equalTo(self.snp.height).multipliedBy(0.8)
 		maker.width.equalTo(imageView.snp.height)
 	}
 	
