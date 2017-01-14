@@ -61,6 +61,20 @@ final class ToDoEntriesController : UIViewController {
 			cell.selectionStyle = .none
 			cell.isExpanded = false
 			cell.taskDescription.text = "Item \(item.id): \(item.description) - \(item.completed)"
+			
+			cell.completeTapped = {
+				print("row \(ip.row) complete")
+			}
+			
+			cell.editTapped = {
+				guard let row = tv.indexPath(for: cell)?.row else { return }
+				appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[row]))
+			}
+			
+			cell.deleteTapped = {
+				guard let row = tv.indexPath(for: cell)?.row else { return }
+				appState.dispatch(AppAction.deleteToDoEntry(row))
+			}
 			return cell
 		}
 		dataSource.canEditRowAtIndexPath = { _ in

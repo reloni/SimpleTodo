@@ -50,7 +50,7 @@ final class TaskActonView : UIView {
 	func makeActionImageConstraints(maker: ConstraintMaker) {
 		maker.centerY.equalTo(self.snp.centerY)
 		maker.leading.equalTo(self.snp.leading).offset(10)
-		maker.height.equalTo(self.snp.height).multipliedBy(0.8)
+		maker.height.equalTo(self.snp.height).multipliedBy(0.7)
 		maker.width.equalTo(imageView.snp.height)
 	}
 	

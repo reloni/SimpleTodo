@@ -25,6 +25,7 @@
 		6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8845CB1E24056000EA3C2A /* TaskActionView.swift */; };
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
 		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
+		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
 		6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB36A791E1ED9CA006B5239 /* TaskCell.swift */; };
 		6EBBD8B21E07153400C283D5 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBBD8B11E07153400C283D5 /* AppReducer.swift */; };
 		6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE247D41DF211DE001A6F39 /* MainController.swift */; };
@@ -78,6 +79,7 @@
 		6E8845CB1E24056000EA3C2A /* TaskActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskActionView.swift; sourceTree = "<group>"; };
 		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
 		6EB36A791E1ED9CA006B5239 /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		6EBBD8B11E07153400C283D5 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		6EE247D41DF211DE001A6F39 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainController.swift; path = Controllers/MainController.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
 				6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */,
 				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
 				6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */,
@@ -183,6 +186,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */,
 				6EE91CAB1E1959430025A4BD /* Wrap.framework */,
 				6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */,
 				6E5752191E05AFC4002AA9B4 /* Unbox.framework */,
@@ -388,6 +392,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Unbox.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Wrap.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (

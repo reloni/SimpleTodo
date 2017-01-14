@@ -10,8 +10,12 @@ import Foundation
 import SnapKit
 import Material
 import UIKit
+import RxGesture
+import RxSwift
 
 final class TaskCell : UITableViewCell {
+	var bag = DisposeBag()
+	
 	let taskDescription: UILabel = {
 		let text = UILabel()
 		text.font = Theme.Fonts.Main
@@ -30,22 +34,24 @@ final class TaskCell : UITableViewCell {
 		return TaskActonView(text: "Delete", image: Theme.Images.delete)
 	}()
 	
-	let stackRightView: UIView = {
-		let view = UIView()
-		view.setContentHuggingPriority(0, for: UILayoutConstraintAxis.horizontal)
-		return view
-	}()
-	
 	lazy var actionsStack: UIStackView = {
 		let stack = UIStackView()
 		stack.axis = .horizontal
 		stack.distribution = .fill
-		stack.spacing = 10
+		stack.spacing = 0
+		
+		let spacingView: () -> UIView = {
+			let v = UIView()
+			v.width = 10
+			return v
+		}
 		
 		stack.addArrangedSubview(self.completeActionView)
+		stack.addArrangedSubview(spacingView())
 		stack.addArrangedSubview(self.editActionView)
+		stack.addArrangedSubview(spacingView())
 		stack.addArrangedSubview(self.deleteActionView)
-		stack.addArrangedSubview(self.stackRightView)
+		stack.addArrangedSubview(UIView())
 
 		return stack
 	}()
@@ -59,10 +65,14 @@ final class TaskCell : UITableViewCell {
 			if !isExpanded {
 				heightConstraint?.update(offset: 0)
 			} else {
-				heightConstraint?.update(offset: 30)
+				heightConstraint?.update(offset: 35)
 			}
 		}
 	}
+	
+	var completeTapped: (() -> ())?
+	var editTapped: (() -> ())?
+	var deleteTapped: (() -> ())?
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -76,7 +86,24 @@ final class TaskCell : UITableViewCell {
 	func setup() {
 		contentView.addSubview(taskDescription)
 		contentView.addSubview(actionsStack)
+		
+		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.backgroundLightGray }
+		actionsStack.subviews.last?.setContentHuggingPriority(1, for: UILayoutConstraintAxis.horizontal)
+
+		completeActionView.rx.gesture(.tap).subscribe(onNext: { [weak self] _ in
+			self?.completeTapped?()
+		}).addDisposableTo(bag)
+		editActionView.rx.gesture(.tap).subscribe(onNext: { [weak self] _ in
+			self?.editTapped?()
+		}).addDisposableTo(bag)
+		deleteActionView.rx.gesture(.tap).subscribe(onNext: { [weak self] _ in
+			self?.deleteTapped?()
+		}).addDisposableTo(bag)
 		updateConstraints()
+	}
+	
+	override func prepareForReuse() {
+		bag = DisposeBag()
 	}
 	
 	override func updateConstraints() {
