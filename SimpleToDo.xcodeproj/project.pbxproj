@@ -22,7 +22,11 @@
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
 		6E6422DC1E18255400FAFFFB /* EditToDoEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422DB1E18255400FAFFFB /* EditToDoEntryController.swift */; };
+		6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8845CB1E24056000EA3C2A /* TaskActionView.swift */; };
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
+		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
+		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
+		6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB36A791E1ED9CA006B5239 /* TaskCell.swift */; };
 		6EBBD8B21E07153400C283D5 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBBD8B11E07153400C283D5 /* AppReducer.swift */; };
 		6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE247D41DF211DE001A6F39 /* MainController.swift */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
@@ -72,7 +76,11 @@
 		6E57521C1E05B24A002AA9B4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
 		6E6422DB1E18255400FAFFFB /* EditToDoEntryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToDoEntryController.swift; sourceTree = "<group>"; };
+		6E8845CB1E24056000EA3C2A /* TaskActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskActionView.swift; sourceTree = "<group>"; };
 		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
+		6EB36A791E1ED9CA006B5239 /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		6EBBD8B11E07153400C283D5 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		6EE247D41DF211DE001A6F39 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainController.swift; path = Controllers/MainController.swift; sourceTree = "<group>"; };
 		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
@@ -91,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
 				6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */,
 				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
 				6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */,
@@ -177,6 +186,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */,
 				6EE91CAB1E1959430025A4BD /* Wrap.framework */,
 				6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */,
 				6E5752191E05AFC4002AA9B4 /* Unbox.framework */,
@@ -199,6 +209,7 @@
 				6E5752151E05AD06002AA9B4 /* Entities.swift */,
 				6E57521C1E05B24A002AA9B4 /* Extensions.swift */,
 				6E6422D91E180E1B00FAFFFB /* TableSections.swift */,
+				6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -206,6 +217,8 @@
 		6E5752171E05ADBD002AA9B4 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				6EB36A791E1ED9CA006B5239 /* TaskCell.swift */,
+				6E8845CB1E24056000EA3C2A /* TaskActionView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -379,6 +392,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Unbox.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Wrap.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (
@@ -394,10 +408,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */,
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
 				6E5752121E05ABBC002AA9B4 /* ToDoEntriesController.swift in Sources */,
 				6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
+				6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
 				6EBBD8B21E07153400C283D5 /* AppReducer.swift in Sources */,
 				6E4714D41E1ABD4300A1688C /* LogicActions.swift in Sources */,
@@ -405,6 +421,7 @@
 				6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */,
 				6EA7B4211E06A3940043BAA1 /* State.swift in Sources */,
 				6E4714D61E1ABDFC00A1688C /* UIActions.swift in Sources */,
+				6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

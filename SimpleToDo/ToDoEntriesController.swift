@@ -25,8 +25,11 @@ final class ToDoEntriesController : UIViewController {
 		table.preservesSuperviewLayoutMargins = false
 		table.separatorInset = .zero
 		table.contentInset = .zero
-		//table.allowsMultipleSelectionDuringEditing = false
-		table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		table.estimatedRowHeight = 50
+		table.rowHeight = UITableViewAutomaticDimension
+		table.tableFooterView = UIView()
+		table.tableFooterView?.backgroundColor = UIColor.lightGray
+		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 		return table
 	}()
 	
@@ -52,10 +55,26 @@ final class ToDoEntriesController : UIViewController {
 		view.addSubview(addButton)
 		
 		dataSource.configureCell = { ds, tv, ip, item in
-			let cell = tv.dequeueReusableCell(withIdentifier: "Cell", for: ip)
+			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
 			cell.separatorInset = .zero
 			cell.layoutEdgeInsets = .zero
-			cell.textLabel?.text = "Item \(item.id): \(item.description) - \(item.completed)"
+			cell.selectionStyle = .none
+			cell.isExpanded = false
+			cell.taskDescription.text = "Item \(item.id): \(item.description) - \(item.completed)"
+			
+			cell.completeTapped = {
+				print("row \(ip.row) complete")
+			}
+			
+			cell.editTapped = {
+				guard let row = tv.indexPath(for: cell)?.row else { return }
+				appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[row]))
+			}
+			
+			cell.deleteTapped = {
+				guard let row = tv.indexPath(for: cell)?.row else { return }
+				appState.dispatch(AppAction.deleteToDoEntry(row))
+			}
 			return cell
 		}
 		dataSource.canEditRowAtIndexPath = { _ in
@@ -105,9 +124,9 @@ final class ToDoEntriesController : UIViewController {
 //			print("item moved")
 //		}).addDisposableTo(bag)
 		
-		tableView.rx.itemSelected.subscribe(onNext: { path in
-			appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[path.row]))
-		}).addDisposableTo(bag)
+//		tableView.rx.itemSelected.subscribe(onNext: { path in
+//			appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[path.row]))
+//		}).addDisposableTo(bag)
 		
 		appState.errors.subscribe(onNext: {
 			appState.dispatch(AppAction.showAllert(in: self, with: $0.error))
@@ -165,5 +184,25 @@ extension ToDoEntriesController : UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
 		return UITableViewCellEditingStyle.delete
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
+		UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+			tableView.beginUpdates()
+			cell.isExpanded = !cell.isExpanded
+			tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
+			tableView.endUpdates()
+		}.startAnimation()
+	}
+	
+	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell
+			else { return }		
+		UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+			tableView.beginUpdates()
+			cell.isExpanded = false
+			tableView.endUpdates()
+			}.startAnimation()
 	}
 }
