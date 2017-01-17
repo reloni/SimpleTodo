@@ -10,8 +10,9 @@
 import UIKit
 import SnapKit
 import RxHttpClient
+import AMScrollingNavbar
 
-final class MainController : UINavigationController {
+final class MainController : ScrollingNavigationController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = UIColor.white

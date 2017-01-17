@@ -13,6 +13,7 @@
 		6E15D0311DF0A45A00B4CCA7 /* SimpleToDoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */; };
 		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
+		6E2E11DB1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */; };
 		6E4714D41E1ABD4300A1688C /* LogicActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4714D31E1ABD4300A1688C /* LogicActions.swift */; };
 		6E4714D61E1ABDFC00A1688C /* UIActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4714D51E1ABDFC00A1688C /* UIActions.swift */; };
 		6E5752121E05ABBC002AA9B4 /* ToDoEntriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752111E05ABBC002AA9B4 /* ToDoEntriesController.swift */; };
@@ -67,6 +68,7 @@
 		6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoUITests.swift; sourceTree = "<group>"; };
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
 		6E4714D31E1ABD4300A1688C /* LogicActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicActions.swift; sourceTree = "<group>"; };
 		6E4714D51E1ABDFC00A1688C /* UIActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIActions.swift; sourceTree = "<group>"; };
 		6E5752111E05ABBC002AA9B4 /* ToDoEntriesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoEntriesController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E2E11DB1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework in Frameworks */,
 				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
 				6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */,
 				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
@@ -186,6 +189,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */,
 				6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */,
 				6EE91CAB1E1959430025A4BD /* Wrap.framework */,
 				6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */,
@@ -393,6 +397,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Wrap.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AMScrollingNavbar.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (
