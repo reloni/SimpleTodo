@@ -15,7 +15,7 @@ import RxSwift
 let appState = RxStore(reducer: AppReducer(),
                        initialState: AppState(rootController: MainController(),
                                               logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
-                                              httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory)),
+                                              httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
                                               toDoEntries: []))
 
 @UIApplicationMain

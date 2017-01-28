@@ -1,7 +1,7 @@
 github "andreamazz/AMScrollingNavbar" "3.2.0"
 github "CosmicMind/Material" "2.3.21"
 github "AliSoftware/OHHTTPStubs" "57feceaabf333e72b2c637dfba6c13a7a5c49619"
-github "RxSwiftCommunity/RxHttpClient" "0.8.0"
+github "RxSwiftCommunity/RxHttpClient" "2b63c9ebb5b58f03f72a6394eb15de627d8fa68a"
 github "Reloni/RxState" "0.4.1"
 github "ReactiveX/RxSwift" "3.1.0"
 github "SnapKit/SnapKit" "3.1.1"

@@ -209,10 +209,12 @@ extension ToDoEntriesController : UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
 		UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+			//tableView.isScrollEnabled = false
+			//tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
 			tableView.beginUpdates()
 			cell.isExpanded = !cell.isExpanded
-			tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
 			tableView.endUpdates()
+			//tableView.isScrollEnabled = true
 		}.startAnimation()
 	}
 	
