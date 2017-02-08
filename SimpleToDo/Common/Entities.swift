@@ -8,6 +8,7 @@
 
 import Unbox
 import RxDataSources
+import Wrap
 
 struct ServerSideError {
 	let error: String
@@ -28,8 +29,46 @@ struct LogInInfo {
 	}
 }
 
+struct UniqueIdentifier: UnboxableByTransform {
+	typealias UnboxRawValue = String
+	
+	let identifierString: String
+	
+	init?(identifierString: String) {
+		if let UUID = UUID(uuidString: identifierString) {
+			self.identifierString = UUID.uuidString
+		} else {
+			return nil
+		}
+	}
+	
+	static func transform(unboxedValue: String) -> UniqueIdentifier? {
+		return UniqueIdentifier(identifierString: unboxedValue)
+	}
+}
+
+extension UniqueIdentifier : Equatable {
+	static func == (lhs: UniqueIdentifier, rhs: UniqueIdentifier) -> Bool {
+		return lhs.identifierString == rhs.identifierString
+	}
+}
+
+extension UniqueIdentifier : Hashable {
+	var hashValue: Int { return identifierString.hashValue }
+}
+
+extension UniqueIdentifier : CustomStringConvertible {
+	var description: String { return identifierString }
+}
+
+extension UniqueIdentifier : WrapCustomizable {
+	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
+		return identifierString
+	}
+}
+
 struct ToDoEntry {
-	let id: UInt64
+	let uuid: UniqueIdentifier
 	let completed: Bool
 	let description: String
 	let notes: String?
@@ -37,7 +76,7 @@ struct ToDoEntry {
 
 extension ToDoEntry : Equatable {
 	static func == (lhs: ToDoEntry, rhs: ToDoEntry) -> Bool {
-		return lhs.id == rhs.id
+		return lhs.uuid == rhs.uuid
 			&& lhs.completed == rhs.completed
 			&& lhs.description == rhs.description
 			&& lhs.notes == rhs.notes
@@ -45,7 +84,7 @@ extension ToDoEntry : Equatable {
 }
 
 extension ToDoEntry : IdentifiableType {
-	var identity: UInt64 { return id }
+	var identity: UniqueIdentifier { return uuid }
 }
 
 struct ToDoUser {
@@ -58,7 +97,7 @@ struct ToDoUser {
 
 extension ToDoEntry: Unboxable {
 	init(unboxer: Unboxer) throws {
-		self.id = try unboxer.unbox(key: "id")
+		self.uuid = try unboxer.unbox(key: "uuid")
 		self.completed = try unboxer.unbox(key: "completed")
 		self.description = try unboxer.unbox(key: "description")
 		self.notes = unboxer.unbox(key: "notes")

@@ -69,13 +69,13 @@ final class EditToDoEntryController : UIViewController {
 	func done() {
 		guard let desc = descriptionTextField.text, desc.characters.count > 0 else { return }
 		guard let entry = entry else {
-			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
-			appState.dispatch(AppAction.dismisEditEntryController)
-			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: completed.on, description: desc, notes: notesTextField.text)))
+//			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
+//			appState.dispatch(AppAction.dismisEditEntryController)
+//			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: completed.on, description: desc, notes: notesTextField.text)))
 			return
 		}
 		
-		let newEntry = ToDoEntry(id: entry.id, completed: completed.on, description: desc, notes: notesTextField.text)
+		let newEntry = ToDoEntry(uuid: entry.uuid, completed: completed.on, description: desc, notes: notesTextField.text)
 		appState.dispatch(AppAction.dismisEditEntryController)
 		appState.dispatch(AppAction.updateEntry(newEntry))
 	}

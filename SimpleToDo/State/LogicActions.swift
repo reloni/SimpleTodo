@@ -12,6 +12,8 @@ import RxSwift
 import Wrap
 import Unbox
 
+fileprivate let baseUrl = "https://simpletaskmanager.net:443/api/v1"
+
 func updateEntryActionWork(_ entry: ToDoEntry) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
@@ -23,7 +25,7 @@ func updateEntryActionWork(_ entry: ToDoEntry) -> RxActionWork {
 				               "Accept":"application/json",
 				               "Content-Type":"application/json; charset=utf-8"]
 				
-				return state.httpClient.requestData(url: URL(string: "http://localhost:5000/api/todoentries/\(entry.id)")!,
+				return state.httpClient.requestData(url: URL(string: "\(baseUrl)/tasks/\(entry.uuid)")!,
 				                                    method: .put,
 				                                    jsonBody: json,
 				                                    options: [],
@@ -43,7 +45,7 @@ func reloadEntriesActionWork(fromRemote: Bool) -> RxActionWork {
 		guard fromRemote else { return Observable.just(RxDefaultActionResult(state.toDoEntries)) }
 		
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
-		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/")!, headers: headers)
+		let request = URLRequest(url: URL(string: "\(baseUrl)/tasks/")!, headers: headers)
 		return state.httpClient.requestData(request).flatMap { result -> Observable<RxActionResultType> in
 			let entries: [ToDoEntry] = try unbox(data: result)
 			return Observable.just(RxDefaultActionResult(entries))
@@ -55,7 +57,7 @@ func deleteEntryActionWork(entryId id: Int) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
-		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/\(state.toDoEntries[id].id)")!, method: .delete, headers: headers)
+		let request = URLRequest(url: URL(string: "\(baseUrl)/tasks/\(state.toDoEntries[id].uuid)")!, method: .delete, headers: headers)
 		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxActionResultType> in
 			return Observable.just(RxDefaultActionResult(id))
 		}
@@ -73,7 +75,7 @@ func addEntryActionWork(entry: ToDoEntry) -> RxActionWork {
 				               "Accept":"application/json",
 				               "Content-Type":"application/json; charset=utf-8"]
 				
-				return state.httpClient.requestData(url: URL(string: "http://localhost:5000/api/todoentries")!,
+				return state.httpClient.requestData(url: URL(string: "\(baseUrl)/tasks")!,
 				                                    method: .post,
 				                                    jsonBody: json,
 				                                    options: [],

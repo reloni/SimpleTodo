@@ -31,7 +31,7 @@ struct AppReducer : RxReducerType {
 		case .updateEntry:
 			let updated: ToDoEntry = (actionResult as! RxDefaultActionResult).value
 			let newEntries = currentState.toDoEntries.map { t -> ToDoEntry in
-				if t.id == updated.id {
+				if t.uuid == updated.uuid {
 					return updated
 				} else {
 					return t

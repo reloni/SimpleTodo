@@ -65,7 +65,7 @@ final class ToDoEntriesController : UIViewController {
 			cell.layoutEdgeInsets = .zero
 			cell.selectionStyle = .none
 			cell.isExpanded = false
-			cell.taskDescription.text = "Item \(item.id): \(item.description) - \(item.completed)"
+			cell.taskDescription.text = "Item \(item.description) - \(item.completed)"
 			
 			cell.completeTapped = {
 				print("row \(ip.row) complete")
@@ -189,7 +189,7 @@ extension ToDoEntriesController : UITableViewDelegate {
 		let custom = UITableViewRowAction(style: .normal, title: "Custom") { action, index in
 			tableView.setEditing(false, animated: true)
 			let entry = appState.stateValue.state.toDoEntries[index.row]
-			let changed = ToDoEntry(id: entry.id, completed: !entry.completed, description: entry.description, notes: entry.notes)
+			let changed = ToDoEntry(uuid: entry.uuid, completed: !entry.completed, description: entry.description, notes: entry.notes)
 			appState.dispatch(AppAction.updateEntry(changed))
 		}
 		custom.backgroundColor = UIColor.orange
