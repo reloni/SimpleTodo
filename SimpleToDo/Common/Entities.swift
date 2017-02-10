@@ -32,11 +32,11 @@ struct LogInInfo {
 struct UniqueIdentifier: UnboxableByTransform {
 	typealias UnboxRawValue = String
 	
-	let identifierString: String
+	let uuid: UUID
 	
 	init?(identifierString: String) {
-		if let UUID = UUID(uuidString: identifierString) {
-			self.identifierString = UUID.uuidString
+		if let id = UUID(uuidString: identifierString) {
+			self.uuid = id
 		} else {
 			return nil
 		}
@@ -49,21 +49,21 @@ struct UniqueIdentifier: UnboxableByTransform {
 
 extension UniqueIdentifier : Equatable {
 	static func == (lhs: UniqueIdentifier, rhs: UniqueIdentifier) -> Bool {
-		return lhs.identifierString == rhs.identifierString
+		return lhs.uuid.uuidString == rhs.uuid.uuidString
 	}
 }
 
 extension UniqueIdentifier : Hashable {
-	var hashValue: Int { return identifierString.hashValue }
+	var hashValue: Int { return uuid.hashValue }
 }
 
 extension UniqueIdentifier : CustomStringConvertible {
-	var description: String { return identifierString }
+	var description: String { return uuid.uuidString }
 }
 
 extension UniqueIdentifier : WrapCustomizable {
 	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-		return identifierString
+		return uuid.uuidString
 	}
 }
 
