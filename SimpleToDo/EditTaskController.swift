@@ -1,5 +1,5 @@
 //
-//  EditToDoEntryController.swift
+//  EditTaskController.swift
 //  SimpleToDo
 //
 //  Created by Anton Efimenko on 31.12.16.
@@ -11,13 +11,13 @@ import UIKit
 import SnapKit
 import Material
 
-final class EditToDoEntryController : UIViewController {
-	let entry: ToDoEntry?
+final class EditTaskController : UIViewController {
+	let task: Task?
 	
 	lazy var completed: Switch = {
 		let sw = Switch()
 		sw.bounceable = true
-		sw.on = self.entry?.completed ?? false
+		sw.on = self.task?.completed ?? false
 		return sw
 	}()
 	
@@ -35,8 +35,8 @@ final class EditToDoEntryController : UIViewController {
 		return text
 	}()
 	
-	init(entry: ToDoEntry?) {
-		self.entry = entry
+	init(task: Task?) {
+		self.task = task
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -47,10 +47,10 @@ final class EditToDoEntryController : UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		if let desc = entry?.description {
+		if let desc = task?.description {
 			title = "Edit \(desc)"
 		} else {
-			title = "New entry"
+			title = "New task"
 		}
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
@@ -60,24 +60,24 @@ final class EditToDoEntryController : UIViewController {
 		view.addSubview(notesTextField)
 		self.view.backgroundColor = UIColor.white
 		
-		descriptionTextField.text = entry?.description
-		notesTextField.text = entry?.notes
+		descriptionTextField.text = task?.description
+		notesTextField.text = task?.notes
 		
 		updateViewConstraints()
 	}
 	
 	func done() {
 		guard let desc = descriptionTextField.text, desc.characters.count > 0 else { return }
-		guard let entry = entry else {
+		guard let task = task else {
 //			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
 //			appState.dispatch(AppAction.dismisEditEntryController)
 //			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: completed.on, description: desc, notes: notesTextField.text)))
 			return
 		}
 		
-		let newEntry = ToDoEntry(uuid: entry.uuid, completed: completed.on, description: desc, notes: notesTextField.text)
-		appState.dispatch(AppAction.dismisEditEntryController)
-		appState.dispatch(AppAction.updateEntry(newEntry))
+		let newTask = Task(uuid: task.uuid, completed: completed.on, description: desc, notes: notesTextField.text)
+		appState.dispatch(AppAction.dismisEditTaskController)
+		appState.dispatch(AppAction.updateTask(newTask))
 	}
 	
 	override func updateViewConstraints() {

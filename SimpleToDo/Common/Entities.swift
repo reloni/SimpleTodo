@@ -67,15 +67,15 @@ extension UniqueIdentifier : WrapCustomizable {
 	}
 }
 
-struct ToDoEntry {
+struct Task {
 	let uuid: UniqueIdentifier
 	let completed: Bool
 	let description: String
 	let notes: String?
 }
 
-extension ToDoEntry : Equatable {
-	static func == (lhs: ToDoEntry, rhs: ToDoEntry) -> Bool {
+extension Task : Equatable {
+	static func == (lhs: Task, rhs: Task) -> Bool {
 		return lhs.uuid == rhs.uuid
 			&& lhs.completed == rhs.completed
 			&& lhs.description == rhs.description
@@ -83,11 +83,11 @@ extension ToDoEntry : Equatable {
 	}
 }
 
-extension ToDoEntry : IdentifiableType {
+extension Task : IdentifiableType {
 	var identity: UniqueIdentifier { return uuid }
 }
 
-struct ToDoUser {
+struct TaskUser {
 	let id: UInt64
 	let firstName: String
 	let lastName: String
@@ -95,7 +95,7 @@ struct ToDoUser {
 	let password: String
 }
 
-extension ToDoEntry: Unboxable {
+extension Task: Unboxable {
 	init(unboxer: Unboxer) throws {
 		self.uuid = try unboxer.unbox(key: "uuid")
 		self.completed = try unboxer.unbox(key: "completed")

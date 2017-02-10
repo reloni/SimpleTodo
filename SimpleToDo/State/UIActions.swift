@@ -31,10 +31,10 @@ func showAlertActionWork(in controller: UIViewController, with error: Error) -> 
 	}
 }
 
-func showEditEntryControllerActionWork(_ entry: ToDoEntry?) -> RxActionWork {
+func showEditEntryControllerActionWork(_ task: Task?) -> RxActionWork {
 	return RxActionWork(scheduler: MainScheduler.instance) { state -> RxActionResultType in
 		let state = state as! AppState
-		state.rootController.pushViewController(EditToDoEntryController(entry: entry), animated: true)
+		state.rootController.pushViewController(EditTaskController(task: task), animated: true)
 		return RxDefaultActionResult()
 	}
 }

@@ -16,7 +16,7 @@ let appState = RxStore(reducer: AppReducer(),
                        initialState: AppState(rootController: MainController(),
                                               logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
                                               httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
-                                              toDoEntries: []))
+                                              tasks: []))
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
-		appState.stateValue.state.rootController.viewControllers.append(ToDoEntriesController())
+		appState.stateValue.state.rootController.viewControllers.append(TasksController())
 		window?.rootViewController = appState.stateValue.state.rootController
 		window?.makeKeyAndVisible()
 		return true

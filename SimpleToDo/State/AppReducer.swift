@@ -15,29 +15,29 @@ struct AppReducer : RxReducerType {
 		let action = action as! AppAction
 		print("handle new action: \(action.self)")
 		switch action {
-		case .loadToDoEntries: return Observable.just(currentState.new(toDoEntries: (actionResult as! RxDefaultActionResult).value))
-		case .addToDoEntry:
-			var currentEntries = currentState.toDoEntries
+		case .loadTasks: return Observable.just(currentState.new(tasks: (actionResult as! RxDefaultActionResult).value))
+		case .addTask:
+			var currentEntries = currentState.tasks
 			currentEntries.append((actionResult as! RxDefaultActionResult).value)
-			return Observable.just(currentState.new(toDoEntries: currentEntries))
-		case .deleteToDoEntry:
-			var currentEntries = currentState.toDoEntries
+			return Observable.just(currentState.new(tasks: currentEntries))
+		case .deleteTask:
+			var currentEntries = currentState.tasks
 			currentEntries.remove(at: (actionResult as! RxDefaultActionResult).value)
-			return Observable.just(currentState.new(toDoEntries: currentEntries))
-		case .reloadToDoEntries: return Observable.just(currentState.new(toDoEntries: (actionResult as! RxDefaultActionResult).value))
+			return Observable.just(currentState.new(tasks: currentEntries))
+		case .reloadTasks: return Observable.just(currentState.new(tasks: (actionResult as! RxDefaultActionResult).value))
 		case .showAllert: return Observable.empty()
-		case .showEditEntryController: return Observable.empty()
-		case .dismisEditEntryController: return Observable.empty()
-		case .updateEntry:
-			let updated: ToDoEntry = (actionResult as! RxDefaultActionResult).value
-			let newEntries = currentState.toDoEntries.map { t -> ToDoEntry in
+		case .showEditTaskController: return Observable.empty()
+		case .dismisEditTaskController: return Observable.empty()
+		case .updateTask:
+			let updated: Task = (actionResult as! RxDefaultActionResult).value
+			let newEntries = currentState.tasks.map { t -> Task in
 				if t.uuid == updated.uuid {
 					return updated
 				} else {
 					return t
 				}
 			}
-			return Observable.just(currentState.new(toDoEntries: newEntries))
+			return Observable.just(currentState.new(tasks: newEntries))
 		}
 	}
 }
