@@ -69,9 +69,8 @@ final class EditTaskController : UIViewController {
 	func done() {
 		guard let desc = descriptionTextField.text, desc.characters.count > 0 else { return }
 		guard let task = task else {
-//			let newId = (appState.stateValue.state.toDoEntries.last?.id ?? 0) + 1
-//			appState.dispatch(AppAction.dismisEditEntryController)
-//			appState.dispatch(AppAction.addToDoEntry(ToDoEntry(id: newId, completed: completed.on, description: desc, notes: notesTextField.text)))
+			appState.dispatch(AppAction.dismisEditTaskController)
+			appState.dispatch(AppAction.addTask(Task(uuid: UniqueIdentifier(), completed: false, description: desc, notes: notesTextField.text)))
 			return
 		}
 		

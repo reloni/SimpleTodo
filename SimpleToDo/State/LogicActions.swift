@@ -64,7 +64,7 @@ func deleteEntryActionWork(entryId id: Int) -> RxActionWork {
 	}
 }
 
-func addEntryActionWork(task: Task) -> RxActionWork {
+func addTaskActionWork(task: Task) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		return Observable.just(task).flatMapLatest { e -> Observable<[String : Any]> in

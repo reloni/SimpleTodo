@@ -42,6 +42,10 @@ struct UniqueIdentifier: UnboxableByTransform {
 		}
 	}
 	
+	init() {
+		uuid = UUID()
+	}
+	
 	static func transform(unboxedValue: String) -> UniqueIdentifier? {
 		return UniqueIdentifier(identifierString: unboxedValue)
 	}

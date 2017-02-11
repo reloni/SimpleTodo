@@ -43,7 +43,7 @@ enum AppAction : RxActionType {
 		case .reloadTasks: return reloadEntriesActionWork(fromRemote: false)
 		case .loadTasks: return reloadEntriesActionWork(fromRemote: true)
 		case .deleteTask(let id): return deleteEntryActionWork(entryId: id)
-		case .addTask(let task): return addEntryActionWork(task: task)
+		case .addTask(let task): return addTaskActionWork(task: task)
 		case .showEditTaskController(let task): return showEditEntryControllerActionWork(task)
 		case .dismisEditTaskController: return dismisEditEntryControllerActionWork()
 		case .updateTask(let task): return updateEntryActionWork(task)
