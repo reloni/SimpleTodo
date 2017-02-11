@@ -12,10 +12,12 @@ import RxSwift
 import Wrap
 import Unbox
 
-func updateEntryActionWork(_ entry: ToDoEntry) -> RxActionWork {
+fileprivate let baseUrl = "https://simpletaskmanager.net:443/api/v1"
+
+func updateTaskActionWork(_ task: Task) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
-		return Observable.just(entry).flatMapLatest { e -> Observable<[String : Any]> in
+		return Observable.just(task).flatMapLatest { e -> Observable<[String : Any]> in
 			return Observable.just(try wrap(e))
 			}
 			.flatMapLatest { json -> Observable<RxActionResultType> in
@@ -23,49 +25,49 @@ func updateEntryActionWork(_ entry: ToDoEntry) -> RxActionWork {
 				               "Accept":"application/json",
 				               "Content-Type":"application/json; charset=utf-8"]
 				
-				return state.httpClient.requestData(url: URL(string: "http://localhost:5000/api/todoentries/\(entry.id)")!,
+				return state.httpClient.requestData(url: URL(string: "\(baseUrl)/tasks/\(task.uuid)")!,
 				                                    method: .put,
 				                                    jsonBody: json,
 				                                    options: [],
 				                                    httpHeaders: headers)
 					.flatMap { result -> Observable<RxActionResultType> in
-						let updated: ToDoEntry = try unbox(data: result)
+						let updated: Task = try unbox(data: result)
 						return Observable.just(RxDefaultActionResult(updated))
 				}
 		}
 	}
 }
 
-func reloadEntriesActionWork(fromRemote: Bool) -> RxActionWork {
+func reloadTasksActionWork(fromRemote: Bool) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		
-		guard fromRemote else { return Observable.just(RxDefaultActionResult(state.toDoEntries)) }
+		guard fromRemote else { return Observable.just(RxDefaultActionResult(state.tasks)) }
 		
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
-		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/")!, headers: headers)
+		let request = URLRequest(url: URL(string: "\(baseUrl)/tasks/")!, headers: headers)
 		return state.httpClient.requestData(request).flatMap { result -> Observable<RxActionResultType> in
-			let entries: [ToDoEntry] = try unbox(data: result)
+			let entries: [Task] = try unbox(data: result)
 			return Observable.just(RxDefaultActionResult(entries))
 		}
 	}
 }
 
-func deleteEntryActionWork(entryId id: Int) -> RxActionWork {
+func deleteTaskActionWork(entryId id: Int) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
-		let request = URLRequest(url: URL(string: "http://localhost:5000/api/todoentries/\(state.toDoEntries[id].id)")!, method: .delete, headers: headers)
+		let request = URLRequest(url: URL(string: "\(baseUrl)/tasks/\(state.tasks[id].uuid)")!, method: .delete, headers: headers)
 		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxActionResultType> in
 			return Observable.just(RxDefaultActionResult(id))
 		}
 	}
 }
 
-func addEntryActionWork(entry: ToDoEntry) -> RxActionWork {
+func addTaskActionWork(task: Task) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
-		return Observable.just(entry).flatMapLatest { e -> Observable<[String : Any]> in
+		return Observable.just(task).flatMapLatest { e -> Observable<[String : Any]> in
 			return Observable.just(try wrap(e))
 			}
 			.flatMapLatest { json -> Observable<RxActionResultType> in
@@ -73,13 +75,13 @@ func addEntryActionWork(entry: ToDoEntry) -> RxActionWork {
 				               "Accept":"application/json",
 				               "Content-Type":"application/json; charset=utf-8"]
 				
-				return state.httpClient.requestData(url: URL(string: "http://localhost:5000/api/todoentries")!,
+				return state.httpClient.requestData(url: URL(string: "\(baseUrl)/tasks")!,
 				                                    method: .post,
 				                                    jsonBody: json,
 				                                    options: [],
 				                                    httpHeaders: headers)
 					.flatMap { result -> Observable<RxActionResultType> in
-						let newEntry: ToDoEntry = try unbox(data: result)
+						let newEntry: Task = try unbox(data: result)
 						return Observable.just(RxDefaultActionResult(newEntry))
 				}
 		}

@@ -1,5 +1,5 @@
 //
-//  ToDoEntriesController.swift
+//  TasksController.swift
 //  SimpleToDo
 //
 //  Created by Anton Efimenko on 17.12.16.
@@ -16,10 +16,10 @@ import Material
 import RxHttpClient
 import AMScrollingNavbar
 
-final class ToDoEntriesController : UIViewController {
+final class TasksController : UIViewController {
 	let bag = DisposeBag()
 	
-	let dataSource = RxTableViewSectionedAnimatedDataSource<ToDoEntrySection>()
+	let dataSource = RxTableViewSectionedAnimatedDataSource<TaskSection>()
 	
 	let tableView: UITableView = {
 		let table = UITableView()
@@ -65,7 +65,7 @@ final class ToDoEntriesController : UIViewController {
 			cell.layoutEdgeInsets = .zero
 			cell.selectionStyle = .none
 			cell.isExpanded = false
-			cell.taskDescription.text = "Item \(item.id): \(item.description) - \(item.completed)"
+			cell.taskDescription.text = "Item \(item.description) - \(item.completed)"
 			
 			cell.completeTapped = {
 				print("row \(ip.row) complete")
@@ -73,12 +73,12 @@ final class ToDoEntriesController : UIViewController {
 			
 			cell.editTapped = {
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[row]))
+				appState.dispatch(AppAction.showEditTaskController(appState.stateValue.state.tasks[row]))
 			}
 			
 			cell.deleteTapped = {
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				appState.dispatch(AppAction.deleteToDoEntry(row))
+				appState.dispatch(AppAction.deleteTask(row))
 			}
 			return cell
 		}
@@ -93,7 +93,7 @@ final class ToDoEntriesController : UIViewController {
 		
 		bind()
 		
-		appState.dispatch(AppAction.loadToDoEntries)
+		appState.dispatch(AppAction.loadTasks)
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -114,16 +114,16 @@ final class ToDoEntriesController : UIViewController {
 	func bind() {
 		appState.state.filter {
 			switch $0.setBy {
-			case AppAction.addToDoEntry: fallthrough
-			case AppAction.deleteToDoEntry: fallthrough
-			case AppAction.loadToDoEntries: fallthrough
-			case AppAction.updateEntry: fallthrough
-			case AppAction.reloadToDoEntries: return true
+			case AppAction.addTask: fallthrough
+			case AppAction.deleteTask: fallthrough
+			case AppAction.loadTasks: fallthrough
+			case AppAction.updateTask: fallthrough
+			case AppAction.reloadTasks: return true
 			default: return false
 			}
 			}
-			.flatMap { newState ->  Observable<[ToDoEntrySection]> in
-				return Observable.just([ToDoEntrySection(header: "test", items: newState.state.toDoEntries)])
+			.flatMap { newState ->  Observable<[TaskSection]> in
+				return Observable.just([TaskSection(header: "test", items: newState.state.tasks)])
 			}
 			.observeOn(MainScheduler.instance)
 			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
@@ -133,7 +133,7 @@ final class ToDoEntriesController : UIViewController {
 		
 		tableView.refreshControl?.rx.controlEvent(.valueChanged).filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
 			.subscribe(onNext: {
-					appState.dispatch(AppAction.loadToDoEntries)
+					appState.dispatch(AppAction.loadTasks)
 			}).addDisposableTo(bag)
 		
 //		tableView.rx.itemDeleted.subscribe(onNext: { path in
@@ -156,7 +156,7 @@ final class ToDoEntriesController : UIViewController {
 	}
 	
 	func addNewEntry() {
-		appState.dispatch(AppAction.showEditEntryController(nil))
+		appState.dispatch(AppAction.showEditTaskController(nil))
 	}
 	
 	override func updateViewConstraints() {
@@ -178,24 +178,24 @@ final class ToDoEntriesController : UIViewController {
 	}
 }
 
-extension ToDoEntriesController : UITableViewDelegate {
+extension TasksController : UITableViewDelegate {
 	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 		let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
 			tableView.setEditing(false, animated: true)
-			appState.dispatch(AppAction.showEditEntryController(appState.stateValue.state.toDoEntries[index.row]))
+			appState.dispatch(AppAction.showEditTaskController(appState.stateValue.state.tasks[index.row]))
 		}
 		edit.backgroundColor = UIColor.lightGray
 		
 		let custom = UITableViewRowAction(style: .normal, title: "Custom") { action, index in
 			tableView.setEditing(false, animated: true)
-			let entry = appState.stateValue.state.toDoEntries[index.row]
-			let changed = ToDoEntry(id: entry.id, completed: !entry.completed, description: entry.description, notes: entry.notes)
-			appState.dispatch(AppAction.updateEntry(changed))
+			let task = appState.stateValue.state.tasks[index.row]
+			let changed = Task(uuid: task.uuid, completed: !task.completed, description: task.description, notes: task.notes)
+			appState.dispatch(AppAction.updateTask(changed))
 		}
 		custom.backgroundColor = UIColor.orange
 		
 		let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
-			appState.dispatch(AppAction.deleteToDoEntry(index.row))
+			appState.dispatch(AppAction.deleteTask(index.row))
 		}
 		delete.backgroundColor = UIColor.red
 		

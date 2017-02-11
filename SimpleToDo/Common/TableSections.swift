@@ -9,18 +9,18 @@
 import Foundation
 import RxDataSources
 
-struct ToDoEntrySection {
+struct TaskSection {
 	var header: String
 	var items: [Item]
 }
-extension ToDoEntrySection: AnimatableSectionModelType {
-	typealias Item = ToDoEntry
+extension TaskSection: AnimatableSectionModelType {
+	typealias Item = Task
 	
 	var identity: String {
 		return header
 	}
 	
-	init(original: ToDoEntrySection, items: [Item]) {
+	init(original: TaskSection, items: [Item]) {
 		self = original
 		self.items = items
 	}

@@ -19,34 +19,34 @@ struct AppState : RxStateType {
 	let rootController: MainController
 	let logInInfo: LogInInfo?
 	let httpClient: HttpClientType
-	let toDoEntries: [ToDoEntry]
+	let tasks: [Task]
 }
 
 extension AppState {
-	func new(toDoEntries: [ToDoEntry]) -> AppState {
-		return AppState(rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, toDoEntries: toDoEntries)
+	func new(tasks: [Task]) -> AppState {
+		return AppState(rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, tasks: tasks)
 	}
 }
 
 enum AppAction : RxActionType {
-	case reloadToDoEntries([ToDoEntry])
-	case loadToDoEntries
-	case addToDoEntry(ToDoEntry)
-	case showEditEntryController(ToDoEntry?)
-	case dismisEditEntryController
-	case deleteToDoEntry(Int)
+	case reloadTasks([Task])
+	case loadTasks
+	case addTask(Task)
+	case showEditTaskController(Task?)
+	case dismisEditTaskController
+	case deleteTask(Int)
 	case showAllert(in: UIViewController, with: Error)
-	case updateEntry(ToDoEntry)
+	case updateTask(Task)
 	
 	var work: RxActionWork {
 		switch self {
-		case .reloadToDoEntries: return reloadEntriesActionWork(fromRemote: false)
-		case .loadToDoEntries: return reloadEntriesActionWork(fromRemote: true)
-		case .deleteToDoEntry(let id): return deleteEntryActionWork(entryId: id)
-		case .addToDoEntry(let entry): return addEntryActionWork(entry: entry)
-		case .showEditEntryController(let entry): return showEditEntryControllerActionWork(entry)
-		case .dismisEditEntryController: return dismisEditEntryControllerActionWork()
-		case .updateEntry(let entry): return updateEntryActionWork(entry)
+		case .reloadTasks: return reloadTasksActionWork(fromRemote: false)
+		case .loadTasks: return reloadTasksActionWork(fromRemote: true)
+		case .deleteTask(let id): return deleteTaskActionWork(entryId: id)
+		case .addTask(let task): return addTaskActionWork(task: task)
+		case .showEditTaskController(let task): return showEditEntryControllerActionWork(task)
+		case .dismisEditTaskController: return dismisEditEntryControllerActionWork()
+		case .updateTask(let task): return updateTaskActionWork(task)
 		case .showAllert(let controller, let error): return showAlertActionWork(in: controller, with: error)
 		}
 	}
