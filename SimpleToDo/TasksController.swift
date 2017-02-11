@@ -44,6 +44,8 @@ final class TasksController : UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		automaticallyAdjustsScrollViewInsets = false
+		
 		if let navigationController = navigationController as? ScrollingNavigationController {
 			navigationController.followScrollView(tableView, delay: 50.0)
 		}
@@ -210,23 +212,24 @@ extension TasksController : UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
-		UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
-			//tableView.isScrollEnabled = false
-			//tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
-			tableView.beginUpdates()
-			cell.isExpanded = !cell.isExpanded
-			tableView.endUpdates()
-			//tableView.isScrollEnabled = true
-		}.startAnimation()
+		
+		cell.isExpanded = !cell.isExpanded
+		animateCellExpansion(forIndexPath: indexPath)
 	}
 	
 	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell
-			else { return }		
-		UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
-			tableView.beginUpdates()
-			cell.isExpanded = false
-			tableView.endUpdates()
-			}.startAnimation()
+		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
+		
+		cell.isExpanded = false
+		animateCellExpansion(forIndexPath: nil)
+	}
+	
+	func animateCellExpansion(forIndexPath indexPath: IndexPath?) {
+		tableView.beginUpdates()
+		tableView.endUpdates()
+		
+		if let indexPath = indexPath, tableView.numberOfRows(inSection: 0) == indexPath.row + 1 {
+			tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+		}
 	}
 }
