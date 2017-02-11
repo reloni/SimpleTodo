@@ -38,6 +38,10 @@ struct AppReducer : RxReducerType {
 				}
 			}
 			return Observable.just(currentState.new(tasks: newEntries))
-		}
+		case .completeTask:
+			var currentTasks = currentState.tasks
+			currentTasks.remove(at: (actionResult as! RxDefaultActionResult).value)
+			return Observable.just(currentState.new(tasks: currentTasks))
+ 		}
 	}
 }

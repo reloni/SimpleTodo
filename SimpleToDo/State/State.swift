@@ -37,6 +37,7 @@ enum AppAction : RxActionType {
 	case deleteTask(Int)
 	case showAllert(in: UIViewController, with: Error)
 	case updateTask(Task)
+	case completeTask(Int)
 	
 	var work: RxActionWork {
 		switch self {
@@ -48,6 +49,7 @@ enum AppAction : RxActionType {
 		case .dismisEditTaskController: return dismisEditEntryControllerActionWork()
 		case .updateTask(let task): return updateTaskActionWork(task)
 		case .showAllert(let controller, let error): return showAlertActionWork(in: controller, with: error)
+		case .completeTask(let index): return updateTaskCompletionStatusActionWork(taskIndex: index)
 		}
 	}
 }

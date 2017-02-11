@@ -64,6 +64,19 @@ func deleteTaskActionWork(entryId id: Int) -> RxActionWork {
 	}
 }
 
+func updateTaskCompletionStatusActionWork(taskIndex index: Int) -> RxActionWork {
+	return RxActionWork { state -> Observable<RxActionResultType> in
+		let state = state as! AppState
+		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
+		let task = state.tasks[index]
+		let url = URL(baseUrl: "\(baseUrl)/tasks/\(task.uuid)/ChangeCompletionStatus", parameters: ["completed":"\(!task.completed)"])!
+		let request = URLRequest(url: url, method: .post, headers: headers)
+		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxActionResultType> in
+			return Observable.just(RxDefaultActionResult(index))
+		}
+	}
+}
+
 func addTaskActionWork(task: Task) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState

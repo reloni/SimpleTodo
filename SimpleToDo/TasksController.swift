@@ -68,7 +68,8 @@ final class TasksController : UIViewController {
 			cell.taskDescription.text = "Item \(item.description) - \(item.completed)"
 			
 			cell.completeTapped = {
-				print("row \(ip.row) complete")
+				guard let row = tv.indexPath(for: cell)?.row else { return }
+				appState.dispatch(AppAction.completeTask(row))
 			}
 			
 			cell.editTapped = {
@@ -118,6 +119,7 @@ final class TasksController : UIViewController {
 			case AppAction.deleteTask: fallthrough
 			case AppAction.loadTasks: fallthrough
 			case AppAction.updateTask: fallthrough
+			case AppAction.completeTask: fallthrough
 			case AppAction.reloadTasks: return true
 			default: return false
 			}

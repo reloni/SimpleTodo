@@ -108,7 +108,7 @@ final class TaskCell : UITableViewCell {
 	}
 	
 	override func prepareForReuse() {
-		bag = DisposeBag()
+		//bag = DisposeBag()
 	}
 	
 	override func updateConstraints() {
