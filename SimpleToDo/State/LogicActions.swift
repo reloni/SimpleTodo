@@ -14,7 +14,7 @@ import Unbox
 
 fileprivate let baseUrl = "https://simpletaskmanager.net:443/api/v1"
 
-func updateEntryActionWork(_ task: Task) -> RxActionWork {
+func updateTaskActionWork(_ task: Task) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		return Observable.just(task).flatMapLatest { e -> Observable<[String : Any]> in
@@ -38,7 +38,7 @@ func updateEntryActionWork(_ task: Task) -> RxActionWork {
 	}
 }
 
-func reloadEntriesActionWork(fromRemote: Bool) -> RxActionWork {
+func reloadTasksActionWork(fromRemote: Bool) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		
@@ -53,7 +53,7 @@ func reloadEntriesActionWork(fromRemote: Bool) -> RxActionWork {
 	}
 }
 
-func deleteEntryActionWork(entryId id: Int) -> RxActionWork {
+func deleteTaskActionWork(entryId id: Int) -> RxActionWork {
 	return RxActionWork { state -> Observable<RxActionResultType> in
 		let state = state as! AppState
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
