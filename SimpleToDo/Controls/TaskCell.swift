@@ -16,10 +16,12 @@ import RxSwift
 final class TaskCell : UITableViewCell {
 	static let expandHeight: CGFloat = 35
 	
-	var bag = DisposeBag()
+	let bag = DisposeBag()
 	
 	let taskDescription: UILabel = {
 		let text = UILabel()
+		text.lineBreakMode = .byWordWrapping
+		text.numberOfLines = 0
 		text.font = Theme.Fonts.Main
 		return text
 	}()
@@ -105,10 +107,6 @@ final class TaskCell : UITableViewCell {
 			self?.deleteTapped?()
 		}).addDisposableTo(bag)
 		updateConstraints()
-	}
-	
-	override func prepareForReuse() {
-		//bag = DisposeBag()
 	}
 	
 	override func updateConstraints() {
