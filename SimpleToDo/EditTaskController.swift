@@ -14,24 +14,26 @@ import Material
 final class EditTaskController : UIViewController {
 	let task: Task?
 	
-	lazy var completed: Switch = {
-		let sw = Switch()
-		sw.bounceable = true
-		sw.on = self.task?.completed ?? false
-		return sw
-	}()
-	
 	let descriptionTextField: TextField  = {
 		let text = TextField()
+		text.font = Theme.Fonts.Main
 		text.placeholder = "Description"
 		return text
 	}()
 	
+	let notesLabel: UILabel = {
+		let lbl = UILabel()
+		lbl.text = "Notes"
+		lbl.font = Theme.Fonts.Main
+		return lbl
+	}()
+	
 	let notesTextField: UITextView = {
 		let text = UITextView()
-		text.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-		text.borderColor = UIColor.lightGray
-		text.borderWidth = 1
+		text.font = Theme.Fonts.Main
+		text.borderColor = Theme.Colors.lightGray
+		text.borderWidth = 0.5
+		text.textContainerInset = UIEdgeInsets(top: 5, left: 10, bottom: 10, right: 10)
 		return text
 	}()
 	
@@ -55,8 +57,8 @@ final class EditTaskController : UIViewController {
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
-		view.addSubview(completed)
 		view.addSubview(descriptionTextField)
+		view.addSubview(notesLabel)
 		view.addSubview(notesTextField)
 		self.view.backgroundColor = UIColor.white
 		
@@ -74,7 +76,7 @@ final class EditTaskController : UIViewController {
 			return
 		}
 		
-		let newTask = Task(uuid: task.uuid, completed: completed.on, description: desc, notes: notesTextField.text)
+		let newTask = Task(uuid: task.uuid, completed: false, description: desc, notes: notesTextField.text)
 		appState.dispatch(AppAction.dismisEditTaskController)
 		appState.dispatch(AppAction.updateTask(newTask))
 	}
@@ -82,22 +84,23 @@ final class EditTaskController : UIViewController {
 	override func updateViewConstraints() {
 		super.updateViewConstraints()
 		
-		completed.snp.remakeConstraints { make in
-			make.top.equalTo(view.snp.top).offset(20)
+		descriptionTextField.snp.remakeConstraints { make in
+			make.top.equalTo(view.snp.topMargin).offset(25)
 			make.leading.equalTo(view.snp.leading).offset(10)
+			make.trailing.equalTo(view.snp.trailing).offset(-10)
 		}
 		
-		descriptionTextField.snp.remakeConstraints { make in
-			make.top.equalTo(completed.snp.bottom).offset(20)
+		notesLabel.snp.remakeConstraints { make in
+			make.top.equalTo(descriptionTextField.snp.bottom).offset(10)
 			make.leading.equalTo(view.snp.leading).offset(10)
 			make.trailing.equalTo(view.snp.trailing).offset(-10)
 		}
 		
 		notesTextField.snp.remakeConstraints { make in
-			make.top.equalTo(descriptionTextField.snp.bottom).offset(20)
-			make.leading.equalTo(view.snp.leading).offset(10)
-			make.trailing.equalTo(view.snp.trailing).offset(-10)
-			make.bottom.equalTo(view.snp.bottom).offset(-10)
+			make.top.equalTo(notesLabel.snp.bottom).offset(10)
+			make.leading.equalTo(view.snp.leading).offset(0)
+			make.trailing.equalTo(view.snp.trailing).offset(0)
+			make.bottom.equalTo(view.snp.bottomMargin).offset(0)
 		}
 	}
 }
