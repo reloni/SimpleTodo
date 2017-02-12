@@ -34,13 +34,6 @@ final class TasksController : UIViewController {
 		return table
 	}()
 	
-	let addButton: Button = {
-		let button = Button()
-		button.backgroundColor = UIColor.cyan
-		button.title = "Add item"
-		return button
-	}()
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -59,7 +52,6 @@ final class TasksController : UIViewController {
 		tableView.refreshControl = UIRefreshControl()
 		
 		view.addSubview(tableView)
-		view.addSubview(addButton)
 		
 		dataSource.configureCell = { ds, tv, ip, item in
 			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
@@ -167,17 +159,10 @@ final class TasksController : UIViewController {
 		super.updateViewConstraints()
 		
 		tableView.snp.remakeConstraints { make in
-			make.top.equalTo(view.snp.top).offset(0)
+			make.top.equalTo(view.snp.topMargin).offset(0)
 			make.leading.equalTo(view.snp.leading)
 			make.trailing.equalTo(view.snp.trailing)
-			make.bottom.equalTo(view.snp.bottom).offset(-40)
-		}
-		
-		addButton.snp.remakeConstraints { make in
-			make.top.equalTo(tableView.snp.bottom).offset(10)
-			make.leading.equalTo(view.snp.leading).offset(20)
-			make.trailing.equalTo(view.snp.trailing).offset(-20)
-			make.bottom.equalTo(view.snp.bottom).offset(-10)
+			make.bottom.equalTo(view.snp.bottomMargin).offset(-10)
 		}
 	}
 }
