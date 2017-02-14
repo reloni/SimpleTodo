@@ -18,8 +18,8 @@ default_platform :ios
 platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    
-    carthage
+
+    #carthage
   end
 
   desc "Runs all the tests"
@@ -31,8 +31,8 @@ platform :ios do
   desc "This will also make sure the profile is up to date"
   lane :beta do
     # match(type: "appstore") # more information: https://codesigning.guide
-    gym # Build your app - more options available
-    pilot
+    gym(scheme: "SimpleToDo") # Build your app - more options available
+    pilot(skip_waiting_for_build_processing: true)
 
     # sh "your_script.sh"
     # You can also use other beta testing services here (run `fastlane actions`)
