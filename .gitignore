@@ -52,6 +52,7 @@ playground.xcworkspace
 
 Carthage/Checkouts
 Carthage/Build
+Carthage/Firebase
 #Carthage/Build/Mac
 #Carthage/Build/tvOS
 #Carthage/Build/watchOS
