@@ -14,10 +14,13 @@ import Material
 final class EditTaskController : UIViewController {
 	let task: Task?
 	
-	let descriptionTextField: TextField  = {
-		let text = TextField()
+	let descriptionTextField: UITextView  = {
+		let text = UITextView()
 		text.font = Theme.Fonts.Main
-		text.placeholder = "Description"
+		text.borderColor = Theme.Colors.lightGray
+		text.borderWidth = 0.5
+		text.isScrollEnabled = false
+		text.textContainerInset = UIEdgeInsets(top: 5, left: 10, bottom: 10, right: 10)
 		return text
 	}()
 	
@@ -33,6 +36,7 @@ final class EditTaskController : UIViewController {
 		text.font = Theme.Fonts.Main
 		text.borderColor = Theme.Colors.lightGray
 		text.borderWidth = 0.5
+		text.isScrollEnabled = false
 		text.textContainerInset = UIEdgeInsets(top: 5, left: 10, bottom: 10, right: 10)
 		return text
 	}()
@@ -85,9 +89,9 @@ final class EditTaskController : UIViewController {
 		super.updateViewConstraints()
 		
 		descriptionTextField.snp.remakeConstraints { make in
-			make.top.equalTo(view.snp.topMargin).offset(25)
-			make.leading.equalTo(view.snp.leading).offset(10)
-			make.trailing.equalTo(view.snp.trailing).offset(-10)
+			make.top.equalTo(view.snp.topMargin).offset(0)
+			make.leading.equalTo(view.snp.leading).offset(0)
+			make.trailing.equalTo(view.snp.trailing).offset(0)
 		}
 		
 		notesLabel.snp.remakeConstraints { make in
@@ -100,7 +104,6 @@ final class EditTaskController : UIViewController {
 			make.top.equalTo(notesLabel.snp.bottom).offset(10)
 			make.leading.equalTo(view.snp.leading).offset(0)
 			make.trailing.equalTo(view.snp.trailing).offset(0)
-			make.bottom.equalTo(view.snp.bottomMargin).offset(0)
 		}
 	}
 }
