@@ -14,8 +14,9 @@ import Material
 final class EditTaskController : UIViewController {
 	let task: Task?
 	
-	let descriptionTextField: UITextView  = {
-		let text = UITextView()
+	let descriptionTextField: UITextViewWithPlaceholder  = {
+		let text = UITextViewWithPlaceholder()
+		text.placeholder = "Task description"
 		text.font = Theme.Fonts.Main
 		text.borderColor = Theme.Colors.lightGray
 		text.borderWidth = 0.5
@@ -24,15 +25,9 @@ final class EditTaskController : UIViewController {
 		return text
 	}()
 	
-	let notesLabel: UILabel = {
-		let lbl = UILabel()
-		lbl.text = "Notes"
-		lbl.font = Theme.Fonts.Main
-		return lbl
-	}()
-	
-	let notesTextField: UITextView = {
-		let text = UITextView()
+	let notesTextField: UITextViewWithPlaceholder = {
+		let text = UITextViewWithPlaceholder()
+		text.placeholder = "Task notes"
 		text.font = Theme.Fonts.Main
 		text.borderColor = Theme.Colors.lightGray
 		text.borderWidth = 0.5
@@ -62,9 +57,8 @@ final class EditTaskController : UIViewController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
 		view.addSubview(descriptionTextField)
-		view.addSubview(notesLabel)
 		view.addSubview(notesTextField)
-		self.view.backgroundColor = UIColor.white
+		self.view.backgroundColor = Theme.Colors.backgroundLightGray
 		
 		descriptionTextField.text = task?.description
 		notesTextField.text = task?.notes
@@ -94,14 +88,8 @@ final class EditTaskController : UIViewController {
 			make.trailing.equalTo(view.snp.trailing).offset(0)
 		}
 		
-		notesLabel.snp.remakeConstraints { make in
-			make.top.equalTo(descriptionTextField.snp.bottom).offset(10)
-			make.leading.equalTo(view.snp.leading).offset(10)
-			make.trailing.equalTo(view.snp.trailing).offset(-10)
-		}
-		
 		notesTextField.snp.remakeConstraints { make in
-			make.top.equalTo(notesLabel.snp.bottom).offset(10)
+			make.top.equalTo(descriptionTextField.snp.bottom).offset(10)
 			make.leading.equalTo(view.snp.leading).offset(0)
 			make.trailing.equalTo(view.snp.trailing).offset(0)
 		}

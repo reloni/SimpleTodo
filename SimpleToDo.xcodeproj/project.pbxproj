@@ -23,6 +23,7 @@
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
 		6E6422DC1E18255400FAFFFB /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422DB1E18255400FAFFFB /* EditTaskController.swift */; };
+		6E651B911E5612FA00A37DB2 /* UITextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B901E5612FA00A37DB2 /* UITextViewWithPlaceholder.swift */; };
 		6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8845CB1E24056000EA3C2A /* TaskActionView.swift */; };
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
 		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
@@ -78,6 +79,7 @@
 		6E57521C1E05B24A002AA9B4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
 		6E6422DB1E18255400FAFFFB /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EditTaskController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		6E651B901E5612FA00A37DB2 /* UITextViewWithPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder.swift; sourceTree = "<group>"; };
 		6E8845CB1E24056000EA3C2A /* TaskActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskActionView.swift; sourceTree = "<group>"; };
 		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = State.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			children = (
 				6EB36A791E1ED9CA006B5239 /* TaskCell.swift */,
 				6E8845CB1E24056000EA3C2A /* TaskActionView.swift */,
+				6E651B901E5612FA00A37DB2 /* UITextViewWithPlaceholder.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E651B911E5612FA00A37DB2 /* UITextViewWithPlaceholder.swift in Sources */,
 				6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */,
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
 				6E5752121E05ABBC002AA9B4 /* TasksController.swift in Sources */,
