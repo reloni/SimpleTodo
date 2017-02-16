@@ -16,21 +16,21 @@
 		6E2E11DB1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */; };
 		6E4714D41E1ABD4300A1688C /* LogicActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4714D31E1ABD4300A1688C /* LogicActions.swift */; };
 		6E4714D61E1ABDFC00A1688C /* UIActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4714D51E1ABDFC00A1688C /* UIActions.swift */; };
-		6E5752121E05ABBC002AA9B4 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752111E05ABBC002AA9B4 /* TasksController.swift */; };
 		6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752151E05AD06002AA9B4 /* Entities.swift */; };
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
-		6E6422DC1E18255400FAFFFB /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422DB1E18255400FAFFFB /* EditTaskController.swift */; };
 		6E651B911E5612FA00A37DB2 /* UITextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B901E5612FA00A37DB2 /* UITextViewWithPlaceholder.swift */; };
+		6E651B951E562A0600A37DB2 /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B921E562A0600A37DB2 /* EditTaskController.swift */; };
+		6E651B961E562A0600A37DB2 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B931E562A0600A37DB2 /* TasksController.swift */; };
+		6E651B971E562A0600A37DB2 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B941E562A0600A37DB2 /* MainController.swift */; };
 		6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8845CB1E24056000EA3C2A /* TaskActionView.swift */; };
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
 		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
 		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
 		6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB36A791E1ED9CA006B5239 /* TaskCell.swift */; };
 		6EBBD8B21E07153400C283D5 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBBD8B11E07153400C283D5 /* AppReducer.swift */; };
-		6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE247D41DF211DE001A6F39 /* MainController.swift */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
 		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
@@ -72,21 +72,21 @@
 		6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
 		6E4714D31E1ABD4300A1688C /* LogicActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LogicActions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6E4714D51E1ABDFC00A1688C /* UIActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = UIActions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		6E5752111E05ABBC002AA9B4 /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TasksController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6E5752151E05AD06002AA9B4 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		6E5752191E05AFC4002AA9B4 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
 		6E57521C1E05B24A002AA9B4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
-		6E6422DB1E18255400FAFFFB /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EditTaskController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6E651B901E5612FA00A37DB2 /* UITextViewWithPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder.swift; sourceTree = "<group>"; };
+		6E651B921E562A0600A37DB2 /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskController.swift; sourceTree = "<group>"; };
+		6E651B931E562A0600A37DB2 /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
+		6E651B941E562A0600A37DB2 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		6E8845CB1E24056000EA3C2A /* TaskActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskActionView.swift; sourceTree = "<group>"; };
 		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = State.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
 		6EB36A791E1ED9CA006B5239 /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		6EBBD8B11E07153400C283D5 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
-		6EE247D41DF211DE001A6F39 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainController.swift; path = Controllers/MainController.swift; sourceTree = "<group>"; };
 		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
 		6EE247D81DF21291001A6F39 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		6EE247D91DF21291001A6F39 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
@@ -244,11 +244,11 @@
 		6EE247D31DF211CF001A6F39 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6EE247D41DF211DE001A6F39 /* MainController.swift */,
-				6E5752111E05ABBC002AA9B4 /* TasksController.swift */,
-				6E6422DB1E18255400FAFFFB /* EditTaskController.swift */,
+				6E651B921E562A0600A37DB2 /* EditTaskController.swift */,
+				6E651B931E562A0600A37DB2 /* TasksController.swift */,
+				6E651B941E562A0600A37DB2 /* MainController.swift */,
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,17 +419,17 @@
 				6E651B911E5612FA00A37DB2 /* UITextViewWithPlaceholder.swift in Sources */,
 				6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */,
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
-				6E5752121E05ABBC002AA9B4 /* TasksController.swift in Sources */,
-				6EE247D51DF211DE001A6F39 /* MainController.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
+				6E651B971E562A0600A37DB2 /* MainController.swift in Sources */,
+				6E651B951E562A0600A37DB2 /* EditTaskController.swift in Sources */,
 				6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
 				6EBBD8B21E07153400C283D5 /* AppReducer.swift in Sources */,
 				6E4714D41E1ABD4300A1688C /* LogicActions.swift in Sources */,
-				6E6422DC1E18255400FAFFFB /* EditTaskController.swift in Sources */,
 				6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */,
 				6EA7B4211E06A3940043BAA1 /* State.swift in Sources */,
 				6E4714D61E1ABDFC00A1688C /* UIActions.swift in Sources */,
+				6E651B961E562A0600A37DB2 /* TasksController.swift in Sources */,
 				6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
