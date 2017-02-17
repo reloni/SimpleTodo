@@ -76,10 +76,26 @@ final class EditTaskController : UIViewController {
 		containerView.addSubview(descriptionTextField)
 		containerView.addSubview(notesTextField)
 		
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+		
 		descriptionTextField.text = task?.description
 		notesTextField.text = task?.notes
 		
 		updateViewConstraints()
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+	}
+	
+	func keyboardWillShow(_ notification: Notification) {
+		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: notification.keyboardHeight() + 25, right: 0)
+	}
+	
+	func keyboardWillHide(_ notification: Notification) {
+		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 	}
 	
 	func done() {
