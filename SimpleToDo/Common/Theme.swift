@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Material
 
 final class Theme {
 	final class Images {
@@ -19,15 +18,17 @@ final class Theme {
 	}
 	
 	final class Fonts {
-		static let BaseNormal = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-		static let BaseBold = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
-		static let BaseItalic = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)
-		static let Main = Fonts.BaseNormal.new(sizeModifier: 4)
-		static let Accesory = Fonts.BaseItalic.new(sizeModifier: 1)
+		static let baseNormal = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+		static let baseBold = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+		static let baseItalic = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)
+		static let main = Fonts.baseNormal.new(sizeModifier: 4)
+		static let textFieldTitle = Fonts.baseNormal.new(sizeModifier: 2)
+		static let accesory = Fonts.baseItalic.new(sizeModifier: 1)
 	}
 	
 	final class Colors {
 		static let backgroundLightGray = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+		static let appleBlue = UIColor(red: 14/255, green: 122/255, blue: 254/255, alpha: 1)
 		static let lightGray = UIColor.lightGray
 	}
 }

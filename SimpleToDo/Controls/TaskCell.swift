@@ -8,7 +8,6 @@
 
 import Foundation
 import SnapKit
-import Material
 import UIKit
 import RxGesture
 import RxSwift
@@ -22,7 +21,7 @@ final class TaskCell : UITableViewCell {
 		let text = UILabel()
 		text.lineBreakMode = .byWordWrapping
 		text.numberOfLines = 0
-		text.font = Theme.Fonts.Main
+		text.font = Theme.Fonts.main
 		return text
 	}()
 	

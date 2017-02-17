@@ -1,7 +1,7 @@
 github "ReactiveX/RxSwift" == 3.1.0
 github "AliSoftware/OHHTTPStubs" "57fecea"
 github "SnapKit/SnapKit" == 3.1.1
-github "CosmicMind/Material" == 2.3.21
+github "CosmicMind/Material" == 2.4.16
 github "RxSwiftCommunity/RxHttpClient" == 0.8.2
 github "Reloni/RxState" == 0.4.1
 github "RxSwiftCommunity/RxDataSources" == 1.0.1

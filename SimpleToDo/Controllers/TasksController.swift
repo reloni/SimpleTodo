@@ -12,7 +12,6 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import Unbox
-import Material
 import RxHttpClient
 import AMScrollingNavbar
 

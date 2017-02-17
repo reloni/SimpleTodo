@@ -1,5 +1,5 @@
 github "andreamazz/AMScrollingNavbar" "3.2.0"
-github "CosmicMind/Material" "2.3.21"
+github "CosmicMind/Material" "2.4.16"
 github "AliSoftware/OHHTTPStubs" "57feceaabf333e72b2c637dfba6c13a7a5c49619"
 github "RxSwiftCommunity/RxHttpClient" "0.8.2"
 github "Reloni/RxState" "0.4.1"

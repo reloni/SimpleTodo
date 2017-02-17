@@ -27,25 +27,53 @@ final class EditTaskController : UIViewController {
 		return view
 	}()
 	
-	let descriptionTextField: UITextViewWithPlaceholder  = {
-		let text = UITextViewWithPlaceholder()
-		text.placeholder = "Task description"
-		text.font = Theme.Fonts.Main
+	let descriptionTextField: TextView  = {
+		let text = TextView()
+		
+		text.titleLabel = UILabel()
+		text.titleLabel?.font = Theme.Fonts.textFieldTitle
+		text.titleLabelColor = Theme.Colors.appleBlue
+		text.titleLabelActiveColor = Theme.Colors.appleBlue
+		text.titleLabel?.text = "Task description"
+		text.titleLabelAnimationDistance = 1
+		
+		text.placeholderLabel = UILabel()
+		text.placeholderLabel?.font = Theme.Fonts.main
+		text.placeholderLabel?.textColor = Theme.Colors.lightGray
+		text.placeholderLabel?.text = "Task description"
+		
+		text.font = Theme.Fonts.main
 		text.borderColor = Theme.Colors.lightGray
 		text.borderWidth = 0.5
 		text.isScrollEnabled = false
-		text.textContainerInset = UIEdgeInsets(top: 5, left: 10, bottom: 10, right: 10)
+		
+		text.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 15)
+		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		return text
 	}()
 	
-	let notesTextField: UITextViewWithPlaceholder = {
-		let text = UITextViewWithPlaceholder()
-		text.placeholder = "Task notes"
-		text.font = Theme.Fonts.Main
+	let notesTextField: TextView = {
+		let text = TextView()
+		
+		text.titleLabel = UILabel()
+		text.titleLabel?.font = Theme.Fonts.textFieldTitle
+		text.titleLabelColor = Theme.Colors.appleBlue
+		text.titleLabelActiveColor = Theme.Colors.appleBlue
+		text.titleLabel?.text = "Task notes"
+		text.titleLabelAnimationDistance = 1
+		
+		text.placeholderLabel = UILabel()
+		text.placeholderLabel?.font = Theme.Fonts.main
+		text.placeholderLabel?.textColor = Theme.Colors.lightGray
+		text.placeholderLabel?.text = "Task notes"
+		
+		text.font = Theme.Fonts.main
 		text.borderColor = Theme.Colors.lightGray
 		text.borderWidth = 0.5
 		text.isScrollEnabled = false
-		text.textContainerInset = UIEdgeInsets(top: 5, left: 10, bottom: 10, right: 10)
+		
+		text.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 15)
+		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		return text
 	}()
 	
@@ -69,6 +97,7 @@ final class EditTaskController : UIViewController {
 		
 		view.backgroundColor = Theme.Colors.backgroundLightGray
 		
+		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
 		let recognizer = UITapGestureRecognizer(target: self, action: #selector(controllerTap))
@@ -82,10 +111,14 @@ final class EditTaskController : UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 		
+		updateViewConstraints()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
 		descriptionTextField.text = task?.description
 		notesTextField.text = task?.notes
-		
-		updateViewConstraints()
 	}
 	
 	deinit {
@@ -95,7 +128,7 @@ final class EditTaskController : UIViewController {
 	
 	func controllerTap() {
 		containerView.subviews.forEach {
-			if let textField = $0 as? UITextViewWithPlaceholder, textField.isFirstResponder {
+			if let textField = $0 as? TextView, textField.isFirstResponder {
 				textField.resignFirstResponder()
 				return
 			}
@@ -136,12 +169,12 @@ final class EditTaskController : UIViewController {
 		}
 		
 		descriptionTextField.snp.remakeConstraints { make in
-			make.top.equalTo(containerView.snp.top)
+			make.top.equalTo(containerView.snp.top).offset(25)
 			make.leading.equalTo(containerView)
 			make.trailing.equalTo(containerView)
 		}
 		notesTextField.snp.remakeConstraints { make in
-			make.top.equalTo(descriptionTextField.snp.bottom).offset(10)
+			make.top.equalTo(descriptionTextField.snp.bottom).offset(25)
 			make.leading.equalTo(containerView)
 			make.trailing.equalTo(containerView)
 			make.bottom.equalTo(containerView).inset(10)
