@@ -14,6 +14,19 @@ import Material
 final class EditTaskController : UIViewController {
 	let task: Task?
 	
+	let scrollView: UIScrollView = {
+		let scroll = UIScrollView()
+		scroll.bounces = true
+		scroll.isUserInteractionEnabled = true
+		return scroll
+	}()
+	
+	let containerView: UIView = {
+		let view = UIView()
+		view.backgroundColor = Theme.Colors.backgroundLightGray
+		return view
+	}()
+	
 	let descriptionTextField: UITextViewWithPlaceholder  = {
 		let text = UITextViewWithPlaceholder()
 		text.placeholder = "Task description"
@@ -54,11 +67,14 @@ final class EditTaskController : UIViewController {
 			title = "New task"
 		}
 		
+		view.backgroundColor = Theme.Colors.backgroundLightGray
+		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
-		view.addSubview(descriptionTextField)
-		view.addSubview(notesTextField)
-		self.view.backgroundColor = Theme.Colors.backgroundLightGray
+		view.addSubview(scrollView)
+		scrollView.addSubview(containerView)
+		containerView.addSubview(descriptionTextField)
+		containerView.addSubview(notesTextField)
 		
 		descriptionTextField.text = task?.description
 		notesTextField.text = task?.notes
@@ -82,16 +98,25 @@ final class EditTaskController : UIViewController {
 	override func updateViewConstraints() {
 		super.updateViewConstraints()
 		
-		descriptionTextField.snp.remakeConstraints { make in
-			make.top.equalTo(view.snp.topMargin).offset(0)
-			make.leading.equalTo(view.snp.leading).offset(0)
-			make.trailing.equalTo(view.snp.trailing).offset(0)
+		scrollView.snp.remakeConstraints { make in
+			 make.edges.equalTo(view).inset(UIEdgeInsets.zero)
 		}
 		
+		containerView.snp.remakeConstraints { make in
+			make.edges.equalTo(scrollView).inset(UIEdgeInsets.zero)
+			make.width.equalTo(scrollView)
+		}
+		
+		descriptionTextField.snp.remakeConstraints { make in
+			make.top.equalTo(containerView.snp.top)
+			make.leading.equalTo(containerView)
+			make.trailing.equalTo(containerView)
+		}
 		notesTextField.snp.remakeConstraints { make in
 			make.top.equalTo(descriptionTextField.snp.bottom).offset(10)
-			make.leading.equalTo(view.snp.leading).offset(0)
-			make.trailing.equalTo(view.snp.trailing).offset(0)
+			make.leading.equalTo(containerView)
+			make.trailing.equalTo(containerView)
+			make.bottom.equalTo(containerView).inset(10)
 		}
 	}
 }
