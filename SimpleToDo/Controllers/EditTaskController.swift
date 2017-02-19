@@ -17,6 +17,7 @@ final class EditTaskController : UIViewController {
 	let scrollView: UIScrollView = {
 		let scroll = UIScrollView()
 		scroll.bounces = true
+		scroll.alwaysBounceVertical = true
 		scroll.isUserInteractionEnabled = true
 		return scroll
 	}()
