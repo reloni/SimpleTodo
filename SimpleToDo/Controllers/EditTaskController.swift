@@ -146,14 +146,14 @@ final class EditTaskController : UIViewController {
 	func done() {
 		guard let desc = descriptionTextField.text, desc.characters.count > 0 else { return }
 		guard let task = task else {
-			appState.dispatch(AppAction.dismisEditTaskController)
-			appState.dispatch(AppAction.addTask(Task(uuid: UniqueIdentifier(), completed: false, description: desc, notes: notesTextField.text)))
+			applicationStore.dispatch(AppAction.dismisEditTaskController)
+			applicationStore.dispatch(AppAction.addTask(Task(uuid: UniqueIdentifier(), completed: false, description: desc, notes: notesTextField.text)))
 			return
 		}
 		
 		let newTask = Task(uuid: task.uuid, completed: false, description: desc, notes: notesTextField.text)
-		appState.dispatch(AppAction.dismisEditTaskController)
-		appState.dispatch(AppAction.updateTask(newTask))
+		applicationStore.dispatch(AppAction.dismisEditTaskController)
+		applicationStore.dispatch(AppAction.updateTask(newTask))
 	}
 	
 	override func updateViewConstraints() {

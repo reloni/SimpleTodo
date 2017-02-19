@@ -20,6 +20,7 @@
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
+		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
 		6E651B951E562A0600A37DB2 /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B921E562A0600A37DB2 /* EditTaskController.swift */; };
 		6E651B961E562A0600A37DB2 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B931E562A0600A37DB2 /* TasksController.swift */; };
@@ -75,6 +76,7 @@
 		6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		6E5752191E05AFC4002AA9B4 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
 		6E57521C1E05B24A002AA9B4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
 		6E651B921E562A0600A37DB2 /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskController.swift; sourceTree = "<group>"; };
 		6E651B931E562A0600A37DB2 /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		6E15D01A1DF0A45A00B4CCA7 /* SimpleToDo */ = {
 			isa = PBXGroup;
 			children = (
+				6E5FD9B41E59F9D2002C71F2 /* ViewModels */,
 				6EA7B41F1E06A36D0043BAA1 /* State */,
 				6E5752171E05ADBD002AA9B4 /* Controls */,
 				6E5752141E05ACD9002AA9B4 /* Common */,
@@ -225,6 +228,14 @@
 				6E8845CB1E24056000EA3C2A /* TaskActionView.swift */,
 			);
 			path = Controls;
+			sourceTree = "<group>";
+		};
+		6E5FD9B41E59F9D2002C71F2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		6EA7B41F1E06A36D0043BAA1 /* State */ = {
@@ -417,6 +428,7 @@
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6E651B971E562A0600A37DB2 /* MainController.swift in Sources */,
+				6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */,
 				6E651B951E562A0600A37DB2 /* EditTaskController.swift in Sources */,
 				6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
