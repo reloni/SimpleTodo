@@ -10,6 +10,7 @@ import UIKit
 import RxHttpClient
 import RxState
 import RxSwift
+import GoogleSignIn
 
 //let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
 let applicationStore = RxStore(reducer: AppReducer(),
@@ -25,14 +26,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-		FIRApp.configure()
+		//FIRApp.configure()
+		
+		GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+		GIDSignIn.sharedInstance().delegate = self
 		
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
-		applicationStore.stateValue.state.rootController.viewControllers.append(TasksController())
+		//applicationStore.stateValue.state.rootController.viewControllers.append(TasksController())
+		applicationStore.stateValue.state.rootController.viewControllers.append(SignInController())
 		window?.rootViewController = applicationStore.stateValue.state.rootController
 		window?.makeKeyAndVisible()
 		return true
+	}
+	
+	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+		return GIDSignIn.sharedInstance().handle(url,
+		                                         sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+		                                         annotation: [:])
 	}
 
 	func applicationWillResignActive(_ application: UIApplication) {
@@ -56,7 +67,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
+}
 
-
+extension AppDelegate : GIDSignInDelegate {
+	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+		print("didSignInFor")
+  // ...
+  if let error = error {
+		// ...
+		return
+  }
+		
+  guard let authentication = user.authentication else { return }
+  let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                    accessToken: authentication.accessToken)
+	
+  FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+		print("fir auth")
+		
+		if let error = error {
+			// ...
+			return
+		}
+		}
+	}
+	
+	func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!, withError error: NSError!) {
+		print("didDisconnectWithUser")
+		// Perform any operations when the user disconnects from app here.
+		// ...
+	}
 }
 

@@ -1,0 +1,2 @@
+curl -O https://dl.google.com/firebase/sdk/ios/3_13_0/Firebase-3.13.0.zip && unzip Firebase-3.13.0.zip -d Carthage && rm -rf Firebase-3.13.0.zip || return 1
+curl -O https://developers.google.com/identity/sign-in/ios/sdk/google_signin_sdk_4_0_1.zip && unzip google_signin_sdk_4_0_1.zip -d Carthage && rm -rf google_signin_sdk_4_0_1.zip && mv ./Carthage/google_signin_sdk_4_0_1 ./Carthage/googlesignin || return 1
