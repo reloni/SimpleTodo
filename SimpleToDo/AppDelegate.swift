@@ -12,7 +12,7 @@ import RxState
 import RxSwift
 
 //let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
-let appState = RxStore(reducer: AppReducer(),
+let applicationStore = RxStore(reducer: AppReducer(),
                        initialState: AppState(rootController: MainController(),
                                               logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
                                               httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
@@ -29,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
-		appState.stateValue.state.rootController.viewControllers.append(TasksController())
-		window?.rootViewController = appState.stateValue.state.rootController
+		applicationStore.stateValue.state.rootController.viewControllers.append(TasksController())
+		window?.rootViewController = applicationStore.stateValue.state.rootController
 		window?.makeKeyAndVisible()
 		return true
 	}

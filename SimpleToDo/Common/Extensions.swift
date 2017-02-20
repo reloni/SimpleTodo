@@ -11,9 +11,10 @@ import RxHttpClient
 import Unbox
 import UIKit
 
-func configure<T>(_ obj: T, config: (T) -> Void) -> T {
-	config(obj)
-	return obj
+extension Notification {
+	func keyboardHeight() -> CGFloat {
+		return (userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
+	}
 }
 
 extension FileManager {
