@@ -20,20 +20,19 @@
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
+		6E5872121E5BEDE70003D9D2 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5872111E5BEDE70003D9D2 /* AddressBook.framework */; };
+		6E5872141E5BEDF40003D9D2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5872131E5BEDF40003D9D2 /* libz.tbd */; };
+		6E5872171E5BF4140003D9D2 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3F21E540DA100BA8283 /* GTMSessionFetcher.framework */; };
+		6E5872181E5BF4B80003D9D2 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EC1E540D9100BA8283 /* GoogleToolboxForMac.framework */; };
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
 		6E651B951E562A0600A37DB2 /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B921E562A0600A37DB2 /* EditTaskController.swift */; };
 		6E651B961E562A0600A37DB2 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B931E562A0600A37DB2 /* TasksController.swift */; };
 		6E651B971E562A0600A37DB2 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B941E562A0600A37DB2 /* MainController.swift */; };
 		6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8845CB1E24056000EA3C2A /* TaskActionView.swift */; };
-		6E9026DF1E5AA46300851B4D /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E9026DE1E5AA46300851B4D /* GoogleSignIn.bundle */; };
-		6E9026E11E5AA47F00851B4D /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E01E5AA47F00851B4D /* GoogleSignIn.framework */; };
 		6E9026E31E5AA55700851B4D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E21E5AA55700851B4D /* SafariServices.framework */; };
 		6E9026E51E5AA56400851B4D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E41E5AA56400851B4D /* SystemConfiguration.framework */; };
-		6E9026EB1E5AA57E00851B4D /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E81E5AA57E00851B4D /* GoogleSymbolUtilities.framework */; };
-		6E9026ED1E5AA63800851B4D /* GoogleAppUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E71E5AA57E00851B4D /* GoogleAppUtilities.framework */; };
 		6E9026EE1E5AA66F00851B4D /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3F11E540DA100BA8283 /* FirebaseAuth.framework */; };
-		6E9026EF1E5AA78F00851B4D /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E61E5AA57E00851B4D /* GoogleSignInDependencies.framework */; };
 		6E9026F11E5AA7FF00851B4D /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9026F01E5AA7FF00851B4D /* SignInController.swift */; };
 		6E9AA3ED1E540D9100BA8283 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3E91E540D9100BA8283 /* FirebaseAnalytics.framework */; };
 		6E9AA3EE1E540D9100BA8283 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EA1E540D9100BA8283 /* FirebaseCore.framework */; };
@@ -89,13 +88,24 @@
 		6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		6E5752191E05AFC4002AA9B4 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
 		6E57521C1E05B24A002AA9B4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6E5872111E5BEDE70003D9D2 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		6E5872131E5BEDF40003D9D2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		6E58721A1E5BF53C0003D9D2 /* GTMOAuth2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GTMOAuth2.framework; path = Carthage/Firebase/Invites/GTMOAuth2.framework; sourceTree = "<group>"; };
+		6E58721C1E5BF5990003D9D2 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = Carthage/Firebase/Invites/GoogleSignIn.framework; sourceTree = "<group>"; };
+		6E58721E1E5BF5B60003D9D2 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = Carthage/Firebase/Invites/Protobuf.framework; sourceTree = "<group>"; };
+		6E58721F1E5BF5B60003D9D2 /* FirebaseDynamicLinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseDynamicLinks.framework; path = Carthage/Firebase/Invites/FirebaseDynamicLinks.framework; sourceTree = "<group>"; };
+		6E5872201E5BF5B60003D9D2 /* FirebaseInvites.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInvites.framework; path = Carthage/Firebase/Invites/FirebaseInvites.framework; sourceTree = "<group>"; };
+		6E5872211E5BF5B60003D9D2 /* GoogleAPIClientForREST.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAPIClientForREST.framework; path = Carthage/Firebase/Invites/GoogleAPIClientForREST.framework; sourceTree = "<group>"; };
+		6E5872261E5BF6920003D9D2 /* GINInviteResources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GINInviteResources; path = Carthage/Firebase/Invites/Resources/GINInviteResources; sourceTree = "<group>"; };
+		6E5872281E5BF6B20003D9D2 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = Carthage/Firebase/Invites/Resources/GoogleSignIn.bundle; sourceTree = "<group>"; };
+		6E5872291E5BF6B20003D9D2 /* GINInviteResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GINInviteResources.bundle; path = Carthage/Firebase/Invites/Resources/GINInviteResources.bundle; sourceTree = "<group>"; };
+		6E58722A1E5BF6B20003D9D2 /* GPPACLPickerResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GPPACLPickerResources.bundle; path = Carthage/Firebase/Invites/Resources/GPPACLPickerResources.bundle; sourceTree = "<group>"; };
 		6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
 		6E651B921E562A0600A37DB2 /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskController.swift; sourceTree = "<group>"; };
 		6E651B931E562A0600A37DB2 /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
 		6E651B941E562A0600A37DB2 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		6E8845CB1E24056000EA3C2A /* TaskActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskActionView.swift; sourceTree = "<group>"; };
-		6E9026DE1E5AA46300851B4D /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = Carthage/googlesignin/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		6E9026E01E5AA47F00851B4D /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = Carthage/googlesignin/GoogleSignIn.framework; sourceTree = "<group>"; };
 		6E9026E21E5AA55700851B4D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		6E9026E41E5AA56400851B4D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -134,13 +144,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E9026EF1E5AA78F00851B4D /* GoogleSignInDependencies.framework in Frameworks */,
+				6E5872181E5BF4B80003D9D2 /* GoogleToolboxForMac.framework in Frameworks */,
+				6E5872171E5BF4140003D9D2 /* GTMSessionFetcher.framework in Frameworks */,
+				6E5872141E5BEDF40003D9D2 /* libz.tbd in Frameworks */,
+				6E5872121E5BEDE70003D9D2 /* AddressBook.framework in Frameworks */,
 				6E9026EE1E5AA66F00851B4D /* FirebaseAuth.framework in Frameworks */,
-				6E9026ED1E5AA63800851B4D /* GoogleAppUtilities.framework in Frameworks */,
-				6E9026EB1E5AA57E00851B4D /* GoogleSymbolUtilities.framework in Frameworks */,
 				6E9026E51E5AA56400851B4D /* SystemConfiguration.framework in Frameworks */,
 				6E9026E31E5AA55700851B4D /* SafariServices.framework in Frameworks */,
-				6E9026E11E5AA47F00851B4D /* GoogleSignIn.framework in Frameworks */,
 				6E9AA3ED1E540D9100BA8283 /* FirebaseAnalytics.framework in Frameworks */,
 				6E9AA3EE1E540D9100BA8283 /* FirebaseCore.framework in Frameworks */,
 				6E9AA3EF1E540D9100BA8283 /* FirebaseInstanceID.framework in Frameworks */,
@@ -178,7 +188,6 @@
 		6E15D00F1DF0A45900B4CCA7 = {
 			isa = PBXGroup;
 			children = (
-				6E9026DE1E5AA46300851B4D /* GoogleSignIn.bundle */,
 				6E15D01A1DF0A45A00B4CCA7 /* SimpleToDo */,
 				6E15D02F1DF0A45A00B4CCA7 /* SimpleToDoTests */,
 				6E15D03A1DF0A45A00B4CCA7 /* SimpleToDoUITests */,
@@ -237,6 +246,18 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E5872281E5BF6B20003D9D2 /* GoogleSignIn.bundle */,
+				6E5872291E5BF6B20003D9D2 /* GINInviteResources.bundle */,
+				6E58722A1E5BF6B20003D9D2 /* GPPACLPickerResources.bundle */,
+				6E5872261E5BF6920003D9D2 /* GINInviteResources */,
+				6E58721E1E5BF5B60003D9D2 /* Protobuf.framework */,
+				6E58721F1E5BF5B60003D9D2 /* FirebaseDynamicLinks.framework */,
+				6E5872201E5BF5B60003D9D2 /* FirebaseInvites.framework */,
+				6E5872211E5BF5B60003D9D2 /* GoogleAPIClientForREST.framework */,
+				6E58721C1E5BF5990003D9D2 /* GoogleSignIn.framework */,
+				6E58721A1E5BF53C0003D9D2 /* GTMOAuth2.framework */,
+				6E5872131E5BEDF40003D9D2 /* libz.tbd */,
+				6E5872111E5BEDE70003D9D2 /* AddressBook.framework */,
 				6E9026E61E5AA57E00851B4D /* GoogleSignInDependencies.framework */,
 				6E9026E71E5AA57E00851B4D /* GoogleAppUtilities.framework */,
 				6E9026E81E5AA57E00851B4D /* GoogleSymbolUtilities.framework */,
@@ -438,7 +459,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E9026DF1E5AA46300851B4D /* GoogleSignIn.bundle in Resources */,
 				6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */,
 				6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */,
 				6E9AA3FD1E54105900BA8283 /* GoogleService-Info.plist in Resources */,
@@ -665,10 +685,14 @@
 					"$(PROJECT_DIR)/Carthage/Firebase/Analytics",
 					"$(PROJECT_DIR)/Carthage/Firebase/Auth",
 					"$(PROJECT_DIR)/Carthage/googlesignin",
+					"$(PROJECT_DIR)/Carthage/Firebase/Invites",
 				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SimpleToDo/SimpleToDo-Bridging-Header.h";
@@ -689,10 +713,14 @@
 					"$(PROJECT_DIR)/Carthage/Firebase/Analytics",
 					"$(PROJECT_DIR)/Carthage/Firebase/Auth",
 					"$(PROJECT_DIR)/Carthage/googlesignin",
+					"$(PROJECT_DIR)/Carthage/Firebase/Invites",
 				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SimpleToDo/SimpleToDo-Bridging-Header.h";

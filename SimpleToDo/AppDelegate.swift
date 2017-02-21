@@ -10,7 +10,8 @@ import UIKit
 import RxHttpClient
 import RxState
 import RxSwift
-import GoogleSignIn
+//import GoogleSignIn
+//import Firebase
 
 //let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
 let applicationStore = RxStore(reducer: AppReducer(),
@@ -26,10 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-		//FIRApp.configure()
+		FIRApp.configure()
 		
-		GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
-		GIDSignIn.sharedInstance().delegate = self
+//		GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+//		GIDSignIn.sharedInstance().delegate = self
 		
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
@@ -40,11 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
-	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-		return GIDSignIn.sharedInstance().handle(url,
-		                                         sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
-		                                         annotation: [:])
-	}
+//	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+//		return GIDSignIn.sharedInstance().handle(url,
+//		                                         sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+//		                                         annotation: [:])
+//	}
 
 	func applicationWillResignActive(_ application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -69,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 }
 
+/*
 extension AppDelegate : GIDSignInDelegate {
 	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
 		print("didSignInFor")
@@ -98,4 +100,4 @@ extension AppDelegate : GIDSignInDelegate {
 		// ...
 	}
 }
-
+*/

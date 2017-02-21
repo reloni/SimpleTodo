@@ -10,6 +10,8 @@
 	<string>331164285591-6t6tsbbkv728o220ek2vilkc1er2u1rj.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.331164285591-6t6tsbbkv728o220ek2vilkc1er2u1rj</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAh4WvUNLiTaoaYIBCo2NdDbyN0dxE-KUU</string>
 	<key>GCM_SENDER_ID</key>
 	<string>331164285591</string>
 	<key>PLIST_VERSION</key>
@@ -25,7 +27,7 @@
 	<key>IS_ANALYTICS_ENABLED</key>
 	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
 	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
