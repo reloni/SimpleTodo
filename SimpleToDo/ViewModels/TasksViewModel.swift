@@ -8,13 +8,13 @@
 
 import UIKit
 import RxDataSources
-import RxState
+import RxDataFlow
 import RxSwift
 
 final class TasksViewModel {
 	let dataSource = RxTableViewSectionedAnimatedDataSource<TaskSection>()
 	
-	let appStore: RxStore<AppState>
+	let appStore: RxDataFlowController<AppState>
 	let viewController: UIViewController
 	
 	let tableViewDelegate = TasksViewModelTableViewDelegate()
@@ -43,7 +43,7 @@ final class TasksViewModel {
 		})
 	}()
 	
-	init(viewController: UIViewController, applicationStore: RxStore<AppState>) {
+	init(viewController: UIViewController, applicationStore: RxDataFlowController<AppState>) {
 		self.viewController = viewController
 		appStore = applicationStore
 		configureDataSource()
@@ -67,7 +67,7 @@ final class TasksViewModel {
 			cell.editTapped = { [weak self] in
 				guard let object = self else { return }
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.appStore.dispatch(AppAction.showEditTaskController(object.appStore.stateValue.state.tasks[row]))
+				object.appStore.dispatch(AppAction.showEditTaskController(object.appStore.currentState.state.tasks[row]))
 			}
 			
 			cell.deleteTapped = { [weak self] in

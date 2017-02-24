@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import RxState
+import RxDataFlow
 import RxSwift
 import RxHttpClient
 import Unbox
@@ -29,6 +29,15 @@ extension AppState {
 }
 
 enum AppAction : RxActionType {
+	var scheduler: ImmediateSchedulerType? {
+		switch self {
+		case .showEditTaskController: fallthrough
+		case .showAllert: fallthrough
+		case .dismisEditTaskController: return MainScheduler.instance
+		default: return nil
+		}
+	}
+	
 	case reloadTasks([Task])
 	case loadTasks
 	case addTask(Task)
@@ -38,18 +47,4 @@ enum AppAction : RxActionType {
 	case showAllert(in: UIViewController, with: Error)
 	case updateTask(Task)
 	case completeTask(Int)
-	
-	var work: RxActionWork {
-		switch self {
-		case .reloadTasks: return reloadTasksActionWork(fromRemote: false)
-		case .loadTasks: return reloadTasksActionWork(fromRemote: true)
-		case .deleteTask(let id): return deleteTaskActionWork(entryId: id)
-		case .addTask(let task): return addTaskActionWork(task: task)
-		case .showEditTaskController(let task): return showEditEntryControllerActionWork(task)
-		case .dismisEditTaskController: return dismisEditEntryControllerActionWork()
-		case .updateTask(let task): return updateTaskActionWork(task)
-		case .showAllert(let controller, let error): return showAlertActionWork(in: controller, with: error)
-		case .completeTask(let index): return updateTaskCompletionStatusActionWork(taskIndex: index)
-		}
-	}
 }

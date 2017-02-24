@@ -7,83 +7,84 @@
 //
 
 import Foundation
-import RxState
+import RxDataFlow
 import RxSwift
 import Wrap
 import Unbox
 
-fileprivate let baseUrl = "https://simpletaskmanager.net:443/api/v1"
-
-func updateTaskActionWork(_ task: Task) -> RxActionWork {
-	return RxActionWork { state -> Observable<RxActionResultType> in
-		let state = state as! AppState
-		return Observable.just(task).flatMapLatest { e -> Observable<[String : Any]> in
-			return Observable.just(try wrap(e))
-			}
-			.flatMapLatest { json -> Observable<RxActionResultType> in
-				let headers = ["Authorization": state.logInInfo!.toBasicAuthKey(),
-				               "Accept":"application/json",
-				               "Content-Type":"application/json; charset=utf-8"]
-				
-				return state.httpClient.requestData(url: URL(string: "\(baseUrl)/tasks/\(task.uuid)")!,
-				                                    method: .put,
-				                                    jsonBody: json,
-				                                    options: [],
-				                                    httpHeaders: headers)
-					.flatMap { result -> Observable<RxActionResultType> in
-						let updated: Task = try unbox(data: result)
-						return Observable.just(RxDefaultActionResult(updated))
+struct ApplicationLogic {
+	fileprivate static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
+	
+	static func updateTask(_ task: Task, currentState state: AppState) -> Observable<RxStateType> {
+			return Observable.just(task).flatMapLatest { e -> Observable<[String : Any]> in
+				return Observable.just(try wrap(e))
 				}
-		}
+				.flatMapLatest { json -> Observable<RxStateType> in
+					let headers = ["Authorization": state.logInInfo!.toBasicAuthKey(),
+					               "Accept":"application/json",
+					               "Content-Type":"application/json; charset=utf-8"]
+					
+					return state.httpClient.requestData(url: URL(string: "\(baseUrl)/tasks/\(task.uuid)")!,
+					                                    method: .put,
+					                                    jsonBody: json,
+					                                    options: [],
+					                                    httpHeaders: headers)
+						.flatMap { result -> Observable<RxStateType> in
+							let updated: Task = try unbox(data: result)
+							
+							let newTasks = state.tasks.map { t -> Task in
+								if t.uuid == updated.uuid {
+									return updated
+								} else {
+									return t
+								}
+							}
+							
+							return .just(state.new(tasks: newTasks))
+					}
+			}
 	}
-}
-
-func reloadTasksActionWork(fromRemote: Bool) -> RxActionWork {
-	return RxActionWork { state -> Observable<RxActionResultType> in
-		let state = state as! AppState
-		
-		guard fromRemote else { return Observable.just(RxDefaultActionResult(state.tasks)) }
+	
+	static func reloadTasks(currentState state: AppState, fromRemote: Bool) -> Observable<RxStateType> {
+		guard fromRemote else { return Observable.just(state) }
 		
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
 		let request = URLRequest(url: URL(string: "\(baseUrl)/tasks/")!, headers: headers)
-		return state.httpClient.requestData(request).flatMap { result -> Observable<RxActionResultType> in
-			let entries: [Task] = try unbox(data: result)
-			return Observable.just(RxDefaultActionResult(entries))
+		
+		return state.httpClient.requestData(request).flatMap { result -> Observable<RxStateType> in
+			return .just(state.new(tasks: try unbox(data: result)))
 		}
 	}
-}
-
-func deleteTaskActionWork(entryId id: Int) -> RxActionWork {
-	return RxActionWork { state -> Observable<RxActionResultType> in
-		let state = state as! AppState
+	
+	static func deleteTask(currentState state: AppState, entryId id: Int) -> Observable<RxStateType> {
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
 		let request = URLRequest(url: URL(string: "\(baseUrl)/tasks/\(state.tasks[id].uuid)")!, method: .delete, headers: headers)
-		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxActionResultType> in
-			return Observable.just(RxDefaultActionResult(id))
+		
+		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxStateType> in
+			var currentEntries = state.tasks
+			currentEntries.remove(at: id)
+			return Observable.just(state.new(tasks: currentEntries))
 		}
 	}
-}
-
-func updateTaskCompletionStatusActionWork(taskIndex index: Int) -> RxActionWork {
-	return RxActionWork { state -> Observable<RxActionResultType> in
-		let state = state as! AppState
+	
+	static func updateTaskCompletionStatus(currentState state: AppState, taskIndex index: Int) -> Observable<RxStateType> {
 		let headers = ["Authorization": state.logInInfo!.toBasicAuthKey()]
 		let task = state.tasks[index]
+		
 		let url = URL(baseUrl: "\(baseUrl)/tasks/\(task.uuid)/ChangeCompletionStatus", parameters: ["completed":"\(!task.completed)"])!
 		let request = URLRequest(url: url, method: .post, headers: headers)
-		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxActionResultType> in
-			return Observable.just(RxDefaultActionResult(index))
+		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxStateType> in
+			var currentTasks = state.tasks
+			currentTasks.remove(at: index)
+			return Observable.just(state.new(tasks: currentTasks))
 		}
 	}
-}
-
-func addTaskActionWork(task: Task) -> RxActionWork {
-	return RxActionWork { state -> Observable<RxActionResultType> in
-		let state = state as! AppState
+	
+	static func addTask(task: Task, currentState state: AppState) -> Observable<RxStateType> {
 		return Observable.just(task).flatMapLatest { e -> Observable<[String : Any]> in
 			return Observable.just(try wrap(e))
 			}
-			.flatMapLatest { json -> Observable<RxActionResultType> in
+			.flatMapLatest { json -> Observable<RxStateType> in
 				let headers = ["Authorization": state.logInInfo!.toBasicAuthKey(),
 				               "Accept":"application/json",
 				               "Content-Type":"application/json; charset=utf-8"]
@@ -93,10 +94,14 @@ func addTaskActionWork(task: Task) -> RxActionWork {
 				                                    jsonBody: json,
 				                                    options: [],
 				                                    httpHeaders: headers)
-					.flatMap { result -> Observable<RxActionResultType> in
-						let newEntry: Task = try unbox(data: result)
-						return Observable.just(RxDefaultActionResult(newEntry))
+					.flatMap { result -> Observable<RxStateType> in
+						var currentTasks = state.tasks
+						currentTasks.append(try unbox(data: result))
+						return Observable.just(state.new(tasks: currentTasks))
 				}
 		}
 	}
+	
 }
+
+
