@@ -27,6 +27,10 @@ extension AppState {
 	func new(tasks: [Task]) -> AppState {
 		return AppState(coordinator: coordinator, rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, tasks: tasks)
 	}
+	
+	func new(appCoordinator: ApplicationCoordinatorType) -> AppState {
+		return AppState(coordinator: appCoordinator, rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, tasks: tasks)
+	}
 }
 
 enum AppAction : RxActionType {
@@ -35,12 +39,16 @@ enum AppAction : RxActionType {
 		case .showEditTaskController: fallthrough
 		case .showAllert: fallthrough
 		case .showRootController: fallthrough
+		case .showFirebaseRegistration: fallthrough
+		case .dismissFirebaseRegistration: fallthrough
 		case .dismisEditTaskController: return MainScheduler.instance
 		default: return nil
 		}
 	}
 	
 	case showRootController
+	case showFirebaseRegistration
+	case dismissFirebaseRegistration
 	case reloadTasks([Task])
 	case loadTasks
 	case addTask(Task)

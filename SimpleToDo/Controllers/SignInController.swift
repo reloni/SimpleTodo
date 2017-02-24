@@ -44,15 +44,17 @@ final class SignInController : UIViewController {
 //			print("user: \(user?.email)")
 //			print("error: \(error)")
 //		})
-		FIRAuth.auth()?.signIn(withEmail: "reloni@ya.ru", password: "Pass123", completion: { user, error in
-			print("user: \(user?.email)")
-			print("error: \(error)")
-			user?.getTokenForcingRefresh(true, completion: { result in
-				print("token: \(result.0)")
-				print("error: \(result.1)")
-				
-			})
-		})
+//		FIRAuth.auth()?.signIn(withEmail: "reloni@ya.ru", password: "Pass123", completion: { user, error in
+//			print("user: \(user?.email)")
+//			print("error: \(error)")
+//			user?.getTokenForcingRefresh(true, completion: { result in
+//				print("token: \(result.0)")
+//				print("error: \(result.1)")
+//				
+//			})
+//		})
+		
+		applicationStore.dispatch(AppAction.showFirebaseRegistration)
 	}
 	
 	override func updateViewConstraints() {
