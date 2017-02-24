@@ -1,7 +1,7 @@
 github "andreamazz/AMScrollingNavbar" "3.2.0"
 github "CosmicMind/Material" "2.4.16"
+github "Reloni/RxDataFlow" "0.5.1"
 github "RxSwiftCommunity/RxHttpClient" "0.8.2"
-github "Reloni/RxState" "0.4.1"
 github "ReactiveX/RxSwift" "3.2.0"
 github "SnapKit/SnapKit" "3.2.0"
 github "JohnSundell/Unbox" "2.4.0"

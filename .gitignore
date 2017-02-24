@@ -51,12 +51,6 @@ playground.xcworkspace
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 
 Carthage/*
-#Carthage/Build/Mac
-#Carthage/Build/tvOS
-#Carthage/Build/watchOS
-#Carthage/Checkouts
-#Carthage/Build/iOS/*.bcsymbolmap
-#Carthage/Build/iOS/*.dSYM
 
 # fastlane
 #

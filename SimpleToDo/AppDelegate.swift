@@ -8,13 +8,13 @@
 
 import UIKit
 import RxHttpClient
-import RxState
+import RxDataFlow
 import RxSwift
 //import GoogleSignIn
 //import Firebase
 
 //let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
-let applicationStore = RxStore(reducer: AppReducer(),
+let applicationStore = RxDataFlowController(reducer: AppReducer(),
                        initialState: AppState(rootController: MainController(),
                                               logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
                                               httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
@@ -34,9 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
-		//applicationStore.stateValue.state.rootController.viewControllers.append(TasksController())
-		applicationStore.stateValue.state.rootController.viewControllers.append(SignInController())
-		window?.rootViewController = applicationStore.stateValue.state.rootController
+		applicationStore.currentState.state.rootController.viewControllers.append(TasksController())
+		window?.rootViewController = applicationStore.currentState.state.rootController
 		window?.makeKeyAndVisible()
 		return true
 	}
