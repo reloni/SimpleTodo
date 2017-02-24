@@ -14,11 +14,14 @@ import RxSwift
 //import Firebase
 
 //let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
-let applicationStore = RxDataFlowController(reducer: AppReducer(),
-                       initialState: AppState(rootController: MainController(),
-                                              logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
-                                              httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
-                                              tasks: []))
+//let applicationStore = RxDataFlowController(reducer: AppReducer(),
+//                                            initialState: AppState(coordinator: RootApplicationCoordinator(),
+//                                                                   rootController: MainController(),
+//                                                                   logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
+//                                                                   httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
+//                                                                   tasks: []))
+
+var applicationStore: RxDataFlowController<AppState>!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,16 +30,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-		FIRApp.configure()
-		
-//		GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
-//		GIDSignIn.sharedInstance().delegate = self
-		
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
-		applicationStore.currentState.state.rootController.viewControllers.append(TasksController())
-		window?.rootViewController = applicationStore.currentState.state.rootController
-		window?.makeKeyAndVisible()
+		FIRApp.configure()
+		
+		applicationStore = RxDataFlowController(reducer: AppReducer(),
+		                                        initialState: AppState(coordinator: RootApplicationCoordinator(window: window!),
+		                                                                   rootController: MainController(),
+		                                                                   logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
+		                                                                   httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
+		                                                                   tasks: []))
+		
+		applicationStore.dispatch(AppAction.showRootController)
+		
+		//applicationStore.currentState.state.rootController.viewControllers.append(SignInController())
+		//window?.rootViewController = applicationStore.currentState.state.rootController
+		//window?.makeKeyAndVisible()
 		return true
 	}
 	

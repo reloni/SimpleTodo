@@ -16,6 +16,7 @@ import Wrap
 import UIKit
 
 struct AppState : RxStateType {
+	let coordinator: ApplicationCoordinatorType
 	let rootController: MainController
 	let logInInfo: LogInInfo?
 	let httpClient: HttpClientType
@@ -24,7 +25,7 @@ struct AppState : RxStateType {
 
 extension AppState {
 	func new(tasks: [Task]) -> AppState {
-		return AppState(rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, tasks: tasks)
+		return AppState(coordinator: coordinator, rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, tasks: tasks)
 	}
 }
 
@@ -33,11 +34,13 @@ enum AppAction : RxActionType {
 		switch self {
 		case .showEditTaskController: fallthrough
 		case .showAllert: fallthrough
+		case .showRootController: fallthrough
 		case .dismisEditTaskController: return MainScheduler.instance
 		default: return nil
 		}
 	}
 	
+	case showRootController
 	case reloadTasks([Task])
 	case loadTasks
 	case addTask(Task)

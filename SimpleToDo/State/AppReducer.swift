@@ -29,6 +29,7 @@ struct AppReducer : RxReducerType {
 		case .dismisEditTaskController: return UICoordinator.dismisEditEntryController(currentState: currentState)
 		case .updateTask(let task): return ApplicationLogic.updateTask(task, currentState: currentState)
 		case .completeTask(let index): return ApplicationLogic.updateTaskCompletionStatus(currentState: currentState, taskIndex: index)
+		case .showRootController: return currentState.coordinator.handle(action)
 		}
 	}
 }
