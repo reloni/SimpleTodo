@@ -7,34 +7,28 @@
 //
 
 import Foundation
-import RxState
+import RxDataFlow
 import RxSwift
 import UIKit
 import RxHttpClient
 
-func dismisEditEntryControllerActionWork() -> RxActionWork {
-	return RxActionWork(scheduler: MainScheduler.instance) { state -> RxActionResultType in
-		let state = state as! AppState
-		state.rootController.popViewController(animated: true)
-		return RxDefaultActionResult()
+struct UICoordinator {
+	static func dismisEditEntryController(currentState state: AppState) -> Observable<RxStateType> {
+			state.rootController.popViewController(animated: true)
+			return .just(state)
 	}
-}
-
-func showAlertActionWork(in controller: UIViewController, with error: Error) -> RxActionWork {
-	return RxActionWork(scheduler: MainScheduler.instance) { state -> RxActionResultType in
-		guard let message = error.uiAlertMessage() else { return RxDefaultActionResult() }
+	
+	static func showAlert(in controller: UIViewController, with error: Error, currentState state: AppState) -> Observable<RxStateType> {
+		guard let message = error.uiAlertMessage() else { return .empty() }
 		let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
 		let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
 		alert.addAction(ok)
 		controller.present(alert, animated: true, completion: nil)
-		return RxDefaultActionResult()
+		return .just(state)
 	}
-}
-
-func showEditEntryControllerActionWork(_ task: Task?) -> RxActionWork {
-	return RxActionWork(scheduler: MainScheduler.instance) { state -> RxActionResultType in
-		let state = state as! AppState
+	
+	static func showEditEntryController(forTask task: Task?, currentState state: AppState) -> Observable<RxStateType> {
 		state.rootController.pushViewController(EditTaskController(task: task), animated: true)
-		return RxDefaultActionResult()
+		return .just(state)
 	}
 }

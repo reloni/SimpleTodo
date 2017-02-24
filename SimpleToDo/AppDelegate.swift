@@ -8,11 +8,11 @@
 
 import UIKit
 import RxHttpClient
-import RxState
+import RxDataFlow
 import RxSwift
 
 //let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
-let applicationStore = RxStore(reducer: AppReducer(),
+let applicationStore = RxDataFlowController(reducer: AppReducer(),
                        initialState: AppState(rootController: MainController(),
                                               logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
                                               httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
@@ -27,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
-		applicationStore.stateValue.state.rootController.viewControllers.append(TasksController())
-		window?.rootViewController = applicationStore.stateValue.state.rootController
+		applicationStore.currentState.state.rootController.viewControllers.append(TasksController())
+		window?.rootViewController = applicationStore.currentState.state.rootController
 		window?.makeKeyAndVisible()
 		return true
 	}

@@ -26,6 +26,7 @@
 		6E651B961E562A0600A37DB2 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B931E562A0600A37DB2 /* TasksController.swift */; };
 		6E651B971E562A0600A37DB2 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651B941E562A0600A37DB2 /* MainController.swift */; };
 		6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8845CB1E24056000EA3C2A /* TaskActionView.swift */; };
+		6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
 		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
 		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
@@ -34,7 +35,6 @@
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
 		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
-		6EE247E41DF21291001A6F39 /* RxState.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DC1DF21291001A6F39 /* RxState.framework */; };
 		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
 		6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE91CAB1E1959430025A4BD /* Wrap.framework */; };
 /* End PBXBuildFile section */
@@ -82,6 +82,7 @@
 		6E651B931E562A0600A37DB2 /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
 		6E651B941E562A0600A37DB2 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		6E8845CB1E24056000EA3C2A /* TaskActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskActionView.swift; sourceTree = "<group>"; };
+		6E8B0F421E60280900E2C265 /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = Carthage/Build/iOS/RxDataFlow.framework; sourceTree = "<group>"; };
 		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = State.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */,
 				6E2E11DB1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework in Frameworks */,
 				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
 				6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */,
@@ -111,7 +113,6 @@
 				6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */,
 				6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */,
 				6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */,
-				6EE247E41DF21291001A6F39 /* RxState.framework in Frameworks */,
 				6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */,
 				6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */,
 			);
@@ -192,6 +193,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E8B0F421E60280900E2C265 /* RxDataFlow.framework */,
 				6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */,
 				6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */,
 				6EE91CAB1E1959430025A4BD /* Wrap.framework */,
@@ -400,7 +402,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxState.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataFlow.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxHttpClient.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
