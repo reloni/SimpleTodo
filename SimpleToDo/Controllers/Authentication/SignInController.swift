@@ -15,6 +15,18 @@ final class SignInController : UIViewController {
 	let viewModel: SignInViewModel
 	let bag = DisposeBag()
 	
+	let scrollView: UIScrollView = {
+		let scroll = UIScrollView()
+		scroll.bounces = true
+		scroll.isUserInteractionEnabled = true
+		return scroll
+	}()
+	
+	let containerView: UIView = {
+		let view = UIView()
+		return view
+	}()
+	
 	let emailTextField: TextField = {
 		let field = TextField()
 		field.font = Theme.Fonts.main
@@ -60,15 +72,42 @@ final class SignInController : UIViewController {
 		
 		view.backgroundColor = UIColor.white
 		
-		view.addSubview(loginButton)
-		view.addSubview(emailTextField)
-		view.addSubview(passwordTextField)
+		emailTextField.delegate = self
+		passwordTextField.delegate = self
+		
+		view.addSubview(scrollView)
+		scrollView.addSubview(containerView)
+		containerView.addSubview(loginButton)
+		containerView.addSubview(emailTextField)
+		containerView.addSubview(passwordTextField)
 		
 		loginButton.snp.makeConstraints(loginButtonConstraints)
 		passwordTextField.snp.makeConstraints(passwordTextFieldConstraints)
 		emailTextField.snp.makeConstraints(emailTextFieldConstraints)
+		scrollView.snp.makeConstraints(scrollViewConstraints)
+		containerView.snp.makeConstraints(containerViewConstraints)
+		
+		let recognizer = UITapGestureRecognizer(target: self, action: #selector(controllerTap))
+		view.addGestureRecognizer(recognizer)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 		
 		bind()
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+	}
+	
+	func controllerTap() {
+		containerView.subviews.forEach {
+			if let textField = $0 as? TextField, textField.isFirstResponder {
+				textField.resignFirstResponder()
+				return
+			}
+		}
 	}
 	
 	func bind() {
@@ -80,23 +119,47 @@ final class SignInController : UIViewController {
 		viewModel.logIn(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
 	}
 	
-	func loginButtonConstraints(maker: ConstraintMaker) {
-		maker.centerX.equalTo(view.snp.centerX)
-		maker.centerY.equalTo(view.snp.centerY)
-		maker.leading.equalTo(view.snp.leading).inset(20)
-		maker.trailing.equalTo(view.snp.trailing).inset(20)
+	func keyboardWillShow(_ notification: Notification) {
+		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: notification.keyboardHeight() + 25, right: 0)
+
+//		let point = CGPoint(x: passwordTextField.frame.origin.x, y: passwordTextField.frame.origin.y - passwordTextField.frame.height)
+//		if !view.frame.contains(point) {
+//			scrollView.setContentOffset(CGPoint(x: 0, y: point.y - scrollView.contentInset.bottom), animated: true)
+//		}
 	}
 	
-	func passwordTextFieldConstraints(maker: ConstraintMaker) {
-		maker.bottom.equalTo(loginButton.snp.top).offset(-50)
-		maker.leading.equalTo(loginButton.snp.leading)
-		maker.trailing.equalTo(loginButton.snp.trailing)
+	func keyboardWillHide(_ notification: Notification) {
+		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+	}
+	
+	func scrollViewConstraints(maker: ConstraintMaker) {
+		maker.edges.equalTo(view)
+	}
+	
+	func containerViewConstraints(maker: ConstraintMaker) {
+		maker.centerX.equalTo(scrollView.snp.centerX)
+		maker.centerY.equalTo(scrollView.snp.centerY)
+		maker.width.equalTo(scrollView)
+		maker.bottom.equalTo(scrollView).inset(10)
 	}
 	
 	func emailTextFieldConstraints(maker: ConstraintMaker) {
-		maker.bottom.equalTo(passwordTextField.snp.top).offset(-50)
+		maker.top.equalTo(containerView.snp.top).offset(50)
 		maker.leading.equalTo(loginButton.snp.leading)
 		maker.trailing.equalTo(loginButton.snp.trailing)
+	}
+	
+	func passwordTextFieldConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(emailTextField.snp.bottom).offset(50)
+		maker.leading.equalTo(loginButton.snp.leading)
+		maker.trailing.equalTo(loginButton.snp.trailing)
+	}
+
+	func loginButtonConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(passwordTextField.snp.bottom).offset(50)
+		maker.leading.equalTo(view.snp.leading).inset(20)
+		maker.trailing.equalTo(view.snp.trailing).inset(20)
+		maker.bottom.equalTo(containerView).inset(50)
 	}
 	
 	override func updateViewConstraints() {
@@ -105,5 +168,19 @@ final class SignInController : UIViewController {
 		loginButton.snp.updateConstraints(loginButtonConstraints)
 		passwordTextField.snp.updateConstraints(passwordTextFieldConstraints)
 		emailTextField.snp.updateConstraints(emailTextFieldConstraints)
+		scrollView.snp.updateConstraints(scrollViewConstraints)
+		containerView.snp.updateConstraints(containerViewConstraints)
+	}
+}
+
+extension SignInController : UITextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		if textField == emailTextField {
+			_ = passwordTextField.becomeFirstResponder()
+		} else {
+			textField.resignFirstResponder()
+			login()
+		}
+		return true
 	}
 }

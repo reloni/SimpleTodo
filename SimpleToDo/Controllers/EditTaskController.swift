@@ -98,7 +98,6 @@ final class EditTaskController : UIViewController {
 		
 		view.backgroundColor = Theme.Colors.backgroundLightGray
 		
-		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
 		let recognizer = UITapGestureRecognizer(target: self, action: #selector(controllerTap))
