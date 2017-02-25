@@ -33,7 +33,6 @@
 		6E9026E31E5AA55700851B4D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E21E5AA55700851B4D /* SafariServices.framework */; };
 		6E9026E51E5AA56400851B4D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E41E5AA56400851B4D /* SystemConfiguration.framework */; };
 		6E9026EE1E5AA66F00851B4D /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3F11E540DA100BA8283 /* FirebaseAuth.framework */; };
-		6E9026F11E5AA7FF00851B4D /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9026F01E5AA7FF00851B4D /* SignInController.swift */; };
 		6E9AA3ED1E540D9100BA8283 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3E91E540D9100BA8283 /* FirebaseAnalytics.framework */; };
 		6E9AA3EE1E540D9100BA8283 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EA1E540D9100BA8283 /* FirebaseCore.framework */; };
 		6E9AA3EF1E540D9100BA8283 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EB1E540D9100BA8283 /* FirebaseInstanceID.framework */; };
@@ -50,6 +49,7 @@
 		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
 		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
 		6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE91CAB1E1959430025A4BD /* Wrap.framework */; };
+		6EEF39991E61A0BA00D1C988 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF39981E61A0BA00D1C988 /* SignInController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,7 +113,6 @@
 		6E9026E61E5AA57E00851B4D /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = Carthage/googlesignin/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		6E9026E71E5AA57E00851B4D /* GoogleAppUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppUtilities.framework; path = Carthage/googlesignin/GoogleAppUtilities.framework; sourceTree = "<group>"; };
 		6E9026E81E5AA57E00851B4D /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Carthage/googlesignin/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
-		6E9026F01E5AA7FF00851B4D /* SignInController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		6E9AA3E91E540D9100BA8283 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		6E9AA3EA1E540D9100BA8283 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Firebase/Analytics/FirebaseCore.framework; sourceTree = "<group>"; };
 		6E9AA3EB1E540D9100BA8283 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Firebase/Analytics/FirebaseInstanceID.framework; sourceTree = "<group>"; };
@@ -140,6 +139,7 @@
 		6EE247DD1DF21291001A6F39 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		6EE247DE1DF21291001A6F39 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		6EE91CAB1E1959430025A4BD /* Wrap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wrap.framework; path = Carthage/Build/iOS/Wrap.framework; sourceTree = "<group>"; };
+		6EEF39981E61A0BA00D1C988 /* SignInController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +351,7 @@
 		6EBD40901E60BD4200661CA6 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				6EEF39981E61A0BA00D1C988 /* SignInController.swift */,
 				6EBD40911E60BD7500661CA6 /* FirebaseRegistrationController.swift */,
 			);
 			path = Authentication;
@@ -363,7 +364,6 @@
 				6E651B921E562A0600A37DB2 /* EditTaskController.swift */,
 				6E651B931E562A0600A37DB2 /* TasksController.swift */,
 				6E651B941E562A0600A37DB2 /* MainController.swift */,
-				6E9026F01E5AA7FF00851B4D /* SignInController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -537,6 +537,7 @@
 				6EBD408D1E60ABF700661CA6 /* AuthenticationCoordinators.swift in Sources */,
 				6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */,
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
+				6EEF39991E61A0BA00D1C988 /* SignInController.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6E651B971E562A0600A37DB2 /* MainController.swift in Sources */,
 				6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */,
@@ -549,7 +550,6 @@
 				6EA7B4211E06A3940043BAA1 /* State.swift in Sources */,
 				6EBD40921E60BD7500661CA6 /* FirebaseRegistrationController.swift in Sources */,
 				6E4714D61E1ABDFC00A1688C /* UIActions.swift in Sources */,
-				6E9026F11E5AA7FF00851B4D /* SignInController.swift in Sources */,
 				6E651B961E562A0600A37DB2 /* TasksController.swift in Sources */,
 				6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */,
 			);

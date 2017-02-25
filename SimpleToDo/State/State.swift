@@ -28,8 +28,8 @@ extension AppState {
 		return AppState(coordinator: coordinator, rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, tasks: tasks)
 	}
 	
-	func new(appCoordinator: ApplicationCoordinatorType) -> AppState {
-		return AppState(coordinator: appCoordinator, rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, tasks: tasks)
+	func new(coordinator: ApplicationCoordinatorType) -> AppState {
+		return AppState(coordinator: coordinator, rootController: rootController, logInInfo: logInInfo, httpClient: httpClient, tasks: tasks)
 	}
 }
 

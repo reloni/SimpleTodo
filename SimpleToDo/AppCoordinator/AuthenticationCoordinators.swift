@@ -31,7 +31,7 @@ struct RootApplicationCoordinator : ApplicationCoordinatorType {
 		case .showFirebaseRegistration?:
 			let coordinator = FirebaseRegistrationCoordinator(parent: self)
 			controller.present(coordinator.controller, animated: true, completion: nil)
-			return .just(state.new(appCoordinator: coordinator))
+			return .just(state.new(coordinator: coordinator))
 		default: return .empty()
 		}
 	}
@@ -50,7 +50,7 @@ struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 		switch action as? AppAction {
 		case AppAction.dismissFirebaseRegistration?:
 			controller.dismiss(animated: true, completion: nil)
-			return .just(state.new(appCoordinator: parent))
+			return .just(state.new(coordinator: parent))
 		default: return .empty()
 		}
 	}
