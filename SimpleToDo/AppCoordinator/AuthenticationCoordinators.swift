@@ -52,7 +52,8 @@ struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 		case SignInAction.dismissFirebaseRegistration:
 			controller.dismiss(animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: parent))
-		case GeneralAction.error(let error): return UICoordinator.showAlert(in: controller, with: error, currentState: flowController.currentState.state)
+		case GeneralAction.error(let error): return flowController.currentState.state.logic.common.showAlert(in: controller, with: error)
+		//return UICoordinator.showAlert(in: controller, with: error, currentState: flowController.currentState.state)
 		default: return .empty()
 		}
 	}
