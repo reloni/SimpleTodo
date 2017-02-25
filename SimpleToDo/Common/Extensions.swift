@@ -35,6 +35,7 @@ extension Error {
 			}
 			
 			return (try? unbox(data: data) as ServerSideError)?.error
+		case FirebaseError.signInError(let error): return error.localizedDescription
 		default: return nil
 		}
 	}

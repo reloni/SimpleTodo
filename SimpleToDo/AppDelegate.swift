@@ -34,14 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		FIRApp.configure()
 		
-		applicationStore = RxDataFlowController(reducer: AppReducer(),
+		applicationStore = RxDataFlowController(reducer: RootReducer(),
 		                                        initialState: AppState(coordinator: RootApplicationCoordinator(window: window!),
 		                                                                   rootController: MainController(),
-		                                                                   logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
+		                                                                   logInInfo: nil,//LogInInfo(email: "john@domain.com", password: "ololo"),
 		                                                                   httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
 		                                                                   tasks: []))
 		
-		applicationStore.dispatch(AppAction.showRootController)
+		applicationStore.dispatch(GeneralAction.showRootController)
 		
 		//applicationStore.currentState.state.rootController.viewControllers.append(SignInController())
 		//window?.rootViewController = applicationStore.currentState.state.rootController

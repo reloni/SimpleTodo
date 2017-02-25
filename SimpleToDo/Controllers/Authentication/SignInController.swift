@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 import Material
 
 final class SignInController : UIViewController {
+	let viewModel: SignInViewModel
+	let bag = DisposeBag()
+	
 	let emailTextField: TextField = {
 		let field = TextField()
 		field.font = Theme.Fonts.main
@@ -42,6 +46,15 @@ final class SignInController : UIViewController {
 		return button
 	}()
 	
+	init(viewModel: SignInViewModel) {
+		self.viewModel = viewModel
+		super.init(nibName: nil, bundle: nil)
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -51,29 +64,20 @@ final class SignInController : UIViewController {
 		view.addSubview(emailTextField)
 		view.addSubview(passwordTextField)
 		
-		_ = loginButton.rx.tap.subscribe(onNext: { [weak self] in self?.login() })
-		
 		loginButton.snp.makeConstraints(loginButtonConstraints)
 		passwordTextField.snp.makeConstraints(passwordTextFieldConstraints)
 		emailTextField.snp.makeConstraints(emailTextFieldConstraints)
+		
+		bind()
+	}
+	
+	func bind() {
+		loginButton.rx.tap.subscribe(onNext: { [weak self] in self?.login() }).disposed(by: bag)
+		viewModel.errors.subscribe().disposed(by: bag)
 	}
 	
 	func login() {
-//		FIRAuth.auth()?.createUser(withEmail: "reloni@ya.ru", password: "Pass123", completion: { user, error in
-//			print("user: \(user?.email)")
-//			print("error: \(error)")
-//		})
-//		FIRAuth.auth()?.signIn(withEmail: "reloni@ya.ru", password: "Pass123", completion: { user, error in
-//			print("user: \(user?.email)")
-//			print("error: \(error)")
-//			user?.getTokenForcingRefresh(true, completion: { result in
-//				print("token: \(result.0)")
-//				print("error: \(result.1)")
-//				
-//			})
-//		})
-		
-		applicationStore.dispatch(AppAction.showFirebaseRegistration)
+		viewModel.logIn(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
 	}
 	
 	func loginButtonConstraints(maker: ConstraintMaker) {

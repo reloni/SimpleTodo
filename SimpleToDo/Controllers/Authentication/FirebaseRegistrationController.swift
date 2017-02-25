@@ -31,7 +31,7 @@ final class FirebaseRegistrationController : UIViewController {
 	}
 	
 	func register() {
-		applicationStore.dispatch(AppAction.dismissFirebaseRegistration)
+		applicationStore.dispatch(SignInAction.dismissFirebaseRegistration)
 //		FIRAuth.auth()?.signIn(withEmail: "reloni@ya.ru", password: "Pass123", completion: { user, error in
 //			print("user: \(user?.email)")
 //			print("error: \(error)")
