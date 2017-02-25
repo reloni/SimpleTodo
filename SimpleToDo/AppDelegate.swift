@@ -10,16 +10,6 @@ import UIKit
 import RxHttpClient
 import RxDataFlow
 import RxSwift
-//import GoogleSignIn
-//import Firebase
-
-//let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
-//let applicationStore = RxDataFlowController(reducer: AppReducer(),
-//                                            initialState: AppState(coordinator: RootApplicationCoordinator(),
-//                                                                   rootController: MainController(),
-//                                                                   logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
-//                                                                   httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
-//                                                                   tasks: []))
 
 var applicationStore: RxDataFlowController<AppState>!
 
@@ -35,25 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		FIRApp.configure()
 		
 		applicationStore = RxDataFlowController(reducer: RootReducer(),
-		                                        initialState: AppState(coordinator: RootApplicationCoordinator(window: window!),
+		                                        initialState: AppState(coordinator: SignInCoordinator(window: window!),
 		                                                                   rootController: MainController(),
-		                                                                   logInInfo: nil,//LogInInfo(email: "john@domain.com", password: "ololo"),
+		                                                                   logInInfo: nil,
 		                                                                   httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
 		                                                                   tasks: []))
 		
 		applicationStore.dispatch(GeneralAction.showRootController)
 		
-		//applicationStore.currentState.state.rootController.viewControllers.append(SignInController())
-		//window?.rootViewController = applicationStore.currentState.state.rootController
-		//window?.makeKeyAndVisible()
 		return true
 	}
-	
-//	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-//		return GIDSignIn.sharedInstance().handle(url,
-//		                                         sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
-//		                                         annotation: [:])
-//	}
 
 	func applicationWillResignActive(_ application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -77,35 +58,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
 }
-
-/*
-extension AppDelegate : GIDSignInDelegate {
-	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-		print("didSignInFor")
-  // ...
-  if let error = error {
-		// ...
-		return
-  }
-		
-  guard let authentication = user.authentication else { return }
-  let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                    accessToken: authentication.accessToken)
-	
-  FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-		print("fir auth")
-		
-		if let error = error {
-			// ...
-			return
-		}
-		}
-	}
-	
-	func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!, withError error: NSError!) {
-		print("didDisconnectWithUser")
-		// Perform any operations when the user disconnects from app here.
-		// ...
-	}
-}
-*/

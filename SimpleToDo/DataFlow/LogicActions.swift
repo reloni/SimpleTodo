@@ -40,7 +40,7 @@ struct ApplicationLogic {
 								}
 							}
 							
-							return .just(state.new(tasks: newTasks))
+							return .just(state.mutation.new(tasks: newTasks))
 					}
 			}
 	}
@@ -52,7 +52,7 @@ struct ApplicationLogic {
 		let request = URLRequest(url: URL(string: "\(baseUrl)/tasks/")!, headers: headers)
 		
 		return state.httpClient.requestData(request).flatMap { result -> Observable<RxStateType> in
-			return .just(state.new(tasks: try unbox(data: result)))
+			return .just(state.mutation.new(tasks: try unbox(data: result)))
 		}
 	}
 	
@@ -63,7 +63,7 @@ struct ApplicationLogic {
 		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxStateType> in
 			var currentEntries = state.tasks
 			currentEntries.remove(at: id)
-			return Observable.just(state.new(tasks: currentEntries))
+			return Observable.just(state.mutation.new(tasks: currentEntries))
 		}
 	}
 	
@@ -76,7 +76,7 @@ struct ApplicationLogic {
 		return state.httpClient.requestData(request).flatMap { _ -> Observable<RxStateType> in
 			var currentTasks = state.tasks
 			currentTasks.remove(at: index)
-			return Observable.just(state.new(tasks: currentTasks))
+			return Observable.just(state.mutation.new(tasks: currentTasks))
 		}
 	}
 	
@@ -97,7 +97,7 @@ struct ApplicationLogic {
 					.flatMap { result -> Observable<RxStateType> in
 						var currentTasks = state.tasks
 						currentTasks.append(try unbox(data: result))
-						return Observable.just(state.new(tasks: currentTasks))
+						return Observable.just(state.mutation.new(tasks: currentTasks))
 				}
 		}
 	}

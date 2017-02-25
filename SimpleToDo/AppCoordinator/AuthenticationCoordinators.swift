@@ -13,7 +13,7 @@ protocol ApplicationCoordinatorType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType>
 }
 
-struct RootApplicationCoordinator : ApplicationCoordinatorType {
+struct SignInCoordinator : ApplicationCoordinatorType {
 	let controller: UIViewController?
 	let window: UIWindow
 	
@@ -27,11 +27,11 @@ struct RootApplicationCoordinator : ApplicationCoordinatorType {
 		case GeneralAction.showRootController:
 			window.rootViewController = SignInController(viewModel: SignInViewModel(flowController: flowController))
 			window.makeKeyAndVisible()
-			return .just(flowController.currentState.state.new(coordinator: RootApplicationCoordinator.init(window: window, controller: window.rootViewController)))
+			return .just(flowController.currentState.state.mutation.new(coordinator: SignInCoordinator.init(window: window, controller: window.rootViewController)))
 		case SignInAction.showFirebaseRegistration:
 			let coordinator = FirebaseRegistrationCoordinator(parent: self)
 			controller!.present(coordinator.controller, animated: true, completion: nil)
-			return .just(flowController.currentState.state.new(coordinator: coordinator))
+			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
 		case GeneralAction.error(let error): return UICoordinator.showAlert(in: controller!, with: error, currentState: flowController.currentState.state)
 		default: return .empty()
 		}
@@ -51,7 +51,7 @@ struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 		switch action {
 		case SignInAction.dismissFirebaseRegistration:
 			controller.dismiss(animated: true, completion: nil)
-			return .just(flowController.currentState.state.new(coordinator: parent))
+			return .just(flowController.currentState.state.mutation.new(coordinator: parent))
 		case GeneralAction.error(let error): return UICoordinator.showAlert(in: controller, with: error, currentState: flowController.currentState.state)
 		default: return .empty()
 		}
