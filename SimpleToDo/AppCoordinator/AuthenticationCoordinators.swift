@@ -32,7 +32,7 @@ struct SignInCoordinator : ApplicationCoordinatorType {
 			let coordinator = FirebaseRegistrationCoordinator(parent: self)
 			controller!.present(coordinator.controller, animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
-		case GeneralAction.error(let error): return UICoordinator.showAlert(in: controller!, with: error, currentState: flowController.currentState.state)
+		case GeneralAction.error(let error): return flowController.currentState.state.logic.common.showAlert(in: controller!, with: error)
 		default: return .empty()
 		}
 	}
@@ -53,7 +53,6 @@ struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 			controller.dismiss(animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: parent))
 		case GeneralAction.error(let error): return flowController.currentState.state.logic.common.showAlert(in: controller, with: error)
-		//return UICoordinator.showAlert(in: controller, with: error, currentState: flowController.currentState.state)
 		default: return .empty()
 		}
 	}
