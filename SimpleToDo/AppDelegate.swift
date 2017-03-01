@@ -23,15 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
 		FIRApp.configure()
-		
-		applicationStore = RxDataFlowController(reducer: RootReducer(),
-		                                        initialState: AppState(coordinator: SignInCoordinator(window: window!),
-		                                                                   rootController: MainController(),
-		                                                                   logInInfo: nil,
-		                                                                   httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
-		                                                                   tasks: []))
-		
-		applicationStore.dispatch(GeneralAction.showRootController)
+
+		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
+		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
+		let initialState = AppState(coordinator: SignInCoordinator(window: window!),
+		                            rootController: MainController(),
+		                            logInInfo: nil,
+		                            httpClient: httpClient,
+		                            tasks: [])
+
+		applicationStore = RxDataFlowController(reducer: RootReducer(), initialState: initialState, dispatchAction: GeneralAction.showRootController)
 		
 		return true
 	}

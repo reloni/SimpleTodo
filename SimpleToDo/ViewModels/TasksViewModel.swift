@@ -36,7 +36,7 @@ final class TasksViewModel {
 		}
 	}()
 	
-	lazy var errors: Observable<(state: RxStateType, action: RxActionType, error: Error)> = {
+	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.appStore.errors.do(onNext: { [weak self] in
 			guard let object = self else { return }
 			object.appStore.dispatch(AppAction.showAllert(in: object.viewController, with: $0.error))

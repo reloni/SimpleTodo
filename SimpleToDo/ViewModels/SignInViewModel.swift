@@ -12,7 +12,7 @@ import RxDataFlow
 
 final class SignInViewModel {
 	let flowController: RxDataFlowController<AppState>
-	lazy var errors: Observable<(state: RxStateType, action: RxActionType, error: Error)> = {
+	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in
 			guard let object = self else { return }
 			object.flowController.dispatch(GeneralAction.error($0.error))
