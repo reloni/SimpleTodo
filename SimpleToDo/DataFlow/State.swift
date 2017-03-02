@@ -17,7 +17,7 @@ import UIKit
 
 struct AppState : RxStateType {
 	let coordinator: ApplicationCoordinatorType
-	let rootController: MainController
+	let rootController: TasksListNavigationController
 	let logInInfo: LogInInfo?
 	let httpClient: HttpClientType
 	let tasks: [Task]

@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
 		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
 		let initialState = AppState(coordinator: SignInCoordinator(window: window!),
-		                            rootController: MainController(),
+		                            rootController: TasksListNavigationController(),
 		                            logInInfo: nil,
 		                            httpClient: httpClient,
 		                            tasks: [])

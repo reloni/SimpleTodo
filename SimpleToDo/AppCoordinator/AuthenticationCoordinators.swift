@@ -45,6 +45,10 @@ struct SignInCoordinator : ApplicationCoordinatorType {
 		case GeneralAction.error(let error):
 			showAlert(in: controller!, with: error)
 			return .just(flowController.currentState.state)
+		case SignInAction.showTasksListController:
+			let coordinator = TasksListCoordinator(parent: self)
+			controller?.present(coordinator.navigationController, animated: true, completion: nil)
+			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
 		default: return .empty()
 		}
 	}

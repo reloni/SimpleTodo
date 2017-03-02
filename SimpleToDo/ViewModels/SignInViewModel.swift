@@ -24,6 +24,7 @@ final class SignInViewModel {
 	}
 	
 	func logIn(email: String, password: String) {
-		flowController.dispatch(SignInAction.logIn(email, password))
+		flowController.dispatch(RxCompositeAction(actions: [SignInAction.logIn(email, password),
+		                                                    SignInAction.showTasksListController]))
 	}
 }

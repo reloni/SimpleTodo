@@ -18,7 +18,7 @@ extension SignInReducer {
 					return
 				}
 				
-				observer.onNext(state.mutation.new(logInInfo: LogInInfo(email: "", password: "", firebaseUser: user!)))
+				observer.onNext(state.mutation.new(logInInfo: LogInInfo(email: "john@domain.com", password: "ololo", firebaseUser: user!)))
 				observer.onCompleted()
 			}
 			
