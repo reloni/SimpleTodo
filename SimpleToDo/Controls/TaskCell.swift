@@ -88,14 +88,14 @@ final class TaskCell : UITableViewCell {
 		
 		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.backgroundLightGray }
 		actionsStack.subviews.last?.setContentHuggingPriority(1, for: UILayoutConstraintAxis.horizontal)
-
-		completeActionView.rx.gesture(.tap).subscribe(onNext: { [weak self] _ in
+		
+		completeActionView.rx.tapGesture().subscribe(onNext: { [weak self] _ in
 			self?.completeTapped?()
 		}).addDisposableTo(bag)
-		editActionView.rx.gesture(.tap).subscribe(onNext: { [weak self] _ in
+		editActionView.rx.tapGesture().subscribe(onNext: { [weak self] _ in
 			self?.editTapped?()
 		}).addDisposableTo(bag)
-		deleteActionView.rx.gesture(.tap).subscribe(onNext: { [weak self] _ in
+		deleteActionView.rx.tapGesture().subscribe(onNext: { [weak self] _ in
 			self?.deleteTapped?()
 		}).addDisposableTo(bag)
 		updateConstraints()
