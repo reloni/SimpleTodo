@@ -101,7 +101,6 @@ final class SignInController : UIViewController {
 	}
 	
 	func controllerTap(recognizer: UITapGestureRecognizer) {
-		print(Date())
 		containerView.subviews.forEach {
 			if let textField = $0 as? TextField, textField.isFirstResponder {
 				textField.resignFirstResponder()
