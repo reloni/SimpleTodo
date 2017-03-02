@@ -87,8 +87,7 @@ final class SignInController : UIViewController {
 		scrollView.snp.makeConstraints(scrollViewConstraints)
 		containerView.snp.makeConstraints(containerViewConstraints)
 		
-		let recognizer = UITapGestureRecognizer(target: self, action: #selector(controllerTap))
-		view.addGestureRecognizer(recognizer)
+		view.rx.tapGesture().when(.recognized).subscribe(onNext: controllerTap).disposed(by: bag)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -101,7 +100,8 @@ final class SignInController : UIViewController {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 	}
 	
-	func controllerTap() {
+	func controllerTap(recognizer: UITapGestureRecognizer) {
+		print(Date())
 		containerView.subviews.forEach {
 			if let textField = $0 as? TextField, textField.isFirstResponder {
 				textField.resignFirstResponder()
