@@ -56,7 +56,7 @@ struct SignInReducer : RxReducerType {
 		switch action as? SignInAction {
 		case .dismissFirebaseRegistration?: fallthrough
 		case .showFirebaseRegistration?: return currentState.coordinator.handle(action, flowController: flowController)
-		case .logIn(let email, let password)?: return currentState.logic.signIn.logIn(email: email, password: password)
+		case .logIn(let email, let password)?: return logIn(currentState: currentState, email: email, password: password)
 		default: return .empty()
 		}
 	}

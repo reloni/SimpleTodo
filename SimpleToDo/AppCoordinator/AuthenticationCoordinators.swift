@@ -13,6 +13,16 @@ protocol ApplicationCoordinatorType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType>
 }
 
+extension ApplicationCoordinatorType {
+	func showAlert(in controller: UIViewController, with error: Error) {
+		guard let message = error.uiAlertMessage() else { return }
+		let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+		let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+		alert.addAction(ok)
+		controller.present(alert, animated: true, completion: nil)
+	}
+}
+
 struct SignInCoordinator : ApplicationCoordinatorType {
 	let controller: UIViewController?
 	let window: UIWindow
@@ -32,7 +42,9 @@ struct SignInCoordinator : ApplicationCoordinatorType {
 			let coordinator = FirebaseRegistrationCoordinator(parent: self)
 			controller!.present(coordinator.controller, animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
-		case GeneralAction.error(let error): return flowController.currentState.state.logic.common.showAlert(in: controller!, with: error)
+		case GeneralAction.error(let error):
+			showAlert(in: controller!, with: error)
+			return .just(flowController.currentState.state)
 		default: return .empty()
 		}
 	}
@@ -52,7 +64,9 @@ struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 		case SignInAction.dismissFirebaseRegistration:
 			controller.dismiss(animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: parent))
-		case GeneralAction.error(let error): return flowController.currentState.state.logic.common.showAlert(in: controller, with: error)
+		case GeneralAction.error(let error):
+			showAlert(in: controller, with: error)
+			return .just(flowController.currentState.state)
 		default: return .empty()
 		}
 	}

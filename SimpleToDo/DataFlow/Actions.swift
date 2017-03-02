@@ -23,6 +23,7 @@ enum GeneralAction : RxActionType {
 enum SignInAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? {
 		switch self {
+		case .showTasksListController: fallthrough
 		case .showFirebaseRegistration: fallthrough
 		case .dismissFirebaseRegistration: return MainScheduler.instance
 		default: return nil
@@ -31,6 +32,7 @@ enum SignInAction : RxActionType {
 	
 	case showFirebaseRegistration
 	case dismissFirebaseRegistration
+	case showTasksListController
 	case logIn(String, String)
 }
 

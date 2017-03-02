@@ -9,14 +9,8 @@
 import RxDataFlow
 import RxSwift
 
-extension AppLogic {
-	var signIn: StateSignIn { return StateSignIn(state: state) }
-}
-
-struct StateSignIn {
-	let state: AppState
-	
-	func logIn(email: String, password: String) -> Observable<RxStateType> {
+extension SignInReducer {
+	func logIn(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
 		return Observable.create { observer in
 			FIRAuth.auth()!.signIn(withEmail: email, password: password) { user, error in
 				if let error = error {
@@ -24,7 +18,7 @@ struct StateSignIn {
 					return
 				}
 				
-				observer.onNext(self.state.mutation.new(logInInfo: LogInInfo(email: "", password: "", firebaseUser: user!)))
+				observer.onNext(state.mutation.new(logInInfo: LogInInfo(email: "", password: "", firebaseUser: user!)))
 				observer.onCompleted()
 			}
 			
