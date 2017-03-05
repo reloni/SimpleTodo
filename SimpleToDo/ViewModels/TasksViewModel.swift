@@ -22,12 +22,12 @@ final class TasksViewModel {
 	lazy var taskSections: Observable<[TaskSection]> = {
 		return self.appStore.state.filter {
 			switch $0.setBy {
-			case AppAction.addTask: fallthrough
-			case AppAction.deleteTask: fallthrough
-			case AppAction.loadTasks: fallthrough
-			case AppAction.updateTask: fallthrough
-			case AppAction.completeTask: fallthrough
-			case AppAction.reloadTasks: return true
+//			case AppAction.addTask: fallthrough
+//			case AppAction.deleteTask: fallthrough
+//			case AppAction.loadTasks: fallthrough
+//			case AppAction.updateTask: fallthrough
+//			case AppAction.completeTask: fallthrough
+			case TaskListAction.loadTasks: return true
 			default: return false
 			}
 			}
@@ -88,11 +88,11 @@ final class TasksViewModel {
 	}
 	
 	func loadTasks() {
-		appStore.dispatch(AppAction.loadTasks)
+		appStore.dispatch(TaskListAction.loadTasks)
 	}
 	
 	func newTask() {
-		appStore.dispatch(AppAction.showEditTaskController(nil))
+		appStore.dispatch(TaskListAction.showEditTaskController(nil))
 	}
 }
 

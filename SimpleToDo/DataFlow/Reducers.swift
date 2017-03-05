@@ -15,7 +15,8 @@ struct RootReducer : RxReducerType {
 		print("handle new action: \(action.self)")
 		switch action {
 		case _ as SignInAction: return SignInReducer().handle(action, flowController: flowController)
-		case _ as AppAction: return AppReducer().handle(action, flowController: flowController)
+		//case _ as AppAction: return AppReducer().handle(action, flowController: flowController)
+		case _ as TaskListAction: return TasksReducer().handle(action, flowController: flowController)
 		case _ as GeneralAction:
 			let flowController = flowController as! RxDataFlowController<AppState>
 			return flowController.currentState.state.coordinator.handle(action, flowController: flowController)
@@ -23,7 +24,7 @@ struct RootReducer : RxReducerType {
 		}
 	}
 }
-
+/*
 struct AppReducer : RxReducerType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
 		return handle(action, flowController: flowController as! RxDataFlowController<AppState>)
@@ -45,6 +46,7 @@ struct AppReducer : RxReducerType {
 		}
 	}
 }
+*/
 
 struct SignInReducer : RxReducerType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
@@ -60,5 +62,22 @@ struct SignInReducer : RxReducerType {
 		case .logIn(let email, let password)?: return logIn(currentState: currentState, email: email, password: password)
 		default: return .empty()
 		}
+	}
+}
+
+struct TasksReducer : RxReducerType {
+	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
+		return handle(action, flowController: flowController as! RxDataFlowController<AppState>)
+	}
+	
+	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+		let currentState = flowController.currentState.state
+		switch action {
+		case EditTaskAction.dismisEditTaskController: fallthrough
+		case TaskListAction.showEditTaskController: return currentState.coordinator.handle(action, flowController: flowController)
+		case TaskListAction.loadTasks: return ApplicationLogic.reloadTasks(currentState: currentState, fromRemote: true)
+		default: return .empty()
+		}
+		
 	}
 }

@@ -1,5 +1,5 @@
 //
-//  TasksListCoordinator.swift
+//  TasksCoordinator.swift
 //  SimpleToDo
 //
 //  Created by Anton Efimenko on 02.03.17.
@@ -9,7 +9,7 @@
 import RxSwift
 import RxDataFlow
 
-struct TasksListCoordinator : ApplicationCoordinatorType {
+struct TasksCoordinator : ApplicationCoordinatorType {
 	let parent: ApplicationCoordinatorType
 	let navigationController: TasksListNavigationController
 	
@@ -21,6 +21,14 @@ struct TasksListCoordinator : ApplicationCoordinatorType {
 	}
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
-		return .empty()
+		switch action {
+		case TaskListAction.showEditTaskController(let task):
+			navigationController.pushViewController(EditTaskController(task: task), animated: true)
+			return .just(flowController.currentState.state)
+		case EditTaskAction.dismisEditTaskController:
+			navigationController.popViewController(animated: true)
+			return .just(flowController.currentState.state)
+		default: return .empty()
+		}
 	}
 }

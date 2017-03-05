@@ -36,6 +36,33 @@ enum SignInAction : RxActionType {
 	case logIn(String, String)
 }
 
+enum TaskListAction : RxActionType {
+	var scheduler: ImmediateSchedulerType? {
+		switch self {
+		case .showEditTaskController: return MainScheduler.instance
+		default: return nil
+		}
+	}
+	
+	case loadTasks
+	case showEditTaskController(Task?)
+	case deleteTask(Int)
+	case completeTask(Int)
+}
+
+enum EditTaskAction : RxActionType {
+	var scheduler: ImmediateSchedulerType? {
+		switch self {
+		case .dismisEditTaskController: return MainScheduler.instance
+		default: return nil
+		}
+	}
+	
+	case addTask(Task)
+	case updateTask(Task)
+	case dismisEditTaskController
+}
+
 enum AppAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? {
 		switch self {
