@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.331164285591-6t6tsbbkv728o220ek2vilkc1er2u1rj</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Should have access to calendar</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

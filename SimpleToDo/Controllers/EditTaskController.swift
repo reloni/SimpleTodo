@@ -10,9 +10,12 @@ import Foundation
 import UIKit
 import SnapKit
 import Material
+import RxSwift
+import RxDataFlow
 
 final class EditTaskController : UIViewController {
 	let task: Task?
+	let bag = DisposeBag()
 	
 	let scrollView: UIScrollView = {
 		let scroll = UIScrollView()
@@ -98,11 +101,9 @@ final class EditTaskController : UIViewController {
 		
 		view.backgroundColor = Theme.Colors.backgroundLightGray
 		
-		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
-		let recognizer = UITapGestureRecognizer(target: self, action: #selector(controllerTap))
-		view.addGestureRecognizer(recognizer)
+		view.rx.tapGesture().when(.recognized).subscribe(onNext: controllerTap).disposed(by: bag)
 		
 		view.addSubview(scrollView)
 		scrollView.addSubview(containerView)
@@ -127,7 +128,7 @@ final class EditTaskController : UIViewController {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 	}
 	
-	func controllerTap() {
+	func controllerTap(recognizer: UITapGestureRecognizer) {
 		containerView.subviews.forEach {
 			if let textField = $0 as? TextView, textField.isFirstResponder {
 				textField.resignFirstResponder()
@@ -147,14 +148,16 @@ final class EditTaskController : UIViewController {
 	func done() {
 		guard let desc = descriptionTextField.text, desc.characters.count > 0 else { return }
 		guard let task = task else {
-			applicationStore.dispatch(AppAction.dismisEditTaskController)
-			applicationStore.dispatch(AppAction.addTask(Task(uuid: UniqueIdentifier(), completed: false, description: desc, notes: notesTextField.text)))
+			let action = RxCompositeAction(actions: [EditTaskAction.dismisEditTaskController,
+			                                         EditTaskAction.addTask(Task(uuid: UniqueIdentifier(), completed: false, description: desc, notes: notesTextField.text))])
+			applicationStore.dispatch(action)
 			return
 		}
 		
 		let newTask = Task(uuid: task.uuid, completed: false, description: desc, notes: notesTextField.text)
-		applicationStore.dispatch(AppAction.dismisEditTaskController)
-		applicationStore.dispatch(AppAction.updateTask(newTask))
+		let action = RxCompositeAction(actions: [EditTaskAction.dismisEditTaskController,
+		                                         EditTaskAction.updateTask(newTask)])
+		applicationStore.dispatch(action)
 	}
 	
 	override func updateViewConstraints() {

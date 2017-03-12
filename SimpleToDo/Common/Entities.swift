@@ -10,6 +10,11 @@ import Unbox
 import RxDataSources
 import Wrap
 
+enum FirebaseError : Error {
+	case signInError(Error)
+	case tokenRequestError(Error)
+}
+
 struct ServerSideError {
 	let error: String
 }
@@ -23,6 +28,7 @@ extension ServerSideError : Unboxable {
 struct LogInInfo {
 	let email: String
 	let password: String
+	let firebaseUser: FIRUser
 	
 	func toBasicAuthKey() -> String {
 		return "Basic " + "\(email):\(password)".data(using: String.Encoding.utf8)!.base64EncodedString(options: [])

@@ -35,6 +35,7 @@ extension Error {
 			}
 			
 			return (try? unbox(data: data) as ServerSideError)?.error
+		case FirebaseError.signInError(let error): return error.localizedDescription
 		default: return nil
 		}
 	}
@@ -44,4 +45,8 @@ extension UIFont {
 	func new(sizeModifier: CGFloat) -> UIFont {
 		return withSize(pointSize + sizeModifier)
 	}
+}
+
+extension HttpClient {
+	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
 }

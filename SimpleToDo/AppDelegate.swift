@@ -11,12 +11,7 @@ import RxHttpClient
 import RxDataFlow
 import RxSwift
 
-//let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
-let applicationStore = RxDataFlowController(reducer: AppReducer(),
-                       initialState: AppState(rootController: MainController(),
-                                              logInInfo: LogInInfo(email: "john@domain.com", password: "ololo"),
-                                              httpClient: HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory), requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared)),
-                                              tasks: []))
+var applicationStore: RxDataFlowController<AppState>!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,9 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
-		applicationStore.currentState.state.rootController.viewControllers.append(TasksController())
-		window?.rootViewController = applicationStore.currentState.state.rootController
-		window?.makeKeyAndVisible()
+		FIRApp.configure()
+
+		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
+		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
+		let initialState = AppState(coordinator: SignInCoordinator(window: window!),
+		                            rootController: TasksListNavigationController(),
+		                            logInInfo: nil,
+		                            httpClient: httpClient,
+		                            tasks: [])
+
+		applicationStore = RxDataFlowController(reducer: RootReducer(), initialState: initialState, dispatchAction: GeneralAction.showRootController)
+		
 		return true
 	}
 
@@ -54,7 +58,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
-
-
 }
-
