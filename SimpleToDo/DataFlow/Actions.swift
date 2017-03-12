@@ -62,24 +62,3 @@ enum EditTaskAction : RxActionType {
 	case updateTask(Task)
 	case dismisEditTaskController
 }
-
-enum AppAction : RxActionType {
-	var scheduler: ImmediateSchedulerType? {
-		switch self {
-		case .showEditTaskController: fallthrough
-		case .showAllert: fallthrough
-		case .dismisEditTaskController: return MainScheduler.instance
-		default: return nil
-		}
-	}
-	
-	case reloadTasks([Task])
-	case loadTasks
-	case addTask(Task)
-	case showEditTaskController(Task?)
-	case dismisEditTaskController
-	case deleteTask(Int)
-	case showAllert(in: UIViewController, with: Error)
-	case updateTask(Task)
-	case completeTask(Int)
-}

@@ -22,11 +22,10 @@ final class TasksViewModel {
 	lazy var taskSections: Observable<[TaskSection]> = {
 		return self.appStore.state.filter {
 			switch $0.setBy {
-//			case AppAction.addTask: fallthrough
-//			case AppAction.deleteTask: fallthrough
-//			case AppAction.loadTasks: fallthrough
-//			case AppAction.updateTask: fallthrough
-//			case AppAction.completeTask: fallthrough
+			case EditTaskAction.addTask: fallthrough
+			case TaskListAction.deleteTask: fallthrough
+			case EditTaskAction.updateTask: fallthrough
+			case TaskListAction.completeTask: fallthrough
 			case TaskListAction.loadTasks: return true
 			default: return false
 			}
@@ -39,7 +38,7 @@ final class TasksViewModel {
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.appStore.errors.do(onNext: { [weak self] in
 			guard let object = self else { return }
-			object.appStore.dispatch(AppAction.showAllert(in: object.viewController, with: $0.error))
+			object.appStore.dispatch(GeneralAction.error($0.error))
 		})
 	}()
 	
@@ -61,19 +60,19 @@ final class TasksViewModel {
 			cell.completeTapped = { [weak self] in
 				guard let object = self else { return }
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.appStore.dispatch(AppAction.completeTask(row))
+				object.appStore.dispatch(TaskListAction.completeTask(row))
 			}
 			
 			cell.editTapped = { [weak self] in
 				guard let object = self else { return }
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.appStore.dispatch(AppAction.showEditTaskController(object.appStore.currentState.state.tasks[row]))
+				object.appStore.dispatch(TaskListAction.showEditTaskController(object.appStore.currentState.state.tasks[row]))
 			}
 			
 			cell.deleteTapped = { [weak self] in
 				guard let object = self else { return }
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.appStore.dispatch(AppAction.deleteTask(row))
+				object.appStore.dispatch(TaskListAction.deleteTask(row))
 			}
 			return cell
 		}

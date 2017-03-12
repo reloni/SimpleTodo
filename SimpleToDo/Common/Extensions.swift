@@ -46,3 +46,7 @@ extension UIFont {
 		return withSize(pointSize + sizeModifier)
 	}
 }
+
+extension HttpClient {
+	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
+}

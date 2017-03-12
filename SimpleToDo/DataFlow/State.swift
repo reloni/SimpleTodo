@@ -27,13 +27,8 @@ struct AppStateMutation {
 	let state: AppState
 }
 
-struct AppLogic {
-	let state: AppState
-}
-
 extension AppState {
 	var mutation: AppStateMutation { return AppStateMutation(state: self) }
-	var logic: AppLogic { return AppLogic(state: self) }
 }
 
 extension AppStateMutation {

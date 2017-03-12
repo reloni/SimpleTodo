@@ -11,6 +11,7 @@ import UIKit
 import SnapKit
 import Material
 import RxSwift
+import RxDataFlow
 
 final class EditTaskController : UIViewController {
 	let task: Task?
@@ -147,14 +148,16 @@ final class EditTaskController : UIViewController {
 	func done() {
 		guard let desc = descriptionTextField.text, desc.characters.count > 0 else { return }
 		guard let task = task else {
-			applicationStore.dispatch(AppAction.dismisEditTaskController)
-			applicationStore.dispatch(AppAction.addTask(Task(uuid: UniqueIdentifier(), completed: false, description: desc, notes: notesTextField.text)))
+			let action = RxCompositeAction(actions: [EditTaskAction.dismisEditTaskController,
+			                                         EditTaskAction.addTask(Task(uuid: UniqueIdentifier(), completed: false, description: desc, notes: notesTextField.text))])
+			applicationStore.dispatch(action)
 			return
 		}
 		
 		let newTask = Task(uuid: task.uuid, completed: false, description: desc, notes: notesTextField.text)
-		applicationStore.dispatch(AppAction.dismisEditTaskController)
-		applicationStore.dispatch(AppAction.updateTask(newTask))
+		let action = RxCompositeAction(actions: [EditTaskAction.dismisEditTaskController,
+		                                         EditTaskAction.updateTask(newTask)])
+		applicationStore.dispatch(action)
 	}
 	
 	override func updateViewConstraints() {
