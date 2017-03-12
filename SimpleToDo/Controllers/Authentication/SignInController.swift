@@ -87,7 +87,8 @@ final class SignInController : UIViewController {
 		scrollView.snp.makeConstraints(scrollViewConstraints)
 		containerView.snp.makeConstraints(containerViewConstraints)
 		
-		view.rx.tapGesture().when(.recognized).subscribe(onNext: controllerTap).disposed(by: bag)
+		let recognizer = UITapGestureRecognizer(target: self, action: #selector(controllerTap))
+		view.addGestureRecognizer(recognizer)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)

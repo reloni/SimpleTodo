@@ -103,7 +103,8 @@ final class EditTaskController : UIViewController {
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
-		view.rx.tapGesture().when(.recognized).subscribe(onNext: controllerTap).disposed(by: bag)
+		let recognizer = UITapGestureRecognizer(target: self, action: #selector(controllerTap))
+		view.addGestureRecognizer(recognizer)
 		
 		view.addSubview(scrollView)
 		scrollView.addSubview(containerView)
