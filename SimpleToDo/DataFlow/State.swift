@@ -17,7 +17,6 @@ import UIKit
 
 struct AppState : RxStateType {
 	let coordinator: ApplicationCoordinatorType
-	let rootController: TasksListNavigationController
 	let logInInfo: LogInInfo?
 	let httpClient: HttpClientType
 	let tasks: [Task]
@@ -33,14 +32,14 @@ extension AppState {
 
 extension AppStateMutation {
 	func new(tasks: [Task]) -> AppState {
-		return AppState(coordinator: state.coordinator, rootController: state.rootController, logInInfo: state.logInInfo, httpClient: state.httpClient, tasks: tasks)
+		return AppState(coordinator: state.coordinator, logInInfo: state.logInInfo, httpClient: state.httpClient, tasks: tasks)
 	}
 	
 	func new(coordinator: ApplicationCoordinatorType) -> AppState {
-		return AppState(coordinator: coordinator, rootController: state.rootController, logInInfo: state.logInInfo, httpClient: state.httpClient, tasks: state.tasks)
+		return AppState(coordinator: coordinator, logInInfo: state.logInInfo, httpClient: state.httpClient, tasks: state.tasks)
 	}
 	
 	func new(logInInfo: LogInInfo) -> AppState {
-		return AppState(coordinator: state.coordinator, rootController: state.rootController, logInInfo: logInInfo, httpClient: state.httpClient, tasks: state.tasks)
+		return AppState(coordinator: state.coordinator, logInInfo: logInInfo, httpClient: state.httpClient, tasks: state.tasks)
 	}
 }
