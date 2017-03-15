@@ -17,11 +17,9 @@ import AMScrollingNavbar
 
 final class TasksController : UIViewController {
 	let bag = DisposeBag()
-	
-	lazy var viewModel: TasksViewModel = {
-		return TasksViewModel(viewController: self, applicationStore: applicationStore)
-	}()
-	
+
+    let viewModel: TasksViewModel
+
 	let tableView: UITableView = {
 		let table = UITableView()
 		table.preservesSuperviewLayoutMargins = false
@@ -34,6 +32,15 @@ final class TasksController : UIViewController {
 		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 		return table
 	}()
+    
+    init(viewModel: TasksViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()

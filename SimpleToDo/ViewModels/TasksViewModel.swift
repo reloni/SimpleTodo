@@ -14,13 +14,12 @@ import RxSwift
 final class TasksViewModel {
 	let dataSource = RxTableViewSectionedAnimatedDataSource<TaskSection>()
 	
-	let appStore: RxDataFlowController<AppState>
-	let viewController: UIViewController
+	let flowController: RxDataFlowController<AppState>
 	
 	let tableViewDelegate = TasksViewModelTableViewDelegate()
 	
 	lazy var taskSections: Observable<[TaskSection]> = {
-		return self.appStore.state.filter {
+		return self.flowController.state.filter {
 			switch $0.setBy {
 			case EditTaskAction.addTask: fallthrough
 			case TaskListAction.deleteTask: fallthrough
@@ -36,15 +35,14 @@ final class TasksViewModel {
 	}()
 	
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
-		return self.appStore.errors.do(onNext: { [weak self] in
+		return self.flowController.errors.do(onNext: { [weak self] in
 			guard let object = self else { return }
-			object.appStore.dispatch(GeneralAction.error($0.error))
+			object.flowController.dispatch(GeneralAction.error($0.error))
 		})
 	}()
 	
-	init(viewController: UIViewController, applicationStore: RxDataFlowController<AppState>) {
-		self.viewController = viewController
-		appStore = applicationStore
+	init(flowController: RxDataFlowController<AppState>) {
+		self.flowController = flowController
 		configureDataSource()
 	}
 	
@@ -60,19 +58,19 @@ final class TasksViewModel {
 			cell.completeTapped = { [weak self] in
 				guard let object = self else { return }
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.appStore.dispatch(TaskListAction.completeTask(row))
+				object.flowController.dispatch(TaskListAction.completeTask(row))
 			}
 			
 			cell.editTapped = { [weak self] in
 				guard let object = self else { return }
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.appStore.dispatch(TaskListAction.showEditTaskController(object.appStore.currentState.state.tasks[row]))
+				object.flowController.dispatch(TaskListAction.showEditTaskController(object.flowController.currentState.state.tasks[row]))
 			}
 			
 			cell.deleteTapped = { [weak self] in
 				guard let object = self else { return }
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.appStore.dispatch(TaskListAction.deleteTask(row))
+				object.flowController.dispatch(TaskListAction.deleteTask(row))
 			}
 			return cell
 		}
@@ -87,11 +85,11 @@ final class TasksViewModel {
 	}
 	
 	func loadTasks() {
-		appStore.dispatch(TaskListAction.loadTasks)
+		flowController.dispatch(TaskListAction.loadTasks)
 	}
 	
 	func newTask() {
-		appStore.dispatch(TaskListAction.showEditTaskController(nil))
+		flowController.dispatch(TaskListAction.showEditTaskController(nil))
 	}
 }
 

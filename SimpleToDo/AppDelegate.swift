@@ -11,29 +11,32 @@ import RxHttpClient
 import RxDataFlow
 import RxSwift
 
-var applicationStore: RxDataFlowController<AppState>!
+//var applicationStore: RxDataFlowController<AppState>!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 	
+    lazy var flowController: RxDataFlowController<AppState> = {
+        let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
+                                    requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
+        let initialState = AppState(coordinator: SignInCoordinator(window: self.window!),
+                                    rootController: TasksListNavigationController(),
+                                    logInInfo: nil,
+                                    httpClient: httpClient,
+                                    tasks: [])
+        
+        return RxDataFlowController(reducer: RootReducer(), initialState: initialState)
+    }()
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
 		FIRApp.configure()
+        
+        flowController.dispatch(GeneralAction.showRootController)
 
-		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
-		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
-		let initialState = AppState(coordinator: SignInCoordinator(window: window!),
-		                            rootController: TasksListNavigationController(),
-		                            logInInfo: nil,
-		                            httpClient: httpClient,
-		                            tasks: [])
-
-		applicationStore = RxDataFlowController(reducer: RootReducer(), initialState: initialState, dispatchAction: GeneralAction.showRootController)
-		
 		return true
 	}
 

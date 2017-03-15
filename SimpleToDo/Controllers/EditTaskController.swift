@@ -14,7 +14,7 @@ import RxSwift
 import RxDataFlow
 
 final class EditTaskController : UIViewController {
-	let task: Task?
+    let viewModel: EditTaskViewModel
 	let bag = DisposeBag()
 	
 	let scrollView: UIScrollView = {
@@ -81,8 +81,8 @@ final class EditTaskController : UIViewController {
 		return text
 	}()
 	
-	init(task: Task?) {
-		self.task = task
+    init(viewModel: EditTaskViewModel) {
+        self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -93,11 +93,7 @@ final class EditTaskController : UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		if let desc = task?.description {
-			title = "Edit \(desc)"
-		} else {
-			title = "New task"
-		}
+        title = viewModel.title
 		
 		view.backgroundColor = Theme.Colors.backgroundLightGray
 		
@@ -120,8 +116,8 @@ final class EditTaskController : UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
-		descriptionTextField.text = task?.description
-		notesTextField.text = task?.notes
+		descriptionTextField.text = viewModel.task?.description
+		notesTextField.text = viewModel.task?.notes
 	}
 	
 	deinit {
@@ -147,18 +143,7 @@ final class EditTaskController : UIViewController {
 	}
 	
 	func done() {
-		guard let desc = descriptionTextField.text, desc.characters.count > 0 else { return }
-		guard let task = task else {
-			let action = RxCompositeAction(actions: [EditTaskAction.dismisEditTaskController,
-			                                         EditTaskAction.addTask(Task(uuid: UniqueIdentifier(), completed: false, description: desc, notes: notesTextField.text))])
-			applicationStore.dispatch(action)
-			return
-		}
-		
-		let newTask = Task(uuid: task.uuid, completed: false, description: desc, notes: notesTextField.text)
-		let action = RxCompositeAction(actions: [EditTaskAction.dismisEditTaskController,
-		                                         EditTaskAction.updateTask(newTask)])
-		applicationStore.dispatch(action)
+        viewModel.save(description: descriptionTextField.text, notes: notesTextField.text)
 	}
 	
 	override func updateViewConstraints() {

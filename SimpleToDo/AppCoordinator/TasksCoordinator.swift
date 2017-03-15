@@ -13,17 +13,19 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 	let parent: ApplicationCoordinatorType
 	let navigationController: TasksListNavigationController
 	
-	init(parent: ApplicationCoordinatorType) {
+    init(parent: ApplicationCoordinatorType, flowController: RxDataFlowController<AppState>) {
 		self.parent = parent
 		
 		navigationController = TasksListNavigationController()
-		navigationController.pushViewController(TasksController(), animated: false)
+        let viewModel = TasksViewModel(flowController: flowController)
+        navigationController.pushViewController(TasksController(viewModel: viewModel), animated: false)
 	}
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
 		switch action {
 		case TaskListAction.showEditTaskController(let task):
-			navigationController.pushViewController(EditTaskController(task: task), animated: true)
+            let viewModel = EditTaskViewModel(task: task, flowController: flowController)
+            navigationController.pushViewController(EditTaskController(viewModel: viewModel), animated: true)
 			return .just(flowController.currentState.state)
 		case EditTaskAction.dismisEditTaskController:
 			navigationController.popViewController(animated: true)
