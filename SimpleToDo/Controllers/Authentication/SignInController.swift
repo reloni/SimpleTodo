@@ -72,6 +72,9 @@ final class SignInController : UIViewController {
 		
 		view.backgroundColor = UIColor.white
 		
+		emailTextField.text = viewModel.email
+		passwordTextField.text = viewModel.password
+		
 		emailTextField.delegate = self
 		passwordTextField.delegate = self
 		

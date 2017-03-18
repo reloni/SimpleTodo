@@ -34,7 +34,10 @@ extension SignInReducer {
 					observer.onError(FirebaseError.signInError(error))
 					return
 				}
-
+				
+				Keychain.userEmail = email
+				Keychain.userPassword = password
+				
 				observer.onNext(state.mutation.new(logInInfo: LogInInfo(email: "john@domain.com", password: "ololo", firebaseUser: user!)))
 				observer.onCompleted()
 			}

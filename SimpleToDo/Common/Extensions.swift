@@ -50,3 +50,18 @@ extension UIFont {
 extension HttpClient {
 	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
 }
+
+extension Keychain {
+	private static let keychain = Keychain()
+	
+	static var userEmail: String {
+		get { return keychain.stringForAccount(account: "userEmail") ?? "" }
+		set { keychain.setString(string: newValue, forAccount: "userEmail", synchronizable: true, background: false) }
+	}
+	
+	static var userPassword: String {
+		get { return keychain.stringForAccount(account: "userPassword") ?? "" }
+		set { keychain.setString(string: newValue, forAccount: "userPassword", synchronizable: true, background: false) }
+	}
+	
+}
