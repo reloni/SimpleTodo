@@ -1,5 +1,5 @@
 //
-//  MainController.swift
+//  TasksListNavigationController.swift
 //  SimpleToDo
 //
 //  Created by Anton Efimenko on 01.12.16.
