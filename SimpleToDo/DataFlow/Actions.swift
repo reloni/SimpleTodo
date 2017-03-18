@@ -10,11 +10,7 @@ import RxDataFlow
 import RxSwift
 
 enum GeneralAction : RxActionType {
-	var scheduler: ImmediateSchedulerType? {
-		switch self {
-		default: return MainScheduler.instance
-		}
-	}
+	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case showRootController
 	case error(Error)

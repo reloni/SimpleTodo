@@ -14,7 +14,7 @@ import RxSwift
 import RxDataFlow
 
 final class EditTaskController : UIViewController {
-    let viewModel: EditTaskViewModel
+	let viewModel: EditTaskViewModel
 	let bag = DisposeBag()
 	
 	let scrollView: UIScrollView = {
@@ -81,8 +81,8 @@ final class EditTaskController : UIViewController {
 		return text
 	}()
 	
-    init(viewModel: EditTaskViewModel) {
-        self.viewModel = viewModel
+	init(viewModel: EditTaskViewModel) {
+		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -93,7 +93,7 @@ final class EditTaskController : UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-        title = viewModel.title
+		title = viewModel.title
 		
 		view.backgroundColor = Theme.Colors.backgroundLightGray
 		
@@ -115,7 +115,7 @@ final class EditTaskController : UIViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-
+		
 		descriptionTextField.text = viewModel.task?.description
 		notesTextField.text = viewModel.task?.notes
 	}
@@ -143,14 +143,14 @@ final class EditTaskController : UIViewController {
 	}
 	
 	func done() {
-        viewModel.save(description: descriptionTextField.text, notes: notesTextField.text)
+		viewModel.save(description: descriptionTextField.text, notes: notesTextField.text)
 	}
 	
 	override func updateViewConstraints() {
 		super.updateViewConstraints()
 		
 		scrollView.snp.remakeConstraints { make in
-			 make.edges.equalTo(view).inset(UIEdgeInsets.zero)
+			make.edges.equalTo(view).inset(UIEdgeInsets.zero)
 		}
 		
 		containerView.snp.remakeConstraints { make in

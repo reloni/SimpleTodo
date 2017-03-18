@@ -18,6 +18,8 @@ final class TasksViewModel {
 	
 	let tableViewDelegate = TasksViewModelTableViewDelegate()
 	
+	let title = "Tasks"
+	
 	lazy var taskSections: Observable<[TaskSection]> = {
 		return self.flowController.state.filter {
 			switch $0.setBy {

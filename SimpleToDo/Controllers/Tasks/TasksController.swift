@@ -18,7 +18,7 @@ import AMScrollingNavbar
 final class TasksController : UIViewController {
 	let bag = DisposeBag()
 
-    let viewModel: TasksViewModel
+	let viewModel: TasksViewModel
 
 	let tableView: UITableView = {
 		let table = UITableView()
@@ -51,7 +51,7 @@ final class TasksController : UIViewController {
 		
 		self.view.backgroundColor = UIColor.white
 		
-		title = "To do"
+		title = viewModel.title
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTask))
 		
