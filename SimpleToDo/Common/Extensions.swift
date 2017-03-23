@@ -10,6 +10,7 @@ import Foundation
 import RxHttpClient
 import Unbox
 import UIKit
+import RxSwift
 
 extension Notification {
 	func keyboardHeight() -> CGFloat {
@@ -45,6 +46,27 @@ extension UIFont {
 	func new(sizeModifier: CGFloat) -> UIFont {
 		return withSize(pointSize + sizeModifier)
 	}
+}
+
+extension FIRUser : LoginUser {
+    var token: Observable<String> {
+        return Observable.create { [weak self] observer in
+            guard let object = self else { observer.onCompleted(); return Disposables.create() }
+            
+            object.getTokenForcingRefresh(false) { token, error in
+                guard let token = token else {
+                    let err = error != nil ? FirebaseError.tokenRequestError(error!) : FirebaseError.unknown
+                    observer.onError(err)
+                    return
+                }
+                
+                observer.onNext(token)
+                observer.onCompleted()
+            }
+            
+            return Disposables.create()
+        }
+    }
 }
 
 extension HttpClient {

@@ -15,9 +15,21 @@ import UIKit
 import Wrap
 import UIKit
 
+enum Authentication {
+    case none
+    case user(LoginUser)
+    
+    var token: Observable<String> {
+        switch self {
+        case .none: return .error(ApplicationError.notAuthenticated)
+        case .user(let user): return user.token
+        }
+    }
+}
+
 struct AppState : RxStateType {
 	let coordinator: ApplicationCoordinatorType
-	let logInInfo: LogInInfo?
+    let authentication: Authentication
 	let httpClient: HttpClientType
 	let tasks: [Task]
 }
@@ -32,14 +44,14 @@ extension AppState {
 
 extension AppStateMutation {
 	func new(tasks: [Task]) -> AppState {
-		return AppState(coordinator: state.coordinator, logInInfo: state.logInInfo, httpClient: state.httpClient, tasks: tasks)
+		return AppState(coordinator: state.coordinator, authentication: state.authentication, httpClient: state.httpClient, tasks: tasks)
 	}
 	
 	func new(coordinator: ApplicationCoordinatorType) -> AppState {
-		return AppState(coordinator: coordinator, logInInfo: state.logInInfo, httpClient: state.httpClient, tasks: state.tasks)
+		return AppState(coordinator: coordinator, authentication: state.authentication, httpClient: state.httpClient, tasks: state.tasks)
 	}
 	
-	func new(logInInfo: LogInInfo) -> AppState {
-		return AppState(coordinator: state.coordinator, logInInfo: logInInfo, httpClient: state.httpClient, tasks: state.tasks)
+	func new(authentication: Authentication) -> AppState {
+		return AppState(coordinator: state.coordinator, authentication: authentication, httpClient: state.httpClient, tasks: state.tasks)
 	}
 }
