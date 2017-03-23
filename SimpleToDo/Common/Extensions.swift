@@ -64,7 +64,7 @@ extension FIRUser : LoginUser {
                 observer.onCompleted()
             }
             
-            return Disposables.create()
+            return Disposables.create() { observer.onCompleted() }
         }
     }
 }
