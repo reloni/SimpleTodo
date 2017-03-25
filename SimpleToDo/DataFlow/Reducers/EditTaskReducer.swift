@@ -30,54 +30,54 @@ struct EditTaskReducer : RxReducerType {
 
 extension EditTaskReducer {
 	func updateTask(_ task: Task, currentState state: AppState) -> Observable<RxStateType> {
-		return Observable.just(task).flatMapLatest { e -> Observable<[String : Any]> in
-			return Observable.just(try wrap(e))
-			}
-			.flatMapLatest { json -> Observable<RxStateType> in
-				let headers = ["Authorization": state.logInInfo!.toBasicAuthKey(),
-				               "Accept":"application/json",
-				               "Content-Type":"application/json; charset=utf-8"]
-				
-				return state.httpClient.requestData(url: URL(string: "\(HttpClient.baseUrl)/tasks/\(task.uuid)")!,
-				                                    method: .put,
-				                                    jsonBody: json,
-				                                    options: [],
-				                                    httpHeaders: headers)
-					.flatMap { result -> Observable<RxStateType> in
-						let updated: Task = try unbox(data: result)
-						
-						let newTasks = state.tasks.map { t -> Task in
-							if t.uuid == updated.uuid {
-								return updated
-							} else {
-								return t
-							}
-						}
-						
-						return .just(state.mutation.new(tasks: newTasks))
-				}
-		}
+        return state.authentication.token.flatMapLatest { token -> Observable<(token: String, json: [String : Any])> in
+            return .just((token: token, json: try wrap(task)))
+            }
+            .flatMapLatest { result -> Observable<RxStateType> in
+                let headers = ["Authorization": "Bearer \(result.token)",
+                    "Accept":"application/json",
+                    "Content-Type":"application/json; charset=utf-8"]
+                
+                return state.httpClient.requestData(url: URL(string: "\(HttpClient.baseUrl)/tasks/\(task.uuid)")!,
+                                                    method: .put,
+                                                    jsonBody: result.json,
+                                                    options: [],
+                                                    httpHeaders: headers)
+                    .flatMap { result -> Observable<RxStateType> in
+                        let updated: Task = try unbox(data: result)
+                        
+                        let newTasks = state.tasks.map { t -> Task in
+                            if t.uuid == updated.uuid {
+                                return updated
+                            } else {
+                                return t
+                            }
+                        }
+                        
+                        return .just(state.mutation.new(tasks: newTasks))
+                }
+        }
 	}
 	
 	func addTask(task: Task, currentState state: AppState) -> Observable<RxStateType> {
-		return Observable.just(task).flatMapLatest { e -> Observable<[String : Any]> in
-			return Observable.just(try wrap(e))
-			}
-			.flatMapLatest { json -> Observable<RxStateType> in
-				let headers = ["Authorization": state.logInInfo!.toBasicAuthKey(),
-				               "Accept":"application/json",
-				               "Content-Type":"application/json; charset=utf-8"]
-				
-				return state.httpClient.requestData(url: URL(string: "\(HttpClient.baseUrl)/tasks")!,
-				                                    method: .post,
-				                                    jsonBody: json,
-				                                    options: [],
-				                                    httpHeaders: headers)
-					.flatMap { result -> Observable<RxStateType> in
-						var currentTasks = state.tasks
-						currentTasks.append(try unbox(data: result))
-						return Observable.just(state.mutation.new(tasks: currentTasks))
-				}
-		}
+        return state.authentication.token.flatMapLatest { token -> Observable<(token: String, json: [String : Any])> in
+            return .just((token: token, json: try wrap(task)))
+            }
+            .flatMapLatest { result -> Observable<RxStateType> in
+                let headers = ["Authorization": "Bearer \(result.token)",
+                    "Accept":"application/json",
+                    "Content-Type":"application/json; charset=utf-8"]
+                
+                return state.httpClient.requestData(url: URL(string: "\(HttpClient.baseUrl)/tasks")!,
+                                                    method: .post,
+                                                    jsonBody: result.json,
+                                                    options: [],
+                                                    httpHeaders: headers)
+                    .flatMap { result -> Observable<RxStateType> in
+                        var currentTasks = state.tasks
+                        currentTasks.append(try unbox(data: result))
+                        return Observable.just(state.mutation.new(tasks: currentTasks))
+                }
+        }
 	}
 }
