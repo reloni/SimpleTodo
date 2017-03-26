@@ -35,6 +35,12 @@ protocol LoginUser {
     var token: Observable<String> { get }
 }
 
+extension LoginUser {
+	var tokenHeader: Observable<String> {
+		return token.flatMap { token -> Observable<String> in return .just("Bearer \(token)") }
+	}
+}
+
 struct UniqueIdentifier: UnboxableByTransform {
 	typealias UnboxRawValue = String
 	

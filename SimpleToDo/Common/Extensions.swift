@@ -37,7 +37,7 @@ extension Error {
 			
 			return (try? unbox(data: data) as ServerSideError)?.error
 		case FirebaseError.signInError(let error): return error.localizedDescription
-		default: return nil
+		default: return "Unknown error"
 		}
 	}
 }
@@ -49,24 +49,24 @@ extension UIFont {
 }
 
 extension FIRUser : LoginUser {
-    var token: Observable<String> {
-        return Observable.create { [weak self] observer in
-            guard let object = self else { observer.onCompleted(); return Disposables.create() }
-            
-            object.getTokenForcingRefresh(false) { token, error in
-                guard let token = token else {
-                    let err = error != nil ? FirebaseError.tokenRequestError(error!) : FirebaseError.unknown
-                    observer.onError(err)
-                    return
-                }
-                
-                observer.onNext(token)
-                observer.onCompleted()
-            }
-            
-            return Disposables.create() { observer.onCompleted() }
-        }
-    }
+	var token: Observable<String> {
+		return Observable.create { [weak self] observer in
+			guard let object = self else { observer.onCompleted(); return Disposables.create() }
+			
+			object.getTokenForcingRefresh(false) { token, error in
+				guard let token = token else {
+					let err = error != nil ? FirebaseError.tokenRequestError(error!) : FirebaseError.unknown
+					observer.onError(err)
+					return
+				}
+				
+				observer.onNext(token)
+				observer.onCompleted()
+			}
+			
+			return Disposables.create() { observer.onCompleted() }
+		}
+	}
 }
 
 extension HttpClient {

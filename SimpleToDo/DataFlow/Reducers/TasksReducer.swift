@@ -33,41 +33,25 @@ extension TasksReducer {
 	func reloadTasks(currentState state: AppState, fromRemote: Bool) -> Observable<RxStateType> {
 		guard fromRemote else { return Observable.just(state) }
 		
-        return state.authentication.token.flatMapLatest { token -> Observable<RxStateType> in
-            let headers = ["Authorization": "Bearer \(token)"]
-            let request = URLRequest(url: URL(string: "\(HttpClient.baseUrl)/tasks/")!, headers: headers)
-            
-            return state.httpClient.requestData(request).flatMap { result -> Observable<RxStateType> in
-                return .just(state.mutation.new(tasks: try unbox(data: result)))
-            }
-        }
+		return state.webService.loadTasks(tokenHeader: state.authentication.tokenHeader).flatMapLatest { tasks -> Observable<RxStateType> in
+			return .just(state.mutation.new(tasks: tasks))
+		}
 	}
 	
-	func deleteTask(currentState state: AppState, index: Int) -> Observable<RxStateType> {        
-        return state.authentication.token.flatMapLatest { token -> Observable<RxStateType> in
-            let headers = ["Authorization": "Bearer \(token)"]
-            let request = URLRequest(url: URL(string: "\(HttpClient.baseUrl)/tasks/\(state.tasks[index].uuid)")!, method: .delete, headers: headers)
-            
-            return state.httpClient.requestData(request).flatMap { _ -> Observable<RxStateType> in
-                var currentEntries = state.tasks
-                currentEntries.remove(at: index)
-                return Observable.just(state.mutation.new(tasks: currentEntries))
-            }
-        }
+	func deleteTask(currentState state: AppState, index: Int) -> Observable<RxStateType> {
+		return state.webService.delete(task: state.tasks[index], tokenHeader: state.authentication.tokenHeader).flatMap { _ -> Observable<RxStateType> in
+			var currentEntries = state.tasks
+			currentEntries.remove(at: index)
+			return Observable.just(state.mutation.new(tasks: currentEntries))
+		}
 	}
 	
 	func updateTaskCompletionStatus(currentState state: AppState, index: Int) -> Observable<RxStateType> {
-        return state.authentication.token.flatMapLatest { token -> Observable<RxStateType> in
-            let headers = ["Authorization": "Bearer \(token)"]
-            let task = state.tasks[index]
-            
-            let url = URL(baseUrl: "\(HttpClient.baseUrl)/tasks/\(task.uuid)/ChangeCompletionStatus", parameters: ["completed":"\(!task.completed)"])!
-            let request = URLRequest(url: url, method: .post, headers: headers)
-            return state.httpClient.requestData(request).flatMap { _ -> Observable<RxStateType> in
-                var currentTasks = state.tasks
-                currentTasks.remove(at: index)
-                return Observable.just(state.mutation.new(tasks: currentTasks))
-            }
-        }
+		return state.webService.updateTaskCompletionStatus(task: state.tasks[index], tokenHeader: state.authentication.tokenHeader)
+			.flatMap { _ -> Observable<RxStateType> in
+				var currentTasks = state.tasks
+				currentTasks.remove(at: index)
+				return Observable.just(state.mutation.new(tasks: currentTasks))
+			}
 	}
 }

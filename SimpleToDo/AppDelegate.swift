@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
 		let initialState = AppState(coordinator: SignInCoordinator(window: self.window!),
 		                            authentication: .none,
-		                            httpClient: httpClient,
+		                            webService: WebSerivce(httpClient: httpClient),
 		                            tasks: [])
 		
 		return RxDataFlowController(reducer: RootReducer(), initialState: initialState)
