@@ -9,7 +9,6 @@
 
 import UIKit
 import SnapKit
-import RxHttpClient
 import AMScrollingNavbar
 
 final class TasksListNavigationController : ScrollingNavigationController {
