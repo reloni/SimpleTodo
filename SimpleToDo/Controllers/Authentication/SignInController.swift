@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import SnapKit
 import Material
+import RxCocoa
 
 final class SignInController : UIViewController {
 	let viewModel: SignInViewModel
@@ -19,6 +20,7 @@ final class SignInController : UIViewController {
 		let scroll = UIScrollView()
 		scroll.bounces = true
 		scroll.isUserInteractionEnabled = true
+		scroll.keyboardDismissMode = .onDrag
 		return scroll
 	}()
 	
@@ -90,9 +92,6 @@ final class SignInController : UIViewController {
 		scrollView.snp.makeConstraints(scrollViewConstraints)
 		containerView.snp.makeConstraints(containerViewConstraints)
 		
-		let recognizer = UITapGestureRecognizer(target: self, action: #selector(controllerTap))
-		view.addGestureRecognizer(recognizer)
-		
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 		
@@ -102,15 +101,6 @@ final class SignInController : UIViewController {
 	deinit {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-	}
-	
-	func controllerTap(recognizer: UITapGestureRecognizer) {
-		containerView.subviews.forEach {
-			if let textField = $0 as? TextField, textField.isFirstResponder {
-				textField.resignFirstResponder()
-				return
-			}
-		}
 	}
 	
 	func bind() {

@@ -22,6 +22,7 @@ final class EditTaskController : UIViewController {
 		scroll.bounces = true
 		scroll.alwaysBounceVertical = true
 		scroll.isUserInteractionEnabled = true
+		scroll.keyboardDismissMode = .onDrag
 		return scroll
 	}()
 	
@@ -99,9 +100,6 @@ final class EditTaskController : UIViewController {
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
-		let recognizer = UITapGestureRecognizer(target: self, action: #selector(controllerTap))
-		view.addGestureRecognizer(recognizer)
-		
 		view.addSubview(scrollView)
 		scrollView.addSubview(containerView)
 		containerView.addSubview(descriptionTextField)
@@ -123,15 +121,6 @@ final class EditTaskController : UIViewController {
 	deinit {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-	}
-	
-	func controllerTap(recognizer: UITapGestureRecognizer) {
-		containerView.subviews.forEach {
-			if let textField = $0 as? TextView, textField.isFirstResponder {
-				textField.resignFirstResponder()
-				return
-			}
-		}
 	}
 	
 	func keyboardWillShow(_ notification: Notification) {
