@@ -105,9 +105,16 @@ final class EditTaskController : UIViewController {
 		containerView.addSubview(descriptionTextField)
 		containerView.addSubview(notesTextField)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow)
+			.subscribe(onNext: { [weak self] notification in
+				self?.scrollView.updatecontentInsetFor(keyboardHeight: notification.keyboardHeight() + 25)
+			}).disposed(by: bag)
 		
+		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillHide)
+			.subscribe(onNext: { [weak self] notification in
+				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
+			}).disposed(by: bag)
+
 		updateViewConstraints()
 	}
 	
@@ -116,19 +123,6 @@ final class EditTaskController : UIViewController {
 		
 		descriptionTextField.text = viewModel.task?.description
 		notesTextField.text = viewModel.task?.notes
-	}
-	
-	deinit {
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-	}
-	
-	func keyboardWillShow(_ notification: Notification) {
-		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: notification.keyboardHeight() + 25, right: 0)
-	}
-	
-	func keyboardWillHide(_ notification: Notification) {
-		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 	}
 	
 	func done() {

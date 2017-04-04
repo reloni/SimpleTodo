@@ -18,6 +18,12 @@ extension Notification {
 	}
 }
 
+extension UIScrollView {
+	func updatecontentInsetFor(keyboardHeight: CGFloat) {
+		contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight + 25, right: 0)
+	}
+}
+
 extension FileManager {
 	var documentsDirectory: URL {
 		return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!

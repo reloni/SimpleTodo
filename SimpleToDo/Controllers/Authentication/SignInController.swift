@@ -92,15 +92,17 @@ final class SignInController : UIViewController {
 		scrollView.snp.makeConstraints(scrollViewConstraints)
 		containerView.snp.makeConstraints(containerViewConstraints)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow)
+			.subscribe(onNext: { [weak self] notification in
+				self?.scrollView.updatecontentInsetFor(keyboardHeight: notification.keyboardHeight() + 25)
+			}).disposed(by: bag)
+		
+		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillHide)
+			.subscribe(onNext: { [weak self] notification in
+				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
+			}).disposed(by: bag)
 		
 		bind()
-	}
-	
-	deinit {
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 	}
 	
 	func bind() {
@@ -112,19 +114,15 @@ final class SignInController : UIViewController {
 		viewModel.logIn(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
 	}
 	
-	func keyboardWillShow(_ notification: Notification) {
-		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: notification.keyboardHeight() + 25, right: 0)
+//	func keyboardWillShow(_ notification: Notification) {
+//		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: notification.keyboardHeight() + 25, right: 0)
+//
+////		let point = CGPoint(x: passwordTextField.frame.origin.x, y: passwordTextField.frame.origin.y - passwordTextField.frame.height)
+////		if !view.frame.contains(point) {
+////			scrollView.setContentOffset(CGPoint(x: 0, y: point.y - scrollView.contentInset.bottom), animated: true)
+////		}
+//	}
 
-//		let point = CGPoint(x: passwordTextField.frame.origin.x, y: passwordTextField.frame.origin.y - passwordTextField.frame.height)
-//		if !view.frame.contains(point) {
-//			scrollView.setContentOffset(CGPoint(x: 0, y: point.y - scrollView.contentInset.bottom), animated: true)
-//		}
-	}
-	
-	func keyboardWillHide(_ notification: Notification) {
-		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-	}
-	
 	func scrollViewConstraints(maker: ConstraintMaker) {
 		maker.edges.equalTo(view)
 	}
