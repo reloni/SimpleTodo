@@ -98,24 +98,32 @@ final class TaskCell : UITableViewCell {
 		deleteActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
 			self?.deleteTapped?()
 		}).addDisposableTo(bag)
-		updateConstraints()
+		
+		taskDescription.snp.makeConstraints(makeTaskDescriptionConstraints)
+		actionsStack.snp.makeConstraints(makeActionsStackConstraints)
+		
+		actionsStack.snp.makeConstraints {
+			heightConstraint = $0.height.equalTo(0).priority(999).constraint
+		}
+	}
+	
+	func makeTaskDescriptionConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(contentView.snp.top).offset(15)
+		maker.leading.equalTo(contentView.snp.leading).offset(10)
+		maker.trailing.equalTo(contentView.snp.trailing).offset(-10)
+	}
+	
+	func makeActionsStackConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(taskDescription.snp.bottom).offset(10)
+		maker.leading.equalTo(contentView.snp.leading)
+		maker.trailing.equalTo(contentView.snp.trailing)
+		maker.bottom.equalTo(contentView.snp.bottom)
 	}
 	
 	override func updateConstraints() {
 		super.updateConstraints()
 		
-		taskDescription.snp.remakeConstraints { make in
-			make.top.equalTo(contentView.snp.top).offset(15)
-			make.leading.equalTo(contentView.snp.leading).offset(10)
-			make.trailing.equalTo(contentView.snp.trailing).offset(-10)
-		}
-		
-		actionsStack.snp.remakeConstraints { make in
-			make.top.equalTo(taskDescription.snp.bottom).offset(10)
-			make.leading.equalTo(contentView.snp.leading)
-			make.trailing.equalTo(contentView.snp.trailing)
-			make.bottom.equalTo(contentView.snp.bottom)
-			heightConstraint = make.height.equalTo(0).priority(999).constraint
-		}
+		taskDescription.snp.updateConstraints(makeTaskDescriptionConstraints)
+		actionsStack.snp.updateConstraints(makeActionsStackConstraints)
 	}
 }
