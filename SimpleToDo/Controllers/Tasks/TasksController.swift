@@ -22,6 +22,7 @@ final class TasksController : UIViewController {
 
 	let tableView: UITableView = {
 		let table = UITableView()
+		
 		table.preservesSuperviewLayoutMargins = false
 		table.separatorInset = .zero
 		table.contentInset = .zero
@@ -30,21 +31,22 @@ final class TasksController : UIViewController {
 		table.tableFooterView = UIView()
 		table.tableFooterView?.backgroundColor = UIColor.lightGray
 		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
+		
 		return table
 	}()
     
-    init(viewModel: TasksViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
+	init(viewModel: TasksViewModel) {
+		self.viewModel = viewModel
+		super.init(nibName: nil, bundle: nil)
+	}
+	
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		if let navigationController = navigationController as? ScrollingNavigationController {
 			navigationController.followScrollView(tableView, delay: 50.0)
 		}

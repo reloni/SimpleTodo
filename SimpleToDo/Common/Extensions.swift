@@ -16,6 +16,10 @@ extension Notification {
 	func keyboardHeight() -> CGFloat {
 		return (userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
 	}
+	
+	func statusBarFrame() -> CGRect {
+		return userInfo?[UIApplicationStatusBarFrameUserInfoKey] as! CGRect
+	}
 }
 
 extension UIScrollView {
