@@ -39,12 +39,12 @@ final class TaskCell : UITableViewCell {
 	
 	lazy var actionsStack: UIStackView = {
 		let stack = UIStackView()
+		
 		stack.axis = .horizontal
 		stack.distribution = .fillEqually
 		stack.spacing = 0
 		stack.layoutEdgeInsets = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
 		
-		//stack.addArrangedSubview(UIView())
 		stack.addArrangedSubview(self.completeActionView)
 		stack.addArrangedSubview(self.editActionView)
 		stack.addArrangedSubview(self.deleteActionView)

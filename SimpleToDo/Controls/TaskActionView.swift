@@ -23,7 +23,9 @@ final class TaskActonView : UIView {
 	}()
 	
 	let wrapper: UIView = {
-		return UIView()
+		let view = UIView()
+		view.clipsToBounds = true
+		return view
 	}()
 	
 	let expandHeight: CGFloat
@@ -59,14 +61,13 @@ final class TaskActonView : UIView {
 		maker.centerY.equalTo(wrapper.snp.centerY)
 		maker.leading.equalTo(imageView.snp.trailing).offset(10)
 		maker.trailing.equalTo(wrapper.snp.trailing).offset(-10)
-		maker.height.equalTo(wrapper.snp.height)
 	}
 	
 	func makeActionImageConstraints(maker: ConstraintMaker) {
 		maker.centerY.equalTo(wrapper.snp.centerY)
 		maker.leading.equalTo(wrapper.snp.leading).offset(10)
-		maker.height.equalTo(wrapper.snp.height).multipliedBy(0.7)
-		maker.width.equalTo(expandHeight * 0.7)
+		maker.width.equalTo(imageView.snp.height)
+		maker.height.equalTo(expandHeight * 0.7)
 	}
 	
 	override func updateConstraints() {
