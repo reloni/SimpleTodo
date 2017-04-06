@@ -70,6 +70,10 @@ extension FIRUser : LoginUser {
 					return
 				}
 				
+				#if DEBUG
+					print("token: \(token)")
+				#endif
+				
 				observer.onNext(token)
 				observer.onCompleted()
 			}
