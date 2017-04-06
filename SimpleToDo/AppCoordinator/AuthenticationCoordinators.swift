@@ -46,8 +46,12 @@ struct SignInCoordinator : ApplicationCoordinatorType {
 			showAlert(in: controller!, with: error)
 			return .just(flowController.currentState.state)
 		case SignInAction.showTasksListController:
-            let coordinator = TasksCoordinator(parent: self, flowController: flowController)
-			controller?.present(coordinator.navigationController, animated: true, completion: nil)
+			let coordinator = TasksCoordinator(parent: self, flowController: flowController)
+			UIView.transition(with: window,
+			                  duration: 0.7,
+			                  options: UIViewAnimationOptions.transitionCrossDissolve,
+			                  animations: { self.window.rootViewController = coordinator.navigationController },
+			                  completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
 		default: return .empty()
 		}
