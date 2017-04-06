@@ -88,6 +88,7 @@ struct Task {
 	let completed: Bool
 	let description: String
 	let notes: String?
+	let targetDate: Date?
 }
 
 extension Task : Equatable {
@@ -117,5 +118,6 @@ extension Task: Unboxable {
 		self.completed = try unboxer.unbox(key: "completed")
 		self.description = try unboxer.unbox(key: "description")
 		self.notes = unboxer.unbox(key: "notes")
+		self.targetDate = Date.fromServer(string: unboxer.unbox(key: "targetDate") ?? "")
 	}
 }

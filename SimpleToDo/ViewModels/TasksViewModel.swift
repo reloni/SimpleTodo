@@ -57,6 +57,9 @@ final class TasksViewModel {
 			cell.isExpanded = false
 			cell.taskDescription.text = "Item \(item.description) - \(item.completed)"
 			
+//			print("task date: \(item.targetDate?.longDate)")
+//			print("task date: \(item.targetDate)")
+			
 			cell.completeTapped = { [weak self] in
 				guard let object = self else { return }
 				guard let row = tv.indexPath(for: cell)?.row else { return }

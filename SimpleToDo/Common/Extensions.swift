@@ -22,6 +22,30 @@ extension Notification {
 	}
 }
 
+extension Date {
+	public static var serverDateFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		//2017-01-05T21:55:57.001Z
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+		return formatter
+	}()
+	
+	public static var longDateFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy MM dd HH:mm"
+		formatter.locale = Locale.current
+		return formatter
+	}()
+	
+	static func fromServer(string: String) -> Date? {
+		return Date.serverDateFormatter.date(from: string)
+	}
+	
+	var longDate: String {
+		return Date.longDateFormatter.string(from: self)
+	}
+}
+
 extension UIScrollView {
 	func updatecontentInsetFor(keyboardHeight: CGFloat) {
 		contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight + 25, right: 0)
