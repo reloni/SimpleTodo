@@ -15,7 +15,6 @@
 		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
-		6E2E11DB1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */; };
 		6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752151E05AD06002AA9B4 /* Entities.swift */; };
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
@@ -174,7 +173,6 @@
 				6E9AA3EE1E540D9100BA8283 /* FirebaseCore.framework in Frameworks */,
 				6E9AA3EF1E540D9100BA8283 /* FirebaseInstanceID.framework in Frameworks */,
 				6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */,
-				6E2E11DB1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework in Frameworks */,
 				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
 				6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */,
 				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
@@ -559,7 +557,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Wrap.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/AMScrollingNavbar.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (

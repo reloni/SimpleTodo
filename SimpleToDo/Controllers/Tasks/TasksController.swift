@@ -13,7 +13,6 @@ import RxCocoa
 import RxDataSources
 import Unbox
 import RxHttpClient
-import AMScrollingNavbar
 
 final class TasksController : UIViewController {
 	let bag = DisposeBag()
@@ -46,10 +45,6 @@ final class TasksController : UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		if let navigationController = navigationController as? ScrollingNavigationController {
-			navigationController.followScrollView(tableView, delay: 50.0)
-		}
 		
 		self.view.backgroundColor = UIColor.white
 		
@@ -66,20 +61,6 @@ final class TasksController : UIViewController {
 		bind()
 	
 		viewModel.loadTasks()
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		if let navigationController = navigationController as? ScrollingNavigationController {
-			navigationController.showNavbar(animated: true)
-		}
-	}
-	
-	func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-		if let navigationController = navigationController as? ScrollingNavigationController {
-			navigationController.showNavbar(animated: true)
-		}
-		return true
 	}
 	
 	func bind() {

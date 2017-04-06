@@ -7,4 +7,3 @@ github "RxSwiftCommunity/RxDataSources" == 1.0.3
 github "JohnSundell/Unbox" == 2.4.0
 github "JohnSundell/Wrap" == 2.1.0
 github "RxSwiftCommunity/RxGesture" == 1.0.0
-github "andreamazz/AMScrollingNavbar" == 3.2.0

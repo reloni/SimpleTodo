@@ -10,9 +10,8 @@
 import UIKit
 import SnapKit
 import RxSwift
-import AMScrollingNavbar
 
-final class TasksListNavigationController : UINavigationController { //: ScrollingNavigationController {
+final class TasksListNavigationController : UINavigationController { 
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	
 	override func viewDidLoad() {
