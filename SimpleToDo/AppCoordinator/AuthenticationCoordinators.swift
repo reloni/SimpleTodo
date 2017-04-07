@@ -10,6 +10,7 @@ import RxDataFlow
 import RxSwift
 
 protocol ApplicationCoordinatorType {
+	var window: UIWindow { get }
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType>
 }
 
@@ -20,6 +21,28 @@ extension ApplicationCoordinatorType {
 		let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
 		alert.addAction(ok)
 		controller.present(alert, animated: true, completion: nil)
+	}
+	
+	func set(newRootController controller: UIViewController) {
+		transition {
+			self.window.rootViewController = controller
+		}
+	}
+	
+	func set(initialRootController controller: UIViewController) {
+		transition {
+			self.window.rootViewController = controller
+			self.window.makeKeyAndVisible()
+		}
+	}
+	
+	func transition(withDuration duration: TimeInterval = 0.6,
+	                options: UIViewAnimationOptions = [UIViewAnimationOptions.transitionCrossDissolve], animations: @escaping (() -> Void)) {
+		UIView.transition(with: window,
+		                  duration: duration,
+		                  options: options,
+		                  animations: animations,
+		                  completion: nil)
 	}
 }
 
@@ -35,8 +58,7 @@ struct SignInCoordinator : ApplicationCoordinatorType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
 		switch action {
 		case GeneralAction.showRootController:
-			window.rootViewController = SignInController(viewModel: SignInViewModel(flowController: flowController))
-			window.makeKeyAndVisible()
+			set(initialRootController: SignInController(viewModel: SignInViewModel(flowController: flowController)))
 			return .just(flowController.currentState.state.mutation.new(coordinator: SignInCoordinator.init(window: window, controller: window.rootViewController)))
 		case SignInAction.showFirebaseRegistration:
 			let coordinator = FirebaseRegistrationCoordinator(parent: self)
@@ -46,8 +68,8 @@ struct SignInCoordinator : ApplicationCoordinatorType {
 			showAlert(in: controller!, with: error)
 			return .just(flowController.currentState.state)
 		case SignInAction.showTasksListController:
-            let coordinator = TasksCoordinator(parent: self, flowController: flowController)
-			controller?.present(coordinator.navigationController, animated: true, completion: nil)
+			let coordinator = TasksCoordinator(window: window, flowController: flowController)
+			set(newRootController: coordinator.navigationController)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
 		default: return .empty()
 		}
@@ -56,10 +78,12 @@ struct SignInCoordinator : ApplicationCoordinatorType {
 
 struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 	let parent: ApplicationCoordinatorType
+	let window: UIWindow
 	let controller: UIViewController
 	
 	init(parent: ApplicationCoordinatorType, controller: UIViewController = FirebaseRegistrationController()) {
 		self.parent = parent
+		self.window = parent.window
 		self.controller = controller
 	}
 	

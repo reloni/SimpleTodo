@@ -13,6 +13,7 @@ enum GeneralAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case showRootController
+	case logOff
 	case error(Error)
 }
 
