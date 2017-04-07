@@ -93,6 +93,10 @@ final class TasksViewModel {
 	func newTask() {
 		flowController.dispatch(TaskListAction.showEditTaskController(nil))
 	}
+	
+	func logOff() {
+		flowController.dispatch(GeneralAction.logOff)
+	}
 }
 
 final class TasksViewModelTableViewDelegate : NSObject, UITableViewDelegate {
