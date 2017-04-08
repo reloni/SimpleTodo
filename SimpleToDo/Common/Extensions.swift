@@ -48,7 +48,7 @@ extension Date {
 
 extension UIScrollView {
 	func updatecontentInsetFor(keyboardHeight: CGFloat) {
-		contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight + 25, right: 0)
+		contentInset = UIEdgeInsets(top: contentInset.top, left: contentInset.left, bottom: keyboardHeight + 25, right: contentInset.right)
 	}
 }
 

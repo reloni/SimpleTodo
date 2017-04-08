@@ -51,6 +51,7 @@ final class TasksController : UIViewController {
 		title = viewModel.title
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTask))
+		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log off", style: .plain, target: self, action: #selector(logOff))
 		
 		tableView.refreshControl = UIRefreshControl()
 		
@@ -83,6 +84,10 @@ final class TasksController : UIViewController {
 	
 	func addNewTask() {
 		viewModel.newTask()
+	}
+	
+	func logOff() {
+		viewModel.logOff()
 	}
 	
 	override func updateViewConstraints() {
