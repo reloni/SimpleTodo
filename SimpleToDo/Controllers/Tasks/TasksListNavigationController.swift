@@ -10,20 +10,9 @@
 import UIKit
 import SnapKit
 import RxSwift
-import Material
 
 final class TasksListNavigationController : UINavigationController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-	
-//	open override func prepare() {
-//		super.prepare()
-//		guard let v = navigationBar as? NavigationBar else {
-//			return
-//		}
-//		
-//		v.depthPreset = .none
-//		v.dividerColor = Color.grey.lighten3
-//	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
