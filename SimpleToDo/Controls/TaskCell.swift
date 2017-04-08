@@ -25,6 +25,13 @@ final class TaskCell : UITableViewCell {
 		return text
 	}()
 	
+	let targetDate: UILabel = {
+		let text = UILabel()
+		text.textColor = Theme.Colors.lightGray
+		text.font = Theme.Fonts.accesory
+		return text
+	}()
+	
 	let completeActionView: TaskActonView = {
 		return TaskActonView(text: "", image: Theme.Images.checked, expandHeight: TaskCell.expandHeight)
 	}()
@@ -82,9 +89,13 @@ final class TaskCell : UITableViewCell {
 	func setup() {
 		contentView.addSubview(taskDescription)
 		contentView.addSubview(actionsStack)
+		contentView.addSubview(targetDate)
 		
 		taskDescription.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.vertical)
 		taskDescription.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
+		
+		targetDate.setContentCompressionResistancePriority(999, for: UILayoutConstraintAxis.vertical)
+		targetDate.setContentHuggingPriority(999, for: UILayoutConstraintAxis.vertical)
 		
 		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.backgroundLightGray }
 		actionsStack.subviews.last?.setContentHuggingPriority(1, for: UILayoutConstraintAxis.horizontal)
@@ -100,6 +111,7 @@ final class TaskCell : UITableViewCell {
 		}).addDisposableTo(bag)
 		
 		taskDescription.snp.makeConstraints(makeTaskDescriptionConstraints)
+		targetDate.snp.makeConstraints(makeTargetDateConstraints)
 		actionsStack.snp.makeConstraints(makeActionsStackConstraints)
 		
 		actionsStack.snp.makeConstraints {
@@ -108,13 +120,19 @@ final class TaskCell : UITableViewCell {
 	}
 	
 	func makeTaskDescriptionConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(contentView.snp.top).offset(15)
+		maker.top.equalTo(contentView.snp.top).offset(10)
+		maker.leading.equalTo(contentView.snp.leading).offset(10)
+		maker.trailing.equalTo(contentView.snp.trailing).offset(-10)
+	}
+	
+	func makeTargetDateConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(taskDescription.snp.bottom).offset(10)
 		maker.leading.equalTo(contentView.snp.leading).offset(10)
 		maker.trailing.equalTo(contentView.snp.trailing).offset(-10)
 	}
 	
 	func makeActionsStackConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(taskDescription.snp.bottom).offset(10)
+		maker.top.equalTo(targetDate.snp.bottom).offset((targetDate.text?.characters.count ?? 0) == 0 ? 0 : 10)
 		maker.leading.equalTo(contentView.snp.leading)
 		maker.trailing.equalTo(contentView.snp.trailing)
 		maker.bottom.equalTo(contentView.snp.bottom)
@@ -124,6 +142,7 @@ final class TaskCell : UITableViewCell {
 		super.updateConstraints()
 		
 		taskDescription.snp.updateConstraints(makeTaskDescriptionConstraints)
+		targetDate.snp.updateConstraints(makeTargetDateConstraints)
 		actionsStack.snp.updateConstraints(makeActionsStackConstraints)
 	}
 }

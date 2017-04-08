@@ -55,10 +55,8 @@ final class TasksViewModel {
 			cell.layoutEdgeInsets = .zero
 			cell.selectionStyle = .none
 			cell.isExpanded = false
-			cell.taskDescription.text = "Item \(item.description) - \(item.completed)"
-			
-//			print("task date: \(item.targetDate?.longDate)")
-//			print("task date: \(item.targetDate)")
+			cell.taskDescription.text = "\(item.description)"
+			cell.targetDate.text = item.targetDate?.longDate
 			
 			cell.completeTapped = { [weak self] in
 				guard let object = self else { return }
