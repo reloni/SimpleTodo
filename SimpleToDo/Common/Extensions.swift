@@ -11,6 +11,7 @@ import RxHttpClient
 import Unbox
 import UIKit
 import RxSwift
+import Material
 
 extension Notification {
 	func keyboardHeight() -> CGFloat {
@@ -19,6 +20,24 @@ extension Notification {
 	
 	func statusBarFrame() -> CGRect {
 		return userInfo?[UIApplicationStatusBarFrameUserInfoKey] as! CGRect
+	}
+}
+
+extension TextView {
+	static var generic: TextView {
+		let text = TextView()
+		
+		text.placeholderActiveColor = Theme.Colors.appleBlue
+		text.placeholderNormalColor = Theme.Colors.lightGray
+		text.backgroundColor = Theme.Colors.white
+		text.placeholderLabel.font = Theme.Fonts.main
+		text.placeholderLabel.textColor = Theme.Colors.lightGray
+		text.font = Theme.Fonts.main
+		text.borderColor = Theme.Colors.lightGray
+		text.borderWidth = 0.5
+		text.isScrollEnabled = false
+		
+		return text
 	}
 }
 

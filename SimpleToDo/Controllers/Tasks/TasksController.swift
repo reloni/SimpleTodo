@@ -68,9 +68,9 @@ final class TasksController : UIViewController {
 			viewModel.taskSections
 			.observeOn(MainScheduler.instance)
 			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
-			.startWith([])
 			.bindTo(tableView.rx.items(dataSource: viewModel.dataSource))
 			.addDisposableTo(bag)
+		
 		
 		tableView.refreshControl?.rx.controlEvent(.valueChanged).filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
 			.subscribe(onNext: { [weak self] in
