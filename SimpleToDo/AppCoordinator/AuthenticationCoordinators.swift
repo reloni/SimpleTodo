@@ -36,7 +36,7 @@ extension ApplicationCoordinatorType {
 		}
 	}
 	
-	func transition(withDuration duration: TimeInterval = 0.6,
+	func transition(withDuration duration: TimeInterval = 0.5,
 	                options: UIViewAnimationOptions = [UIViewAnimationOptions.transitionCrossDissolve], animations: @escaping (() -> Void)) {
 		UIView.transition(with: window,
 		                  duration: duration,

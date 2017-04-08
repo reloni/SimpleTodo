@@ -15,10 +15,8 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 	
 	init(window: UIWindow, flowController: RxDataFlowController<AppState>) {
 		self.window = window
-		
-		navigationController = TasksListNavigationController()
 		let viewModel = TasksViewModel(flowController: flowController)
-		navigationController.pushViewController(TasksController(viewModel: viewModel), animated: false)
+		navigationController = TasksListNavigationController(rootViewController: TasksController(viewModel: viewModel))
 	}
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {

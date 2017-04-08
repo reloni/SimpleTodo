@@ -30,5 +30,6 @@ final class Theme {
 		static let backgroundLightGray = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
 		static let appleBlue = UIColor(red: 14/255, green: 122/255, blue: 254/255, alpha: 1)
 		static let lightGray = UIColor.lightGray
+		static let white = UIColor.white
 	}
 }

@@ -35,22 +35,17 @@ final class EditTaskController : UIViewController {
 	let descriptionTextField: TextView  = {
 		let text = TextView()
 		
-		text.titleLabel = UILabel()
-		text.titleLabel?.font = Theme.Fonts.textFieldTitle
-		text.titleLabelColor = Theme.Colors.appleBlue
-		text.titleLabelActiveColor = Theme.Colors.appleBlue
-		text.titleLabel?.text = "Task description"
-		text.titleLabelAnimationDistance = 1
-		
-		text.placeholderLabel = UILabel()
-		text.placeholderLabel?.font = Theme.Fonts.main
-		text.placeholderLabel?.textColor = Theme.Colors.lightGray
-		text.placeholderLabel?.text = "Task description"
-		
+		text.placeholderActiveColor = Theme.Colors.appleBlue
+		text.placeholderNormalColor = Theme.Colors.lightGray
+		text.backgroundColor = Theme.Colors.white
+		text.placeholderLabel.font = Theme.Fonts.main
+		text.placeholderLabel.textColor = Theme.Colors.lightGray
 		text.font = Theme.Fonts.main
 		text.borderColor = Theme.Colors.lightGray
 		text.borderWidth = 0.5
 		text.isScrollEnabled = false
+		
+		text.placeholderLabel.text = "Task description"
 		
 		text.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 15)
 		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
@@ -59,23 +54,18 @@ final class EditTaskController : UIViewController {
 	
 	let notesTextField: TextView = {
 		let text = TextView()
-		
-		text.titleLabel = UILabel()
-		text.titleLabel?.font = Theme.Fonts.textFieldTitle
-		text.titleLabelColor = Theme.Colors.appleBlue
-		text.titleLabelActiveColor = Theme.Colors.appleBlue
-		text.titleLabel?.text = "Task notes"
-		text.titleLabelAnimationDistance = 1
-		
-		text.placeholderLabel = UILabel()
-		text.placeholderLabel?.font = Theme.Fonts.main
-		text.placeholderLabel?.textColor = Theme.Colors.lightGray
-		text.placeholderLabel?.text = "Task notes"
-		
+
+		text.placeholderActiveColor = Theme.Colors.appleBlue
+		text.placeholderNormalColor = Theme.Colors.lightGray
+		text.backgroundColor = Theme.Colors.white
+		text.placeholderLabel.font = Theme.Fonts.main
+		text.placeholderLabel.textColor = Theme.Colors.lightGray
 		text.font = Theme.Fonts.main
 		text.borderColor = Theme.Colors.lightGray
 		text.borderWidth = 0.5
 		text.isScrollEnabled = false
+		
+		text.placeholder = "Task notes"
 		
 		text.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 15)
 		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
@@ -116,13 +106,15 @@ final class EditTaskController : UIViewController {
 			}).disposed(by: bag)
 
 		updateViewConstraints()
+		
+		descriptionTextField.text = viewModel.task?.description
+		notesTextField.text = viewModel.task?.notes
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		descriptionTextField.text = viewModel.task?.description
-		notesTextField.text = viewModel.task?.notes
+		
 	}
 	
 	func done() {
