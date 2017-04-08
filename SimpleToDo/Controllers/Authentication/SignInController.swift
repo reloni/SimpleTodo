@@ -31,6 +31,7 @@ final class SignInController : UIViewController {
 	
 	let emailTextField: TextField = {
 		let field = TextField()
+		field.alpha = 0
 		field.font = Theme.Fonts.main
 		field.placeholder = "Email"
 		field.detail = "Enter your email"
@@ -43,6 +44,7 @@ final class SignInController : UIViewController {
 	
 	let passwordTextField: TextField = {
 		let field = TextField()
+		field.alpha = 0
 		field.placeholder = "Password"
 		field.detail = "Enter your password"
 		field.isSecureTextEntry = true
@@ -54,6 +56,7 @@ final class SignInController : UIViewController {
 	
 	let loginButton: Button = {
 		let button = Button()
+		button.alpha = 0
 		button.title = "Login"
 		button.backgroundColor = Theme.Colors.appleBlue
 		button.titleColor = UIColor.white
@@ -103,6 +106,14 @@ final class SignInController : UIViewController {
 			}).disposed(by: bag)
 		
 		bind()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		UIView.animate(withDuration: 0.2, delay: 0.1, options: [], animations: { self.emailTextField.alpha = 1 }, completion: nil)
+		UIView.animate(withDuration: 0.2, delay: 0.25, options: [], animations: { self.passwordTextField.alpha = 1 }, completion: nil)
+		UIView.animate(withDuration: 0.2, delay: 0.4, options: [], animations: { self.loginButton.alpha = 1 }, completion: nil)
 	}
 	
 	func bind() {
