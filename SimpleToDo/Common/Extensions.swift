@@ -23,6 +23,15 @@ extension Notification {
 	}
 }
 
+extension TextField {
+	static var base: TextField {
+		let field = TextField()
+		field.font = Theme.Fonts.main
+		field.isClearIconButtonEnabled = true
+		return field
+	}
+}
+
 extension TextView {
 	static var generic: TextView {
 		let text = TextView()

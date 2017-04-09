@@ -55,6 +55,7 @@ final class SignInController : UIViewController {
 	let loginButton: Button = {
 		let button = Button()
 		button.title = "Login"
+		button.pulseColor = Theme.Colors.white
 		button.backgroundColor = Theme.Colors.appleBlue
 		button.titleColor = UIColor.white
 		return button

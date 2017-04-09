@@ -28,6 +28,7 @@ final class EditTaskController : UIViewController {
 	
 	let containerView: UIView = {
 		let view = UIView()
+		view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		view.backgroundColor = Theme.Colors.backgroundLightGray
 		return view
 	}()
@@ -50,6 +51,12 @@ final class EditTaskController : UIViewController {
 		text.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 15)
 		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		return text
+	}()
+	
+	lazy var targetDateView: TargetDateView = {
+		let view = TargetDateView()
+		view.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		return view
 	}()
 	
 	let notesTextField: TextView = {
@@ -93,6 +100,7 @@ final class EditTaskController : UIViewController {
 		view.addSubview(scrollView)
 		scrollView.addSubview(containerView)
 		containerView.addSubview(descriptionTextField)
+		containerView.addSubview(targetDateView)
 		containerView.addSubview(notesTextField)
 		
 		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow).observeOn(MainScheduler.instance)
@@ -109,12 +117,6 @@ final class EditTaskController : UIViewController {
 		
 		descriptionTextField.text = viewModel.task?.description
 		notesTextField.text = viewModel.task?.notes
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		
-		
 	}
 	
 	func done() {
@@ -134,15 +136,22 @@ final class EditTaskController : UIViewController {
 		}
 		
 		descriptionTextField.snp.remakeConstraints { make in
-			make.top.equalTo(containerView.snp.top).offset(25)
-			make.leading.equalTo(containerView)
-			make.trailing.equalTo(containerView)
+			make.top.equalTo(containerView.snp.topMargin).offset(25)
+			make.leading.equalTo(containerView.snp.leadingMargin)
+			make.trailing.equalTo(containerView.snp.trailingMargin)
 		}
-		notesTextField.snp.remakeConstraints { make in
+		
+		targetDateView.snp.remakeConstraints { make in
 			make.top.equalTo(descriptionTextField.snp.bottom).offset(25)
-			make.leading.equalTo(containerView)
-			make.trailing.equalTo(containerView)
-			make.bottom.equalTo(containerView).inset(10)
+			make.leading.equalTo(containerView.snp.leadingMargin)
+			make.trailing.equalTo(containerView.snp.trailingMargin)
+		}
+		
+		notesTextField.snp.remakeConstraints { make in
+			make.top.equalTo(targetDateView.snp.bottom).offset(25)
+			make.leading.equalTo(containerView.snp.leadingMargin)
+			make.trailing.equalTo(containerView.snp.trailingMargin)
+			make.bottom.equalTo(containerView.snp.bottomMargin)
 		}
 	}
 }

@@ -15,6 +15,8 @@ final class Theme {
 		static let delete = UIImage(named: "Delete")
 		static let edit = UIImage(named: "Edit")
 		static let trash = UIImage(named: "Trash")
+		static let refresh = UIImage(named: "Refresh")
+		static let calendar = UIImage(named: "Calendar")
 	}
 	
 	final class Fonts {
