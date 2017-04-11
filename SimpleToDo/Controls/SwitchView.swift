@@ -22,7 +22,7 @@ final class SwitchView : UIView {
 	
 	let titleLabel: UILabel = {
 		let label = UILabel()
-		label.font = Theme.Fonts.main
+		label.font = Theme.Fonts.accesory
 		return label
 	}()
 	

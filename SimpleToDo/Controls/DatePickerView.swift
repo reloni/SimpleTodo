@@ -8,8 +8,11 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class DatePickerView : UIView {
+	let bag = DisposeBag()
+	
 	let datePicker: UIDatePicker = {
 		let picker = UIDatePicker()
 		return picker
@@ -17,7 +20,7 @@ final class DatePickerView : UIView {
 
 	let timeModeSwitcher: SwitchView = {
 		let switcher = SwitchView()
-		switcher.titleLabel.text = "test"
+		switcher.titleLabel.text = "Include time"
 		return switcher
 	}()
 	
@@ -37,21 +40,35 @@ final class DatePickerView : UIView {
 		datePicker.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.vertical)
 		timeModeSwitcher.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
 		
+		datePicker.datePickerMode = .date
+		
+		timeModeSwitcher.switchControl.rx.isOn.subscribe(onNext: { [weak self] isOn in
+			if isOn { self?.changeDateMode(.dateAndTime) } else { self?.changeDateMode(.date) }
+		}).disposed(by: bag)
+		
 		datePicker.snp.makeConstraints(makeDatePickerConstraints)
 		timeModeSwitcher.snp.makeConstraints(makeTimeModeSwitcherConstraints)
 	}
 	
+	func changeDateMode(_ mode: UIDatePickerMode) {
+		UIView.transition(with: datePicker,
+		                  duration: 0.3,
+		                  options: [.beginFromCurrentState],
+		                  animations: { self.datePicker.datePickerMode = mode },
+		                  completion: nil)
+	}
+	
 	func makeDatePickerConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(snp.top)
-		maker.leading.equalTo(snp.leading)
-		maker.trailing.equalTo(snp.trailing)
+		maker.top.equalTo(snp.topMargin)
+		maker.leading.equalTo(snp.leadingMargin)
+		maker.trailing.equalTo(snp.trailingMargin)
 	}
 	
 	func makeTimeModeSwitcherConstraints(maker: ConstraintMaker) {
 		maker.top.equalTo(datePicker.snp.bottom).offset(10)
-		maker.leading.equalTo(snp.leading)
-		maker.trailing.equalTo(snp.trailing)
-		maker.bottom.equalTo(snp.bottom)
+		maker.leading.equalTo(snp.leadingMargin)
+		maker.trailing.equalTo(snp.trailingMargin)
+		maker.bottom.equalTo(snp.bottomMargin)
 	}
 	
 	override func updateConstraints() {

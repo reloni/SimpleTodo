@@ -55,8 +55,16 @@ final class EditTaskController : UIViewController {
 	
 	lazy var targetDateView: TargetDateView = {
 		let view = TargetDateView()
+		view.borderColor = Theme.Colors.lightGray
+		view.borderWidth = 0.5
 		view.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 		return view
+	}()
+	
+	let targetDatePickerView: DatePickerView = {
+		let picker = DatePickerView()
+		picker.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		return picker
 	}()
 	
 	let notesTextField: TextView = {
@@ -101,6 +109,7 @@ final class EditTaskController : UIViewController {
 		scrollView.addSubview(containerView)
 		containerView.addSubview(descriptionTextField)
 		containerView.addSubview(targetDateView)
+		containerView.addSubview(targetDatePickerView)
 		containerView.addSubview(notesTextField)
 		
 		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow).observeOn(MainScheduler.instance)
@@ -147,8 +156,14 @@ final class EditTaskController : UIViewController {
 			make.trailing.equalTo(containerView.snp.trailingMargin)
 		}
 		
+		targetDatePickerView.snp.remakeConstraints { make in
+			make.top.equalTo(targetDateView.snp.bottom)
+			make.leading.equalTo(containerView.snp.leadingMargin)
+			make.trailing.equalTo(containerView.snp.trailingMargin)
+		}
+		
 		notesTextField.snp.remakeConstraints { make in
-			make.top.equalTo(targetDateView.snp.bottom).offset(25)
+			make.top.equalTo(targetDatePickerView.snp.bottom).offset(25)
 			make.leading.equalTo(containerView.snp.leadingMargin)
 			make.trailing.equalTo(containerView.snp.trailingMargin)
 			make.bottom.equalTo(containerView.snp.bottomMargin)
