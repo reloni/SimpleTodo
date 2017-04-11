@@ -40,6 +40,8 @@ final class SwitchView : UIView {
 	}
 	
 	func setup() {
+		clipsToBounds = true
+		
 		addSubview(wrapper)
 		wrapper.addArrangedSubview(titleLabel)
 		wrapper.addArrangedSubview(switchControl)
@@ -51,7 +53,7 @@ final class SwitchView : UIView {
 	}
 	
 	func makeWrapperConstraints(maker: ConstraintMaker) {
-		maker.edges.equalTo(self)
+		maker.edges.equalTo(self.snp.margins)
 	}
 	
 	override func updateConstraints() {

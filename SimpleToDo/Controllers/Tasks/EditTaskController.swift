@@ -17,6 +17,8 @@ final class EditTaskController : UIViewController {
 	let viewModel: EditTaskViewModel
 	let bag = DisposeBag()
 	
+	var datePickerHeightConstraint: Constraint?
+	
 	let scrollView: UIScrollView = {
 		let scroll = UIScrollView()
 		scroll.bounces = true
@@ -63,7 +65,12 @@ final class EditTaskController : UIViewController {
 	
 	let targetDatePickerView: DatePickerView = {
 		let picker = DatePickerView()
+		
+		picker.alpha = 0
+		picker.borderColor = Theme.Colors.lightGray
+		picker.borderWidth = 0.5
 		picker.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		
 		return picker
 	}()
 	
@@ -112,6 +119,15 @@ final class EditTaskController : UIViewController {
 		containerView.addSubview(targetDatePickerView)
 		containerView.addSubview(notesTextField)
 		
+		updateViewConstraints()
+		
+		bind()
+		
+		descriptionTextField.text = viewModel.task?.description
+		notesTextField.text = viewModel.task?.notes
+	}
+	
+	func bind() {
 		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow).observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: notification.keyboardHeight() + 25)
@@ -121,11 +137,27 @@ final class EditTaskController : UIViewController {
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)
-
-		updateViewConstraints()
 		
-		descriptionTextField.text = viewModel.task?.description
-		notesTextField.text = viewModel.task?.notes
+		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] in
+			self?.switchDatePickerHeight()
+		}).disposed(by: bag)
+	}
+	
+	func switchDatePickerHeight() {
+		switch datePickerHeightConstraint?.isActive {
+		case true?: datePickerHeightConstraint?.deactivate()
+		case false?: datePickerHeightConstraint?.activate()
+		default: break
+		}
+		
+		UIView.animate(withDuration: 0.5,
+		               delay: 0.0,
+		               options: [.curveEaseOut],
+		               animations: {
+										self.targetDatePickerView.alpha = self.targetDatePickerView.alpha == 1 ? 0 : 1
+										self.view.layoutIfNeeded()
+									 },
+		               completion: nil)
 	}
 	
 	func done() {
@@ -160,6 +192,7 @@ final class EditTaskController : UIViewController {
 			make.top.equalTo(targetDateView.snp.bottom)
 			make.leading.equalTo(containerView.snp.leadingMargin)
 			make.trailing.equalTo(containerView.snp.trailingMargin)
+			datePickerHeightConstraint = make.height.equalTo(0).constraint
 		}
 		
 		notesTextField.snp.remakeConstraints { make in
