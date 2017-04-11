@@ -63,7 +63,7 @@ final class EditTaskController : UIViewController {
 		return view
 	}()
 	
-	let targetDatePickerView: DatePickerView = {
+	lazy var targetDatePickerView: DatePickerView = {
 		let picker = DatePickerView()
 		
 		picker.alpha = 0
@@ -141,13 +141,21 @@ final class EditTaskController : UIViewController {
 		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] in
 			self?.switchDatePickerHeight()
 		}).disposed(by: bag)
+		
+		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] in
+			self?.targetDatePickerView.date = nil
+			self?.switchDatePickerHeight(false)
+		}).disposed(by: bag)
+		
+		targetDatePickerView.currentDate.map { $0?.longDate ?? "" }.bindTo(targetDateView.textField.rx.text).disposed(by: bag)
 	}
 	
-	func switchDatePickerHeight() {
-		switch datePickerHeightConstraint?.isActive {
-		case true?: datePickerHeightConstraint?.deactivate()
-		case false?: datePickerHeightConstraint?.activate()
-		default: break
+	func switchDatePickerHeight(_ activate: Bool? = nil) {
+		guard let datePickerHeightConstraint = datePickerHeightConstraint else { return }
+		
+		switch !(activate ?? datePickerHeightConstraint.isActive) {
+		case true: datePickerHeightConstraint.activate()
+		case false: datePickerHeightConstraint.deactivate()
 		}
 		
 		UIView.animate(withDuration: 0.5,

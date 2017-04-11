@@ -24,6 +24,14 @@ final class DatePickerView : UIView {
 		return switcher
 	}()
 	
+	private let currentDateSubject = BehaviorSubject<Date?>(value: nil)
+	var currentDate: Observable<Date?> { return currentDateSubject }
+	var date: Date? = nil {
+		didSet {
+			if date == nil { currentDateSubject.onNext(nil) }
+		}
+	}
+	
 	init() {
 		super.init(frame: CGRect.zero)
 		setup()
@@ -43,6 +51,8 @@ final class DatePickerView : UIView {
 		timeModeSwitcher.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
 		
 		datePicker.datePickerMode = .date
+		
+		datePicker.rx.date.skip(1).bindTo(currentDateSubject).disposed(by: bag)
 		
 		timeModeSwitcher.switchControl.rx.isOn.subscribe(onNext: { [weak self] isOn in
 			if isOn { self?.changeDateMode(.dateAndTime) } else { self?.changeDateMode(.date) }
