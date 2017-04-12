@@ -125,6 +125,7 @@ final class EditTaskController : UIViewController {
 		
 		descriptionTextField.text = viewModel.task?.description
 		notesTextField.text = viewModel.task?.notes
+		targetDatePickerView.date = viewModel.task?.targetDate
 	}
 	
 	func bind() {

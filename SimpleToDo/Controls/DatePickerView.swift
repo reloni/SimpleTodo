@@ -28,7 +28,8 @@ final class DatePickerView : UIView {
 	var currentDate: Observable<Date?> { return currentDateSubject }
 	var date: Date? = nil {
 		didSet {
-			if date == nil { currentDateSubject.onNext(nil) }
+			if let date = date { datePicker.date = date }
+			currentDateSubject.onNext(date)
 		}
 	}
 	
@@ -52,7 +53,7 @@ final class DatePickerView : UIView {
 		
 		datePicker.datePickerMode = .date
 		
-		datePicker.rx.date.skip(1).bindTo(currentDateSubject).disposed(by: bag)
+		datePicker.rx.date.skip(0).bindTo(currentDateSubject).disposed(by: bag)
 		
 		timeModeSwitcher.switchControl.rx.isOn.subscribe(onNext: { [weak self] isOn in
 			if isOn { self?.changeDateMode(.dateAndTime) } else { self?.changeDateMode(.date) }
