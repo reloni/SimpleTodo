@@ -78,7 +78,7 @@ final class DatePickerView : UIView {
 	}
 	
 	func makeTimeModeSwitcherConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(datePicker.snp.bottom).offset(10)
+		maker.top.equalTo(datePicker.snp.bottom).offset(10).priority(999)
 		maker.leading.equalTo(snp.leadingMargin)
 		maker.trailing.equalTo(snp.trailingMargin)
 		maker.bottom.equalTo(snp.bottomMargin)
