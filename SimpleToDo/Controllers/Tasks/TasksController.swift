@@ -48,6 +48,8 @@ final class TasksController : UIViewController {
 		
 		self.view.backgroundColor = UIColor.white
 		
+		self.view.layoutEdgeInsets = .zero
+		
 		title = viewModel.title
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTask))
@@ -93,10 +95,10 @@ final class TasksController : UIViewController {
 		super.updateViewConstraints()
 		
 		tableView.snp.remakeConstraints { make in
-			make.top.equalTo(view.snp.topMargin).offset(0)
+			make.top.equalTo(view.snp.topMargin)
 			make.leading.equalTo(view.snp.leading)
 			make.trailing.equalTo(view.snp.trailing)
-			make.bottom.equalTo(view.snp.bottomMargin).offset(-10)
+			make.bottom.equalTo(view.snp.bottomMargin)
 		}
 	}
 }

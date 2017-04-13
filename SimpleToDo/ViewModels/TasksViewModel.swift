@@ -51,6 +51,7 @@ final class TasksViewModel {
 	func configureDataSource() {
 		dataSource.configureCell = { ds, tv, ip, item in
 			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
+			cell.preservesSuperviewLayoutMargins = false
 			cell.separatorInset = .zero
 			cell.layoutEdgeInsets = .zero
 			cell.selectionStyle = .none

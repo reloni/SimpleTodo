@@ -103,6 +103,7 @@ extension Task : Equatable {
 			&& lhs.completed == rhs.completed
 			&& lhs.description == rhs.description
 			&& lhs.notes == rhs.notes
+			&& lhs.targetDate == rhs.targetDate
 	}
 }
 

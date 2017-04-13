@@ -60,8 +60,8 @@ extension Date {
 	
 	static var serverDateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
-		//2017-01-05T21:55:57.001Z
-		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+		//2017-01-05T21:55:57.001+00
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSxx"
 		return formatter
 	}()
 	
@@ -152,6 +152,7 @@ extension FIRUser : LoginUser {
 
 extension HttpClient {
 	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
+	//static let baseUrl = "http://localhost:5000/api/v1"
 }
 
 extension Keychain {
