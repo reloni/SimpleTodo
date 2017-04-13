@@ -11,6 +11,7 @@ import RxHttpClient
 import Unbox
 import UIKit
 import RxSwift
+import Material
 
 extension Notification {
 	func keyboardHeight() -> CGFloat {
@@ -19,6 +20,72 @@ extension Notification {
 	
 	func statusBarFrame() -> CGRect {
 		return userInfo?[UIApplicationStatusBarFrameUserInfoKey] as! CGRect
+	}
+}
+
+extension TextField {
+	static var base: TextField {
+		let field = TextField()
+		field.font = Theme.Fonts.main
+		field.isClearIconButtonEnabled = true
+		return field
+	}
+}
+
+extension TextView {
+	static var generic: TextView {
+		let text = TextView()
+		
+		text.placeholderActiveColor = Theme.Colors.appleBlue
+		text.placeholderNormalColor = Theme.Colors.lightGray
+		text.backgroundColor = Theme.Colors.white
+		text.placeholderLabel.font = Theme.Fonts.main
+		text.placeholderLabel.textColor = Theme.Colors.lightGray
+		text.font = Theme.Fonts.main
+		text.borderColor = Theme.Colors.lightGray
+		text.borderWidth = 0.5
+		text.isScrollEnabled = false
+		
+		return text
+	}
+}
+
+extension Date {
+	static var shortDateAndTime: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .short
+		return dateFormatter
+	}()
+	
+	static var serverDateFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		//2017-01-05T21:55:57.001+00
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSxx"
+		return formatter
+	}()
+	
+	static var longDateFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy MM dd HH:mm"
+		formatter.locale = Locale.current
+		return formatter
+	}()
+	
+	static func fromServer(string: String) -> Date? {
+		return Date.serverDateFormatter.date(from: string)
+	}
+	
+	var serverDate: String {
+		return Date.serverDateFormatter.string(from: self)
+	}
+	
+	var longDate: String {
+		return Date.longDateFormatter.string(from: self)
+	}
+	
+	var shortDateAndTime: String {
+		return Date.shortDateAndTime.string(from: self)
 	}
 }
 
@@ -85,6 +152,7 @@ extension FIRUser : LoginUser {
 
 extension HttpClient {
 	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
+	//static let baseUrl = "http://localhost:5000/api/v1"
 }
 
 extension Keychain {

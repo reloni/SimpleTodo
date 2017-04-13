@@ -51,11 +51,13 @@ final class TasksViewModel {
 	func configureDataSource() {
 		dataSource.configureCell = { ds, tv, ip, item in
 			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
+			cell.preservesSuperviewLayoutMargins = false
 			cell.separatorInset = .zero
 			cell.layoutEdgeInsets = .zero
 			cell.selectionStyle = .none
 			cell.isExpanded = false
-			cell.taskDescription.text = "Item \(item.description) - \(item.completed)"
+			cell.taskDescription.text = "\(item.description)"
+			cell.targetDate.text = item.targetDate?.longDate
 			
 			cell.completeTapped = { [weak self] in
 				guard let object = self else { return }

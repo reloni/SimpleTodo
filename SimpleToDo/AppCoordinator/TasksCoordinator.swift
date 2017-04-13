@@ -32,6 +32,9 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 			let coordinator = SignInCoordinator(window: window, controller: SignInController(viewModel: SignInViewModel(flowController: flowController)))
 			set(newRootController: coordinator.controller!)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
+		case GeneralAction.error(let error):
+			showAlert(in: navigationController.visibleViewController!, with: error)
+			return .just(flowController.currentState.state)
 		default: return .empty()
 		}
 	}

@@ -83,11 +83,18 @@ extension UniqueIdentifier : WrapCustomizable {
 	}
 }
 
+extension Date : WrapCustomizable {
+	public func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
+		return self.serverDate
+	}
+}
+
 struct Task {
 	let uuid: UniqueIdentifier
 	let completed: Bool
 	let description: String
 	let notes: String?
+	let targetDate: Date?
 }
 
 extension Task : Equatable {
@@ -96,6 +103,7 @@ extension Task : Equatable {
 			&& lhs.completed == rhs.completed
 			&& lhs.description == rhs.description
 			&& lhs.notes == rhs.notes
+			&& lhs.targetDate == rhs.targetDate
 	}
 }
 
@@ -117,5 +125,6 @@ extension Task: Unboxable {
 		self.completed = try unboxer.unbox(key: "completed")
 		self.description = try unboxer.unbox(key: "description")
 		self.notes = unboxer.unbox(key: "notes")
+		self.targetDate = Date.fromServer(string: unboxer.unbox(key: "targetDate") ?? "")
 	}
 }

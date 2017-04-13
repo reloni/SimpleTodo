@@ -1,0 +1,63 @@
+//
+//  SwitchView.swift
+//  SimpleToDo
+//
+//  Created by Anton Efimenko on 08.04.17.
+//  Copyright © 2017 Anton Efimenko. All rights reserved.
+//
+
+import UIKit
+import SnapKit
+
+final class SwitchView : UIView {
+	let wrapper: UIStackView = {
+		let stack = UIStackView()
+		
+		stack.axis = .horizontal
+		stack.distribution = .fillProportionally
+		stack.spacing = 10
+		
+		return stack
+	}()
+	
+	let titleLabel: UILabel = {
+		let label = UILabel()
+		label.font = Theme.Fonts.accesory
+		return label
+	}()
+	
+	let switchControl: UISwitch = {
+		return UISwitch()
+	}()
+	
+	init() {
+		super.init(frame: CGRect.zero)
+		setup()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	func setup() {
+		clipsToBounds = true
+		
+		addSubview(wrapper)
+		wrapper.addArrangedSubview(titleLabel)
+		wrapper.addArrangedSubview(switchControl)
+		
+		titleLabel.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.horizontal)
+		switchControl.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.horizontal)
+		
+		wrapper.snp.makeConstraints(makeWrapperConstraints)
+	}
+	
+	func makeWrapperConstraints(maker: ConstraintMaker) {
+		maker.edges.equalTo(self.snp.margins)
+	}
+	
+	override func updateConstraints() {
+		super.updateConstraints()
+		wrapper.snp.updateConstraints(makeWrapperConstraints)
+	}
+}

@@ -16,9 +16,9 @@ import RxHttpClient
 
 final class TasksController : UIViewController {
 	let bag = DisposeBag()
-
+	
 	let viewModel: TasksViewModel
-
+	
 	let tableView: UITableView = {
 		let table = UITableView()
 		
@@ -33,20 +33,22 @@ final class TasksController : UIViewController {
 		
 		return table
 	}()
-    
+	
 	init(viewModel: TasksViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 	
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		self.view.backgroundColor = UIColor.white
+		
+		self.view.layoutEdgeInsets = .zero
 		
 		title = viewModel.title
 		
@@ -60,15 +62,14 @@ final class TasksController : UIViewController {
 		updateViewConstraints()
 		
 		bind()
-	
+		
 		viewModel.loadTasks()
 	}
 	
 	func bind() {
-			viewModel.taskSections
+		viewModel.taskSections
 			.observeOn(MainScheduler.instance)
 			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
-			.startWith([])
 			.bindTo(tableView.rx.items(dataSource: viewModel.dataSource))
 			.addDisposableTo(bag)
 		
@@ -94,10 +95,10 @@ final class TasksController : UIViewController {
 		super.updateViewConstraints()
 		
 		tableView.snp.remakeConstraints { make in
-			make.top.equalTo(view.snp.topMargin).offset(0)
+			make.top.equalTo(view.snp.topMargin)
 			make.leading.equalTo(view.snp.leading)
 			make.trailing.equalTo(view.snp.trailing)
-			make.bottom.equalTo(view.snp.bottomMargin).offset(-10)
+			make.bottom.equalTo(view.snp.bottomMargin)
 		}
 	}
 }

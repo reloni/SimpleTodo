@@ -17,6 +17,8 @@ final class EditTaskController : UIViewController {
 	let viewModel: EditTaskViewModel
 	let bag = DisposeBag()
 	
+	var datePickerHeightConstraint: Constraint?
+	
 	let scrollView: UIScrollView = {
 		let scroll = UIScrollView()
 		scroll.bounces = true
@@ -28,6 +30,7 @@ final class EditTaskController : UIViewController {
 	
 	let containerView: UIView = {
 		let view = UIView()
+		view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		view.backgroundColor = Theme.Colors.backgroundLightGray
 		return view
 	}()
@@ -50,6 +53,25 @@ final class EditTaskController : UIViewController {
 		text.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 15)
 		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		return text
+	}()
+	
+	lazy var targetDateView: TargetDateView = {
+		let view = TargetDateView()
+		view.borderColor = Theme.Colors.lightGray
+		view.borderWidth = 0.5
+		view.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		return view
+	}()
+	
+	lazy var targetDatePickerView: DatePickerView = {
+		let picker = DatePickerView()
+		
+		picker.alpha = 0
+		picker.borderColor = Theme.Colors.lightGray
+		picker.borderWidth = 0.5
+		picker.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		
+		return picker
 	}()
 	
 	let notesTextField: TextView = {
@@ -93,8 +115,20 @@ final class EditTaskController : UIViewController {
 		view.addSubview(scrollView)
 		scrollView.addSubview(containerView)
 		containerView.addSubview(descriptionTextField)
+		containerView.addSubview(targetDateView)
+		containerView.addSubview(targetDatePickerView)
 		containerView.addSubview(notesTextField)
 		
+		updateViewConstraints()
+		
+		bind()
+		
+		descriptionTextField.text = viewModel.task?.description
+		notesTextField.text = viewModel.task?.notes
+		targetDatePickerView.date = viewModel.task?.targetDate
+	}
+	
+	func bind() {
 		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow).observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: notification.keyboardHeight() + 25)
@@ -104,21 +138,39 @@ final class EditTaskController : UIViewController {
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)
-
-		updateViewConstraints()
 		
-		descriptionTextField.text = viewModel.task?.description
-		notesTextField.text = viewModel.task?.notes
+		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] in
+			self?.switchDatePickerHeight()
+		}).disposed(by: bag)
+		
+		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] in
+			self?.targetDatePickerView.date = nil
+			self?.switchDatePickerHeight(false)
+		}).disposed(by: bag)
+		
+		targetDatePickerView.currentDate.map { $0?.shortDateAndTime ?? "" }.bindTo(targetDateView.textField.rx.text).disposed(by: bag)
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
+	func switchDatePickerHeight(_ activate: Bool? = nil) {
+		guard let datePickerHeightConstraint = datePickerHeightConstraint else { return }
 		
+		switch !(activate ?? datePickerHeightConstraint.isActive) {
+		case true: datePickerHeightConstraint.activate()
+		case false: datePickerHeightConstraint.deactivate()
+		}
 		
+		UIView.animate(withDuration: 0.5,
+		               delay: 0.0,
+		               options: [.curveEaseOut],
+		               animations: {
+										self.targetDatePickerView.alpha = self.targetDatePickerView.alpha == 1 ? 0 : 1
+										self.view.layoutIfNeeded()
+									 },
+		               completion: nil)
 	}
 	
 	func done() {
-		viewModel.save(description: descriptionTextField.text, notes: notesTextField.text)
+		viewModel.save(description: descriptionTextField.text, notes: notesTextField.text, targetDate: targetDatePickerView.date)
 	}
 	
 	override func updateViewConstraints() {
@@ -134,15 +186,29 @@ final class EditTaskController : UIViewController {
 		}
 		
 		descriptionTextField.snp.remakeConstraints { make in
-			make.top.equalTo(containerView.snp.top).offset(25)
-			make.leading.equalTo(containerView)
-			make.trailing.equalTo(containerView)
+			make.top.equalTo(containerView.snp.topMargin).offset(25)
+			make.leading.equalTo(containerView.snp.leadingMargin)
+			make.trailing.equalTo(containerView.snp.trailingMargin)
 		}
-		notesTextField.snp.remakeConstraints { make in
+		
+		targetDateView.snp.remakeConstraints { make in
 			make.top.equalTo(descriptionTextField.snp.bottom).offset(25)
-			make.leading.equalTo(containerView)
-			make.trailing.equalTo(containerView)
-			make.bottom.equalTo(containerView).inset(10)
+			make.leading.equalTo(containerView.snp.leadingMargin)
+			make.trailing.equalTo(containerView.snp.trailingMargin)
+		}
+		
+		targetDatePickerView.snp.remakeConstraints { make in
+			make.top.equalTo(targetDateView.snp.bottom)
+			make.leading.equalTo(containerView.snp.leadingMargin)
+			make.trailing.equalTo(containerView.snp.trailingMargin)
+			datePickerHeightConstraint = make.height.equalTo(0).constraint
+		}
+		
+		notesTextField.snp.remakeConstraints { make in
+			make.top.equalTo(targetDatePickerView.snp.bottom).offset(25)
+			make.leading.equalTo(containerView.snp.leadingMargin)
+			make.trailing.equalTo(containerView.snp.trailingMargin)
+			make.bottom.equalTo(containerView.snp.bottomMargin)
 		}
 	}
 }
