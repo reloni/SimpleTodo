@@ -25,21 +25,20 @@ final class EditTaskViewModel {
 		}
 	}()
 	
-	func save(description: String, notes: String?) {
+	func save(description: String, notes: String?, targetDate: Date?) {
 		guard description.characters.count > 0 else { return }
-		
 		guard let task = task else {
 			let action = RxCompositeAction(actions: [EditTaskAction.dismisEditTaskController,
 			                                         EditTaskAction.addTask(Task(uuid: UniqueIdentifier(),
 			                                                                     completed: false,
 			                                                                     description: description,
 			                                                                     notes: notes,
-			                                                                     targetDate: nil))])
+			                                                                     targetDate: targetDate))])
 			flowController.dispatch(action)
 			return
 		}
 		
-		let newTask = Task(uuid: task.uuid, completed: false, description: description, notes: notes, targetDate: nil)
+		let newTask = Task(uuid: task.uuid, completed: false, description: description, notes: notes, targetDate: targetDate)
 		let action = RxCompositeAction(actions: [EditTaskAction.dismisEditTaskController,
 		                                         EditTaskAction.updateTask(newTask)])
 		flowController.dispatch(action)

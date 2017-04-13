@@ -51,14 +51,21 @@ extension TextView {
 }
 
 extension Date {
-	public static var serverDateFormatter: DateFormatter = {
+	static var shortDateAndTime: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .short
+		return dateFormatter
+	}()
+	
+	static var serverDateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
 		//2017-01-05T21:55:57.001Z
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 		return formatter
 	}()
 	
-	public static var longDateFormatter: DateFormatter = {
+	static var longDateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
 		formatter.dateFormat = "yyyy MM dd HH:mm"
 		formatter.locale = Locale.current
@@ -69,8 +76,16 @@ extension Date {
 		return Date.serverDateFormatter.date(from: string)
 	}
 	
+	var serverDate: String {
+		return Date.serverDateFormatter.string(from: self)
+	}
+	
 	var longDate: String {
 		return Date.longDateFormatter.string(from: self)
+	}
+	
+	var shortDateAndTime: String {
+		return Date.shortDateAndTime.string(from: self)
 	}
 }
 

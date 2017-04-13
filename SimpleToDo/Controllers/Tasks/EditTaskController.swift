@@ -148,7 +148,7 @@ final class EditTaskController : UIViewController {
 			self?.switchDatePickerHeight(false)
 		}).disposed(by: bag)
 		
-		targetDatePickerView.currentDate.map { $0?.longDate ?? "" }.bindTo(targetDateView.textField.rx.text).disposed(by: bag)
+		targetDatePickerView.currentDate.map { $0?.shortDateAndTime ?? "" }.bindTo(targetDateView.textField.rx.text).disposed(by: bag)
 	}
 	
 	func switchDatePickerHeight(_ activate: Bool? = nil) {
@@ -170,7 +170,7 @@ final class EditTaskController : UIViewController {
 	}
 	
 	func done() {
-		viewModel.save(description: descriptionTextField.text, notes: notesTextField.text)
+		viewModel.save(description: descriptionTextField.text, notes: notesTextField.text, targetDate: targetDatePickerView.date)
 	}
 	
 	override func updateViewConstraints() {

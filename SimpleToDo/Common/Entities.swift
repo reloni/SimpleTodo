@@ -83,6 +83,12 @@ extension UniqueIdentifier : WrapCustomizable {
 	}
 }
 
+extension Date : WrapCustomizable {
+	public func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
+		return self.serverDate
+	}
+}
+
 struct Task {
 	let uuid: UniqueIdentifier
 	let completed: Bool
