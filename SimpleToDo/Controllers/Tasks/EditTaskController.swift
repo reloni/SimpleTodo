@@ -163,7 +163,7 @@ final class EditTaskController : UIViewController {
 		               delay: 0.0,
 		               options: [.curveEaseOut],
 		               animations: {
-										self.targetDatePickerView.alpha = self.targetDatePickerView.alpha == 1 ? 0 : 1
+										self.targetDatePickerView.alpha = self.datePickerHeightConstraint?.isActive ?? false ? 0 : 1
 										self.view.layoutIfNeeded()
 									 },
 		               completion: nil)
