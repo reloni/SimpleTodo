@@ -14,6 +14,11 @@ import RxSwift
 import RxDataFlow
 
 final class EditTaskController : UIViewController {
+	enum DatePickerExpandMode {
+		case expanded
+		case collapsed
+	}
+	
 	let viewModel: EditTaskViewModel
 	let bag = DisposeBag()
 	
@@ -164,23 +169,25 @@ final class EditTaskController : UIViewController {
 		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] in
 			self?.descriptionTextField.endEditing(true)
 			self?.notesTextField.endEditing(true)
-			self?.switchDatePickerHeight()
+			if self?.switchDatePickerExpandMode() == .expanded, self?.targetDatePickerView.date == nil {
+				self?.targetDatePickerView.date = Date()
+			}
 		}).disposed(by: bag)
 		
 		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] in
 			self?.descriptionTextField.endEditing(true)
 			self?.notesTextField.endEditing(true)
 			self?.targetDatePickerView.date = nil
-			self?.switchDatePickerHeight(false)
+			_ = self?.switchDatePickerExpandMode(false)
 		}).disposed(by: bag)
 		
 		targetDatePickerView.currentDate.map { $0?.shortDateAndTime ?? "" }.bindTo(targetDateView.textField.rx.text).disposed(by: bag)
 	}
 	
-	func switchDatePickerHeight(_ activate: Bool? = nil) {
-		guard let datePickerHeightConstraint = datePickerHeightConstraint else { return }
+	func switchDatePickerExpandMode(_ expand: Bool? = nil) -> DatePickerExpandMode {
+		guard let datePickerHeightConstraint = datePickerHeightConstraint else { return .collapsed }
 		
-		switch !(activate ?? datePickerHeightConstraint.isActive) {
+		switch !(expand ?? datePickerHeightConstraint.isActive) {
 		case true: datePickerHeightConstraint.activate()
 		case false: datePickerHeightConstraint.deactivate()
 		}
@@ -193,6 +200,8 @@ final class EditTaskController : UIViewController {
 										self.view.layoutIfNeeded()
 									 },
 		               completion: nil)
+		
+		return datePickerHeightConstraint.isActive ? .collapsed : .expanded
 	}
 	
 	func done() {
