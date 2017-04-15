@@ -95,7 +95,7 @@ final class TaskCell : UITableViewCell {
 		taskDescription.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
 		
 		targetDate.setContentCompressionResistancePriority(999, for: UILayoutConstraintAxis.vertical)
-		targetDate.setContentHuggingPriority(999, for: UILayoutConstraintAxis.vertical)
+		targetDate.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
 		
 		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.backgroundLightGray }
 		actionsStack.subviews.last?.setContentHuggingPriority(1, for: UILayoutConstraintAxis.horizontal)
