@@ -58,6 +58,7 @@ final class TasksViewModel {
 			cell.isExpanded = false
 			cell.taskDescription.text = "\(item.description)"
 			cell.targetDate.text = item.targetDate?.longDate
+			cell.updateConstraints()
 			
 			cell.completeTapped = { [weak self] in
 				guard let object = self else { return }
