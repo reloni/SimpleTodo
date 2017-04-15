@@ -74,23 +74,44 @@ final class EditTaskController : UIViewController {
 		return picker
 	}()
 	
+	let notesLabel: UILabel = {
+		let text = UILabel()
+		text.text = "Task notes"
+		text.numberOfLines = 0
+		text.font = Theme.Fonts.main
+		return text
+	}()
+	
+	let notesWrapper: UIView = {
+		let view = UIView()
+		view.backgroundColor = Theme.Colors.white
+		view.layoutEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		view.borderColor = Theme.Colors.lightGray
+		view.borderWidth = 0.5
+		return view
+	}()
+	
+	lazy var notesStack: UIStackView = {
+		let stack = UIStackView()
+		
+		stack.axis = .vertical
+		stack.distribution = .fill
+		stack.spacing = 10
+		
+		stack.addArrangedSubview(self.notesLabel)
+		stack.addArrangedSubview(self.notesTextField)
+		
+		return stack
+	}()
+	
 	let notesTextField: TextView = {
 		let text = TextView()
 
-		text.placeholderActiveColor = Theme.Colors.appleBlue
-		text.placeholderNormalColor = Theme.Colors.lightGray
+		text.textColor = Theme.Colors.lightGray
 		text.backgroundColor = Theme.Colors.white
-		text.placeholderLabel.font = Theme.Fonts.main
-		text.placeholderLabel.textColor = Theme.Colors.lightGray
-		text.font = Theme.Fonts.main
-		text.borderColor = Theme.Colors.lightGray
-		text.borderWidth = 0.5
+		text.font = Theme.Fonts.textFieldTitle
 		text.isScrollEnabled = false
 		
-		text.placeholder = "Task notes"
-		
-		text.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 15)
-		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		return text
 	}()
 	
@@ -117,7 +138,8 @@ final class EditTaskController : UIViewController {
 		containerView.addSubview(descriptionTextField)
 		containerView.addSubview(targetDateView)
 		containerView.addSubview(targetDatePickerView)
-		containerView.addSubview(notesTextField)
+		containerView.addSubview(notesWrapper)
+		notesWrapper.addSubview(notesStack)
 		
 		updateViewConstraints()
 		
@@ -208,11 +230,15 @@ final class EditTaskController : UIViewController {
 			datePickerHeightConstraint = make.height.equalTo(0).constraint
 		}
 		
-		notesTextField.snp.remakeConstraints { make in
+		notesWrapper.snp.remakeConstraints { make in
 			make.top.equalTo(targetDatePickerView.snp.bottom).offset(25)
 			make.leading.equalTo(containerView.snp.leadingMargin)
 			make.trailing.equalTo(containerView.snp.trailingMargin)
 			make.bottom.equalTo(containerView.snp.bottomMargin)
+		}
+		
+		notesStack.snp.remakeConstraints {
+			$0.edges.equalTo(notesWrapper.snp.margins)
 		}
 	}
 }
