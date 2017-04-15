@@ -37,7 +37,7 @@ final class EditTaskController : UIViewController {
 	
 	let descriptionTextField: TextView  = {
 		let text = TextView()
-		
+	
 		text.placeholderActiveColor = Theme.Colors.appleBlue
 		text.placeholderNormalColor = Theme.Colors.lightGray
 		text.backgroundColor = Theme.Colors.white
@@ -140,10 +140,14 @@ final class EditTaskController : UIViewController {
 			}).disposed(by: bag)
 		
 		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] in
+			self?.descriptionTextField.endEditing(true)
+			self?.notesTextField.endEditing(true)
 			self?.switchDatePickerHeight()
 		}).disposed(by: bag)
 		
 		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] in
+			self?.descriptionTextField.endEditing(true)
+			self?.notesTextField.endEditing(true)
 			self?.targetDatePickerView.date = nil
 			self?.switchDatePickerHeight(false)
 		}).disposed(by: bag)
