@@ -767,7 +767,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Firebase/Analytics",
 					"$(PROJECT_DIR)/Carthage/Firebase/Auth",
-					"$(PROJECT_DIR)/Carthage/googlesignin",
 					"$(PROJECT_DIR)/Carthage/Firebase/Invites",
 				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
@@ -795,7 +794,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Firebase/Analytics",
 					"$(PROJECT_DIR)/Carthage/Firebase/Auth",
-					"$(PROJECT_DIR)/Carthage/googlesignin",
 					"$(PROJECT_DIR)/Carthage/Firebase/Invites",
 				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
