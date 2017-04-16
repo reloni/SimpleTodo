@@ -125,6 +125,7 @@
 		6E9026E61E5AA57E00851B4D /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = Carthage/googlesignin/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		6E9026E71E5AA57E00851B4D /* GoogleAppUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppUtilities.framework; path = Carthage/googlesignin/GoogleAppUtilities.framework; sourceTree = "<group>"; };
 		6E9026E81E5AA57E00851B4D /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Carthage/googlesignin/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		6E99ADE91EA3D76F00B88E6E /* SimpleToDo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleToDo.entitlements; sourceTree = "<group>"; };
 		6E9AA3E91E540D9100BA8283 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		6E9AA3EA1E540D9100BA8283 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Firebase/Analytics/FirebaseCore.framework; sourceTree = "<group>"; };
 		6E9AA3EB1E540D9100BA8283 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Firebase/Analytics/FirebaseInstanceID.framework; sourceTree = "<group>"; };
@@ -234,6 +235,7 @@
 		6E15D01A1DF0A45A00B4CCA7 /* SimpleToDo */ = {
 			isa = PBXGroup;
 			children = (
+				6E99ADE91EA3D76F00B88E6E /* SimpleToDo.entitlements */,
 				6EBD408B1E60ABB100661CA6 /* AppCoordinator */,
 				6E9AA3F91E540F1400BA8283 /* Firebase */,
 				6E5FD9B41E59F9D2002C71F2 /* ViewModels */,
@@ -490,6 +492,11 @@
 						DevelopmentTeam = SJMSRXG797;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					6E15D02B1DF0A45A00B4CCA7 = {
 						CreatedOnToolsVersion = 8.1;
@@ -761,6 +768,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SimpleToDo/SimpleToDo.entitlements;
 				DEVELOPMENT_TEAM = SJMSRXG797;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -788,6 +796,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SimpleToDo/SimpleToDo.entitlements;
 				DEVELOPMENT_TEAM = SJMSRXG797;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
