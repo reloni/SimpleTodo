@@ -112,6 +112,7 @@ final class EditTaskController : UIViewController {
 	let notesTextField: TextView = {
 		let text = TextView()
 
+		text.layoutEdgeInsets = .zero
 		text.textColor = Theme.Colors.lightGray
 		text.backgroundColor = Theme.Colors.white
 		text.font = Theme.Fonts.textFieldTitle
