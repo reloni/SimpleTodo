@@ -57,7 +57,7 @@ final class TasksViewModel {
 			cell.selectionStyle = .none
 			cell.isExpanded = false
 			cell.taskDescription.text = "\(item.description)"
-			cell.targetDate.text = item.targetDate?.longDate
+			cell.targetDate.text = item.targetDate?.date.longDate
 			cell.updateConstraints()
 			
 			cell.completeTapped = { [weak self] in

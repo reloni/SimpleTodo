@@ -83,18 +83,23 @@ extension UniqueIdentifier : WrapCustomizable {
 	}
 }
 
-extension Date : WrapCustomizable {
-	public func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-		return self.serverDate
-	}
-}
-
 struct Task {
 	let uuid: UniqueIdentifier
 	let completed: Bool
 	let description: String
 	let notes: String?
-	let targetDate: Date?
+	let targetDate: TaskDate?
+}
+
+struct TaskDate {
+	let date: Date
+	let includeTime: Bool
+}
+
+extension TaskDate : Equatable {
+	public static func ==(lhs: TaskDate, rhs: TaskDate) -> Bool {
+		return lhs.date == rhs.date && lhs.includeTime && rhs.includeTime
+	}
 }
 
 extension Task : Equatable {
@@ -125,6 +130,27 @@ extension Task: Unboxable {
 		self.completed = try unboxer.unbox(key: "completed")
 		self.description = try unboxer.unbox(key: "description")
 		self.notes = unboxer.unbox(key: "notes")
-		self.targetDate = Date.fromServer(string: unboxer.unbox(key: "targetDate") ?? "")
+		if let date = Date.fromServer(string: unboxer.unbox(key: "targetDate") ?? ""),
+			let includeTime: Bool = unboxer.unbox(key: "targetDateIncludeTime") {
+			targetDate = TaskDate(date: date, includeTime: includeTime)
+		} else {
+			targetDate = nil
+		}
 	}
+}
+
+extension Task : WrapCustomizable {
+	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
+		var dict = [String: Any]()
+		
+		dict["uuid"] = uuid.uuid.uuidString
+		dict["completed"] = completed
+		dict["description"] = description
+		dict["notes"] = notes ?? ""
+		dict["targetDate"] = targetDate?.date.serverDate ?? NSNull()
+		dict["targetDateIncludeTime"] = targetDate?.includeTime ?? NSNull()
+		
+		return dict
+	}
+	
 }

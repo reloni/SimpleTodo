@@ -25,7 +25,7 @@ final class EditTaskViewModel {
 		}
 	}()
 	
-	func save(description: String, notes: String?, targetDate: Date?) {
+	func save(description: String, notes: String?, targetDate: TaskDate?) {
 		guard description.characters.count > 0 else { return }
 		guard let task = task else {
 			let action = RxCompositeAction(actions: [EditTaskAction.dismisEditTaskController,

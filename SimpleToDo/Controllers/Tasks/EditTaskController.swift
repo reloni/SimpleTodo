@@ -153,7 +153,8 @@ final class EditTaskController : UIViewController {
 		
 		descriptionTextField.text = viewModel.task?.description
 		notesTextField.text = viewModel.task?.notes
-		targetDatePickerView.date = viewModel.task?.targetDate
+		targetDatePickerView.date = viewModel.task?.targetDate?.date
+		targetDatePickerView.timeModeSwitcher.switchControl.setOn(viewModel.task?.targetDate?.includeTime ?? false, animated: true)
 	}
 	
 	func bind() {
@@ -206,7 +207,12 @@ final class EditTaskController : UIViewController {
 	}
 	
 	func done() {
-		viewModel.save(description: descriptionTextField.text, notes: notesTextField.text, targetDate: targetDatePickerView.date)
+		let targetDate: TaskDate? = {
+			guard let date = targetDatePickerView.date else { return nil }
+			return TaskDate(date: date, includeTime: targetDatePickerView.timeModeSwitcher.switchControl.isOn)
+		}()
+		
+		viewModel.save(description: descriptionTextField.text, notes: notesTextField.text, targetDate: targetDate)
 	}
 	
 	override func updateViewConstraints() {
