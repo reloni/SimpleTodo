@@ -24,12 +24,18 @@ final class DatePickerView : UIView {
 		return switcher
 	}()
 	
-	private let currentDateSubject = BehaviorSubject<Date?>(value: nil)
-	var currentDate: Observable<Date?> { return currentDateSubject }
+	private let currentDateSubject = BehaviorSubject<TaskDate?>(value: nil)
+	var currentDate: Observable<TaskDate?> { return currentDateSubject }
 	
-	var date: Date? = nil {
+	var date: TaskDate? = nil {
 		didSet {
-			if let date = date { datePicker.date = date }
+			if let date = date {
+				datePicker.date = date.date
+			}
+			
+			timeModeSwitcher.switchControl.setOn(date?.includeTime ?? false, animated: true)
+			changeDateMode(date?.includeTime ?? false)
+			
 			currentDateSubject.onNext(date)
 		}
 	}
@@ -54,21 +60,26 @@ final class DatePickerView : UIView {
 		
 		datePicker.datePickerMode = .date
 		
-		datePicker.rx.date.skip(1).do(onNext: { [weak self] next in self?.date = next }).bindTo(currentDateSubject).disposed(by: bag)
+		datePicker.rx.date.skip(1).do(onNext: { [weak self] next in
+			self?.date = TaskDate(date: next, includeTime: self?.timeModeSwitcher.switchControl.isOn ?? false)
+		}).subscribe().disposed(by: bag)
 		
 		timeModeSwitcher.switchControl.rx.isOn.subscribe(onNext: { [weak self] isOn in
-			if isOn { self?.changeDateMode(.dateAndTime) } else { self?.changeDateMode(.date) }
+			guard let date = self?.datePicker.date else { return }
+			self?.date = TaskDate(date: date, includeTime: isOn)
 		}).disposed(by: bag)
+		
+		timeModeSwitcher.switchControl.rx.isOn.bindNext(changeDateMode).disposed(by: bag)
 		
 		datePicker.snp.makeConstraints(makeDatePickerConstraints)
 		timeModeSwitcher.snp.makeConstraints(makeTimeModeSwitcherConstraints)
 	}
 	
-	func changeDateMode(_ mode: UIDatePickerMode) {
+	func changeDateMode(_ includeTime: Bool) {
 		UIView.transition(with: datePicker,
 		                  duration: 0.3,
 		                  options: [.beginFromCurrentState],
-		                  animations: { self.datePicker.datePickerMode = mode },
+		                  animations: { self.datePicker.datePickerMode = includeTime ? .dateAndTime : .date },
 		                  completion: nil)
 	}
 	

@@ -6,7 +6,6 @@
 //  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
 
-import UIKit
 import RxDataSources
 import RxDataFlow
 import RxSwift
@@ -57,7 +56,7 @@ final class TasksViewModel {
 			cell.selectionStyle = .none
 			cell.isExpanded = false
 			cell.taskDescription.text = "\(item.description)"
-			cell.targetDate.text = item.targetDate?.longDate
+			cell.targetDate.text = item.targetDate?.date.longDate
 			cell.updateConstraints()
 			
 			cell.completeTapped = { [weak self] in
