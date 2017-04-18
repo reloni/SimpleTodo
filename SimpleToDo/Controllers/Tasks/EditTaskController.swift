@@ -191,6 +191,9 @@ final class EditTaskController : UIViewController {
 	func switchDatePickerExpandMode(_ expand: Bool) {
 		guard let datePickerHeightConstraint = datePickerHeightConstraint else { return }
 		
+		descriptionTextField.resignFirstResponder()
+		notesTextField.resignFirstResponder()
+		
 		switch !expand {
 		case true: datePickerHeightConstraint.activate()
 		case false: datePickerHeightConstraint.deactivate()
