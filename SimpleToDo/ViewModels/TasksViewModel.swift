@@ -6,7 +6,6 @@
 //  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
 
-import UIKit
 import RxDataSources
 import RxDataFlow
 import RxSwift

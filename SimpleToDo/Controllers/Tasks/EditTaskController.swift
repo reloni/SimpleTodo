@@ -68,7 +68,7 @@ final class EditTaskController : UIViewController {
 		return view
 	}()
 	
-	lazy var targetDatePickerView: DatePickerView = {
+	let targetDatePickerView: DatePickerView = {
 		let picker = DatePickerView()
 		
 		picker.alpha = 0
@@ -123,6 +123,11 @@ final class EditTaskController : UIViewController {
 	
 	init(viewModel: EditTaskViewModel) {
 		self.viewModel = viewModel
+		
+		descriptionTextField.text = viewModel.taskDescription.value
+		notesTextField.text = viewModel.taskNotes.value
+		targetDatePickerView.date = viewModel.taskTargetDate.value
+		
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -150,11 +155,6 @@ final class EditTaskController : UIViewController {
 		updateViewConstraints()
 		
 		bind()
-		
-		descriptionTextField.text = viewModel.task?.description
-		notesTextField.text = viewModel.task?.notes
-		targetDatePickerView.date = viewModel.task?.targetDate?.date
-		targetDatePickerView.timeModeSwitcher.switchControl.setOn(viewModel.task?.targetDate?.includeTime ?? false, animated: true)
 	}
 	
 	func bind() {
@@ -168,28 +168,30 @@ final class EditTaskController : UIViewController {
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)
 		
-		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] in
-			self?.descriptionTextField.endEditing(true)
-			self?.notesTextField.endEditing(true)
-			if self?.switchDatePickerExpandMode() == .expanded, self?.targetDatePickerView.date == nil {
-				self?.targetDatePickerView.date = Date()
-			}
+		descriptionTextField.rx.didChange.subscribe(onNext: { [weak self] _ in
+			self?.viewModel.taskDescription.value = self?.descriptionTextField.text ?? ""
 		}).disposed(by: bag)
 		
-		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] in
-			self?.descriptionTextField.endEditing(true)
-			self?.notesTextField.endEditing(true)
-			self?.targetDatePickerView.date = nil
-			_ = self?.switchDatePickerExpandMode(false)
+		notesTextField.rx.didChange.subscribe(onNext: { [weak self] _ in
+			self?.viewModel.taskNotes.value = self?.notesTextField.text
 		}).disposed(by: bag)
+
+		targetDatePickerView.currentDate.bindTo(viewModel.taskTargetDate).disposed(by: bag)
 		
-		targetDatePickerView.currentDate.map { $0?.shortDateAndTime ?? "" }.bindTo(targetDateView.textField.rx.text).disposed(by: bag)
+		viewModel.datePickerExpanded.bindNext(switchDatePickerExpandMode).disposed(by: bag)
+		
+		viewModel.taskTargetDateChanged.subscribe(onNext: { [weak self] next in self?.targetDatePickerView.date = next }).disposed(by: bag)
+		
+		targetDateView.calendarButton.rx.tap.bindNext(viewModel.switchDatePickerExpansion).disposed(by: bag)
+		targetDateView.clearButton.rx.tap.bindNext(viewModel.clearTargetDate).disposed(by: bag)
+		
+		targetDatePickerView.currentDate.map { $0?.date.shortDateAndTime ?? "" }.bindTo(targetDateView.textField.rx.text).disposed(by: bag)
 	}
 	
-	func switchDatePickerExpandMode(_ expand: Bool? = nil) -> DatePickerExpandMode {
-		guard let datePickerHeightConstraint = datePickerHeightConstraint else { return .collapsed }
+	func switchDatePickerExpandMode(_ expand: Bool) {
+		guard let datePickerHeightConstraint = datePickerHeightConstraint else { return }
 		
-		switch !(expand ?? datePickerHeightConstraint.isActive) {
+		switch !expand {
 		case true: datePickerHeightConstraint.activate()
 		case false: datePickerHeightConstraint.deactivate()
 		}
@@ -200,19 +202,12 @@ final class EditTaskController : UIViewController {
 		               animations: {
 										self.targetDatePickerView.alpha = self.datePickerHeightConstraint?.isActive ?? false ? 0 : 1
 										self.view.layoutIfNeeded()
-									 },
+		},
 		               completion: nil)
-		
-		return datePickerHeightConstraint.isActive ? .collapsed : .expanded
 	}
 	
 	func done() {
-		let targetDate: TaskDate? = {
-			guard let date = targetDatePickerView.date else { return nil }
-			return TaskDate(date: date, includeTime: targetDatePickerView.timeModeSwitcher.switchControl.isOn)
-		}()
-		
-		viewModel.save(description: descriptionTextField.text, notes: notesTextField.text, targetDate: targetDate)
+		viewModel.save()
 	}
 	
 	override func updateViewConstraints() {
