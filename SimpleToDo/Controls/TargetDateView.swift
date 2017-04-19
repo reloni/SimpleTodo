@@ -24,8 +24,7 @@ final class TargetDateView : UIView {
 	}()
 	
 	let textField: UITextField = {
-		let field = UITextField()
-		field.font = Theme.Fonts.main
+		let field = Theme.Controls.uiTextField(withStyle: .body)
 		field.placeholder = "Due date"
 		field.isEnabled = false
 		return field

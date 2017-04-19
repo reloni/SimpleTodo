@@ -18,17 +18,15 @@ final class TaskCell : UITableViewCell {
 	let bag = DisposeBag()
 	
 	let taskDescription: UILabel = {
-		let text = UILabel()
+		let text = Theme.Controls.label(withStyle: .body)
 		text.lineBreakMode = .byWordWrapping
 		text.numberOfLines = 0
-		text.font = Theme.Fonts.main
 		return text
 	}()
 	
 	let targetDate: UILabel = {
-		let text = UILabel()
+		let text = Theme.Controls.label(withStyle: .footnote)
 		text.textColor = Theme.Colors.lightGray
-		text.font = Theme.Fonts.accesory
 		return text
 	}()
 	

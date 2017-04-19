@@ -11,8 +11,7 @@ import UIKit
 
 final class TaskActonView : UIView {
 	let actionLabel: UILabel = {
-		let lbl = UILabel()
-		lbl.font = Theme.Fonts.accesory
+		let lbl = Theme.Controls.label(withStyle: .body)
 		return lbl
 	}()
 	

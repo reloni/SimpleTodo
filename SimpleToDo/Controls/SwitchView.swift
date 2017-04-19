@@ -21,8 +21,7 @@ final class SwitchView : UIView {
 	}()
 	
 	let titleLabel: UILabel = {
-		let label = UILabel()
-		label.font = Theme.Fonts.accesory
+		let label = Theme.Controls.label(withStyle: .body)
 		return label
 	}()
 	

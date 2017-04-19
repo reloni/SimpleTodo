@@ -30,9 +30,8 @@ final class SignInController : UIViewController {
 	}()
 	
 	let emailTextField: TextField = {
-		let field = TextField()
+		let field = Theme.Controls.textField(withStyle: .body)
 		field.alpha = 0
-		field.font = Theme.Fonts.main
 		field.placeholder = "Email"
 		field.detail = "Enter your email"
 		field.keyboardType = .emailAddress
@@ -43,7 +42,7 @@ final class SignInController : UIViewController {
 	}()
 	
 	let passwordTextField: TextField = {
-		let field = TextField()
+		let field = Theme.Controls.textField(withStyle: .body)
 		field.alpha = 0
 		field.placeholder = "Password"
 		field.detail = "Enter your password"

@@ -25,23 +25,20 @@ extension Notification {
 
 extension TextField {
 	static var base: TextField {
-		let field = TextField()
-		field.font = Theme.Fonts.main
+		let field = Theme.Controls.textField(withStyle: .body)
 		field.isClearIconButtonEnabled = true
 		return field
 	}
 }
 
-extension TextView {
+extension TextView {	
 	static var generic: TextView {
-		let text = TextView()
+		let text = Theme.Controls.textView(withStyle: .body)
 		
 		text.placeholderActiveColor = Theme.Colors.appleBlue
 		text.placeholderNormalColor = Theme.Colors.lightGray
 		text.backgroundColor = Theme.Colors.white
-		text.placeholderLabel.font = Theme.Fonts.main
 		text.placeholderLabel.textColor = Theme.Colors.lightGray
-		text.font = Theme.Fonts.main
 		text.borderColor = Theme.Colors.lightGray
 		text.borderWidth = 0.5
 		text.isScrollEnabled = false

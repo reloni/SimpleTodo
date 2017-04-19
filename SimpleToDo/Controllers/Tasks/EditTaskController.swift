@@ -41,14 +41,12 @@ final class EditTaskController : UIViewController {
 	}()
 	
 	let descriptionTextField: TextView  = {
-		let text = TextView()
+		let text = Theme.Controls.textView(withStyle: .body)
 	
 		text.placeholderActiveColor = Theme.Colors.appleBlue
 		text.placeholderNormalColor = Theme.Colors.lightGray
 		text.backgroundColor = Theme.Colors.white
-		text.placeholderLabel.font = Theme.Fonts.main
 		text.placeholderLabel.textColor = Theme.Colors.lightGray
-		text.font = Theme.Fonts.main
 		text.borderColor = Theme.Colors.lightGray
 		text.borderWidth = 0.5
 		text.isScrollEnabled = false
@@ -80,10 +78,10 @@ final class EditTaskController : UIViewController {
 	}()
 	
 	let notesLabel: UILabel = {
-		let text = UILabel()
+		let text = Theme.Controls.label(withStyle: .body)
 		text.text = "Task notes"
 		text.numberOfLines = 0
-		text.font = Theme.Fonts.main
+		
 		return text
 	}()
 	
@@ -110,12 +108,12 @@ final class EditTaskController : UIViewController {
 	}()
 	
 	let notesTextField: TextView = {
-		let text = TextView()
+		let text = Theme.Controls.textView(withStyle: .footnote)
 
 		text.layoutEdgeInsets = .zero
+		text.textContainerInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
 		text.textColor = Theme.Colors.lightGray
 		text.backgroundColor = Theme.Colors.white
-		text.font = Theme.Fonts.textFieldTitle
 		text.isScrollEnabled = false
 		
 		return text

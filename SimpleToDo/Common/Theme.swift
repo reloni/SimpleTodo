@@ -7,8 +7,40 @@
 //
 
 import UIKit
+import Material
 
 final class Theme {
+	final class Controls {
+		static func textView(withStyle style: UIFontTextStyle) -> TextView {
+			let control = TextView()
+			control.font = UIFont.preferredFont(forTextStyle: style)
+			control.placeholderLabel.font = UIFont.preferredFont(forTextStyle: style)
+			control.adjustsFontForContentSizeCategory = true
+			return control
+		}
+		
+		static func label(withStyle style: UIFontTextStyle) -> UILabel {
+			let control = UILabel()
+			control.font = UIFont.preferredFont(forTextStyle: style)
+			control.adjustsFontForContentSizeCategory = true
+			return control
+		}
+		
+		static func textField(withStyle style: UIFontTextStyle) -> TextField {
+			let control = TextField()
+			control.font = UIFont.preferredFont(forTextStyle: style)
+			control.adjustsFontForContentSizeCategory = true
+			return control
+		}
+		
+		static func uiTextField(withStyle style: UIFontTextStyle) -> UITextField {
+			let control = UITextField()
+			control.font = UIFont.preferredFont(forTextStyle: style)
+			control.adjustsFontForContentSizeCategory = true
+			return control
+		}
+	}
+	
 	final class Images {
 		static let checked = UIImage(named: "Checked")
 		static let clock = UIImage(named: "Clock")
@@ -17,15 +49,6 @@ final class Theme {
 		static let trash = UIImage(named: "Trash")
 		static let refresh = UIImage(named: "Refresh")
 		static let calendar = UIImage(named: "Calendar")
-	}
-	
-	final class Fonts {
-		static let baseNormal = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-		static let baseBold = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
-		static let baseItalic = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)
-		static let main = Fonts.baseNormal.new(sizeModifier: 4)
-		static let textFieldTitle = Fonts.baseNormal.new(sizeModifier: 2)
-		static let accesory = Fonts.baseItalic.new(sizeModifier: 1)
 	}
 	
 	final class Colors {
