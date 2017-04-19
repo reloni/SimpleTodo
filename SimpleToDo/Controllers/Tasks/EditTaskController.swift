@@ -176,7 +176,7 @@ final class EditTaskController : UIViewController {
 
 		targetDatePickerView.currentDate.bindTo(viewModel.taskTargetDate).disposed(by: bag)
 		
-		viewModel.datePickerExpanded.bindNext(switchDatePickerExpandMode).disposed(by: bag)
+		viewModel.datePickerExpanded.skip(1).bindNext(switchDatePickerExpandMode).disposed(by: bag)
 		
 		viewModel.taskTargetDateChanged.subscribe(onNext: { [weak self] next in self?.targetDatePickerView.date = next }).disposed(by: bag)
 		
