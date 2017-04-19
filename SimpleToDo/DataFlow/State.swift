@@ -32,6 +32,9 @@ struct AppState : RxStateType {
 	let authentication: Authentication
 	let webService: WebSerivce
 	let tasks: [Task]
+	var todayTasksCount: Int {
+		return tasks.filter { $0.targetDate?.date.isToday ?? false }.count
+	}
 }
 
 struct AppStateMutation {

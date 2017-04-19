@@ -48,6 +48,8 @@ extension TextView {
 }
 
 extension Date {
+	var isToday: Bool { return Calendar.current.isDateInToday(self) }
+	
 	static var shortDateAndTime: DateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
