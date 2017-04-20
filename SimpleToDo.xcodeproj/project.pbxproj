@@ -46,7 +46,6 @@
 		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
 		6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB36A791E1ED9CA006B5239 /* TaskCell.swift */; };
 		6EBD408D1E60ABF700661CA6 /* AuthenticationCoordinators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBD408C1E60ABF700661CA6 /* AuthenticationCoordinators.swift */; };
-		6EBD40921E60BD7500661CA6 /* FirebaseRegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBD40911E60BD7500661CA6 /* FirebaseRegistrationController.swift */; };
 		6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */; };
 		6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */; };
 		6ED0A20A1E79835E00B59B52 /* EditTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED0A2091E79835E00B59B52 /* EditTaskViewModel.swift */; };
@@ -59,8 +58,8 @@
 		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
 		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
 		6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE91CAB1E1959430025A4BD /* Wrap.framework */; };
-		6EEF39991E61A0BA00D1C988 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF39981E61A0BA00D1C988 /* SignInController.swift */; };
-		6EEF399E1E61B5C700D1C988 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF399D1E61B5C700D1C988 /* SignInViewModel.swift */; };
+		6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */; };
+		6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,7 +143,6 @@
 		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
 		6EB36A791E1ED9CA006B5239 /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		6EBD408C1E60ABF700661CA6 /* AuthenticationCoordinators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinators.swift; sourceTree = "<group>"; };
-		6EBD40911E60BD7500661CA6 /* FirebaseRegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseRegistrationController.swift; sourceTree = "<group>"; };
 		6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetDateView.swift; sourceTree = "<group>"; };
 		6ED0A2091E79835E00B59B52 /* EditTaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskViewModel.swift; sourceTree = "<group>"; };
@@ -161,8 +159,8 @@
 		6EE247DD1DF21291001A6F39 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		6EE247DE1DF21291001A6F39 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		6EE91CAB1E1959430025A4BD /* Wrap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wrap.framework; path = Carthage/Build/iOS/Wrap.framework; sourceTree = "<group>"; };
-		6EEF39981E61A0BA00D1C988 /* SignInController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
-		6EEF399D1E61B5C700D1C988 /* SignInViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
+		6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,7 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */,
-				6EEF399D1E61B5C700D1C988 /* SignInViewModel.swift */,
+				6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */,
 				6ED0A2091E79835E00B59B52 /* EditTaskViewModel.swift */,
 			);
 			path = ViewModels;
@@ -393,8 +391,7 @@
 		6EBD40901E60BD4200661CA6 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				6EEF39981E61A0BA00D1C988 /* SignInController.swift */,
-				6EBD40911E60BD7500661CA6 /* FirebaseRegistrationController.swift */,
+				6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -591,8 +588,8 @@
 				6ED0A20A1E79835E00B59B52 /* EditTaskViewModel.swift in Sources */,
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
 				6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */,
-				6EEF39991E61A0BA00D1C988 /* SignInController.swift in Sources */,
-				6EEF399E1E61B5C700D1C988 /* SignInViewModel.swift in Sources */,
+				6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */,
+				6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */,
 				6E16914C1E61F63A004EE586 /* Actions.swift in Sources */,
@@ -608,7 +605,6 @@
 				6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */,
 				6EA022CA1E755A5700934BB7 /* SignInReducer.swift in Sources */,
 				6EA7B4211E06A3940043BAA1 /* State.swift in Sources */,
-				6EBD40921E60BD7500661CA6 /* FirebaseRegistrationController.swift in Sources */,
 				6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */,
 				6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */,
 				6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */,

@@ -46,7 +46,7 @@ extension ApplicationCoordinatorType {
 	}
 }
 
-struct SignInCoordinator : ApplicationCoordinatorType {
+struct AuthenticationCoordinator : ApplicationCoordinatorType {
 	let controller: UIViewController?
 	let window: UIWindow
 	
@@ -58,10 +58,12 @@ struct SignInCoordinator : ApplicationCoordinatorType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
 		switch action {
 		case GeneralAction.showRootController:
-			set(initialRootController: SignInController(viewModel: SignInViewModel(flowController: flowController)))
-			return .just(flowController.currentState.state.mutation.new(coordinator: SignInCoordinator.init(window: window, controller: window.rootViewController)))
+			set(initialRootController: AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController,
+			                                                                                       mode: .logIn)))
+			return .just(flowController.currentState.state.mutation.new(coordinator: AuthenticationCoordinator.init(window: window, controller: window.rootViewController)))
 		case SignInAction.showFirebaseRegistration:
-			let coordinator = FirebaseRegistrationCoordinator(parent: self)
+			let registrationController = AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController, mode: .registration))
+			let coordinator = FirebaseRegistrationCoordinator(parent: self, controller: registrationController)
 			controller!.present(coordinator.controller, animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
 		case GeneralAction.error(let error):
@@ -81,7 +83,7 @@ struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 	let window: UIWindow
 	let controller: UIViewController
 	
-	init(parent: ApplicationCoordinatorType, controller: UIViewController = FirebaseRegistrationController()) {
+	init(parent: ApplicationCoordinatorType, controller: UIViewController) {
 		self.parent = parent
 		self.window = parent.window
 		self.controller = controller
