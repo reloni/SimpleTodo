@@ -59,7 +59,17 @@ final class SignInController : UIViewController {
 		button.title = "Login"
 		button.pulseColor = Theme.Colors.white
 		button.backgroundColor = Theme.Colors.appleBlue
-		button.titleColor = UIColor.white
+		button.titleColor = Theme.Colors.white
+		return button
+	}()
+	
+	let registrationButton: Button = {
+		let button = Button()
+		button.alpha = 0
+		button.title = "Registration"
+		button.pulseColor = Theme.Colors.lightGray
+		button.backgroundColor = Theme.Colors.white
+		button.titleColor = Theme.Colors.appleBlue
 		return button
 	}()
 	
@@ -88,22 +98,14 @@ final class SignInController : UIViewController {
 		containerView.addSubview(loginButton)
 		containerView.addSubview(emailTextField)
 		containerView.addSubview(passwordTextField)
+		containerView.addSubview(registrationButton)
 		
 		loginButton.snp.makeConstraints(loginButtonConstraints)
 		passwordTextField.snp.makeConstraints(passwordTextFieldConstraints)
 		emailTextField.snp.makeConstraints(emailTextFieldConstraints)
 		scrollView.snp.makeConstraints(scrollViewConstraints)
+		registrationButton.snp.makeConstraints(registrationButtonConstraints)
 		containerView.snp.makeConstraints(containerViewConstraints)
-		
-		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow)
-			.subscribe(onNext: { [weak self] notification in
-				self?.scrollView.updatecontentInsetFor(keyboardHeight: notification.keyboardHeight() + 25)
-			}).disposed(by: bag)
-		
-		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillHide)
-			.subscribe(onNext: { [weak self] notification in
-				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
-			}).disposed(by: bag)
 		
 		bind()
 	}
@@ -114,9 +116,20 @@ final class SignInController : UIViewController {
 		UIView.animate(withDuration: 0.2, delay: 0.1, options: [], animations: { self.emailTextField.alpha = 1 }, completion: nil)
 		UIView.animate(withDuration: 0.2, delay: 0.25, options: [], animations: { self.passwordTextField.alpha = 1 }, completion: nil)
 		UIView.animate(withDuration: 0.2, delay: 0.4, options: [], animations: { self.loginButton.alpha = 1 }, completion: nil)
+		UIView.animate(withDuration: 0.2, delay: 0.55, options: [], animations: { self.registrationButton.alpha = 1 }, completion: nil)
 	}
 	
 	func bind() {
+		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow)
+			.subscribe(onNext: { [weak self] notification in
+				self?.scrollView.updatecontentInsetFor(keyboardHeight: notification.keyboardHeight() + 25)
+			}).disposed(by: bag)
+		
+		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillHide)
+			.subscribe(onNext: { [weak self] notification in
+				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
+			}).disposed(by: bag)
+		
 		loginButton.rx.tap.subscribe(onNext: { [weak self] in self?.login() }).disposed(by: bag)
 		viewModel.errors.subscribe().disposed(by: bag)
 	}
@@ -161,6 +174,12 @@ final class SignInController : UIViewController {
 		maker.top.equalTo(passwordTextField.snp.bottom).offset(50)
 		maker.leading.equalTo(view.snp.leading).inset(20)
 		maker.trailing.equalTo(view.snp.trailing).inset(20)
+	}
+	
+	func registrationButtonConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(loginButton.snp.bottom).offset(25)
+		maker.leading.equalTo(view.snp.leading).inset(20)
+		maker.trailing.equalTo(view.snp.trailing).inset(20)
 		maker.bottom.equalTo(containerView).inset(50)
 	}
 	
@@ -172,6 +191,7 @@ final class SignInController : UIViewController {
 		emailTextField.snp.updateConstraints(emailTextFieldConstraints)
 		scrollView.snp.updateConstraints(scrollViewConstraints)
 		containerView.snp.updateConstraints(containerViewConstraints)
+		registrationButton.snp.updateConstraints(registrationButtonConstraints)
 	}
 }
 
