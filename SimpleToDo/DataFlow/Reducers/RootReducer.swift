@@ -13,7 +13,7 @@ struct RootReducer : RxReducerType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
 		print("handle new action: \(action.self)")
 		switch action {
-		case _ as SignInAction: return SignInReducer().handle(action, flowController: flowController)
+		case _ as AuthenticationAction: return AuthenticationReducer().handle(action, flowController: flowController)
 		case _ as TaskListAction: return TasksReducer().handle(action, flowController: flowController)
 		case _ as EditTaskAction: return EditTaskReducer().handle(action, flowController: flowController)
 		case _ as GeneralAction:
