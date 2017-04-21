@@ -59,17 +59,17 @@ final class AuthenticationViewModel {
 	func performAction(email: String, password: String) {
 		switch mode {
 		case .logIn:
-			flowController.dispatch(RxCompositeAction(actions: [SignInAction.logIn(email, password), SignInAction.showTasksListController]))
+			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(email, password), AuthenticationAction.showTasksListController]))
 		case .registration:
-			flowController.dispatch(RxCompositeAction(actions: [SignInAction.register(email, password), SignInAction.dismissFirebaseRegistration]))
+			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.register(email, password), AuthenticationAction.dismissFirebaseRegistration]))
 		}
 
 	}
 	
 	func performSupplementalAction() {
 		switch mode {
-		case .logIn: flowController.dispatch(SignInAction.showFirebaseRegistration)
-		case .registration: flowController.dispatch(SignInAction.dismissFirebaseRegistration)
+		case .logIn: flowController.dispatch(AuthenticationAction.showFirebaseRegistration)
+		case .registration: flowController.dispatch(AuthenticationAction.dismissFirebaseRegistration)
 		}
 		
 	}

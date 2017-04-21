@@ -97,7 +97,8 @@ final class TasksViewModel {
 	}
 	
 	func logOff() {
-		flowController.dispatch(GeneralAction.logOff)
+		flowController.dispatch(AuthenticationAction.signOut)
+		flowController.dispatch(GeneralAction.returnToRootController)
 	}
 }
 

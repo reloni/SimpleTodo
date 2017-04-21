@@ -13,11 +13,11 @@ enum GeneralAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case showRootController
-	case logOff
+	case returnToRootController
 	case error(Error)
 }
 
-enum SignInAction : RxActionType {
+enum AuthenticationAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? {
 		switch self {
 		case .showTasksListController: fallthrough
@@ -27,6 +27,7 @@ enum SignInAction : RxActionType {
 		}
 	}
 	
+	case signOut
 	case showFirebaseRegistration
 	case dismissFirebaseRegistration
 	case showTasksListController

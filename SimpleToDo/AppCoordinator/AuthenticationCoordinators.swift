@@ -61,7 +61,7 @@ struct AuthenticationCoordinator : ApplicationCoordinatorType {
 			set(initialRootController: AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController,
 			                                                                                       mode: .logIn)))
 			return .just(flowController.currentState.state.mutation.new(coordinator: AuthenticationCoordinator.init(window: window, controller: window.rootViewController)))
-		case SignInAction.showFirebaseRegistration:
+		case AuthenticationAction.showFirebaseRegistration:
 			let registrationController = AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController, mode: .registration))
 			let coordinator = FirebaseRegistrationCoordinator(parent: self, controller: registrationController)
 			controller!.present(coordinator.controller, animated: true, completion: nil)
@@ -69,7 +69,7 @@ struct AuthenticationCoordinator : ApplicationCoordinatorType {
 		case GeneralAction.error(let error):
 			showAlert(in: controller!, with: error)
 			return .just(flowController.currentState.state)
-		case SignInAction.showTasksListController:
+		case AuthenticationAction.showTasksListController:
 			let coordinator = TasksCoordinator(window: window, flowController: flowController)
 			set(newRootController: coordinator.navigationController)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
@@ -91,7 +91,7 @@ struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
 		switch action {
-		case SignInAction.dismissFirebaseRegistration:
+		case AuthenticationAction.dismissFirebaseRegistration:
 			controller.dismiss(animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: parent))
 		case GeneralAction.error(let error):

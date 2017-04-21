@@ -28,7 +28,7 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 		case EditTaskAction.dismisEditTaskController:
 			navigationController.popViewController(animated: true)
 			return .just(flowController.currentState.state)
-		case GeneralAction.logOff:
+		case GeneralAction.returnToRootController:
 			let coordinator = AuthenticationCoordinator(window: window, controller: AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController,
 			                                                                                                                                    mode: .logIn)))
 			set(newRootController: coordinator.controller!)
