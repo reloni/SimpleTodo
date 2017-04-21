@@ -59,9 +59,9 @@ final class AuthenticationViewModel {
 	func performAction(email: String, password: String) {
 		switch mode {
 		case .logIn:
-			flowController.dispatch(RxCompositeAction(actions: [SignInAction.logIn(email, password),
-			                                                    SignInAction.showTasksListController]))
-		case .registration: break
+			flowController.dispatch(RxCompositeAction(actions: [SignInAction.logIn(email, password), SignInAction.showTasksListController]))
+		case .registration:
+			flowController.dispatch(RxCompositeAction(actions: [SignInAction.register(email, password), SignInAction.dismissFirebaseRegistration]))
 		}
 
 	}

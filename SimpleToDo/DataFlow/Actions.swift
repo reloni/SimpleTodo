@@ -31,6 +31,7 @@ enum SignInAction : RxActionType {
 	case dismissFirebaseRegistration
 	case showTasksListController
 	case logIn(String, String)
+	case register(String, String)
 }
 
 enum TaskListAction : RxActionType {

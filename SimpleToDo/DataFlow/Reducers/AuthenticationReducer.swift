@@ -1,5 +1,5 @@
 //
-//  SignInReducer.swift
+//  AuthenticationReducer.swift
 //  SimpleToDo
 //
 //  Created by Anton Efimenko on 12.03.17.
@@ -9,7 +9,7 @@
 import RxSwift
 import RxDataFlow
 
-struct SignInReducer : RxReducerType {
+struct AuthenticationReducer : RxReducerType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
 		return handle(action, flowController: flowController as! RxDataFlowController<AppState>)
 	}
@@ -21,12 +21,13 @@ struct SignInReducer : RxReducerType {
 		case .showTasksListController?: fallthrough
 		case .showFirebaseRegistration?: return currentState.coordinator.handle(action, flowController: flowController)
 		case .logIn(let email, let password)?: return logIn(currentState: currentState, email: email, password: password)
+		case .register(let email, let password)?: return register(currentState: currentState, email: email, password: password)
 		default: return .empty()
 		}
 	}
 }
 
-extension SignInReducer {
+extension AuthenticationReducer {
 	func logIn(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
 		return Observable.create { observer in
 			FIRAuth.auth()!.signIn(withEmail: email, password: password) { user, error in
@@ -39,6 +40,24 @@ extension SignInReducer {
 				Keychain.userPassword = password
 				
 				observer.onNext(state.mutation.new(authentication: Authentication.user(user!)))
+				observer.onCompleted()
+			}
+			
+			return Disposables.create {
+				observer.onCompleted()
+			}
+		}
+	}
+	
+	func register(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
+		return Observable.create { observer in
+			FIRAuth.auth()!.createUser(withEmail: email, password: password) { user, error in
+				if let error = error {
+					observer.onError(FirebaseError.signInError(error))
+					return
+				}
+				
+				observer.onNext(state)
 				observer.onCompleted()
 			}
 			
