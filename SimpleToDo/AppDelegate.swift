@@ -36,10 +36,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		flowController.dispatch(GeneralAction.showRootController)
 
 		let center = UNUserNotificationCenter.current()
-		center.requestAuthorization(options:[.badge]) { _ in }
-		application.registerForRemoteNotifications()
+		center.requestAuthorization(options:[.badge, .sound, .alert]) { result in
+			if result.0 {
+				application.registerForRemoteNotifications()
+			}
+		}
 		
 		return true
+	}
+	
+	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+		print("device token: \(deviceToken.base64EncodedString())")
+	}
+	
+	func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+		print("didFailToRegisterForRemoteNotificationsWithError \(error)")
 	}
 	
 	func applicationWillResignActive(_ application: UIApplication) {
