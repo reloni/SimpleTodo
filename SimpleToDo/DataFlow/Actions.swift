@@ -27,6 +27,7 @@ enum AuthenticationAction : RxActionType {
 		}
 	}
 	
+	case resetPassword(String)
 	case signOut
 	case showFirebaseRegistration
 	case dismissFirebaseRegistration

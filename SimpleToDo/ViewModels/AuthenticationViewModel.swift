@@ -71,6 +71,9 @@ final class AuthenticationViewModel {
 		case .logIn: flowController.dispatch(AuthenticationAction.showFirebaseRegistration)
 		case .registration: flowController.dispatch(AuthenticationAction.dismissFirebaseRegistration)
 		}
-		
+	}
+	
+	func resetPassword(email: String) {
+		flowController.dispatch(AuthenticationAction.resetPassword(email))
 	}
 }

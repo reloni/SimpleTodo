@@ -23,12 +23,32 @@ struct AuthenticationReducer : RxReducerType {
 		case .logIn(let email, let password)?: return logIn(currentState: currentState, email: email, password: password)
 		case .register(let email, let password)?: return register(currentState: currentState, email: email, password: password)
 		case .signOut?: return signOut(currentState: currentState)
+		case .resetPassword(let email)?: return resetPassword(currentState: currentState, email: email)
 		default: return .empty()
 		}
 	}
 }
 
 extension AuthenticationReducer {
+	func resetPassword(currentState state: AppState, email: String)  -> Observable<RxStateType> {
+		return Observable.create { observer in
+			FIRAuth.auth()?.sendPasswordReset(withEmail: email) { error in
+				if let error = error {
+					print(error)
+					observer.onError(FirebaseError.passwordResetError(error))
+					return
+				}
+				
+				observer.onNext(state)
+				observer.onCompleted()
+			}
+			
+			return Disposables.create {
+				observer.onCompleted()
+			}
+		}
+	}
+	
 	func signOut(currentState state: AppState)  -> Observable<RxStateType> {
 		return Observable.create { observer in
 			do {
@@ -71,7 +91,7 @@ extension AuthenticationReducer {
 		return Observable.create { observer in
 			FIRAuth.auth()!.createUser(withEmail: email, password: password) { user, error in
 				if let error = error {
-					observer.onError(FirebaseError.signInError(error))
+					observer.onError(FirebaseError.registerError(error))
 					return
 				}
 				

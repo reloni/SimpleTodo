@@ -71,6 +71,17 @@ final class AuthenticationController : UIViewController {
 		return button
 	}()
 	
+	let lostPasswordLabel: UILabel = {
+		let label = Theme.Controls.label(withStyle: UIFontTextStyle.caption2)
+		label.alpha = 0
+		let attributedText = NSMutableAttributedString(string: "Lost password?")
+		attributedText.addAttribute(NSUnderlineStyleAttributeName , value: NSUnderlineStyle.styleSingle.rawValue, range: NSMakeRange(0, attributedText.string.characters.count))
+		label.attributedText = attributedText
+		label.textColor = Theme.Colors.appleBlue
+		label.textAlignment = .center
+		return label
+	}()
+	
 	init(viewModel: AuthenticationViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
@@ -100,6 +111,7 @@ final class AuthenticationController : UIViewController {
 		containerView.addSubview(emailTextField)
 		containerView.addSubview(passwordTextField)
 		containerView.addSubview(supplementalButton)
+		if viewModel.mode == .logIn { containerView.addSubview(lostPasswordLabel) }
 		
 		actionButton.snp.makeConstraints(loginButtonConstraints)
 		passwordTextField.snp.makeConstraints(passwordTextFieldConstraints)
@@ -107,6 +119,7 @@ final class AuthenticationController : UIViewController {
 		scrollView.snp.makeConstraints(scrollViewConstraints)
 		supplementalButton.snp.makeConstraints(registrationButtonConstraints)
 		containerView.snp.makeConstraints(containerViewConstraints)
+		if viewModel.mode == .logIn { lostPasswordLabel.snp.makeConstraints(lostPasswordLabelConstraints) }
 		
 		if viewModel.mode == .registration {
 			emailTextField.alpha = 1
@@ -124,8 +137,9 @@ final class AuthenticationController : UIViewController {
 		if viewModel.mode == .logIn {
 			UIView.animate(withDuration: 0.2, delay: 0.1, options: [], animations: { self.emailTextField.alpha = 1 }, completion: nil)
 			UIView.animate(withDuration: 0.2, delay: 0.25, options: [], animations: { self.passwordTextField.alpha = 1 }, completion: nil)
-			UIView.animate(withDuration: 0.2, delay: 0.4, options: [], animations: { self.actionButton.alpha = 1 }, completion: nil)
+			UIView.animate(withDuration: 0.2, delay: 0.40, options: [], animations: { self.actionButton.alpha = 1 }, completion: nil)
 			UIView.animate(withDuration: 0.2, delay: 0.55, options: [], animations: { self.supplementalButton.alpha = 1 }, completion: nil)
+			UIView.animate(withDuration: 0.2, delay: 0.70, options: [], animations: { self.lostPasswordLabel.alpha = 1 }, completion: nil)
 		}
 	}
 	
@@ -145,6 +159,26 @@ final class AuthenticationController : UIViewController {
 		supplementalButton.rx.tap.bindNext(viewModel.performSupplementalAction).disposed(by: bag)
 		
 		viewModel.errors.subscribe().disposed(by: bag)
+		
+		if viewModel.mode == .logIn {
+			lostPasswordLabel.rx.tapGesture().when(UIGestureRecognizerState.recognized).bindNext(showResetEmailDialog).disposed(by: bag)
+		}
+	}
+	
+	func showResetEmailDialog(recognizer: UIGestureRecognizer) {
+		let alert = UIAlertController(title: "Reset password", message: "Enter your email and we will send instructions how to reset your password", preferredStyle: .alert)
+		
+		alert.addTextField { textField in
+			textField.placeholder = "E-mail"
+		}
+		
+		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert, weak viewModel] _ in
+			guard let email = alert?.textFields?.first?.text, email.characters.count > 0 else { return }
+			viewModel?.resetPassword(email: email)
+		}))
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+		
+		present(alert, animated: true, completion: nil)
 	}
 	
 	func performAction() {
@@ -176,14 +210,21 @@ final class AuthenticationController : UIViewController {
 
 	func loginButtonConstraints(maker: ConstraintMaker) {
 		maker.top.equalTo(passwordTextField.snp.bottom).offset(50)
-		maker.leading.equalTo(view.snp.leading).inset(20)
-		maker.trailing.equalTo(view.snp.trailing).inset(20)
+		maker.leading.equalTo(containerView.snp.leading).inset(20)
+		maker.trailing.equalTo(containerView.snp.trailing).inset(20)
 	}
 	
 	func registrationButtonConstraints(maker: ConstraintMaker) {
 		maker.top.equalTo(actionButton.snp.bottom).offset(25)
-		maker.leading.equalTo(view.snp.leading).inset(20)
-		maker.trailing.equalTo(view.snp.trailing).inset(20)
+		maker.leading.equalTo(containerView.snp.leading).inset(20)
+		maker.trailing.equalTo(containerView.snp.trailing).inset(20)
+		if viewModel.mode == .registration { maker.bottom.equalTo(containerView).inset(50) }
+	}
+	
+	func lostPasswordLabelConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(supplementalButton.snp.bottom).offset(25)
+		maker.leading.equalTo(containerView.snp.leading).inset(20)
+		maker.trailing.equalTo(containerView.snp.trailing).inset(20)
 		maker.bottom.equalTo(containerView).inset(50)
 	}
 	
@@ -196,6 +237,8 @@ final class AuthenticationController : UIViewController {
 		scrollView.snp.updateConstraints(scrollViewConstraints)
 		containerView.snp.updateConstraints(containerViewConstraints)
 		supplementalButton.snp.updateConstraints(registrationButtonConstraints)
+		
+		if viewModel.mode == .logIn { lostPasswordLabel.snp.updateConstraints(lostPasswordLabelConstraints) }
 	}
 }
 

@@ -113,6 +113,9 @@ extension Error {
 			
 			return (try? unbox(data: data) as ServerSideError)?.error
 		case FirebaseError.signInError(let error): return error.localizedDescription
+		case FirebaseError.passwordResetError: return "Unable to send instructions to specified email adress"
+		case FirebaseError.registerError(let error): return error.localizedDescription
+		case FirebaseError.tokenRequestError(let error): return error.localizedDescription
 		default: return "Unknown error"
 		}
 	}

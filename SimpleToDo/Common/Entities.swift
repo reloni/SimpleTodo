@@ -17,8 +17,10 @@ enum ApplicationError : Error {
 
 enum FirebaseError : Error {
 	case signInError(Error)
+	case registerError(Error)
 	case tokenRequestError(Error)
-    case unknown
+	case unknown
+	case passwordResetError(Error)
 }
 
 struct ServerSideError {
