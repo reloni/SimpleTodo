@@ -20,6 +20,7 @@ struct PushNotificationsReducer : RxReducerType {
 		let currentState = flowController.currentState.state
 		switch action {
 		case PushNotificationsAction.promtForPushNotifications: return promtForPushNotifications(currentState: currentState)
+		case PushNotificationsAction.disablePushNotificationsSubscription: return disablePushNotificationsSubscription(currentState: currentState)
 		default: return .empty()
 		}
 	}
@@ -34,8 +35,16 @@ extension PushNotificationsReducer {
 			
 			guard accepted else { return }
 			
+			OneSignal.setSubscription(true)
 			OneSignal.sendTag("user_id", value: user.uid)
 		})
+		
+		return .just(state)
+	}
+	
+	func disablePushNotificationsSubscription(currentState state: AppState) -> Observable<RxStateType> {		
+		OneSignal.deleteTag("user_id")
+		OneSignal.setSubscription(false)
 		
 		return .just(state)
 	}
