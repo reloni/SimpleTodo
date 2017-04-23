@@ -9,8 +9,8 @@
 import UIKit
 import RxHttpClient
 import RxDataFlow
-import UserNotifications
 import RxSwift
+import OneSignal
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,16 +33,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		FIRApp.configure()
 		
+		setupPushNotifications(withLaunchOptions: launchOptions)
+		
 		flowController.dispatch(GeneralAction.showRootController)
-
-		let center = UNUserNotificationCenter.current()
-		center.requestAuthorization(options:[.badge, .sound, .alert]) { result in
-			if result.0 {
-				application.registerForRemoteNotifications()
-			}
-		}
 		
 		return true
+	}
+	
+	func notificationOpened(result: OSNotificationOpenedResult?) {
+		// This block gets called when the user reacts to a notification received
+		let payload: OSNotificationPayload = result!.notification.payload
+		
+		let fullMessage = payload.body ?? ""
+		print("Message = \(fullMessage)")
+		
+		//			if payload.additionalData != nil {
+		//				if payload.title != nil {
+		//					let messageTitle = payload.title
+		//					print("Message Title = \(messageTitle!)")
+		//				}
+		//
+		//				let additionalData = payload.additionalData
+		//				if additionalData?["actionSelected"] != nil {
+		//					fullMessage = fullMessage! + "\nPressed ButtonID: \(additionalData!["actionSelected"])"
+		//				}
+		//			}
+	}
+	
+	func notificationReceived(notification: OSNotification?) {
+		print("Received Notification: \(notification!.payload.notificationID)")
+	}
+	
+	func setupPushNotifications(withLaunchOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+		let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false,
+		                             kOSSettingsKeyInAppLaunchURL: true]
+		
+		OneSignal.initWithLaunchOptions(launchOptions,
+		                                appId: "ffe9789a-e9bc-4789-9cbb-4552664ba3fe",
+		                                handleNotificationReceived: notificationReceived,
+		                                handleNotificationAction: notificationOpened,
+		                                settings: onesignalInitSettings)
+		
+		OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification
 	}
 	
 	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

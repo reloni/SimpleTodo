@@ -25,6 +25,11 @@ enum Authentication {
 		case .user(let user): return user.tokenHeader
 		}
 	}
+	
+	var user: LoginUser? {
+		guard case .user(let u) = self else { return nil }
+		return u
+	}
 }
 
 struct AppState : RxStateType {

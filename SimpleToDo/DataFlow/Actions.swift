@@ -62,3 +62,9 @@ enum EditTaskAction : RxActionType {
 	case updateTask(Task)
 	case dismisEditTaskController
 }
+
+enum PushNotificationsAction : RxActionType {
+	var scheduler: ImmediateSchedulerType? { return nil }
+	
+	case promtForPushNotifications
+}
