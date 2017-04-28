@@ -99,6 +99,7 @@ final class TasksViewModel {
 	func logOff() {
 		flowController.dispatch(AuthenticationAction.signOut)
 		flowController.dispatch(GeneralAction.returnToRootController)
+		flowController.dispatch(PushNotificationsAction.disablePushNotificationsSubscription)
 	}
 }
 

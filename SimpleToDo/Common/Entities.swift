@@ -34,7 +34,8 @@ extension ServerSideError : Unboxable {
 }
 
 protocol LoginUser {
-    var token: Observable<String> { get }
+	var uid: String { get }
+	var token: Observable<String> { get }
 }
 
 extension LoginUser {
