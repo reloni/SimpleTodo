@@ -118,15 +118,15 @@ final class TaskCell : UITableViewCell {
 	}
 	
 	func makeTaskDescriptionConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(contentView.snp.top).offset(10)
-		maker.leading.equalTo(contentView.snp.leading).offset(10)
-		maker.trailing.equalTo(contentView.snp.trailing).offset(-10)
+		maker.top.equalTo(contentView.snp.topMargin)
+		maker.leading.equalTo(contentView.snp.leadingMargin)
+		maker.trailing.equalTo(contentView.snp.trailingMargin)
 	}
 	
 	func makeTargetDateConstraints(maker: ConstraintMaker) {
 		maker.top.equalTo(taskDescription.snp.bottom).offset(10)
-		maker.leading.equalTo(contentView.snp.leading).offset(10)
-		maker.trailing.equalTo(contentView.snp.trailing).offset(-10)
+		maker.leading.equalTo(contentView.snp.leadingMargin)
+		maker.trailing.equalTo(contentView.snp.trailingMargin)
 	}
 	
 	func makeActionsStackConstraints(maker: ConstraintMaker) {

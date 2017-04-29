@@ -22,6 +22,8 @@ final class TasksController : UIViewController {
 	let tableView: UITableView = {
 		let table = UITableView()
 		
+		table.cellLayoutMarginsFollowReadableWidth = false
+		table.layoutMargins = .zero
 		table.preservesSuperviewLayoutMargins = false
 		table.separatorInset = .zero
 		table.contentInset = .zero

@@ -51,8 +51,8 @@ final class TasksViewModel {
 		dataSource.configureCell = { ds, tv, ip, item in
 			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
 			cell.preservesSuperviewLayoutMargins = false
-			cell.separatorInset = .zero
-			cell.layoutEdgeInsets = .zero
+			cell.layoutMargins = .zero
+			cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 			cell.selectionStyle = .none
 			cell.isExpanded = false
 			cell.taskDescription.text = "\(item.description)"
