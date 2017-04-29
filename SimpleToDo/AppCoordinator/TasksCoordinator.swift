@@ -11,12 +11,12 @@ import RxDataFlow
 
 struct TasksCoordinator : ApplicationCoordinatorType {
 	let window: UIWindow
-	let navigationController: TasksListNavigationController
+	let navigationController: GenericNavigationController
 	
 	init(window: UIWindow, flowController: RxDataFlowController<AppState>) {
 		self.window = window
 		let viewModel = TasksViewModel(flowController: flowController)
-		navigationController = TasksListNavigationController(rootViewController: TasksController(viewModel: viewModel))
+		navigationController = GenericNavigationController(rootViewController: TasksController(viewModel: viewModel))
 	}
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
@@ -36,6 +36,12 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 		case GeneralAction.error(let error):
 			showAlert(in: navigationController.visibleViewController!, with: error)
 			return .just(flowController.currentState.state)
+		case GeneralAction.showSettingsController:
+			let controller = GenericNavigationController(rootViewController: SettingsController(viewModel: SettingsViewModel(flowController: flowController)))
+			let coordinator = SettingsCoordinator(parent: self,
+			                                      controller: controller)
+			navigationController.present(coordinator.controller, animated: true, completion: nil)
+			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
 		default: return .empty()
 		}
 	}

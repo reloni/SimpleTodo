@@ -12,6 +12,7 @@ import RxSwift
 enum GeneralAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
+	case showSettingsController
 	case showRootController
 	case returnToRootController
 	case error(Error)
@@ -48,6 +49,18 @@ enum TaskListAction : RxActionType {
 	case showEditTaskController(Task?)
 	case deleteTask(Int)
 	case completeTask(Int)
+}
+
+enum SettingsAction : RxActionType {
+	var scheduler: ImmediateSchedulerType? {
+		switch self {
+		case .close: return MainScheduler.instance
+		default: return nil
+		}
+	}
+	
+	case save
+	case close
 }
 
 enum EditTaskAction : RxActionType {

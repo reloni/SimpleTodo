@@ -17,6 +17,10 @@
 		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
+		6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A751EB4CD9500EC932F /* SettingsController.swift */; };
+		6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */; };
+		6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */; };
+		6E3B8A7C1EB4D42600EC932F /* SettingsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */; };
 		6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752151E05AD06002AA9B4 /* Entities.swift */; };
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
@@ -28,6 +32,7 @@
 		6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */; };
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
+		6E7AAA501EB4DB8800F2ACC3 /* GenericNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */; };
 		6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8845CB1E24056000EA3C2A /* TaskActionView.swift */; };
 		6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
 		6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */; };
@@ -52,7 +57,6 @@
 		6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */; };
 		6ED0A20A1E79835E00B59B52 /* EditTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED0A2091E79835E00B59B52 /* EditTaskViewModel.swift */; };
 		6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */; };
-		6ED3F4461E7DA3D50003C1CC /* TasksListNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4431E7DA3D50003C1CC /* TasksListNavigationController.swift */; };
 		6ED3F4471E7DA3D50003C1CC /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */; };
 		6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4451E7DA3D50003C1CC /* TasksController.swift */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
@@ -99,6 +103,10 @@
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		6E16914B1E61F63A004EE586 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
+		6E3B8A751EB4CD9500EC932F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsReducer.swift; sourceTree = "<group>"; };
 		6E5752151E05AD06002AA9B4 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		6E5752191E05AFC4002AA9B4 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
@@ -118,6 +126,7 @@
 		6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCoordinator.swift; sourceTree = "<group>"; };
 		6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
+		6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericNavigationController.swift; sourceTree = "<group>"; };
 		6E8845CB1E24056000EA3C2A /* TaskActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskActionView.swift; sourceTree = "<group>"; };
 		6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OneSignal.framework; path = Carthage/Build/iOS/OneSignal.framework; sourceTree = "<group>"; };
 		6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationsReducer.swift; sourceTree = "<group>"; };
@@ -152,7 +161,6 @@
 		6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetDateView.swift; sourceTree = "<group>"; };
 		6ED0A2091E79835E00B59B52 /* EditTaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskViewModel.swift; sourceTree = "<group>"; };
 		6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
-		6ED3F4431E7DA3D50003C1CC /* TasksListNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksListNavigationController.swift; sourceTree = "<group>"; };
 		6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskController.swift; sourceTree = "<group>"; };
 		6ED3F4451E7DA3D50003C1CC /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
 		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
@@ -353,6 +361,7 @@
 				6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */,
 				6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */,
 				6ED0A2091E79835E00B59B52 /* EditTaskViewModel.swift */,
+				6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -374,6 +383,7 @@
 				6EA022CB1E755A6D00934BB7 /* TasksReducer.swift */,
 				6EA022CD1E755A7C00934BB7 /* EditTaskReducer.swift */,
 				6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */,
+				6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */,
 			);
 			path = Reducers;
 			sourceTree = "<group>";
@@ -393,6 +403,7 @@
 			children = (
 				6EBD408C1E60ABF700661CA6 /* AuthenticationCoordinators.swift */,
 				6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */,
+				6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */,
 			);
 			path = AppCoordinator;
 			sourceTree = "<group>";
@@ -408,7 +419,6 @@
 		6ED3F4421E7DA3600003C1CC /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				6ED3F4431E7DA3D50003C1CC /* TasksListNavigationController.swift */,
 				6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */,
 				6ED3F4451E7DA3D50003C1CC /* TasksController.swift */,
 			);
@@ -420,6 +430,8 @@
 			children = (
 				6ED3F4421E7DA3600003C1CC /* Tasks */,
 				6EBD40901E60BD4200661CA6 /* Authentication */,
+				6E3B8A751EB4CD9500EC932F /* SettingsController.swift */,
+				6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -596,14 +608,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ED3F4461E7DA3D50003C1CC /* TasksListNavigationController.swift in Sources */,
+				6E3B8A7C1EB4D42600EC932F /* SettingsReducer.swift in Sources */,
 				6EBD408D1E60ABF700661CA6 /* AuthenticationCoordinators.swift in Sources */,
 				6EA022C81E755A3600934BB7 /* RootReducer.swift in Sources */,
 				6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */,
 				6ED0A20A1E79835E00B59B52 /* EditTaskViewModel.swift in Sources */,
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
+				6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */,
 				6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */,
 				6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */,
+				6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */,
 				6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */,
@@ -613,6 +627,7 @@
 				6E06455A1E993EB600A8AA59 /* SwitchView.swift in Sources */,
 				6E05D0041E881F0B00C293B8 /* WebService.swift in Sources */,
 				6EA022CC1E755A6D00934BB7 /* TasksReducer.swift in Sources */,
+				6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */,
 				6EA022CE1E755A7C00934BB7 /* EditTaskReducer.swift in Sources */,
 				6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */,
 				6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */,
@@ -621,6 +636,7 @@
 				6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */,
 				6EA022CA1E755A5700934BB7 /* AuthenticationReducer.swift in Sources */,
 				6EA7B4211E06A3940043BAA1 /* State.swift in Sources */,
+				6E7AAA501EB4DB8800F2ACC3 /* GenericNavigationController.swift in Sources */,
 				6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */,
 				6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */,
 				6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */,

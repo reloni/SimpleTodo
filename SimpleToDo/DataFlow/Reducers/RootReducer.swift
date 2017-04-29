@@ -17,6 +17,7 @@ struct RootReducer : RxReducerType {
 		case _ as TaskListAction: return TasksReducer().handle(action, flowController: flowController)
 		case _ as EditTaskAction: return EditTaskReducer().handle(action, flowController: flowController)
 		case _ as PushNotificationsAction: return PushNotificationsReducer().handle(action, flowController: flowController)
+		case _ as SettingsAction: return SettingsReducer().handle(action, flowController: flowController)
 		case _ as GeneralAction:
 			let flowController = flowController as! RxDataFlowController<AppState>
 			return flowController.currentState.state.coordinator.handle(action, flowController: flowController)

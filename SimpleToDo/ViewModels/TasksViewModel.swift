@@ -96,10 +96,8 @@ final class TasksViewModel {
 		flowController.dispatch(TaskListAction.showEditTaskController(nil))
 	}
 	
-	func logOff() {
-		flowController.dispatch(AuthenticationAction.signOut)
-		flowController.dispatch(GeneralAction.returnToRootController)
-		flowController.dispatch(PushNotificationsAction.disablePushNotificationsSubscription)
+	func showSettings() {
+		flowController.dispatch(GeneralAction.showSettingsController)
 	}
 }
 

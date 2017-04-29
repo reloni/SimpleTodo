@@ -50,6 +50,7 @@ final class Theme {
 		static let refresh = UIImage(named: "Refresh")
 		static let calendar = UIImage(named: "Calendar")
 		static let pushNotification = UIImage(named: "Push notification")
+		static let settings = UIImage(named: "Settings")
 	}
 	
 	final class Colors {
