@@ -16,9 +16,7 @@ struct SettingsReducer : RxReducerType {
 	}
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
-		//let currentState = flowController.currentState.state
 		switch action {
-		case SettingsAction.close: return flowController.currentState.state.coordinator.handle(action, flowController: flowController)
 		default: return .empty()
 		}
 	}

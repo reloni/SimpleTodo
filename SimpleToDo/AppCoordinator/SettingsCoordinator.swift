@@ -21,8 +21,12 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 	}
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+		if let state = handleBase(action: action, flowController: flowController, currentViewController: controller) {
+			return state
+		}
+		
 		switch action {
-		case SettingsAction.close:
+		case UIAction.dismissSettingsController:
 			controller.dismiss(animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: parent))
 		default: return .just(flowController.currentState.state)

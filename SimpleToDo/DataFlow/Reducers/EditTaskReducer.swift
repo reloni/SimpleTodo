@@ -20,7 +20,6 @@ struct EditTaskReducer : RxReducerType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
 		let currentState = flowController.currentState.state
 		switch action {
-		case EditTaskAction.dismisEditTaskController: return currentState.coordinator.handle(action, flowController: flowController)
 		case EditTaskAction.addTask(let task): return add(task: task, currentState: currentState)
 		case EditTaskAction.updateTask(let task): return update(task: task, currentState: currentState)
 		default: return .empty()

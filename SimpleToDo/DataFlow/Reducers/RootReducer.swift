@@ -18,7 +18,7 @@ struct RootReducer : RxReducerType {
 		case _ as EditTaskAction: return EditTaskReducer().handle(action, flowController: flowController)
 		case _ as PushNotificationsAction: return PushNotificationsReducer().handle(action, flowController: flowController)
 		case _ as SettingsAction: return SettingsReducer().handle(action, flowController: flowController)
-		case _ as GeneralAction:
+		case _ as UIAction:
 			let flowController = flowController as! RxDataFlowController<AppState>
 			return flowController.currentState.state.coordinator.handle(action, flowController: flowController)
 		default: fatalError("Unknown action type")

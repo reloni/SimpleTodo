@@ -23,7 +23,7 @@ final class AuthenticationViewModel {
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in
 			guard let object = self else { return }
-			object.flowController.dispatch(GeneralAction.error($0.error))
+			object.flowController.dispatch(UIAction.showError($0.error))
 		})
 	}()
 	
@@ -60,18 +60,18 @@ final class AuthenticationViewModel {
 		switch mode {
 		case .logIn:
 			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(email, password),
-			                                                    AuthenticationAction.showTasksListController,
+			                                                    UIAction.showTasksListController,
 			                                                    PushNotificationsAction.promtForPushNotifications]))
 		case .registration:
-			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.register(email, password), AuthenticationAction.dismissFirebaseRegistration]))
+			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.register(email, password), UIAction.dismissFirebaseRegistrationController]))
 		}
 
 	}
 	
 	func performSupplementalAction() {
 		switch mode {
-		case .logIn: flowController.dispatch(AuthenticationAction.showFirebaseRegistration)
-		case .registration: flowController.dispatch(AuthenticationAction.dismissFirebaseRegistration)
+		case .logIn: flowController.dispatch(UIAction.showFirebaseRegistrationController)
+		case .registration: flowController.dispatch(UIAction.dismissFirebaseRegistrationController)
 		}
 	}
 	

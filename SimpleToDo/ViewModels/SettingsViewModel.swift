@@ -23,6 +23,6 @@ final class SettingsViewModel {
 	}
 	
 	func close() {
-		flowController.dispatch(SettingsAction.close)
+		flowController.dispatch(UIAction.dismissSettingsController)
 	}
 }

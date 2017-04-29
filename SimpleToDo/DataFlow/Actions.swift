@@ -9,71 +9,53 @@
 import RxDataFlow
 import RxSwift
 
-enum GeneralAction : RxActionType {
+enum UIAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case showSettingsController
 	case showRootController
+	case showEditTaskController(Task?)
+	case showFirebaseRegistrationController
+	case showTasksListController
+	
+	
+	case dismissFirebaseRegistrationController
+	case dismissSettingsController
+	case dismisEditTaskController
+	
+	case showError(Error)
+	
 	case returnToRootController
-	case error(Error)
 }
 
 enum AuthenticationAction : RxActionType {
-	var scheduler: ImmediateSchedulerType? {
-		switch self {
-		case .showTasksListController: fallthrough
-		case .showFirebaseRegistration: fallthrough
-		case .dismissFirebaseRegistration: return MainScheduler.instance
-		default: return nil
-		}
-	}
-	
+	var scheduler: ImmediateSchedulerType? { return nil }
+
 	case resetPassword(String)
 	case signOut
-	case showFirebaseRegistration
-	case dismissFirebaseRegistration
-	case showTasksListController
 	case logIn(String, String)
 	case register(String, String)
 }
 
 enum TaskListAction : RxActionType {
-	var scheduler: ImmediateSchedulerType? {
-		switch self {
-		case .showEditTaskController: return MainScheduler.instance
-		default: return nil
-		}
-	}
-	
+	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
+
 	case loadTasks
-	case showEditTaskController(Task?)
 	case deleteTask(Int)
 	case completeTask(Int)
 }
 
 enum SettingsAction : RxActionType {
-	var scheduler: ImmediateSchedulerType? {
-		switch self {
-		case .close: return MainScheduler.instance
-		default: return nil
-		}
-	}
+	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case save
-	case close
 }
 
 enum EditTaskAction : RxActionType {
-	var scheduler: ImmediateSchedulerType? {
-		switch self {
-		case .dismisEditTaskController: return MainScheduler.instance
-		default: return nil
-		}
-	}
+	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case addTask(Task)
 	case updateTask(Task)
-	case dismisEditTaskController
 }
 
 enum PushNotificationsAction : RxActionType {

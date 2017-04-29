@@ -20,23 +20,19 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 	}
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+		if let state = handleBase(action: action, flowController: flowController, currentViewController: navigationController) {
+			return state
+		}
+		
 		switch action {
-		case TaskListAction.showEditTaskController(let task):
+		case UIAction.showEditTaskController(let task):
 			let viewModel = EditTaskViewModel(task: task, flowController: flowController)
 			navigationController.pushViewController(EditTaskController(viewModel: viewModel), animated: true)
 			return .just(flowController.currentState.state)
-		case EditTaskAction.dismisEditTaskController:
+		case UIAction.dismisEditTaskController:
 			navigationController.popViewController(animated: true)
 			return .just(flowController.currentState.state)
-		case GeneralAction.returnToRootController:
-			let coordinator = AuthenticationCoordinator(window: window, controller: AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController,
-			                                                                                                                                    mode: .logIn)))
-			set(newRootController: coordinator.controller!)
-			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
-		case GeneralAction.error(let error):
-			showAlert(in: navigationController.visibleViewController!, with: error)
-			return .just(flowController.currentState.state)
-		case GeneralAction.showSettingsController:
+		case UIAction.showSettingsController:
 			let controller = GenericNavigationController(rootViewController: SettingsController(viewModel: SettingsViewModel(flowController: flowController)))
 			let coordinator = SettingsCoordinator(parent: self,
 			                                      controller: controller)

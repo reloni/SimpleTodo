@@ -38,7 +38,7 @@ final class TasksViewModel {
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in
 			guard let object = self else { return }
-			object.flowController.dispatch(GeneralAction.error($0.error))
+			object.flowController.dispatch(UIAction.showError($0.error))
 		})
 	}()
 	
@@ -68,7 +68,7 @@ final class TasksViewModel {
 			cell.editTapped = { [weak self] in
 				guard let object = self else { return }
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.flowController.dispatch(TaskListAction.showEditTaskController(object.flowController.currentState.state.tasks[row]))
+				object.flowController.dispatch(UIAction.showEditTaskController(object.flowController.currentState.state.tasks[row]))
 			}
 			
 			cell.deleteTapped = { [weak self] in
@@ -93,11 +93,11 @@ final class TasksViewModel {
 	}
 	
 	func newTask() {
-		flowController.dispatch(TaskListAction.showEditTaskController(nil))
+		flowController.dispatch(UIAction.showEditTaskController(nil))
 	}
 	
 	func showSettings() {
-		flowController.dispatch(GeneralAction.showSettingsController)
+		flowController.dispatch(UIAction.showSettingsController)
 	}
 }
 
