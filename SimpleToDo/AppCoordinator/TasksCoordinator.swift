@@ -34,6 +34,10 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 			return .just(flowController.currentState.state)
 		case UIAction.showSettingsController:
 			let controller = GenericNavigationController(rootViewController: SettingsController(viewModel: SettingsViewModel(flowController: flowController)))
+			
+			let transitionDelegate = TransitionDelegate(controller: SlidePresentAnimationController(mode: .toRight))
+			controller.transitioningDelegate = transitionDelegate
+			
 			let coordinator = SettingsCoordinator(parent: self,
 			                                      controller: controller)
 			navigationController.present(coordinator.controller, animated: true, completion: nil)
