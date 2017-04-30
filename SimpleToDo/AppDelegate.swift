@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		                            webService: WebSerivce(httpClient: httpClient),
 		                            tasks: [])
 		
-		return RxDataFlowController(reducer: RootReducer(), initialState: initialState)
+		return RxDataFlowController(reducer: RootReducer(), initialState: initialState, maxHistoryItems: 1)
 	}()
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
