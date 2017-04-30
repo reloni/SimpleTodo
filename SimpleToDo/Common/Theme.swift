@@ -46,6 +46,8 @@ final class Theme {
 			let control = TextField()
 			control.font = UIFont.preferredFont(forTextStyle: style)
 			control.adjustsFontForContentSizeCategory = true
+			control.dividerActiveColor = Theme.Colors.blueberry
+			control.placeholderActiveColor = Theme.Colors.blueberry
 			return control
 		}
 		
@@ -73,9 +75,15 @@ final class Theme {
 	}
 	
 	final class Colors {
-		static let backgroundLightGray = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
-		static let appleBlue = UIColor(red: 14/255, green: 122/255, blue: 254/255, alpha: 1)
 		static let lightGray = UIColor.lightGray
 		static let white = UIColor.white
+		
+		static let pumkinLight = UIColor(red: 250/255, green: 217/255, blue: 97/255, alpha: 1)
+		static let pumkin = UIColor(red: 247/255, green: 107/255, blue: 28/255, alpha: 1)
+		static let blueberry = UIColor(red: 67/255, green: 146/255, blue: 241/255, alpha: 1)
+		static let sunny = UIColor(red: 255/255, green: 242/255, blue: 117/255, alpha: 1)
+		static let isabelline = UIColor(red: 237/255, green: 236/255, blue: 236/255, alpha: 1)
+		static let jet = UIColor(red: 52/255, green: 46/255, blue: 55/255, alpha: 1)
+		
 	}
 }

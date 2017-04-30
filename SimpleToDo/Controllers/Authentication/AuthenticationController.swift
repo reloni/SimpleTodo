@@ -55,19 +55,19 @@ final class AuthenticationController : UIViewController {
 	
 	let actionButton: Button = {
 		let button = Button()
+		button.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
 		button.alpha = 0
 		button.pulseColor = Theme.Colors.white
-		button.backgroundColor = Theme.Colors.appleBlue
 		button.titleColor = Theme.Colors.white
 		return button
 	}()
 	
 	let supplementalButton: Button = {
 		let button = Button()
+		button.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
 		button.alpha = 0
-		button.pulseColor = Theme.Colors.lightGray
-		button.backgroundColor = Theme.Colors.white
-		button.titleColor = Theme.Colors.appleBlue
+		button.pulseColor = Theme.Colors.white
+		button.titleColor = Theme.Colors.blueberry
 		return button
 	}()
 	
@@ -77,9 +77,16 @@ final class AuthenticationController : UIViewController {
 		let attributedText = NSMutableAttributedString(string: "Lost password?")
 		attributedText.addAttribute(NSUnderlineStyleAttributeName , value: NSUnderlineStyle.styleSingle.rawValue, range: NSMakeRange(0, attributedText.string.characters.count))
 		label.attributedText = attributedText
-		label.textColor = Theme.Colors.appleBlue
+		label.textColor = Theme.Colors.blueberry
 		label.textAlignment = .center
 		return label
+	}()
+	
+	let gradientLayer: CAGradientLayer = {
+		let gradient = CAGradientLayer()
+		
+		gradient.colors = [Theme.Colors.pumkinLight.cgColor, Theme.Colors.pumkin.cgColor]
+		return gradient
 	}()
 	
 	init(viewModel: AuthenticationViewModel) {
@@ -93,6 +100,8 @@ final class AuthenticationController : UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		view.layer.insertSublayer(gradientLayer, at: 0)
 		
 		actionButton.title = viewModel.actionButtonTitle
 		supplementalButton.title = viewModel.supplementalButtonTitle
@@ -129,6 +138,10 @@ final class AuthenticationController : UIViewController {
 		}
 		
 		bind()
+	}
+	
+	override func viewWillLayoutSubviews() {
+		gradientLayer.frame = view.bounds
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

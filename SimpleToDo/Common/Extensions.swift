@@ -35,7 +35,7 @@ extension TextView {
 	static var generic: TextView {
 		let text = Theme.Controls.textView(withStyle: .body)
 		
-		text.placeholderActiveColor = Theme.Colors.appleBlue
+		text.placeholderActiveColor = Theme.Colors.blueberry
 		text.placeholderNormalColor = Theme.Colors.lightGray
 		text.backgroundColor = Theme.Colors.white
 		text.placeholderLabel.textColor = Theme.Colors.lightGray
