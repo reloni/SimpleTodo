@@ -176,12 +176,12 @@ final class EditTaskController : UIViewController {
 
 		targetDatePickerView.currentDate.bindTo(viewModel.taskTargetDate).disposed(by: bag)
 		
-		viewModel.datePickerExpanded.skip(1).bindNext(switchDatePickerExpandMode).disposed(by: bag)
+		viewModel.datePickerExpanded.skip(1).subscribe(onNext: { [weak self] isExpanded in self?.switchDatePickerExpandMode(isExpanded) }).disposed(by: bag)
 		
 		viewModel.taskTargetDateChanged.subscribe(onNext: { [weak self] next in self?.targetDatePickerView.date = next }).disposed(by: bag)
 		
-		targetDateView.calendarButton.rx.tap.bindNext(viewModel.switchDatePickerExpansion).disposed(by: bag)
-		targetDateView.clearButton.rx.tap.bindNext(viewModel.clearTargetDate).disposed(by: bag)
+		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.switchDatePickerExpansion() }).disposed(by: bag)
+		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.clearTargetDate() }).disposed(by: bag)
 		
 		targetDatePickerView.currentDate.map { $0?.date.shortDateAndTime ?? "" }.bindTo(targetDateView.textField.rx.text).disposed(by: bag)
 	}

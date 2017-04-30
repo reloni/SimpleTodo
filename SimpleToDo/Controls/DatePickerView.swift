@@ -69,7 +69,7 @@ final class DatePickerView : UIView {
 			self?.date = TaskDate(date: date, includeTime: isOn)
 		}).disposed(by: bag)
 		
-		timeModeSwitcher.switchControl.rx.isOn.bindNext(changeDateMode).disposed(by: bag)
+		timeModeSwitcher.switchControl.rx.isOn.subscribe(onNext: { [weak self] isOn in self?.changeDateMode(isOn) }).disposed(by: bag)
 		
 		datePicker.snp.makeConstraints(makeDatePickerConstraints)
 		timeModeSwitcher.snp.makeConstraints(makeTimeModeSwitcherConstraints)

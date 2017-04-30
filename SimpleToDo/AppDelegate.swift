@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setupPushNotifications(withLaunchOptions: launchOptions)
 		
 		flowController.dispatch(UIAction.showRootController)
-		
+
 		return true
 	}
 	
