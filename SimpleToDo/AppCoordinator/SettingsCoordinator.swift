@@ -27,6 +27,9 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 		
 		switch action {
 		case UIAction.dismissSettingsController:
+			let transitionDelegate = TransitionDelegate(dismissalController: SlideDismissAnimationController(mode: .toLeft))
+			controller.transitioningDelegate = transitionDelegate
+			
 			controller.dismiss(animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: parent))
 		default: return .just(flowController.currentState.state)
