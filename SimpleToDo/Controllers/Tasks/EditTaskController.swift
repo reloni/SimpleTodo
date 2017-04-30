@@ -36,14 +36,14 @@ final class EditTaskController : UIViewController {
 	let containerView: UIView = {
 		let view = UIView()
 		view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		view.backgroundColor = Theme.Colors.backgroundLightGray
+		view.backgroundColor = Theme.Colors.isabelline
 		return view
 	}()
 	
 	let descriptionTextField: TextView  = {
 		let text = Theme.Controls.textView(withStyle: .body)
 	
-		text.placeholderActiveColor = Theme.Colors.appleBlue
+		text.placeholderActiveColor = Theme.Colors.blueberry
 		text.placeholderNormalColor = Theme.Colors.lightGray
 		text.backgroundColor = Theme.Colors.white
 		text.placeholderLabel.textColor = Theme.Colors.lightGray
@@ -138,7 +138,7 @@ final class EditTaskController : UIViewController {
 		
 		title = viewModel.title
 		
-		view.backgroundColor = Theme.Colors.backgroundLightGray
+		view.backgroundColor = Theme.Colors.isabelline
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
