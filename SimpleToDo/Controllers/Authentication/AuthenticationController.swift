@@ -154,14 +154,15 @@ final class AuthenticationController : UIViewController {
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)
 		
-		actionButton.rx.tap.bindNext(performAction).disposed(by: bag)
+		actionButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.performAction() }).disposed(by: bag)
 		
-		supplementalButton.rx.tap.bindNext(viewModel.performSupplementalAction).disposed(by: bag)
+		supplementalButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.performSupplementalAction() }).disposed(by: bag)
 		
 		viewModel.errors.subscribe().disposed(by: bag)
 		
 		if viewModel.mode == .logIn {
-			lostPasswordLabel.rx.tapGesture().when(UIGestureRecognizerState.recognized).bindNext(showResetEmailDialog).disposed(by: bag)
+			lostPasswordLabel.rx.tapGesture().when(UIGestureRecognizerState.recognized)
+				.subscribe(onNext: { [weak self] recognizer in self?.showResetEmailDialog(recognizer: recognizer) }).disposed(by: bag)
 		}
 	}
 	
