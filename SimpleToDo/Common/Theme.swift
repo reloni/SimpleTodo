@@ -11,6 +11,22 @@ import Material
 
 final class Theme {
 	final class Controls {
+		static func tableView() -> UITableView {
+			let table = UITableView()
+			
+			table.cellLayoutMarginsFollowReadableWidth = false
+			table.layoutMargins = .zero
+			table.preservesSuperviewLayoutMargins = false
+			table.separatorInset = .zero
+			table.contentInset = .zero
+			table.estimatedRowHeight = 50
+			table.rowHeight = UITableViewAutomaticDimension
+			table.tableFooterView = UIView()
+			table.backgroundColor = Theme.Colors.backgroundLightGray
+			
+			return table
+		}
+		
 		static func textView(withStyle style: UIFontTextStyle) -> TextView {
 			let control = TextView()
 			control.font = UIFont.preferredFont(forTextStyle: style)
@@ -51,6 +67,9 @@ final class Theme {
 		static let calendar = UIImage(named: "Calendar")
 		static let pushNotification = UIImage(named: "Push notification")
 		static let settings = UIImage(named: "Settings")
+		static let info = UIImage(named: "Info")
+		static let deleteAccount = UIImage(named: "Delete account")
+		static let exit = UIImage(named: "Exit")
 	}
 	
 	final class Colors {

@@ -20,17 +20,8 @@ final class TasksController : UIViewController {
 	let viewModel: TasksViewModel
 	
 	let tableView: UITableView = {
-		let table = UITableView()
+		let table = Theme.Controls.tableView()
 		
-		table.cellLayoutMarginsFollowReadableWidth = false
-		table.layoutMargins = .zero
-		table.preservesSuperviewLayoutMargins = false
-		table.separatorInset = .zero
-		table.contentInset = .zero
-		table.estimatedRowHeight = 50
-		table.rowHeight = UITableViewAutomaticDimension
-		table.tableFooterView = UIView()
-		table.tableFooterView?.backgroundColor = UIColor.lightGray
 		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 		
 		return table
