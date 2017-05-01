@@ -47,7 +47,7 @@ final class TasksController : UIViewController {
 		
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTask))
-		navigationItem.leftBarButtonItem = UIBarButtonItem(image: Theme.Images.settings?.resize(toWidth: 22),
+		navigationItem.leftBarButtonItem = UIBarButtonItem(image: Theme.Images.settings.resize(toWidth: 22),
 		                                                   style: .plain,
 		                                                   target: self, 
 		                                                   action: #selector(showSettings))

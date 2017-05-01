@@ -60,18 +60,18 @@ final class Theme {
 	}
 	
 	final class Images {
-		static let checked = UIImage(named: "Checked")
-		static let clock = UIImage(named: "Clock")
-		static let delete = UIImage(named: "Delete")
-		static let edit = UIImage(named: "Edit")
-		static let trash = UIImage(named: "Trash")
-		static let refresh = UIImage(named: "Refresh")
-		static let calendar = UIImage(named: "Calendar")
-		static let pushNotification = UIImage(named: "Push notification")
-		static let settings = UIImage(named: "Settings")
-		static let info = UIImage(named: "Info")
-		static let deleteAccount = UIImage(named: "Delete account")
-		static let exit = UIImage(named: "Exit")
+		static let checked = UIImage(named: "Checked")!.tint(with: Theme.Colors.blueberry)!
+		static let clock = UIImage(named: "Clock")!.tint(with: Theme.Colors.blueberry)!
+		static let delete = UIImage(named: "Delete")!.tint(with: Theme.Colors.blueberry)!
+		static let edit = UIImage(named: "Edit")!.tint(with: Theme.Colors.blueberry)!
+//		static let trash = UIImage(named: "Trash")!.tint(with: Theme.Colors.upsdelRed)
+		static let refresh = UIImage(named: "Refresh")!.tint(with: Theme.Colors.blueberry)!
+		static let calendar = UIImage(named: "Calendar")!.tint(with: Theme.Colors.blueberry)!
+		static let pushNotification = UIImage(named: "Push notification")!.tint(with: Theme.Colors.blueberry)!
+		static let settings = UIImage(named: "Settings")!.tint(with: Theme.Colors.blueberry)!
+		static let info = UIImage(named: "Info")!.tint(with: Theme.Colors.blueberry)!
+		static let deleteAccount = UIImage(named: "Delete account")!.tint(with: Theme.Colors.upsdelRed)!
+		static let exit = UIImage(named: "Exit")!.tint(with: Theme.Colors.upsdelRed)!
 	}
 	
 	final class Colors {
@@ -83,7 +83,7 @@ final class Theme {
 		static let pumkin = UIColor(red: 247/255, green: 107/255, blue: 28/255, alpha: 1)
 		static let blueberry = UIColor(red: 67/255, green: 146/255, blue: 241/255, alpha: 1)
 		static let upsdelRed = UIColor(red: 176/255, green: 32/255, blue: 50/255, alpha: 1)
-		static let slateGray = UIColor(red: 120/255, green: 125/255, blue: 137/255, alpha: 1)
+		static let romanSilver = UIColor(red: 133/255, green: 138/255, blue: 149/255, alpha: 1)
 //		static let sunny = UIColor(red: 255/255, green: 242/255, blue: 117/255, alpha: 1)
 		static let isabelline = UIColor(red: 237/255, green: 236/255, blue: 236/255, alpha: 1)
 //		static let jet = UIColor(red: 52/255, green: 46/255, blue: 55/255, alpha: 1)

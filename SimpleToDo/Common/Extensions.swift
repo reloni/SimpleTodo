@@ -36,10 +36,10 @@ extension TextView {
 		let text = Theme.Controls.textView(withStyle: .body)
 		
 		text.placeholderActiveColor = Theme.Colors.blueberry
-		text.placeholderNormalColor = Theme.Colors.slateGray
+		text.placeholderNormalColor = Theme.Colors.romanSilver
 		text.backgroundColor = Theme.Colors.white
-		text.placeholderLabel.textColor = Theme.Colors.slateGray
-		text.borderColor = Theme.Colors.slateGray
+		text.placeholderLabel.textColor = Theme.Colors.romanSilver
+		text.borderColor = Theme.Colors.romanSilver
 		text.borderWidth = 0.5
 		text.isScrollEnabled = false
 		

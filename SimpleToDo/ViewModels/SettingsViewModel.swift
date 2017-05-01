@@ -20,10 +20,10 @@ final class SettingsViewModel {
 	
 	let title = "Settings"
 	
-	let sections = Observable<[SettingsSection]>.just([SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Send push notifications", image: Theme.Images.pushNotification!)]),
-	                                                   SettingsSection(header: "", items: [.info(title: "About", image: Theme.Images.info!),
-	                                                                                             .deleteAccount(title: "Delete account", image: Theme.Images.deleteAccount!),
-	                                                                                             .exit(title: "Exit", image: Theme.Images.exit!)])])
+	let sections = Observable<[SettingsSection]>.just([SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Send push notifications", image: Theme.Images.pushNotification)]),
+	                                                   SettingsSection(header: "", items: [.info(title: "About", image: Theme.Images.info),
+	                                                                                             .deleteAccount(title: "Delete account", image: Theme.Images.deleteAccount),
+	                                                                                             .exit(title: "Exit", image: Theme.Images.exit)])])
 	
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in
@@ -84,6 +84,7 @@ final class SettingsViewModel {
 		cell.textLabel?.text = data.title
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 		cell.accessoryType = .disclosureIndicator
+		cell.tintColor = Theme.Colors.pumkin
 	}
 	
 	static func configure(switchCell cell: SwitchCell, with data: (title: String, image: UIImage)) {

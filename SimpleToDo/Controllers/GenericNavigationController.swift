@@ -17,6 +17,7 @@ final class GenericNavigationController : UINavigationController {
 		super.viewDidLoad()
 		navigationBar.setBackgroundImage(UIImage(), for: .default)
 		navigationBar.isTranslucent = true
+		navigationBar.tintColor = Theme.Colors.blueberry
 		
 		view.insertSubview(blurView, belowSubview: navigationBar)
 		
