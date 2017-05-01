@@ -58,7 +58,7 @@ final class SettingsViewModel {
 				let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
 				SettingsViewModel.configure(cell: cell)
 				SettingsViewModel.configure(defaultCell: cell, with: data)
-				cell.tapped = { print("exit tapped") }
+				cell.tapped = { object.exit() }
 				return cell
 			case .pushNotificationsSwitch(let data):
 				let cell = tv.dequeueReusableCell(withIdentifier: "Switch", for: ip) as! SwitchCell
@@ -95,6 +95,10 @@ final class SettingsViewModel {
 		
 	}
 	
+	func exit() {
+		flowController.dispatch(UIAction.returnToRootController)
+	}
+	
 	func close() {
 		flowController.dispatch(UIAction.dismissSettingsController)
 	}
@@ -112,8 +116,9 @@ final class SettingsViewModelTableViewDelegate : NSObject, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
+		guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
 		
+		cell.tapped?()
 //		cell.isExpanded = !cell.isExpanded
 //		animateCellExpansion(forIndexPath: indexPath, tableView: tableView)
 	}
