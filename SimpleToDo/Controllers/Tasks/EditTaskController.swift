@@ -44,10 +44,10 @@ final class EditTaskController : UIViewController {
 		let text = Theme.Controls.textView(withStyle: .body)
 	
 		text.placeholderActiveColor = Theme.Colors.blueberry
-		text.placeholderNormalColor = Theme.Colors.lightGray
+		text.placeholderNormalColor = Theme.Colors.slateGray
 		text.backgroundColor = Theme.Colors.white
-		text.placeholderLabel.textColor = Theme.Colors.lightGray
-		text.borderColor = Theme.Colors.lightGray
+		text.placeholderLabel.textColor = Theme.Colors.slateGray
+		text.borderColor = Theme.Colors.slateGray
 		text.borderWidth = 0.5
 		text.isScrollEnabled = false
 		
@@ -60,7 +60,7 @@ final class EditTaskController : UIViewController {
 	
 	lazy var targetDateView: TargetDateView = {
 		let view = TargetDateView()
-		view.borderColor = Theme.Colors.lightGray
+		view.borderColor = Theme.Colors.slateGray
 		view.borderWidth = 0.5
 		view.layoutMargins = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
 		return view
@@ -70,7 +70,7 @@ final class EditTaskController : UIViewController {
 		let picker = DatePickerView()
 		
 		picker.alpha = 0
-		picker.borderColor = Theme.Colors.lightGray
+		picker.borderColor = Theme.Colors.slateGray
 		picker.borderWidth = 0.5
 		picker.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 		
@@ -89,7 +89,7 @@ final class EditTaskController : UIViewController {
 		let view = UIView()
 		view.backgroundColor = Theme.Colors.white
 		view.layoutEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-		view.borderColor = Theme.Colors.lightGray
+		view.borderColor = Theme.Colors.slateGray
 		view.borderWidth = 0.5
 		return view
 	}()
@@ -112,7 +112,7 @@ final class EditTaskController : UIViewController {
 
 		text.layoutEdgeInsets = .zero
 		text.textContainerInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
-		text.textColor = Theme.Colors.lightGray
+		text.textColor = Theme.Colors.slateGray
 		text.backgroundColor = Theme.Colors.white
 		text.isScrollEnabled = false
 		

@@ -52,6 +52,8 @@ final class DatePickerView : UIView {
 	func setup() {
 		clipsToBounds = true
 		
+		backgroundColor = Theme.Colors.white
+		
 		addSubview(datePicker)
 		addSubview(timeModeSwitcher)
 		

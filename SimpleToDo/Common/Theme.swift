@@ -22,7 +22,7 @@ final class Theme {
 			table.estimatedRowHeight = 50
 			table.rowHeight = UITableViewAutomaticDimension
 			table.tableFooterView = UIView()
-			table.backgroundColor = Theme.Colors.backgroundLightGray
+			table.backgroundColor = Theme.Colors.isabelline
 			
 			return table
 		}
@@ -75,15 +75,18 @@ final class Theme {
 	}
 	
 	final class Colors {
-		static let lightGray = UIColor.lightGray
 		static let white = UIColor.white
+		static let black = UIColor.black
+		static let clear = UIColor.clear
 		
 		static let pumkinLight = UIColor(red: 250/255, green: 217/255, blue: 97/255, alpha: 1)
 		static let pumkin = UIColor(red: 247/255, green: 107/255, blue: 28/255, alpha: 1)
 		static let blueberry = UIColor(red: 67/255, green: 146/255, blue: 241/255, alpha: 1)
-		static let sunny = UIColor(red: 255/255, green: 242/255, blue: 117/255, alpha: 1)
+		static let upsdelRed = UIColor(red: 176/255, green: 32/255, blue: 50/255, alpha: 1)
+		static let slateGray = UIColor(red: 120/255, green: 125/255, blue: 137/255, alpha: 1)
+//		static let sunny = UIColor(red: 255/255, green: 242/255, blue: 117/255, alpha: 1)
 		static let isabelline = UIColor(red: 237/255, green: 236/255, blue: 236/255, alpha: 1)
-		static let jet = UIColor(red: 52/255, green: 46/255, blue: 55/255, alpha: 1)
+//		static let jet = UIColor(red: 52/255, green: 46/255, blue: 55/255, alpha: 1)
 		
 	}
 }

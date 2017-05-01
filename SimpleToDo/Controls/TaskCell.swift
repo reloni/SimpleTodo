@@ -26,7 +26,7 @@ final class TaskCell : UITableViewCell {
 	
 	let targetDate: UILabel = {
 		let text = Theme.Controls.label(withStyle: .footnote)
-		text.textColor = Theme.Colors.lightGray
+		text.textColor = Theme.Colors.slateGray
 		return text
 	}()
 	
