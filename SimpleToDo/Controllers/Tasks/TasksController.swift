@@ -20,17 +20,8 @@ final class TasksController : UIViewController {
 	let viewModel: TasksViewModel
 	
 	let tableView: UITableView = {
-		let table = UITableView()
+		let table = Theme.Controls.tableView()
 		
-		table.cellLayoutMarginsFollowReadableWidth = false
-		table.layoutMargins = .zero
-		table.preservesSuperviewLayoutMargins = false
-		table.separatorInset = .zero
-		table.contentInset = .zero
-		table.estimatedRowHeight = 50
-		table.rowHeight = UITableViewAutomaticDimension
-		table.tableFooterView = UIView()
-		table.tableFooterView?.backgroundColor = UIColor.lightGray
 		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 		
 		return table
@@ -54,8 +45,12 @@ final class TasksController : UIViewController {
 		
 		title = viewModel.title
 		
+		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTask))
-		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log off", style: .plain, target: self, action: #selector(logOff))
+		navigationItem.leftBarButtonItem = UIBarButtonItem(image: Theme.Images.settings?.resize(toWidth: 22),
+		                                                   style: .plain,
+		                                                   target: self, 
+		                                                   action: #selector(showSettings))
 		
 		tableView.refreshControl = UIRefreshControl()
 		
@@ -89,8 +84,8 @@ final class TasksController : UIViewController {
 		viewModel.newTask()
 	}
 	
-	func logOff() {
-		viewModel.logOff()
+	func showSettings() {
+		viewModel.showSettings()
 	}
 	
 	override func updateViewConstraints() {

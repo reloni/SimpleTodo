@@ -31,8 +31,6 @@ extension PushNotificationsReducer {
 		guard let user = state.authentication.user else { return .just(state) }
 		
 		OneSignal.promptForPushNotifications(userResponse: { accepted in
-			print("User accepted notifications: \(accepted)")
-			
 			guard accepted else { return }
 			
 			OneSignal.setSubscription(true)

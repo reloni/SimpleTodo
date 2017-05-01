@@ -20,7 +20,6 @@ struct TasksReducer : RxReducerType {
 		let currentState = flowController.currentState.state
 		switch action {
 		case _ as EditTaskAction: return EditTaskReducer().handle(action, flowController: flowController)
-		case TaskListAction.showEditTaskController: return currentState.coordinator.handle(action, flowController: flowController)
 		case TaskListAction.loadTasks: return reloadTasks(currentState: currentState, fromRemote: true)
 		case TaskListAction.deleteTask(let index): return deleteTask(currentState: currentState, index: index)
 		case TaskListAction.completeTask(let index): return updateTaskCompletionStatus(currentState: currentState, index: index)

@@ -6,71 +6,31 @@
 //  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
 
-import RxDataFlow
 import RxSwift
-
-protocol ApplicationCoordinatorType {
-	var window: UIWindow { get }
-	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType>
-}
-
-extension ApplicationCoordinatorType {
-	func showAlert(in controller: UIViewController, with error: Error) {
-		guard let message = error.uiAlertMessage() else { return }
-		let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-		let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-		alert.addAction(ok)
-		controller.present(alert, animated: true, completion: nil)
-	}
-	
-	func set(newRootController controller: UIViewController) {
-		transition {
-			self.window.rootViewController = controller
-		}
-	}
-	
-	func set(initialRootController controller: UIViewController) {
-		transition {
-			self.window.rootViewController = controller
-			self.window.makeKeyAndVisible()
-		}
-	}
-	
-	func transition(withDuration duration: TimeInterval = 0.5,
-	                options: UIViewAnimationOptions = [UIViewAnimationOptions.transitionCrossDissolve], animations: @escaping (() -> Void)) {
-		UIView.transition(with: window,
-		                  duration: duration,
-		                  options: options,
-		                  animations: animations,
-		                  completion: nil)
-	}
-}
+import RxDataFlow
 
 struct AuthenticationCoordinator : ApplicationCoordinatorType {
-	let controller: UIViewController?
+	let controller: UIViewController
 	let window: UIWindow
 	
-	init(window: UIWindow, controller: UIViewController? = nil) {
+	init(window: UIWindow, controller: UIViewController) {
 		self.window = window
 		self.controller = controller
 	}
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+		if let state = handleBase(action: action, flowController: flowController, currentViewController: controller) {
+			return state
+		}
+		
 		switch action {
-		case GeneralAction.showRootController:
-			set(initialRootController: AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController,
-			                                                                                       mode: .logIn)))
-			return .just(flowController.currentState.state.mutation.new(coordinator: AuthenticationCoordinator.init(window: window, controller: window.rootViewController)))
-		case AuthenticationAction.showFirebaseRegistration:
+		case UIAction.showFirebaseRegistrationController:
 			let registrationController = AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController, mode: .registration))
             registrationController.modalTransitionStyle = .flipHorizontal
 			let coordinator = FirebaseRegistrationCoordinator(parent: self, controller: registrationController)
-			controller!.present(coordinator.controller, animated: true, completion: nil)
+			controller.present(coordinator.controller, animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
-		case GeneralAction.error(let error):
-			showAlert(in: controller!, with: error)
-			return .just(flowController.currentState.state)
-		case AuthenticationAction.showTasksListController:
+		case UIAction.showTasksListController:
 			let coordinator = TasksCoordinator(window: window, flowController: flowController)
 			set(newRootController: coordinator.navigationController)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
@@ -91,13 +51,14 @@ struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 	}
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+		if let state = handleBase(action: action, flowController: flowController, currentViewController: controller) {
+			return state
+		}
+		
 		switch action {
-		case AuthenticationAction.dismissFirebaseRegistration:
+		case UIAction.dismissFirebaseRegistrationController:
 			controller.dismiss(animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: parent))
-		case GeneralAction.error(let error):
-			showAlert(in: controller, with: error)
-			return .just(flowController.currentState.state)
 		default: return .empty()
 		}
 	}

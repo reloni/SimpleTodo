@@ -20,12 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	lazy var flowController: RxDataFlowController<AppState> = {
 		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
 		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
-		let initialState = AppState(coordinator: AuthenticationCoordinator(window: self.window!),
+		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!),
 		                            authentication: .none,
 		                            webService: WebSerivce(httpClient: httpClient),
 		                            tasks: [])
 		
-		return RxDataFlowController(reducer: RootReducer(), initialState: initialState)
+		return RxDataFlowController(reducer: RootReducer(), initialState: initialState, maxHistoryItems: 1)
 	}()
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -35,8 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		setupPushNotifications(withLaunchOptions: launchOptions)
 		
-		flowController.dispatch(GeneralAction.showRootController)
-		
+		flowController.dispatch(UIAction.showRootController)
+
 		return true
 	}
 	

@@ -17,9 +17,6 @@ struct AuthenticationReducer : RxReducerType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
 		let currentState = flowController.currentState.state
 		switch action as? AuthenticationAction {
-		case .dismissFirebaseRegistration?: fallthrough
-		case .showTasksListController?: fallthrough
-		case .showFirebaseRegistration?: return currentState.coordinator.handle(action, flowController: flowController)
 		case .logIn(let email, let password)?: return logIn(currentState: currentState, email: email, password: password)
 		case .register(let email, let password)?: return register(currentState: currentState, email: email, password: password)
 		case .signOut?: return signOut(currentState: currentState)

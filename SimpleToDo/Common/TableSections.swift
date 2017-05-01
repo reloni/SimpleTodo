@@ -25,3 +25,24 @@ extension TaskSection: AnimatableSectionModelType {
 		self.items = items
 	}
 }
+
+struct SettingsSection {
+	var header: String
+	var items: [SettingsSectonItem]
+}
+
+extension SettingsSection : SectionModelType {
+	typealias Item = SettingsSectonItem
+	
+	init(original: SettingsSection, items: [SettingsSectonItem]) {
+		self = original
+		self.items = items
+	}
+}
+
+enum SettingsSectonItem {
+	case pushNotificationsSwitch(title: String, image: UIImage)
+	case info(title: String, image: UIImage)
+	case deleteAccount(title: String, image: UIImage)
+	case exit(title: String, image: UIImage)
+}

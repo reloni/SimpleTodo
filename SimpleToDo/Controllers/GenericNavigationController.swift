@@ -1,17 +1,16 @@
 //
-//  TasksListNavigationController.swift
+//  GenericNavigationController.swift
 //  SimpleToDo
 //
-//  Created by Anton Efimenko on 01.12.16.
-//  Copyright © 2016 Anton Efimenko. All rights reserved.
+//  Created by Anton Efimenko on 29.04.17.
+//  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
-
 
 import UIKit
 import SnapKit
 import RxSwift
 
-final class TasksListNavigationController : UINavigationController {
+final class GenericNavigationController : UINavigationController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	
 	override func viewDidLoad() {
