@@ -20,10 +20,10 @@ final class SettingsViewModel {
 	
 	let title = "Settings"
 	
-	let sections = Observable<[SettingsSection]>.just([SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Send push notifications", image: Theme.Images.pushNotification)]),
+	let sections = Observable<[SettingsSection]>.just([SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Receive push notifications", image: Theme.Images.pushNotification)]),
 	                                                   SettingsSection(header: "", items: [.info(title: "About", image: Theme.Images.info),
 	                                                                                             .deleteAccount(title: "Delete account", image: Theme.Images.deleteAccount),
-	                                                                                             .exit(title: "Exit", image: Theme.Images.exit)])])
+	                                                                                             .exit(title: "Log off", image: Theme.Images.exit)])])
 	
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in
@@ -58,7 +58,7 @@ final class SettingsViewModel {
 				let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
 				SettingsViewModel.configure(cell: cell)
 				SettingsViewModel.configure(defaultCell: cell, with: data)
-				cell.tapped = { object.exit() }
+				cell.tapped = { object.logOff() }
 				return cell
 			case .pushNotificationsSwitch(let data):
 				let cell = tv.dequeueReusableCell(withIdentifier: "Switch", for: ip) as! SwitchCell
@@ -96,8 +96,10 @@ final class SettingsViewModel {
 		
 	}
 	
-	func exit() {
+	func logOff() {
+		flowController.dispatch(AuthenticationAction.signOut)
 		flowController.dispatch(UIAction.returnToRootController)
+		flowController.dispatch(PushNotificationsAction.disablePushNotificationsSubscription)
 	}
 	
 	func close() {
