@@ -48,7 +48,7 @@ final class SettingsController : UIViewController {
 			$0.bottom.equalTo(view.snp.bottomMargin)
 		}
 		
-		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(close))
+		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
 		
 		bind()
 	}
