@@ -26,7 +26,7 @@ final class TaskCell : UITableViewCell {
 	
 	let targetDate: UILabel = {
 		let text = Theme.Controls.label(withStyle: .footnote)
-		text.textColor = Theme.Colors.lightGray
+		text.textColor = Theme.Colors.romanSilver
 		return text
 	}()
 	
@@ -95,7 +95,7 @@ final class TaskCell : UITableViewCell {
 		targetDate.setContentCompressionResistancePriority(999, for: UILayoutConstraintAxis.vertical)
 		targetDate.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
 		
-		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.backgroundLightGray }
+		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.isabelline }
 		actionsStack.subviews.last?.setContentHuggingPriority(1, for: UILayoutConstraintAxis.horizontal)
 		
 		completeActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
