@@ -63,3 +63,4 @@ fastlane/report.xml
 fastlane/screenshots
 .idea
 /SimpleToDo.app.dSYM.zip
+/FirebaseCrashReportKey.json

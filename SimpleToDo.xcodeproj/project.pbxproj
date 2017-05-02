@@ -29,6 +29,8 @@
 		6E5872141E5BEDF40003D9D2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5872131E5BEDF40003D9D2 /* libz.tbd */; };
 		6E5872171E5BF4140003D9D2 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3F21E540DA100BA8283 /* GTMSessionFetcher.framework */; };
 		6E5872181E5BF4B80003D9D2 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EC1E540D9100BA8283 /* GoogleToolboxForMac.framework */; };
+		6E59883C1EB8C0AB00501B7F /* FirebaseCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E59883A1EB8C0AB00501B7F /* FirebaseCrash.framework */; };
+		6E59883D1EB8C0AB00501B7F /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E59883B1EB8C0AB00501B7F /* Protobuf.framework */; };
 		6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */; };
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
@@ -127,6 +129,8 @@
 		6E5872281E5BF6B20003D9D2 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = Carthage/Firebase/Invites/Resources/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		6E5872291E5BF6B20003D9D2 /* GINInviteResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GINInviteResources.bundle; path = Carthage/Firebase/Invites/Resources/GINInviteResources.bundle; sourceTree = "<group>"; };
 		6E58722A1E5BF6B20003D9D2 /* GPPACLPickerResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GPPACLPickerResources.bundle; path = Carthage/Firebase/Invites/Resources/GPPACLPickerResources.bundle; sourceTree = "<group>"; };
+		6E59883A1EB8C0AB00501B7F /* FirebaseCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCrash.framework; path = Carthage/Firebase/Crash/FirebaseCrash.framework; sourceTree = "<group>"; };
+		6E59883B1EB8C0AB00501B7F /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = Carthage/Firebase/Crash/Protobuf.framework; sourceTree = "<group>"; };
 		6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCoordinator.swift; sourceTree = "<group>"; };
 		6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E59883C1EB8C0AB00501B7F /* FirebaseCrash.framework in Frameworks */,
+				6E59883D1EB8C0AB00501B7F /* Protobuf.framework in Frameworks */,
 				6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */,
 				6E5872181E5BF4B80003D9D2 /* GoogleToolboxForMac.framework in Frameworks */,
 				6E5872171E5BF4140003D9D2 /* GTMSessionFetcher.framework in Frameworks */,
@@ -294,6 +300,8 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E59883A1EB8C0AB00501B7F /* FirebaseCrash.framework */,
+				6E59883B1EB8C0AB00501B7F /* Protobuf.framework */,
 				6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */,
 				6E5872281E5BF6B20003D9D2 /* GoogleSignIn.bundle */,
 				6E5872291E5BF6B20003D9D2 /* GINInviteResources.bundle */,
@@ -467,6 +475,7 @@
 				6E15D0151DF0A45900B4CCA7 /* Frameworks */,
 				6E15D0161DF0A45900B4CCA7 /* Resources */,
 				6EE247D61DF21216001A6F39 /* Copy carthage frameworks */,
+				6E59883E1EB8C30700501B7F /* Upload symbol files */,
 			);
 			buildRules = (
 			);
@@ -596,6 +605,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6E59883E1EB8C30700501B7F /* Upload symbol files */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload symbol files";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n    GOOGLE_APP_ID=1:331164285591:ios:dedaf938e1474a9d\n    $SRCROOT/Carthage/Firebase/Crash/upload-sym $SRCROOT/FirebaseCrashReportKey.json\nfi";
+		};
 		6EE247D61DF21216001A6F39 /* Copy carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -822,6 +845,7 @@
 					"$(PROJECT_DIR)/Carthage/Firebase/Analytics",
 					"$(PROJECT_DIR)/Carthage/Firebase/Auth",
 					"$(PROJECT_DIR)/Carthage/Firebase/Invites",
+					"$(PROJECT_DIR)/Carthage/Firebase/Crash",
 				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -855,6 +879,7 @@
 					"$(PROJECT_DIR)/Carthage/Firebase/Analytics",
 					"$(PROJECT_DIR)/Carthage/Firebase/Auth",
 					"$(PROJECT_DIR)/Carthage/Firebase/Invites",
+					"$(PROJECT_DIR)/Carthage/Firebase/Crash",
 				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
