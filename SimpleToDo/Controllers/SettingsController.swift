@@ -48,7 +48,7 @@ final class SettingsController : UIViewController {
 			$0.bottom.equalTo(view.snp.bottomMargin)
 		}
 		
-		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
 		
 		bind()
 	}
@@ -64,8 +64,8 @@ final class SettingsController : UIViewController {
 		tableView.rx.setDelegate(viewModel.tableViewDelegate).disposed(by: bag)
 	}
 	
-	func close() {
-		viewModel.close()
+	func done() {
+		viewModel.done()
 	}
 	
 	override func updateViewConstraints() {

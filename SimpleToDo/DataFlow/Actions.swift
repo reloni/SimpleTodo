@@ -62,5 +62,5 @@ enum PushNotificationsAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return nil }
 	
 	case promtForPushNotifications
-	case disablePushNotificationsSubscription
+	case switchNotificationSubscription(subscribed: Bool)
 }

@@ -74,7 +74,7 @@ extension AuthenticationReducer {
 				Keychain.userEmail = email
 				Keychain.userPassword = password
 				
-				observer.onNext(state.mutation.new(authentication: Authentication.user(user!)))
+				observer.onNext(state.mutation.new(authentication: Authentication.user(user!, UserSettings())))
 				observer.onCompleted()
 			}
 			

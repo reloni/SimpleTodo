@@ -20,7 +20,7 @@ struct PushNotificationsReducer : RxReducerType {
 		let currentState = flowController.currentState.state
 		switch action {
 		case PushNotificationsAction.promtForPushNotifications: return promtForPushNotifications(currentState: currentState)
-		case PushNotificationsAction.disablePushNotificationsSubscription: return disablePushNotificationsSubscription(currentState: currentState)
+		case PushNotificationsAction.switchNotificationSubscription(let subscribed): return switchNotificationSubsctiption(currentState: currentState, subscribed: subscribed)
 		default: return .empty()
 		}
 	}
@@ -33,11 +33,18 @@ extension PushNotificationsReducer {
 		OneSignal.promptForPushNotifications(userResponse: { accepted in
 			guard accepted else { return }
 			
-			OneSignal.setSubscription(true)
-			OneSignal.sendTag("user_id", value: user.uid)
+			PushNotificationsReducer.enableSubscription(for: user)
 		})
 		
 		return .just(state)
+	}
+	
+	func switchNotificationSubsctiption(currentState state: AppState, subscribed: Bool) -> Observable<RxStateType> {
+		if subscribed {
+			return enablePushNotificationsSubscription(currentState: state)
+		} else {
+			return disablePushNotificationsSubscription(currentState: state)
+		}
 	}
 	
 	func disablePushNotificationsSubscription(currentState state: AppState) -> Observable<RxStateType> {		
@@ -45,5 +52,18 @@ extension PushNotificationsReducer {
 		OneSignal.setSubscription(false)
 		
 		return .just(state)
+	}
+	
+	func enablePushNotificationsSubscription(currentState state: AppState)  -> Observable<RxStateType> {
+		guard let user = state.authentication.user else { return .just(state) }
+		
+		PushNotificationsReducer.enableSubscription(for: user)
+		
+		return .just(state)
+	}
+	
+	static func enableSubscription(for user: LoginUser) {
+		OneSignal.setSubscription(true)
+		OneSignal.sendTag("user_id", value: user.uid)
 	}
 }

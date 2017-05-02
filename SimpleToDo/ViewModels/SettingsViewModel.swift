@@ -16,7 +16,8 @@ final class SettingsViewModel {
 	let dataSource = RxTableViewSectionedReloadDataSource<SettingsSection>()
 	let tableViewDelegate = SettingsViewModelTableViewDelegate()
 	
-	var isPushNotificationsEnabled = false
+	let isPushNotificationsAllowed: Bool
+	var isPushNotificationsEnabled: Bool
 	
 	let title = "Settings"
 	
@@ -34,6 +35,9 @@ final class SettingsViewModel {
 	
 	init(flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController
+		isPushNotificationsAllowed = flowController.currentState.state.authentication.settings?.pushNotificationsAllowed ?? false
+		isPushNotificationsEnabled = flowController.currentState.state.authentication.settings?.pushNotificationsEnabled ?? false
+		
 		configureDataSource()
 	}
 	
@@ -66,7 +70,8 @@ final class SettingsViewModel {
 				SettingsViewModel.configure(switchCell: cell, with: data)
 				
 				cell.switchView.setOn(object.isPushNotificationsEnabled, animated: true)
-				cell.switchChanged = { isOn in print("Switch changed: \(isOn)"); object.isPushNotificationsEnabled = isOn }
+				cell.switchView.isEnabled = object.isPushNotificationsAllowed
+				cell.switchChanged = { isOn in object.isPushNotificationsEnabled = isOn }
 				
 				return cell
 			}
@@ -92,18 +97,15 @@ final class SettingsViewModel {
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 	}
 	
-	func save() {
-		
-	}
-	
 	func logOff() {
 		flowController.dispatch(AuthenticationAction.signOut)
 		flowController.dispatch(UIAction.returnToRootController)
-		flowController.dispatch(PushNotificationsAction.disablePushNotificationsSubscription)
+		flowController.dispatch(PushNotificationsAction.switchNotificationSubscription(subscribed: false))
 	}
 	
-	func close() {
-		flowController.dispatch(UIAction.dismissSettingsController)
+	func done() {
+		flowController.dispatch(RxCompositeAction(actions: [PushNotificationsAction.switchNotificationSubscription(subscribed: isPushNotificationsEnabled),
+		                                                    UIAction.dismissSettingsController]))
 	}
 }
 
@@ -122,7 +124,5 @@ final class SettingsViewModelTableViewDelegate : NSObject, UITableViewDelegate {
 		guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
 		
 		cell.tapped?()
-//		cell.isExpanded = !cell.isExpanded
-//		animateCellExpansion(forIndexPath: indexPath, tableView: tableView)
 	}
 }

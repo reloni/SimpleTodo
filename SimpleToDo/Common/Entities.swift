@@ -10,6 +10,7 @@ import Unbox
 import RxDataSources
 import RxSwift
 import Wrap
+import OneSignal
 
 enum ApplicationError : Error {
     case notAuthenticated
@@ -31,6 +32,11 @@ extension ServerSideError : Unboxable {
 	init(unboxer: Unboxer) throws {
 		self.error = try unboxer.unbox(key: "Error")
 	}
+}
+
+struct UserSettings {
+	var pushNotificationsAllowed: Bool { return UIApplication.shared.isRegisteredForRemoteNotifications }
+	var pushNotificationsEnabled: Bool { return OneSignal.getPermissionSubscriptionState().subscriptionStatus.subscribed }
 }
 
 protocol LoginUser {
