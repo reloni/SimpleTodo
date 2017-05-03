@@ -39,8 +39,8 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 			controller.transitioningDelegate = transitionDelegate
 			
 			let coordinator = SettingsCoordinator(parent: self,
-			                                      controller: controller)
-			navigationController.present(coordinator.controller, animated: true, completion: nil)
+			                                      navigationController: controller)
+			navigationController.present(coordinator.navigationController, animated: true, completion: nil)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
 		default: return .empty()
 		}

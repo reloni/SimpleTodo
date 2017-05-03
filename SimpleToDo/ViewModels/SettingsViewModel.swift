@@ -62,7 +62,7 @@ final class SettingsViewModel {
 				let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
 				SettingsViewModel.configure(cell: cell)
 				SettingsViewModel.configure(defaultCell: cell, with: data)
-				cell.tapped = { object.logOff() }
+				cell.tapped = { object.askForLogOff(sourceView: cell) }
 				return cell
 			case .pushNotificationsSwitch(let data):
 				let cell = tv.dequeueReusableCell(withIdentifier: "Switch", for: ip) as! SwitchCell
@@ -95,6 +95,10 @@ final class SettingsViewModel {
 	static func configure(switchCell cell: SwitchCell, with data: (title: String, image: UIImage)) {
 		cell.textLabel?.text = data.title
 		cell.imageView?.image = data.image.resize(toWidth: 22)
+	}
+	
+	func askForLogOff(sourceView: UIView) {
+		flowController.dispatch(SettingsAction.showLogOffAlert(sourceView: sourceView))
 	}
 	
 	func logOff() {

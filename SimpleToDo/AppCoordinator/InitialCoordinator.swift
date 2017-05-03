@@ -37,6 +37,18 @@ extension ApplicationCoordinatorType {
 		controller.present(alert, animated: true, completion: nil)
 	}
 	
+	func showActionSheet(in controller: UIViewController, withTitle title: String?, message: String?, actions: [UIAlertAction], sourceView: UIView?) {
+		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		
+		actions.forEach { alertController.addAction($0) }
+		
+		if UIDevice.current.userInterfaceIdiom == .pad {
+			alertController.popoverPresentationController?.sourceView = sourceView
+			alertController.popoverPresentationController?.sourceRect = sourceView?.bounds ?? .zero
+		}
+		controller.present(alertController, animated: true, completion: nil)
+	}
+	
 	func set(newRootController controller: UIViewController) {
 		transition {
 			self.window.rootViewController = controller

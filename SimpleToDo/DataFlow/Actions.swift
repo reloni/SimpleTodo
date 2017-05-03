@@ -48,7 +48,7 @@ enum TaskListAction : RxActionType {
 enum SettingsAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
-	case save
+	case showLogOffAlert(sourceView: UIView)
 }
 
 enum EditTaskAction : RxActionType {
