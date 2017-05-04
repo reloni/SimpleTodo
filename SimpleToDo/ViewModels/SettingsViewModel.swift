@@ -12,10 +12,7 @@ import RxDataSources
 
 final class SettingsViewModel {
 	let flowController: RxDataFlowController<AppState>
-	
-	let dataSource = RxTableViewSectionedReloadDataSource<SettingsSection>()
-	let tableViewDelegate = SettingsViewModelTableViewDelegate()
-	
+
 	let isPushNotificationsAllowed: Bool
 	var isPushNotificationsEnabled: Bool
 	
@@ -37,64 +34,6 @@ final class SettingsViewModel {
 		self.flowController = flowController
 		isPushNotificationsAllowed = flowController.currentState.state.authentication.settings?.pushNotificationsAllowed ?? false
 		isPushNotificationsEnabled = flowController.currentState.state.authentication.settings?.pushNotificationsEnabled ?? false
-		
-		configureDataSource()
-	}
-	
-	func configureDataSource() {
-		dataSource.configureCell = { [weak self] ds, tv, ip, item in
-			guard let object = self else { fatalError() }
-
-			switch item {
-			case .info(let data):
-				let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
-				SettingsViewModel.configure(cell: cell)
-				SettingsViewModel.configure(defaultCell: cell, with: data)
-				cell.tapped = { print("about tapped") }
-				return cell
-			case .deleteAccount(let data):
-				let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
-				SettingsViewModel.configure(cell: cell)
-				SettingsViewModel.configure(defaultCell: cell, with: data)
-				cell.tapped = { print("deleteAccount tapped") }
-				return cell
-			case .exit(let data):
-				let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
-				SettingsViewModel.configure(cell: cell)
-				SettingsViewModel.configure(defaultCell: cell, with: data)
-				cell.tapped = { object.askForLogOff(sourceView: cell) }
-				return cell
-			case .pushNotificationsSwitch(let data):
-				let cell = tv.dequeueReusableCell(withIdentifier: "Switch", for: ip) as! SwitchCell
-				SettingsViewModel.configure(cell: cell)
-				SettingsViewModel.configure(switchCell: cell, with: data)
-				
-				cell.switchView.setOn(object.isPushNotificationsEnabled, animated: true)
-				cell.switchView.isEnabled = object.isPushNotificationsAllowed
-				cell.switchChanged = { isOn in object.isPushNotificationsEnabled = isOn }
-				
-				return cell
-			}
-		}
-	}
-	
-	static func configure(cell: UITableViewCell) {
-		cell.preservesSuperviewLayoutMargins = false
-		cell.layoutMargins = .zero
-		cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-		cell.selectionStyle = .none
-	}
-	
-	static func configure(defaultCell cell: DefaultCell, with data: (title: String, image: UIImage)) {
-		cell.textLabel?.text = data.title
-		cell.imageView?.image = data.image.resize(toWidth: 22)
-		cell.accessoryType = .disclosureIndicator
-		cell.tintColor = Theme.Colors.pumkin
-	}
-	
-	static func configure(switchCell cell: SwitchCell, with data: (title: String, image: UIImage)) {
-		cell.textLabel?.text = data.title
-		cell.imageView?.image = data.image.resize(toWidth: 22)
 	}
 	
 	func askForLogOff(sourceView: UIView) {
@@ -110,23 +49,5 @@ final class SettingsViewModel {
 	func done() {
 		flowController.dispatch(RxCompositeAction(actions: [PushNotificationsAction.switchNotificationSubscription(subscribed: isPushNotificationsEnabled),
 		                                                    UIAction.dismissSettingsController]))
-	}
-}
-
-final class SettingsViewModelTableViewDelegate : NSObject, UITableViewDelegate {
-	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 40
-	}
-	
-	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let header = UIView()
-		header.backgroundColor = UIColor.clear
-		return header
-	}
-	
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
-		
-		cell.tapped?()
 	}
 }
