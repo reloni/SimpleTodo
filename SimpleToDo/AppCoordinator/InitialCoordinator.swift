@@ -25,6 +25,12 @@ extension ApplicationCoordinatorType {
 			                                                                                                                                    mode: .logIn)))
 			set(newRootController: coordinator.controller)
 			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
+		case UIAction.showSpinner:
+			showSpinner()
+			return .just(flowController.currentState.state)
+		case UIAction.hideSpinner:
+			hideSpinner()
+			return .just(flowController.currentState.state)
 		default: return nil
 		}
 	}
@@ -69,6 +75,14 @@ extension ApplicationCoordinatorType {
 		                  options: options,
 		                  animations: animations,
 		                  completion: nil)
+	}
+	
+	func showSpinner() {
+		ActivityView.show(in: window)
+	}
+	
+	func hideSpinner() {
+		ActivityView.remove(from: window)
 	}
 }
 

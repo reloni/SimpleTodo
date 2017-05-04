@@ -14,7 +14,7 @@ final class ActivityView: UIView {
 		return UIActivityIndicatorView(activityIndicatorStyle: .gray)
 	}()
 	
-	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+	let blurView = UIVisualEffectView()
 	
 	init() {
 		super.init(frame: CGRect.zero)
@@ -46,5 +46,21 @@ final class ActivityView: UIView {
 		blurView.snp.updateConstraints {
 			$0.edges.equalTo(snp.edges)
 		}
+	}
+	
+	static func show(in window: UIWindow) {
+		let av = ActivityView()
+		av.frame = window.frame
+		window.addSubview(av)
+		window.bringSubview(toFront: av)
+		av.spinner.startAnimating()
+		UIView.animate(withDuration: 0.3) {
+			av.blurView.effect = UIBlurEffect(style: .regular)
+		}
+	}
+	
+	static func remove(from window: UIWindow) {
+		guard let av = window.subviews.last as? ActivityView else { return}
+		UIView.animate(withDuration: 0.3, animations: { av.blurView.effect = nil }, completion: { _ in av.removeFromSuperview() })
 	}
 }

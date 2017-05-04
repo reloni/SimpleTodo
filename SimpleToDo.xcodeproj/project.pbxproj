@@ -43,7 +43,6 @@
 		6E9026E51E5AA56400851B4D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E41E5AA56400851B4D /* SystemConfiguration.framework */; };
 		6E9026EE1E5AA66F00851B4D /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3F11E540DA100BA8283 /* FirebaseAuth.framework */; };
 		6E96B07B1EBAE69B0096ACFE /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */; };
-		6E96B07D1EBAEB160096ACFE /* Blurrable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07C1EBAEB160096ACFE /* Blurrable.swift */; };
 		6E9AA3ED1E540D9100BA8283 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3E91E540D9100BA8283 /* FirebaseAnalytics.framework */; };
 		6E9AA3EE1E540D9100BA8283 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EA1E540D9100BA8283 /* FirebaseCore.framework */; };
 		6E9AA3EF1E540D9100BA8283 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EB1E540D9100BA8283 /* FirebaseInstanceID.framework */; };
@@ -148,7 +147,6 @@
 		6E9026E71E5AA57E00851B4D /* GoogleAppUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppUtilities.framework; path = Carthage/googlesignin/GoogleAppUtilities.framework; sourceTree = "<group>"; };
 		6E9026E81E5AA57E00851B4D /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Carthage/googlesignin/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
 		6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
-		6E96B07C1EBAEB160096ACFE /* Blurrable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blurrable.swift; sourceTree = "<group>"; };
 		6E99ADE91EA3D76F00B88E6E /* SimpleToDo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleToDo.entitlements; sourceTree = "<group>"; };
 		6E9AA3E91E540D9100BA8283 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		6E9AA3EA1E540D9100BA8283 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Firebase/Analytics/FirebaseCore.framework; sourceTree = "<group>"; };
@@ -359,7 +357,6 @@
 				6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */,
 				6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */,
 				6E05D0031E881F0B00C293B8 /* WebService.swift */,
-				6E96B07C1EBAEB160096ACFE /* Blurrable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -665,7 +662,6 @@
 				6ED0A20A1E79835E00B59B52 /* EditTaskViewModel.swift in Sources */,
 				6EAACA2D1EB75F99004EB190 /* SwitchCell.swift in Sources */,
 				6EAACA291EB7591D004EB190 /* DefaultCell.swift in Sources */,
-				6E96B07D1EBAEB160096ACFE /* Blurrable.swift in Sources */,
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
 				6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */,
 				6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */,

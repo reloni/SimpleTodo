@@ -64,13 +64,6 @@ final class TasksController : UIViewController {
 		bind()
 		
 		viewModel.loadTasks()
-		
-//		guard let rootWindow = UIApplication.shared.keyWindow else { return }
-//		let a = ActivityView()
-//		a.frame = rootWindow.frame
-//		rootWindow.addSubview(a)
-//		rootWindow.bringSubview(toFront: a)
-//		a.spinner.startAnimating()
 	}
 	
 	func bind() {
