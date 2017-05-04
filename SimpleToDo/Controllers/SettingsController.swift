@@ -55,7 +55,7 @@ final class SettingsController : UIViewController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
 		
 		configureDataSource()
-		bind()
+		bind()	
 	}
 	
 	func bind() {
