@@ -57,13 +57,20 @@ final class EditTaskViewModel {
 			                                                                     description: taskDescription.value,
 			                                                                     notes: taskNotes.value,
 			                                                                     targetDate: taskTargetDate.value))])
+			
+			flowController.dispatch(UIAction.showSpinner)
 			flowController.dispatch(action)
+			flowController.dispatch(UIAction.hideSpinner)
+			
 			return
 		}
 		
 		let newTask = Task(uuid: task.uuid, completed: false, description: taskDescription.value, notes: taskNotes.value, targetDate: taskTargetDate.value)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
 		                                         EditTaskAction.updateTask(newTask)])
+		
+		flowController.dispatch(UIAction.showSpinner)
 		flowController.dispatch(action)
+		flowController.dispatch(UIAction.hideSpinner)
 	}
 }

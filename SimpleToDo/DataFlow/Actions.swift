@@ -23,6 +23,9 @@ enum UIAction : RxActionType {
 	case dismissSettingsController
 	case dismisEditTaskController
 	
+	case showSpinner
+	case hideSpinner
+	
 	case showError(Error)
 	
 	case returnToRootController
