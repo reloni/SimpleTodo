@@ -23,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!),
 		                            authentication: .none,
 		                            webService: WebSerivce(httpClient: httpClient),
-		                            tasks: [])
+		                            tasks: [],
+		                            uiApplication: UIApplication.shared)
 		
 		return RxDataFlowController(reducer: RootReducer(), initialState: initialState, maxHistoryItems: 1)
 	}()
@@ -62,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func notificationReceived(notification: OSNotification?) {
 		print("Received Notification: \(notification!.payload.notificationID)")
+		flowController.dispatch(UIAction.updateIconBadge)
 	}
 	
 	func setupPushNotifications(withLaunchOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
@@ -78,15 +80,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-		print("device token: \(deviceToken.base64EncodedString())")
 	}
 	
 	func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-		print("didFailToRegisterForRemoteNotificationsWithError \(error)")
 	}
 	
 	func applicationWillResignActive(_ application: UIApplication) {
-		UIApplication.shared.applicationIconBadgeNumber = flowController.currentState.state.todayTasksCount
+		flowController.dispatch(UIAction.updateIconBadge)
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 	}

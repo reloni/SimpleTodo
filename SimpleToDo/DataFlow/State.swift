@@ -42,8 +42,13 @@ struct AppState : RxStateType {
 	let authentication: Authentication
 	let webService: WebSerivce
 	let tasks: [Task]
-	var todayTasksCount: Int {
-		return tasks.filter { $0.targetDate?.date.isToday ?? false }.count
+	let uiApplication: UIApplication
+	var overdueTasksCount: Int {
+		let now = Date()
+		return tasks.filter {
+			guard let d = $0.targetDate?.date else { return false }
+			return d <= now
+			}.count
 	}
 }
 
@@ -57,14 +62,14 @@ extension AppState {
 
 extension AppStateMutation {
 	func new(tasks: [Task]) -> AppState {
-		return AppState(coordinator: state.coordinator, authentication: state.authentication, webService: state.webService, tasks: tasks)
+		return AppState(coordinator: state.coordinator, authentication: state.authentication, webService: state.webService, tasks: tasks, uiApplication: state.uiApplication)
 	}
 	
 	func new(coordinator: ApplicationCoordinatorType) -> AppState {
-		return AppState(coordinator: coordinator, authentication: state.authentication, webService: state.webService, tasks: state.tasks)
+		return AppState(coordinator: coordinator, authentication: state.authentication, webService: state.webService, tasks: state.tasks, uiApplication: state.uiApplication)
 	}
 	
 	func new(authentication: Authentication) -> AppState {
-		return AppState(coordinator: state.coordinator, authentication: authentication, webService: state.webService, tasks: state.tasks)
+		return AppState(coordinator: state.coordinator, authentication: authentication, webService: state.webService, tasks: state.tasks, uiApplication: state.uiApplication)
 	}
 }

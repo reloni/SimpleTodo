@@ -30,6 +30,8 @@ enum UIAction : RxActionType {
 	case showErrorMessage(Error)
 	
 	case returnToRootController
+	
+	case updateIconBadge
 }
 
 enum AuthenticationAction : RxActionType {
