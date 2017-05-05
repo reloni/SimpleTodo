@@ -103,6 +103,9 @@ extension FileManager {
 extension Error {
 	func uiAlertMessage() -> String? {
 		switch self as Error {
+		case HttpClientError.clientSideError(let e):
+			if let urlError = e as? URLError, urlError.code == URLError.notConnectedToInternet { return "Not connected to internet" }
+			return e.localizedDescription
 		case HttpClientError.invalidResponse(let response, let data):
 			guard let data = data, data.count > 0 else {
 				switch response.statusCode {
@@ -110,7 +113,6 @@ extension Error {
 				default: return nil
 				}
 			}
-			
 			return (try? unbox(data: data) as ServerSideError)?.error
 		case FirebaseError.signInError(let error): return error.localizedDescription
 		case FirebaseError.passwordResetError: return "Unable to send instructions to specified email adress"
