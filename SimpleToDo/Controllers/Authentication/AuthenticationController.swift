@@ -138,14 +138,6 @@ final class AuthenticationController : UIViewController {
 		}
 		
 		bind()
-		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-			SnackView.show(in: UIApplication.shared.keyWindow!)
-		}
-		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-			SnackView.remove(from: UIApplication.shared.keyWindow!)
-		}
 	}
 	
 	override func viewWillLayoutSubviews() {
