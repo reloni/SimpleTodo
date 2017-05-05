@@ -10,8 +10,18 @@ import UIKit
 import SnapKit
 
 final class ActivityView: UIView {
+	let spinnerContainer: UIView = {
+		var view = UIView()
+		view.backgroundColor = Theme.Colors.romanSilver.withAlphaComponent(0.4)
+		view.clipsToBounds = true
+		view.layer.cornerRadius = 10
+		return view
+	}()
+	
 	let spinner: UIActivityIndicatorView = {
-		return UIActivityIndicatorView(activityIndicatorStyle: .gray)
+		let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+		spinner.color = Theme.Colors.isabelline
+		return spinner
 	}()
 	
 	let blurView = UIVisualEffectView()
@@ -25,14 +35,23 @@ final class ActivityView: UIView {
 		super.init(coder: aDecoder)
 	}
 	
-	func setup() {		
+	func setup() {
 		backgroundColor = Theme.Colors.clear
 
-		addSubview(spinner)
-		insertSubview(blurView, belowSubview: spinner)
-		spinner.snp.makeConstraints {
+		addSubview(spinnerContainer)
+		spinnerContainer.addSubview(spinner)
+		insertSubview(blurView, belowSubview: spinnerContainer)
+		
+		spinnerContainer.snp.makeConstraints {
 			$0.center.equalTo(snp.center)
+			$0.height.equalTo(80)
+			$0.width.equalTo(80)
 		}
+		
+		spinner.snp.makeConstraints {
+			$0.center.equalTo(spinnerContainer.snp.center)
+		}
+		
 		blurView.snp.makeConstraints {
 			$0.edges.equalTo(snp.edges)
 		}
@@ -40,9 +59,17 @@ final class ActivityView: UIView {
 	
 	override func updateConstraints() {
 		super.updateConstraints()
-		spinner.snp.updateConstraints {
+		
+		spinnerContainer.snp.updateConstraints {
 			$0.center.equalTo(snp.center)
+			$0.height.equalTo(80)
+			$0.width.equalTo(80)
 		}
+		
+		spinner.snp.updateConstraints {
+			$0.center.equalTo(spinnerContainer.snp.center)
+		}
+		
 		blurView.snp.updateConstraints {
 			$0.edges.equalTo(snp.edges)
 		}
