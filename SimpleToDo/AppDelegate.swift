@@ -36,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		setupPushNotifications(withLaunchOptions: launchOptions)
 		
+		UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+		
 		flowController.dispatch(UIAction.showRootController)
 
 		return true
@@ -83,6 +85,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+	}
+	
+	func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+		flowController.dispatch(UIAction.updateIconBadge)
+		completionHandler(.newData)
 	}
 	
 	func applicationWillResignActive(_ application: UIApplication) {
