@@ -110,10 +110,10 @@ extension Error {
 			guard let data = data, data.count > 0 else {
 				switch response.statusCode {
 				case 404: return "Object not found"
-				default: return nil
+				default: return "Internal server error"
 				}
 			}
-			return (try? unbox(data: data) as ServerSideError)?.error
+			return (try? unbox(data: data) as ServerSideError)?.error ?? "Internal server error"
 		case FirebaseError.signInError(let error): return error.localizedDescription
 		case FirebaseError.passwordResetError: return "Unable to send instructions to specified email adress"
 		case FirebaseError.registerError(let error): return error.localizedDescription
