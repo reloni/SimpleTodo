@@ -26,7 +26,8 @@ enum UIAction : RxActionType {
 	case showSpinner
 	case hideSpinner
 	
-	case showError(Error)
+	case showSnackView(error: Error, hideAfter: Double?)
+	case showErrorMessage(Error)
 	
 	case returnToRootController
 }

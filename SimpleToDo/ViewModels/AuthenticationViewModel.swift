@@ -23,7 +23,7 @@ final class AuthenticationViewModel {
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in
 			guard let object = self else { return }
-			object.flowController.dispatch(UIAction.showError($0.error))
+			object.flowController.dispatch(UIAction.showSnackView(error: $0.error, hideAfter: 4))
 		})
 	}()
 	

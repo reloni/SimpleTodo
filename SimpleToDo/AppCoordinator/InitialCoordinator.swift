@@ -17,8 +17,11 @@ protocol ApplicationCoordinatorType {
 extension ApplicationCoordinatorType {
 	func handleBase(action: RxActionType, flowController: RxDataFlowController<AppState>, currentViewController controller: UIViewController) -> Observable<RxStateType>? {
 		switch action {
-		case UIAction.showError(let error):
+		case UIAction.showErrorMessage(let error):
 			showAlert(in: controller, with: error)
+			return .just(flowController.currentState.state)
+		case UIAction.showSnackView(let error, let hideAfter):
+			showSnackView(with: error, hideAfter: hideAfter)
 			return .just(flowController.currentState.state)
 		case UIAction.returnToRootController:
 			let coordinator = AuthenticationCoordinator(window: window, controller: AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController,
@@ -33,6 +36,14 @@ extension ApplicationCoordinatorType {
 			return .just(flowController.currentState.state)
 		default: return nil
 		}
+	}
+	
+	func showSnackView(with error: Error, hideAfter: Double?) {
+		guard let message = error.uiAlertMessage() else { return }
+		SnackView.show(snackView: MessageSnackView(message: message), in: window)
+		
+		guard let hideAfter = hideAfter else { return }
+		DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(Int(hideAfter * 1000))) { SnackView.remove(from: self.window)  }
 	}
 	
 	func showAlert(in controller: UIViewController, with error: Error) {
@@ -83,6 +94,14 @@ extension ApplicationCoordinatorType {
 	
 	func hideSpinner() {
 		ActivityView.remove(from: window)
+	}
+	
+	func show(snackView: SnackView) {
+		SnackView.show(snackView: snackView, in: window)
+	}
+	
+	func removeSnackView(from window: UIWindow) {
+		SnackView.remove(from: window)
 	}
 }
 
