@@ -64,3 +64,4 @@ fastlane/screenshots
 .idea
 /SimpleToDo.app.dSYM.zip
 /FirebaseCrashReportKey.json
+/fastlane/README.md

@@ -37,6 +37,7 @@ platform :ios do
     gym(scheme: "SimpleToDo", include_symbols: true, include_bitcode: true) # Build your app - more options available
     pilot(skip_waiting_for_build_processing: true)
 
+    sh "cd .. && sh Scripts/GitReset.sh"
     # sh "your_script.sh"
     # You can also use other beta testing services here (run `fastlane actions`)
   end
