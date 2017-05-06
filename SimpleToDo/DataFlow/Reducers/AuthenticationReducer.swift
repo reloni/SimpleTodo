@@ -22,6 +22,7 @@ struct AuthenticationReducer : RxReducerType {
 		case .register(let email, let password)?: return register(currentState: currentState, email: email, password: password)
 		case .signOut?: return signOut(currentState: currentState)
 		case .resetPassword(let email)?: return resetPassword(currentState: currentState, email: email)
+		case .refreshToken(let force)?: return refreshToken(currentState: currentState, force: force)
 		default: return .empty()
 		}
 	}
@@ -64,6 +65,19 @@ extension AuthenticationReducer {
 			.flatMapLatest { _ -> Observable<RxStateType> in
 				return .just(state)
 		}
+	}
+	
+	func refreshToken(currentState state: AppState, force: Bool) -> Observable<RxStateType> {
+		guard let info = state.authentication.info else { return .error(AuthenticationError.notAuthorized) }
+		
+		guard info.isTokenExpired || force else {
+			return .just(state)
+		}
+		
+		return state.authenticationService.refreshToken(info: info)
+			.flatMapLatest { result -> Observable<RxStateType> in
+				return .just(state.mutation.new(authentication: .authenticated(result, UserSettings())))
+			}
 	}
 }
 

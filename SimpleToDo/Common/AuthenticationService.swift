@@ -37,6 +37,7 @@ protocol AuthenticationServiceType {
 	func logIn(userNameOrEmail: String, password: String) -> Observable<AuthenticationInfo>
 	func resetPassword(email: String) -> Observable<Void>
 	func createUser(email: String, password: String) -> Observable<Void>
+	func refreshToken(info: AuthenticationInfo) -> Observable<AuthenticationInfo>
 }
 
 struct Auth0AuthenticationService: AuthenticationServiceType {
@@ -48,38 +49,6 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 						return .just(AuthenticationInfo(uid: profile.id, token: tokens.idToken, expiresAt: tokens.expiresAt, refreshToken: tokens.refreshToken))
 					}
 			}
-	}
-	
-	static func authenticate(userNameOremail: String, password: String) -> Observable<(idToken: String, refreshToken: String, accessToken: String, expiresAt: Date?)> {
-		return Observable.create { observer in
-			Auth0
-				.authentication()
-				.login(usernameOrEmail: userNameOremail, 
-				       password: password, 
-				       connection: "Username-Password-Authentication",
-				       scope: "openid profile offline_access", 
-				       parameters: ["device": UUID().uuidString])
-				.start { result in
-					
-					switch result {
-					case .success(let credentials):
-						
-						#if DEBUG
-							print("token: \(credentials.idToken!)")
-						#endif
-						
-						let jwt = try? decode(jwt: credentials.idToken!)
-						observer.onNext((idToken: credentials.idToken!, refreshToken: credentials.refreshToken!, accessToken: credentials.accessToken!, expiresAt: jwt?.expiresAt))
-						observer.onCompleted()
-					case .failure(let error):
-						observer.onError(AuthenticationError.signInError(error))
-					}
-			}
-			
-			return Disposables.create {
-				observer.onCompleted()
-			}
-		}
 	}
 	
 	func createUser(email: String, password: String) -> Observable<Void> {
@@ -117,6 +86,63 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 			}
 		}
 	}
+	
+	func refreshToken(info: AuthenticationInfo) -> Observable<AuthenticationInfo> {
+		return Observable.create { observer in
+			Auth0
+				.authentication()
+				.delegation(withParameters: ["refresh_token": info.refreshToken,
+				                             "scope": "openid email",
+				                             "api_type": "app"])
+				.start { result in
+					switch result {
+					case .success(let credentials):
+						guard let newToken = credentials["id_token"] as? String else { observer.onError(AuthenticationError.notAuthorized); break }
+						let jwt = try? decode(jwt: newToken)
+						observer.onNext(AuthenticationInfo(uid: info.uid, token: newToken, expiresAt: jwt?.expiresAt, refreshToken: info.refreshToken))
+						observer.onCompleted()
+					case .failure: observer.onError(AuthenticationError.notAuthorized)
+					}
+			}
+			
+			return Disposables.create {
+				observer.onCompleted()
+			}
+		}
+	}
+	
+	static func authenticate(userNameOremail: String, password: String) -> Observable<(idToken: String, refreshToken: String, accessToken: String, expiresAt: Date?)> {
+		return Observable.create { observer in
+			Auth0
+				.authentication()
+				.login(usernameOrEmail: userNameOremail,
+				       password: password,
+				       connection: "Username-Password-Authentication",
+				       scope: "openid profile offline_access",
+				       parameters: ["device": UUID().uuidString])
+				.start { result in
+					
+					switch result {
+					case .success(let credentials):
+						
+						#if DEBUG
+							print("token: \(credentials.idToken!)")
+						#endif
+						
+						let jwt = try? decode(jwt: credentials.idToken!)
+						observer.onNext((idToken: credentials.idToken!, refreshToken: credentials.refreshToken!, accessToken: credentials.accessToken!, expiresAt: jwt?.expiresAt))
+						observer.onCompleted()
+					case .failure(let error):
+						observer.onError(AuthenticationError.signInError(error))
+					}
+			}
+			
+			return Disposables.create {
+				observer.onCompleted()
+			}
+		}
+	}
+
 	
 	static func userProfile(token: String) -> Observable<Profile> {
 		return Observable.create { observer in

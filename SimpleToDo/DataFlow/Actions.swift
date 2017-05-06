@@ -39,6 +39,7 @@ enum AuthenticationAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return nil }
 
 	case resetPassword(String)
+	case refreshToken(force: Bool)
 	case signOut
 	case logIn(String, String)
 	case register(String, String)
