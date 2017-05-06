@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxDataFlow
+import UIKit
 
 struct SettingsCoordinator : ApplicationCoordinatorType {
 	let parent: ApplicationCoordinatorType

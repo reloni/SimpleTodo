@@ -6,6 +6,7 @@
 //  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
 
+import Foundation
 import RxSwift
 import RxDataFlow
 import RxHttpClient
@@ -19,6 +20,14 @@ final class WebSerivce {
 		self.httpClient = httpClient
 	}
 	
+	private func catchError<T>(error: Error) -> Observable<T> {
+		switch error {
+		case HttpClientError.invalidResponse(let response, _) where response.statusCode == 401:
+			return .error(AuthenticationError.notAuthorized)
+		default: return Observable.error(error)
+		}
+	}
+	
 	func loadTasks(tokenHeader: Observable<String>) -> Observable<[Task]> {
 		return tokenHeader.flatMapLatest { [weak httpClient] token -> Observable<[Task]> in
 			guard let httpClient = httpClient else { return .empty() }
@@ -30,6 +39,7 @@ final class WebSerivce {
 				return .just(try unbox(data: result))
 			}
 		}
+		.catchError(catchError)
 	}
 	
 	func delete(task: Task, tokenHeader: Observable<String>) -> Observable<Void> {
@@ -43,6 +53,7 @@ final class WebSerivce {
 				return .just()
 			}
 		}
+		.catchError(catchError)
 	}
 	
 	func updateTaskCompletionStatus(task: Task, tokenHeader: Observable<String>) -> Observable<Void> {
@@ -57,6 +68,7 @@ final class WebSerivce {
 				return .just()
 			}
 		}
+		.catchError(catchError)
 	}
 	
 	func update(task: Task, tokenHeader: Observable<String>) -> Observable<Task> {
@@ -81,6 +93,7 @@ final class WebSerivce {
 						return .just(try unbox(data: result))
 				}
 		}
+		.catchError(catchError)
 	}
 	
 	func add(task: Task, tokenHeader: Observable<String>) -> Observable<Task> {
@@ -103,6 +116,7 @@ final class WebSerivce {
 						return .just(try unbox(data: result))
 				}
 		}
+		.catchError(catchError)
 	}
 }
 

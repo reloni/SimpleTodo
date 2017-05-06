@@ -12,16 +12,17 @@ import RxSwift
 import Wrap
 import OneSignal
 
-enum ApplicationError : Error {
-    case notAuthenticated
-}
+//enum ApplicationError : Error {
+//    case notAuthenticated
+//}
 
-enum FirebaseError : Error {
+enum AuthenticationError : Error {
 	case signInError(Error)
 	case registerError(Error)
 	case tokenRequestError(Error)
 	case unknown
 	case passwordResetError(Error)
+	case notAuthorized
 }
 
 struct ServerSideError {
@@ -37,17 +38,6 @@ extension ServerSideError : Unboxable {
 struct UserSettings {
 	var pushNotificationsAllowed: Bool { return UIApplication.shared.isRegisteredForRemoteNotifications }
 	var pushNotificationsEnabled: Bool { return OneSignal.getPermissionSubscriptionState().subscriptionStatus.subscribed }
-}
-
-protocol LoginUser {
-	var uid: String { get }
-	var token: Observable<String> { get }
-}
-
-extension LoginUser {
-	var tokenHeader: Observable<String> {
-		return token.flatMap { token -> Observable<String> in return .just("Bearer \(token)") }
-	}
 }
 
 struct UniqueIdentifier: UnboxableByTransform {

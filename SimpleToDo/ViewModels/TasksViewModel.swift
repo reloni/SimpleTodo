@@ -34,7 +34,12 @@ final class TasksViewModel {
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in
 			guard let object = self else { return }
-			object.flowController.dispatch(UIAction.showSnackView(error: $0.error, hideAfter: 4))
+			if case AuthenticationError.notAuthorized = $0.error {
+				RxCompositeAction.logOffActions.forEach { object.flowController.dispatch($0) }
+				object.flowController.dispatch(UIAction.showErrorMessage($0.error))
+			} else {
+				object.flowController.dispatch(UIAction.showSnackView(error: $0.error, hideAfter: 4))
+			}
 		})
 	}()
 	
@@ -43,7 +48,7 @@ final class TasksViewModel {
 	}
 	
 	func completeTask(index: Int) {
-		flowController.dispatch(TaskListAction.completeTask(index))
+		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), TaskListAction.completeTask(index)]))
 	}
 	
 	func editTask(index: Int) {
@@ -51,11 +56,11 @@ final class TasksViewModel {
 	}
 	
 	func deleteTask(index: Int) {
-		flowController.dispatch(TaskListAction.deleteTask(index))
+		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), TaskListAction.deleteTask(index)]))
 	}
 	
 	func loadTasks() {
-		flowController.dispatch(TaskListAction.loadTasks)
+		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), TaskListAction.loadTasks]))
 	}
 	
 	func newTask() {

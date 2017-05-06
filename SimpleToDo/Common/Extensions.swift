@@ -12,6 +12,15 @@ import Unbox
 import UIKit
 import RxSwift
 import Material
+import RxDataFlow
+
+extension RxCompositeAction {
+	static var logOffActions: [RxActionType] {
+		return [AuthenticationAction.signOut,
+		        UIAction.returnToRootController,
+		        PushNotificationsAction.switchNotificationSubscription(subscribed: false)]
+	}
+}
 
 extension Notification {
 	func keyboardHeight() -> CGFloat {
@@ -114,10 +123,11 @@ extension Error {
 				}
 			}
 			return (try? unbox(data: data) as ServerSideError)?.error ?? "Internal server error"
-		case FirebaseError.signInError(let error): return error.localizedDescription
-		case FirebaseError.passwordResetError: return "Unable to send instructions to specified email adress"
-		case FirebaseError.registerError(let error): return error.localizedDescription
-		case FirebaseError.tokenRequestError(let error): return error.localizedDescription
+		case AuthenticationError.signInError(let error): return error.localizedDescription
+		case AuthenticationError.passwordResetError: return "Unable to send instructions to specified email adress"
+		case AuthenticationError.registerError(let error): return error.localizedDescription
+		case AuthenticationError.tokenRequestError(let error): return error.localizedDescription
+		case AuthenticationError.notAuthorized: return "Unauthorized access"
 		default: return "Unknown error"
 		}
 	}
@@ -129,34 +139,10 @@ extension UIFont {
 	}
 }
 
-extension FIRUser : LoginUser {
-	var token: Observable<String> {
-		return Observable.create { [weak self] observer in
-			guard let object = self else { observer.onCompleted(); return Disposables.create() }
-			
-			object.getTokenForcingRefresh(false) { token, error in
-				guard let token = token else {
-					let err = error != nil ? FirebaseError.tokenRequestError(error!) : FirebaseError.unknown
-					observer.onError(err)
-					return
-				}
-				
-				#if DEBUG
-					print("token: \(token)")
-				#endif
-				
-				observer.onNext(token)
-				observer.onCompleted()
-			}
-			
-			return Disposables.create() { observer.onCompleted() }
-		}
-	}
-}
 
 extension HttpClient {
 	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
-	//static let baseUrl = "http://localhost:5000/api/v1"
+//	static let baseUrl = "http://localhost:5000/api/v1"
 }
 
 extension Keychain {
@@ -172,4 +158,13 @@ extension Keychain {
 		set { keychain.setString(string: newValue, forAccount: "userPassword", synchronizable: true, background: false) }
 	}
 	
+	static var token: String {
+		get { return keychain.stringForAccount(account: "token") ?? "" }
+		set { keychain.setString(string: newValue, forAccount: "token", synchronizable: true, background: false) }
+	}
+	
+	static var refreshToken: String {
+		get { return keychain.stringForAccount(account: "refreshToken") ?? "" }
+		set { keychain.setString(string: newValue, forAccount: "refreshToken", synchronizable: true, background: false) }
+	}
 }

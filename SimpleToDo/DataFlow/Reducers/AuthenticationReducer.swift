@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxDataFlow
+import Auth0
 
 struct AuthenticationReducer : RxReducerType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
@@ -21,6 +22,7 @@ struct AuthenticationReducer : RxReducerType {
 		case .register(let email, let password)?: return register(currentState: currentState, email: email, password: password)
 		case .signOut?: return signOut(currentState: currentState)
 		case .resetPassword(let email)?: return resetPassword(currentState: currentState, email: email)
+		case .refreshToken(let force)?: return refreshToken(currentState: currentState, force: force)
 		default: return .empty()
 		}
 	}
@@ -28,33 +30,17 @@ struct AuthenticationReducer : RxReducerType {
 
 extension AuthenticationReducer {
 	func resetPassword(currentState state: AppState, email: String)  -> Observable<RxStateType> {
-		return Observable.create { observer in
-			FIRAuth.auth()?.sendPasswordReset(withEmail: email) { error in
-				if let error = error {
-					print(error)
-					observer.onError(FirebaseError.passwordResetError(error))
-					return
-				}
-				
-				observer.onNext(state)
-				observer.onCompleted()
+		return state.authenticationService.resetPassword(email: email)
+			.flatMapLatest { _ -> Observable<RxStateType> in
+					return .just(state)
 			}
-			
-			return Disposables.create {
-				observer.onCompleted()
-			}
-		}
 	}
 	
 	func signOut(currentState state: AppState)  -> Observable<RxStateType> {
 		return Observable.create { observer in
-			do {
-				try FIRAuth.auth()!.signOut()
-			} catch let error {
-				observer.onError(error)
-			}
-			
 			Keychain.userPassword = ""
+			Keychain.token = ""
+			Keychain.refreshToken = ""
 			
 			observer.onNext(state)
 			observer.onCompleted()
@@ -64,42 +50,34 @@ extension AuthenticationReducer {
 	}
 	
 	func logIn(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
-		return Observable.create { observer in
-			FIRAuth.auth()!.signIn(withEmail: email, password: password) { user, error in
-				if let error = error {
-					observer.onError(FirebaseError.signInError(error))
-					return
-				}
-				
+		return state.authenticationService.logIn(userNameOrEmail: email, password: password)
+			.flatMapLatest { result -> Observable<RxStateType> in
 				Keychain.userEmail = email
 				Keychain.userPassword = password
-				
-				observer.onNext(state.mutation.new(authentication: Authentication.user(user!, UserSettings())))
-				observer.onCompleted()
+				Keychain.token = result.token
+				Keychain.refreshToken = result.refreshToken
+				return .just(state.mutation.new(authentication: Authentication.authenticated(result, UserSettings())))
 			}
-			
-			return Disposables.create {
-				observer.onCompleted()
-			}
-		}
 	}
 	
 	func register(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
-		return Observable.create { observer in
-			FIRAuth.auth()!.createUser(withEmail: email, password: password) { user, error in
-				if let error = error {
-					observer.onError(FirebaseError.registerError(error))
-					return
-				}
-				
-				observer.onNext(state)
-				observer.onCompleted()
-			}
-			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+		return state.authenticationService.createUser(email: email, password: password)
+			.flatMapLatest { _ -> Observable<RxStateType> in
+				return .just(state)
 		}
+	}
+	
+	func refreshToken(currentState state: AppState, force: Bool) -> Observable<RxStateType> {
+		guard let info = state.authentication.info else { return .error(AuthenticationError.notAuthorized) }
+		
+		guard info.isTokenExpired || force else {
+			return .just(state)
+		}
+		
+		return state.authenticationService.refreshToken(info: info)
+			.flatMapLatest { result -> Observable<RxStateType> in
+				return .just(state.mutation.new(authentication: .authenticated(result, UserSettings())))
+			}
 	}
 }
 

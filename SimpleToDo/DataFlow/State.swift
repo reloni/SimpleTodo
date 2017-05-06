@@ -17,23 +17,25 @@ import UIKit
 
 enum Authentication {
 	case none
-	case user(LoginUser, UserSettings)
+	case authenticated(AuthenticationInfo, UserSettings)
 	
 	var tokenHeader: Observable<String> {
 		switch self {
-		case .none: return .error(ApplicationError.notAuthenticated)
-		case .user(let user, _): return user.tokenHeader
+		case .none: return .error(AuthenticationError.notAuthorized)
+		case .authenticated(let data): return .just(data.0.tokenHeader)
 		}
 	}
 	
-	var user: LoginUser? {
-		guard case .user(let u, _) = self else { return nil }
-		return u
+	var settings: UserSettings? {
+		switch self {
+		case .authenticated(let data): return data.1
+		default: return nil
+		}
 	}
 	
-	var settings: UserSettings? {
-		guard case .user(_, let s) = self else { return nil }
-		return s
+	var info: AuthenticationInfo? {
+		guard case .authenticated(let data) = self else { return nil }
+		return data.0
 	}
 }
 
@@ -43,6 +45,7 @@ struct AppState : RxStateType {
 	let webService: WebSerivce
 	let tasks: [Task]
 	let uiApplication: UIApplication
+	let authenticationService: AuthenticationServiceType
 	var overdueTasksCount: Int {
 		let now = Date()
 		return tasks.filter {
@@ -62,14 +65,17 @@ extension AppState {
 
 extension AppStateMutation {
 	func new(tasks: [Task]) -> AppState {
-		return AppState(coordinator: state.coordinator, authentication: state.authentication, webService: state.webService, tasks: tasks, uiApplication: state.uiApplication)
+		return AppState(coordinator: state.coordinator, authentication: state.authentication, webService: state.webService,
+		                tasks: tasks, uiApplication: state.uiApplication, authenticationService: state.authenticationService)
 	}
 	
 	func new(coordinator: ApplicationCoordinatorType) -> AppState {
-		return AppState(coordinator: coordinator, authentication: state.authentication, webService: state.webService, tasks: state.tasks, uiApplication: state.uiApplication)
+		return AppState(coordinator: coordinator, authentication: state.authentication, webService: state.webService,
+		                tasks: state.tasks, uiApplication: state.uiApplication, authenticationService: state.authenticationService)
 	}
 	
 	func new(authentication: Authentication) -> AppState {
-		return AppState(coordinator: state.coordinator, authentication: authentication, webService: state.webService, tasks: state.tasks, uiApplication: state.uiApplication)
+		return AppState(coordinator: state.coordinator, authentication: authentication, webService: state.webService,
+		                tasks: state.tasks, uiApplication: state.uiApplication, authenticationService: state.authenticationService)
 	}
 }

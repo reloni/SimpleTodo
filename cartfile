@@ -8,3 +8,5 @@ github "JohnSundell/Unbox" == 2.4.0
 github "JohnSundell/Wrap" == 2.1.0
 github "RxSwiftCommunity/RxGesture" == 1.0.0
 github "OneSignal/OneSignal-iOS-SDK" == 2.5.2
+github "auth0/Auth0.swift" == 1.5.0
+github "auth0/JWTDecode.swift" == 2.0.0

@@ -6,6 +6,7 @@
 //  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
 
+import Foundation
 import RxSwift
 import RxDataFlow
 
@@ -52,6 +53,7 @@ final class EditTaskViewModel {
 		guard taskDescription.value.characters.count > 0 else { return }
 		guard let task = task else {
 			let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
+			                                         AuthenticationAction.refreshToken(force: false),
 			                                         EditTaskAction.addTask(Task(uuid: UniqueIdentifier(),
 			                                                                     completed: false,
 			                                                                     description: taskDescription.value,
@@ -67,6 +69,7 @@ final class EditTaskViewModel {
 		
 		let newTask = Task(uuid: task.uuid, completed: false, description: taskDescription.value, notes: taskNotes.value, targetDate: taskTargetDate.value)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
+		                                         AuthenticationAction.refreshToken(force: false),
 		                                         EditTaskAction.updateTask(newTask)])
 		
 		flowController.dispatch(UIAction.showSpinner)

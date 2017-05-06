@@ -24,15 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		                            authentication: .none,
 		                            webService: WebSerivce(httpClient: httpClient),
 		                            tasks: [],
-		                            uiApplication: UIApplication.shared)
+		                            uiApplication: UIApplication.shared,
+		                            authenticationService: Auth0AuthenticationService())
 		
 		return RxDataFlowController(reducer: RootReducer(), initialState: initialState, maxHistoryItems: 1)
 	}()
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
-		
-		FIRApp.configure()
 		
 		setupPushNotifications(withLaunchOptions: launchOptions)
 		
