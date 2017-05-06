@@ -8,6 +8,7 @@
 
 import RxDataFlow
 import RxSwift
+import UIKit
 
 protocol ApplicationCoordinatorType {
 	var window: UIWindow { get }

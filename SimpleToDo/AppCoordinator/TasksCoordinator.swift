@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxDataFlow
+import UIKit
 
 struct TasksCoordinator : ApplicationCoordinatorType {
 	let window: UIWindow

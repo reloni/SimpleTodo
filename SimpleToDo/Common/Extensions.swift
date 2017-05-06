@@ -130,30 +130,6 @@ extension UIFont {
 	}
 }
 
-extension FIRUser : LoginUser {
-	var token: Observable<String> {
-		return Observable.create { [weak self] observer in
-			guard let object = self else { observer.onCompleted(); return Disposables.create() }
-			
-			object.getTokenForcingRefresh(false) { token, error in
-				guard let token = token else {
-					let err = error != nil ? AuthenticationError.tokenRequestError(error!) : AuthenticationError.unknown
-					observer.onError(err)
-					return
-				}
-				
-				#if DEBUG
-					print("token: \(token)")
-				#endif
-				
-				observer.onNext(token)
-				observer.onCompleted()
-			}
-			
-			return Disposables.create() { observer.onCompleted() }
-		}
-	}
-}
 
 extension HttpClient {
 //	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
@@ -173,4 +149,13 @@ extension Keychain {
 		set { keychain.setString(string: newValue, forAccount: "userPassword", synchronizable: true, background: false) }
 	}
 	
+	static var token: String {
+		get { return keychain.stringForAccount(account: "token") ?? "" }
+		set { keychain.setString(string: newValue, forAccount: "token", synchronizable: true, background: false) }
+	}
+	
+	static var refreshToken: String {
+		get { return keychain.stringForAccount(account: "refreshToken") ?? "" }
+		set { keychain.setString(string: newValue, forAccount: "refreshToken", synchronizable: true, background: false) }
+	}
 }

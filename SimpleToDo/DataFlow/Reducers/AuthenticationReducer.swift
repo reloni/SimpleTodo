@@ -30,16 +30,6 @@ struct AuthenticationReducer : RxReducerType {
 extension AuthenticationReducer {
 	func resetPassword(currentState state: AppState, email: String)  -> Observable<RxStateType> {
 		return Observable.create { observer in
-			FIRAuth.auth()?.sendPasswordReset(withEmail: email) { error in
-				if let error = error {
-					print(error)
-					observer.onError(AuthenticationError.passwordResetError(error))
-					return
-				}
-				
-				observer.onNext(state)
-				observer.onCompleted()
-			}
 			
 			return Disposables.create {
 				observer.onCompleted()
@@ -50,7 +40,7 @@ extension AuthenticationReducer {
 	func signOut(currentState state: AppState)  -> Observable<RxStateType> {
 		return Observable.create { observer in
 			do {
-				try FIRAuth.auth()!.signOut()
+
 			} catch let error {
 				observer.onError(error)
 			}
@@ -73,15 +63,6 @@ extension AuthenticationReducer {
 	
 	func register(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
 		return Observable.create { observer in
-			FIRAuth.auth()!.createUser(withEmail: email, password: password) { user, error in
-				if let error = error {
-					observer.onError(AuthenticationError.registerError(error))
-					return
-				}
-				
-				observer.onNext(state)
-				observer.onCompleted()
-			}
 			
 			return Disposables.create {
 				observer.onCompleted()

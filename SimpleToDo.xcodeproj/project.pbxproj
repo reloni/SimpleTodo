@@ -29,12 +29,6 @@
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
-		6E5872121E5BEDE70003D9D2 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5872111E5BEDE70003D9D2 /* AddressBook.framework */; };
-		6E5872141E5BEDF40003D9D2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5872131E5BEDF40003D9D2 /* libz.tbd */; };
-		6E5872171E5BF4140003D9D2 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3F21E540DA100BA8283 /* GTMSessionFetcher.framework */; };
-		6E5872181E5BF4B80003D9D2 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EC1E540D9100BA8283 /* GoogleToolboxForMac.framework */; };
-		6E59883C1EB8C0AB00501B7F /* FirebaseCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E59883A1EB8C0AB00501B7F /* FirebaseCrash.framework */; };
-		6E59883D1EB8C0AB00501B7F /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E59883B1EB8C0AB00501B7F /* Protobuf.framework */; };
 		6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */; };
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
@@ -45,13 +39,8 @@
 		6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
 		6E9026E31E5AA55700851B4D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E21E5AA55700851B4D /* SafariServices.framework */; };
 		6E9026E51E5AA56400851B4D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E41E5AA56400851B4D /* SystemConfiguration.framework */; };
-		6E9026EE1E5AA66F00851B4D /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3F11E540DA100BA8283 /* FirebaseAuth.framework */; };
 		6E96B07B1EBAE69B0096ACFE /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */; };
 		6E96B07F1EBC361A0096ACFE /* SnackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07E1EBC361A0096ACFE /* SnackView.swift */; };
-		6E9AA3ED1E540D9100BA8283 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3E91E540D9100BA8283 /* FirebaseAnalytics.framework */; };
-		6E9AA3EE1E540D9100BA8283 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EA1E540D9100BA8283 /* FirebaseCore.framework */; };
-		6E9AA3EF1E540D9100BA8283 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9AA3EB1E540D9100BA8283 /* FirebaseInstanceID.framework */; };
-		6E9AA3FD1E54105900BA8283 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E9AA3FC1E54105900BA8283 /* GoogleService-Info.plist */; };
 		6EA022C81E755A3600934BB7 /* RootReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022C71E755A3600934BB7 /* RootReducer.swift */; };
 		6EA022CA1E755A5700934BB7 /* AuthenticationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022C91E755A5700934BB7 /* AuthenticationReducer.swift */; };
 		6EA022CC1E755A6D00934BB7 /* TasksReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022CB1E755A6D00934BB7 /* TasksReducer.swift */; };
@@ -164,10 +153,6 @@
 		6E9AA3EC1E540D9100BA8283 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = Carthage/Firebase/Analytics/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
 		6E9AA3F11E540DA100BA8283 /* FirebaseAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAuth.framework; path = Carthage/Firebase/Auth/FirebaseAuth.framework; sourceTree = "<group>"; };
 		6E9AA3F21E540DA100BA8283 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GTMSessionFetcher.framework; path = Carthage/Firebase/Auth/GTMSessionFetcher.framework; sourceTree = "<group>"; };
-		6E9AA3F61E540EB500BA8283 /* SimpleToDo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleToDo-Bridging-Header.h"; sourceTree = "<group>"; };
-		6E9AA3FA1E540F2E00BA8283 /* Firebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
-		6E9AA3FB1E540F2E00BA8283 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		6E9AA3FC1E54105900BA8283 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6EA022C71E755A3600934BB7 /* RootReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootReducer.swift; sourceTree = "<group>"; };
 		6EA022C91E755A5700934BB7 /* AuthenticationReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationReducer.swift; sourceTree = "<group>"; };
 		6EA022CB1E755A6D00934BB7 /* TasksReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksReducer.swift; sourceTree = "<group>"; };
@@ -207,19 +192,9 @@
 			files = (
 				6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */,
 				6E07B8931EBDB4D900ADA5A8 /* Auth0.framework in Frameworks */,
-				6E59883C1EB8C0AB00501B7F /* FirebaseCrash.framework in Frameworks */,
-				6E59883D1EB8C0AB00501B7F /* Protobuf.framework in Frameworks */,
 				6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */,
-				6E5872181E5BF4B80003D9D2 /* GoogleToolboxForMac.framework in Frameworks */,
-				6E5872171E5BF4140003D9D2 /* GTMSessionFetcher.framework in Frameworks */,
-				6E5872141E5BEDF40003D9D2 /* libz.tbd in Frameworks */,
-				6E5872121E5BEDE70003D9D2 /* AddressBook.framework in Frameworks */,
-				6E9026EE1E5AA66F00851B4D /* FirebaseAuth.framework in Frameworks */,
 				6E9026E51E5AA56400851B4D /* SystemConfiguration.framework in Frameworks */,
 				6E9026E31E5AA55700851B4D /* SafariServices.framework in Frameworks */,
-				6E9AA3ED1E540D9100BA8283 /* FirebaseAnalytics.framework in Frameworks */,
-				6E9AA3EE1E540D9100BA8283 /* FirebaseCore.framework in Frameworks */,
-				6E9AA3EF1E540D9100BA8283 /* FirebaseInstanceID.framework in Frameworks */,
 				6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */,
 				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
 				6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */,
@@ -276,7 +251,6 @@
 			children = (
 				6E99ADE91EA3D76F00B88E6E /* SimpleToDo.entitlements */,
 				6EBD408B1E60ABB100661CA6 /* AppCoordinator */,
-				6E9AA3F91E540F1400BA8283 /* Firebase */,
 				6E5FD9B41E59F9D2002C71F2 /* ViewModels */,
 				6EA7B41F1E06A36D0043BAA1 /* DataFlow */,
 				6E5752171E05ADBD002AA9B4 /* Controls */,
@@ -288,8 +262,6 @@
 				6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */,
 				6E15D0271DF0A45A00B4CCA7 /* Info.plist */,
 				6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */,
-				6E9AA3FC1E54105900BA8283 /* GoogleService-Info.plist */,
-				6E9AA3F61E540EB500BA8283 /* SimpleToDo-Bridging-Header.h */,
 			);
 			path = SimpleToDo;
 			sourceTree = "<group>";
@@ -403,15 +375,6 @@
 				6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		6E9AA3F91E540F1400BA8283 /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				6E9AA3FA1E540F2E00BA8283 /* Firebase.h */,
-				6E9AA3FB1E540F2E00BA8283 /* module.modulemap */,
-			);
-			path = Firebase;
 			sourceTree = "<group>";
 		};
 		6EA022C61E7559E900934BB7 /* Reducers */ = {
@@ -607,7 +570,6 @@
 			files = (
 				6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */,
 				6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */,
-				6E9AA3FD1E54105900BA8283 /* GoogleService-Info.plist in Resources */,
 				6E07B8951EBDB9A700ADA5A8 /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -879,15 +841,12 @@
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(OTHER_LDFLAGS)",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "SimpleToDo/SimpleToDo-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -913,15 +872,12 @@
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(OTHER_LDFLAGS)",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "SimpleToDo/SimpleToDo-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

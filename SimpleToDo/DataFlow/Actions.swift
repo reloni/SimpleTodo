@@ -8,6 +8,7 @@
 
 import RxDataFlow
 import RxSwift
+import UIKit
 
 enum UIAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
