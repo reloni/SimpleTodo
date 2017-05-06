@@ -41,6 +41,7 @@ extension AuthenticationReducer {
 			Keychain.userPassword = ""
 			Keychain.token = ""
 			Keychain.refreshToken = ""
+			Keychain.userUuid = ""
 			
 			observer.onNext(state)
 			observer.onCompleted()
@@ -56,6 +57,7 @@ extension AuthenticationReducer {
 				Keychain.userPassword = password
 				Keychain.token = result.token
 				Keychain.refreshToken = result.refreshToken
+				Keychain.userUuid = result.uid
 				return .just(state.mutation.new(authentication: Authentication.authenticated(result, UserSettings())))
 			}
 	}

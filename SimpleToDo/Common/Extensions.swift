@@ -167,4 +167,9 @@ extension Keychain {
 		get { return keychain.stringForAccount(account: "refreshToken") ?? "" }
 		set { keychain.setString(string: newValue, forAccount: "refreshToken", synchronizable: true, background: false) }
 	}
+	
+	static var userUuid: String {
+		get { return keychain.stringForAccount(account: "userUuid") ?? "" }
+		set { keychain.setString(string: newValue, forAccount: "userUuid", synchronizable: true, background: false) }
+	}
 }

@@ -116,13 +116,44 @@ struct InitialCoordinator : ApplicationCoordinatorType {
 		self.window = window
 	}
 	
+	var canLogInAutomatically: Bool {
+		guard Keychain.userEmail.characters.count > 0,
+			Keychain.userPassword.characters.count > 0,
+			Keychain.token.characters.count > 0,
+			Keychain.refreshToken.characters.count > 0,
+			Keychain.userUuid.characters.count > 0 else {
+				return false
+		}
+		
+		return true
+	}
+	
+	func showLogInController(flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+		let controller = AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController, mode: .logIn))
+		let coordinator = AuthenticationCoordinator(window: window, controller: controller)
+		set(initialRootController: controller)
+		return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
+	}
+	
+	func showTasksController(flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+		let coordinator = TasksCoordinator(window: window, flowController: flowController)
+		
+		let authenticationInfo = AuthenticationInfo(uid: Keychain.userUuid, token: Keychain.token, expiresAt: nil, refreshToken: Keychain.refreshToken)
+		let state = flowController.currentState.state.mutation.new(authentication: .authenticated(authenticationInfo, UserSettings()))
+		
+		set(initialRootController: coordinator.navigationController)
+		
+		return .just(state.mutation.new(coordinator: coordinator))
+	}
+	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
 		switch action {
 		case UIAction.showRootController:
-			let controller = AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController, mode: .logIn))
-			let coordinator = AuthenticationCoordinator(window: window, controller: controller)
-			set(initialRootController: controller)
-			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
+			if canLogInAutomatically {
+				return showTasksController(flowController: flowController)
+			} else {
+				return showLogInController(flowController: flowController)
+			}
 		default: fatalError("Only UIAction.showRootController may be dispatched")
 		}
 	}
