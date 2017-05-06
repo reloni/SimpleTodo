@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxDataFlow
+import Auth0
 
 struct AuthenticationReducer : RxReducerType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
@@ -32,7 +33,7 @@ extension AuthenticationReducer {
 			FIRAuth.auth()?.sendPasswordReset(withEmail: email) { error in
 				if let error = error {
 					print(error)
-					observer.onError(FirebaseError.passwordResetError(error))
+					observer.onError(AuthenticationError.passwordResetError(error))
 					return
 				}
 				
@@ -64,31 +65,17 @@ extension AuthenticationReducer {
 	}
 	
 	func logIn(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
-		return Observable.create { observer in
-			FIRAuth.auth()!.signIn(withEmail: email, password: password) { user, error in
-				if let error = error {
-					observer.onError(FirebaseError.signInError(error))
-					return
-				}
-				
-				Keychain.userEmail = email
-				Keychain.userPassword = password
-				
-				observer.onNext(state.mutation.new(authentication: Authentication.user(user!, UserSettings())))
-				observer.onCompleted()
+		return state.authenticationService.logIn(userNameOremail: email, password: password)
+			.flatMapLatest { result -> Observable<RxStateType> in
+				return .just(state.mutation.new(authentication: Authentication.authenticated(result, UserSettings())))
 			}
-			
-			return Disposables.create {
-				observer.onCompleted()
-			}
-		}
 	}
 	
 	func register(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
 		return Observable.create { observer in
 			FIRAuth.auth()!.createUser(withEmail: email, password: password) { user, error in
 				if let error = error {
-					observer.onError(FirebaseError.registerError(error))
+					observer.onError(AuthenticationError.registerError(error))
 					return
 				}
 				

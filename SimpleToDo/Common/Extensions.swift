@@ -114,10 +114,11 @@ extension Error {
 				}
 			}
 			return (try? unbox(data: data) as ServerSideError)?.error ?? "Internal server error"
-		case FirebaseError.signInError(let error): return error.localizedDescription
-		case FirebaseError.passwordResetError: return "Unable to send instructions to specified email adress"
-		case FirebaseError.registerError(let error): return error.localizedDescription
-		case FirebaseError.tokenRequestError(let error): return error.localizedDescription
+		case AuthenticationError.signInError(let error): return error.localizedDescription
+		case AuthenticationError.passwordResetError: return "Unable to send instructions to specified email adress"
+		case AuthenticationError.registerError(let error): return error.localizedDescription
+		case AuthenticationError.tokenRequestError(let error): return error.localizedDescription
+		case AuthenticationError.notAuthorized: return "Unauthorized access"
 		default: return "Unknown error"
 		}
 	}
@@ -136,7 +137,7 @@ extension FIRUser : LoginUser {
 			
 			object.getTokenForcingRefresh(false) { token, error in
 				guard let token = token else {
-					let err = error != nil ? FirebaseError.tokenRequestError(error!) : FirebaseError.unknown
+					let err = error != nil ? AuthenticationError.tokenRequestError(error!) : AuthenticationError.unknown
 					observer.onError(err)
 					return
 				}
@@ -155,8 +156,8 @@ extension FIRUser : LoginUser {
 }
 
 extension HttpClient {
-	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
-	//static let baseUrl = "http://localhost:5000/api/v1"
+//	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
+	static let baseUrl = "http://localhost:5000/api/v1"
 }
 
 extension Keychain {

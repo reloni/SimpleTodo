@@ -10,6 +10,9 @@
 		6E05D0041E881F0B00C293B8 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E05D0031E881F0B00C293B8 /* WebService.swift */; };
 		6E0645581E990D1500A8AA59 /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0645571E990D1500A8AA59 /* TextViewCell.swift */; };
 		6E06455A1E993EB600A8AA59 /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0645591E993EB600A8AA59 /* SwitchView.swift */; };
+		6E07B8931EBDB4D900ADA5A8 /* Auth0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E07B8921EBDB4D900ADA5A8 /* Auth0.framework */; };
+		6E07B8951EBDB9A700ADA5A8 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */; };
+		6E07B8971EBDBC9800ADA5A8 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */; };
 		6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */; };
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
@@ -21,6 +24,7 @@
 		6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */; };
 		6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */; };
 		6E3B8A7C1EB4D42600EC932F /* SettingsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */; };
+		6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E494D891EBDD13100280F5F /* JWTDecode.framework */; };
 		6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752151E05AD06002AA9B4 /* Entities.swift */; };
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
@@ -97,6 +101,9 @@
 		6E05D0031E881F0B00C293B8 /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		6E0645571E990D1500A8AA59 /* TextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		6E0645591E993EB600A8AA59 /* SwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchView.swift; sourceTree = "<group>"; };
+		6E07B8921EBDB4D900ADA5A8 /* Auth0.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Auth0.framework; path = Carthage/Build/iOS/Auth0.framework; sourceTree = "<group>"; };
+		6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
+		6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		6E15D0181DF0A45A00B4CCA7 /* SimpleToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +122,7 @@
 		6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsReducer.swift; sourceTree = "<group>"; };
+		6E494D891EBDD13100280F5F /* JWTDecode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JWTDecode.framework; path = Carthage/Build/iOS/JWTDecode.framework; sourceTree = "<group>"; };
 		6E5752151E05AD06002AA9B4 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		6E5752191E05AFC4002AA9B4 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
@@ -197,6 +205,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */,
+				6E07B8931EBDB4D900ADA5A8 /* Auth0.framework in Frameworks */,
 				6E59883C1EB8C0AB00501B7F /* FirebaseCrash.framework in Frameworks */,
 				6E59883D1EB8C0AB00501B7F /* Protobuf.framework in Frameworks */,
 				6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */,
@@ -277,6 +287,7 @@
 				6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */,
 				6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */,
 				6E15D0271DF0A45A00B4CCA7 /* Info.plist */,
+				6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */,
 				6E9AA3FC1E54105900BA8283 /* GoogleService-Info.plist */,
 				6E9AA3F61E540EB500BA8283 /* SimpleToDo-Bridging-Header.h */,
 			);
@@ -304,6 +315,8 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E494D891EBDD13100280F5F /* JWTDecode.framework */,
+				6E07B8921EBDB4D900ADA5A8 /* Auth0.framework */,
 				6E59883A1EB8C0AB00501B7F /* FirebaseCrash.framework */,
 				6E59883B1EB8C0AB00501B7F /* Protobuf.framework */,
 				6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */,
@@ -359,6 +372,7 @@
 				6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */,
 				6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */,
 				6E05D0031E881F0B00C293B8 /* WebService.swift */,
+				6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -594,6 +608,7 @@
 				6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */,
 				6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */,
 				6E9AA3FD1E54105900BA8283 /* GoogleService-Info.plist in Resources */,
+				6E07B8951EBDB9A700ADA5A8 /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +660,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Wrap.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OneSignal.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Auth0.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/JWTDecode.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (
@@ -699,6 +716,7 @@
 				6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */,
 				6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */,
 				6E0645581E990D1500A8AA59 /* TextViewCell.swift in Sources */,
+				6E07B8971EBDBC9800ADA5A8 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
