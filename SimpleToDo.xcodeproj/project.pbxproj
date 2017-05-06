@@ -37,8 +37,6 @@
 		6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
 		6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */; };
 		6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
-		6E9026E31E5AA55700851B4D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E21E5AA55700851B4D /* SafariServices.framework */; };
-		6E9026E51E5AA56400851B4D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E41E5AA56400851B4D /* SystemConfiguration.framework */; };
 		6E96B07B1EBAE69B0096ACFE /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */; };
 		6E96B07F1EBC361A0096ACFE /* SnackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07E1EBC361A0096ACFE /* SnackView.swift */; };
 		6EA022C81E755A3600934BB7 /* RootReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022C71E755A3600934BB7 /* RootReducer.swift */; };
@@ -193,8 +191,6 @@
 				6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */,
 				6E07B8931EBDB4D900ADA5A8 /* Auth0.framework in Frameworks */,
 				6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */,
-				6E9026E51E5AA56400851B4D /* SystemConfiguration.framework in Frameworks */,
-				6E9026E31E5AA55700851B4D /* SafariServices.framework in Frameworks */,
 				6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */,
 				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
 				6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */,
