@@ -12,6 +12,15 @@ import Unbox
 import UIKit
 import RxSwift
 import Material
+import RxDataFlow
+
+extension RxCompositeAction {
+	static var logOffActions: [RxActionType] {
+		return [AuthenticationAction.signOut,
+		        UIAction.returnToRootController,
+		        PushNotificationsAction.switchNotificationSubscription(subscribed: false)]
+	}
+}
 
 extension Notification {
 	func keyboardHeight() -> CGFloat {
@@ -132,8 +141,8 @@ extension UIFont {
 
 
 extension HttpClient {
-//	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
-	static let baseUrl = "http://localhost:5000/api/v1"
+	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
+//	static let baseUrl = "http://localhost:5000/api/v1"
 }
 
 extension Keychain {

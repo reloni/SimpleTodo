@@ -28,12 +28,12 @@ struct PushNotificationsReducer : RxReducerType {
 
 extension PushNotificationsReducer {
 	func promtForPushNotifications(currentState state: AppState) -> Observable<RxStateType> {
-		guard let user = state.authentication.user else { return .just(state) }
+		guard let info = state.authentication.info else { return .just(state) }
 		
 		OneSignal.promptForPushNotifications(userResponse: { accepted in
 			guard accepted else { return }
 			
-			PushNotificationsReducer.enableSubscription(for: user)
+			PushNotificationsReducer.enableSubscription(for: info)
 		})
 		
 		return .just(state)
@@ -55,15 +55,15 @@ extension PushNotificationsReducer {
 	}
 	
 	func enablePushNotificationsSubscription(currentState state: AppState)  -> Observable<RxStateType> {
-		guard let user = state.authentication.user else { return .just(state) }
+		guard let info = state.authentication.info else { return .just(state) }
 		
-		PushNotificationsReducer.enableSubscription(for: user)
+		PushNotificationsReducer.enableSubscription(for: info)
 		
 		return .just(state)
 	}
 	
-	static func enableSubscription(for user: LoginUser) {
+	static func enableSubscription(for info: AuthenticationInfo) {
 		OneSignal.setSubscription(true)
-		OneSignal.sendTag("user_id", value: user.uid)
+		OneSignal.sendTag("user_id", value: info.uid)
 	}
 }

@@ -29,23 +29,17 @@ struct AuthenticationReducer : RxReducerType {
 
 extension AuthenticationReducer {
 	func resetPassword(currentState state: AppState, email: String)  -> Observable<RxStateType> {
-		return Observable.create { observer in
-			
-			return Disposables.create {
-				observer.onCompleted()
+		return state.authenticationService.resetPassword(email: email)
+			.flatMapLatest { _ -> Observable<RxStateType> in
+					return .just(state)
 			}
-		}
 	}
 	
 	func signOut(currentState state: AppState)  -> Observable<RxStateType> {
 		return Observable.create { observer in
-			do {
-
-			} catch let error {
-				observer.onError(error)
-			}
-			
 			Keychain.userPassword = ""
+			Keychain.token = ""
+			Keychain.refreshToken = ""
 			
 			observer.onNext(state)
 			observer.onCompleted()
@@ -55,18 +49,20 @@ extension AuthenticationReducer {
 	}
 	
 	func logIn(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
-		return state.authenticationService.logIn(userNameOremail: email, password: password)
+		return state.authenticationService.logIn(userNameOrEmail: email, password: password)
 			.flatMapLatest { result -> Observable<RxStateType> in
+				Keychain.userEmail = email
+				Keychain.userPassword = password
+				Keychain.token = result.token
+				Keychain.refreshToken = result.refreshToken
 				return .just(state.mutation.new(authentication: Authentication.authenticated(result, UserSettings())))
 			}
 	}
 	
 	func register(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
-		return Observable.create { observer in
-			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+		return state.authenticationService.createUser(email: email, password: password)
+			.flatMapLatest { _ -> Observable<RxStateType> in
+				return .just(state)
 		}
 	}
 }

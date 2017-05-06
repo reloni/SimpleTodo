@@ -34,12 +34,14 @@ struct AuthenticationInfo {
 }
 
 protocol AuthenticationServiceType {
-	func logIn(userNameOremail: String, password: String) -> Observable<AuthenticationInfo>
+	func logIn(userNameOrEmail: String, password: String) -> Observable<AuthenticationInfo>
+	func resetPassword(email: String) -> Observable<Void>
+	func createUser(email: String, password: String) -> Observable<Void>
 }
 
 struct Auth0AuthenticationService: AuthenticationServiceType {
-	func logIn(userNameOremail: String, password: String) -> Observable<AuthenticationInfo> {
-		return Auth0AuthenticationService.authenticate(userNameOremail: userNameOremail, password: password)
+	func logIn(userNameOrEmail: String, password: String) -> Observable<AuthenticationInfo> {
+		return Auth0AuthenticationService.authenticate(userNameOremail: userNameOrEmail, password: password)
 			.flatMapLatest { tokens -> Observable<AuthenticationInfo> in
 				return Auth0AuthenticationService.userProfile(token: tokens.accessToken)
 					.flatMapLatest { profile -> Observable<AuthenticationInfo> in
@@ -71,6 +73,42 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 						observer.onCompleted()
 					case .failure(let error):
 						observer.onError(AuthenticationError.signInError(error))
+					}
+			}
+			
+			return Disposables.create {
+				observer.onCompleted()
+			}
+		}
+	}
+	
+	func createUser(email: String, password: String) -> Observable<Void> {
+		return Observable.create { observer in
+			Auth0
+				.authentication()
+				.createUser(email: email, username: nil, password: password, connection: "Username-Password-Authentication")
+				.start { result in
+					switch result {
+					case .success: observer.onCompleted()
+					case .failure(error: let error): observer.onError(AuthenticationError.registerError(error))
+					}
+			}
+			
+			return Disposables.create {
+				observer.onCompleted()
+			}
+		}
+	}
+	
+	func resetPassword(email: String) -> Observable<Void> {
+		return Observable.create { observer in
+			Auth0
+				.authentication()
+				.resetPassword(email: email, connection: "Username-Password-Authentication")
+				.start { result in
+					switch result {
+					case .success: observer.onCompleted()
+					case .failure(error: let error): observer.onError(AuthenticationError.passwordResetError(error))
 					}
 			}
 			

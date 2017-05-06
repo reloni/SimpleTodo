@@ -17,26 +17,18 @@ import UIKit
 
 enum Authentication {
 	case none
-	case user(LoginUser, UserSettings)
 	case authenticated(AuthenticationInfo, UserSettings)
 	
 	var tokenHeader: Observable<String> {
 		switch self {
 		case .none: return .error(AuthenticationError.notAuthorized)
-		case .user(let data): return data.0.tokenHeader
 		case .authenticated(let data): return .just(data.0.tokenHeader)
 		}
-	}
-	
-	var user: LoginUser? {
-		guard case .user(let data) = self else { return nil }
-		return data.0
 	}
 	
 	var settings: UserSettings? {
 		switch self {
 		case .authenticated(let data): return data.1
-		case .user(let data): return data.1
 		default: return nil
 		}
 	}

@@ -26,7 +26,12 @@ final class SettingsViewModel {
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in
 			guard let object = self else { return }
-			object.flowController.dispatch(UIAction.showSnackView(error: $0.error, hideAfter: 4))
+			if case AuthenticationError.notAuthorized = $0.error {
+				RxCompositeAction.logOffActions.forEach { object.flowController.dispatch($0) }
+				object.flowController.dispatch(UIAction.showErrorMessage($0.error))
+			} else {
+				object.flowController.dispatch(UIAction.showSnackView(error: $0.error, hideAfter: 4))
+			}
 		})
 	}()
 	
@@ -41,9 +46,7 @@ final class SettingsViewModel {
 	}
 	
 	func logOff() {
-		flowController.dispatch(AuthenticationAction.signOut)
-		flowController.dispatch(UIAction.returnToRootController)
-		flowController.dispatch(PushNotificationsAction.switchNotificationSubscription(subscribed: false))
+		RxCompositeAction.logOffActions.forEach { flowController.dispatch($0) }
 	}
 	
 	func done() {
