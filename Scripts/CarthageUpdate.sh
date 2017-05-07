@@ -11,3 +11,5 @@ carthage update Wrap  --cache-builds --platform iOS
 carthage update RxGesture  --cache-builds --platform iOS
 carthage update AMScrollingNavbar --cache-builds --platform iOS
 carthage update OneSignal-iOS-SDK --cache-builds --platform iOS
+carthage update Auth0.swift --cache-builds --platform iOS
+carthage update JWTDecode.swift --cache-builds --platform iOS
