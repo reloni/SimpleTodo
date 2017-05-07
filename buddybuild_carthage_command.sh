@@ -1,2 +1,3 @@
 #!/bin/bash
-sh Scripts/CarthageUpdate.sh
+carthage update RxSwift --cache-builds --platform iOS
+carthage update --platform ios
