@@ -43,10 +43,14 @@ platform :ios do
   end
 
   lane :refresh_dsyms do
-  download_dsyms                  # Download dSYM files from iTC
-  #upload_symbols_to_crashlytics   # Upload them to Crashlytics
-  #clean_build_artifacts           # Delete the local dSYM files
-end
+    download_dsyms(
+        version: "1.0",
+        build_number: latest_testflight_build_number(version: "1.0").to_s
+    )
+    #download_dsyms                  # Download dSYM files from iTC
+    #upload_symbols_to_crashlytics   # Upload them to Crashlytics
+    clean_build_artifacts           # Delete the local dSYM files
+  end
 
   desc "Deploy a new version to the App Store"
   lane :release do
