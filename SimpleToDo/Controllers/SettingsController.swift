@@ -61,7 +61,7 @@ final class SettingsController : UIViewController {
 	func bind() {
 		viewModel.sections
 			.observeOn(MainScheduler.instance)
-			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: bag)
 		
 		viewModel.errors.subscribe().disposed(by: bag)

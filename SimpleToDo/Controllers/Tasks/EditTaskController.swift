@@ -174,7 +174,7 @@ final class EditTaskController : UIViewController {
 			self?.viewModel.taskNotes.value = self?.notesTextField.text
 		}).disposed(by: bag)
 
-		targetDatePickerView.currentDate.bindTo(viewModel.taskTargetDate).disposed(by: bag)
+		targetDatePickerView.currentDate.bind(to: viewModel.taskTargetDate).disposed(by: bag)
 		
 		viewModel.datePickerExpanded.skip(1).subscribe(onNext: { [weak self] isExpanded in self?.switchDatePickerExpandMode(isExpanded) }).disposed(by: bag)
 		
@@ -183,7 +183,7 @@ final class EditTaskController : UIViewController {
 		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.switchDatePickerExpansion() }).disposed(by: bag)
 		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.clearTargetDate() }).disposed(by: bag)
 		
-		targetDatePickerView.currentDate.map { $0?.date.shortDateAndTime ?? "" }.bindTo(targetDateView.textField.rx.text).disposed(by: bag)
+		targetDatePickerView.currentDate.map { $0?.date.shortDateAndTime ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
 	}
 	
 	func switchDatePickerExpandMode(_ expand: Bool) {

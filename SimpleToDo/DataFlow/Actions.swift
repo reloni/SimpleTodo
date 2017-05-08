@@ -11,6 +11,7 @@ import RxSwift
 import UIKit
 
 enum UIAction : RxActionType {
+	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case showSettingsController
@@ -36,6 +37,7 @@ enum UIAction : RxActionType {
 }
 
 enum AuthenticationAction : RxActionType {
+	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return nil }
 
 	case resetPassword(String)
@@ -46,6 +48,7 @@ enum AuthenticationAction : RxActionType {
 }
 
 enum TaskListAction : RxActionType {
+	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 
 	case loadTasks
@@ -54,12 +57,14 @@ enum TaskListAction : RxActionType {
 }
 
 enum SettingsAction : RxActionType {
+	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case showLogOffAlert(sourceView: UIView)
 }
 
 enum EditTaskAction : RxActionType {
+	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case addTask(Task)
@@ -67,6 +72,7 @@ enum EditTaskAction : RxActionType {
 }
 
 enum PushNotificationsAction : RxActionType {
+	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return nil }
 	
 	case promtForPushNotifications

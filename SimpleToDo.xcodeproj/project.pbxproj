@@ -814,10 +814,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Firebase/Analytics",
-					"$(PROJECT_DIR)/Carthage/Firebase/Auth",
-					"$(PROJECT_DIR)/Carthage/Firebase/Invites",
-					"$(PROJECT_DIR)/Carthage/Firebase/Crash",
 				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -845,10 +841,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Firebase/Analytics",
-					"$(PROJECT_DIR)/Carthage/Firebase/Auth",
-					"$(PROJECT_DIR)/Carthage/Firebase/Invites",
-					"$(PROJECT_DIR)/Carthage/Firebase/Crash",
 				);
 				INFOPLIST_FILE = SimpleToDo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
