@@ -9,6 +9,13 @@
 import Foundation
 import RealmSwift
 
+enum ObjectSynchronizationStatus: String {
+	case unchanged
+	case created
+	case modified
+	case deleted
+}
+
 class RealmTask: Object {
 	dynamic var uuid: String = ""
 	dynamic var completed: Bool = false
@@ -16,7 +23,16 @@ class RealmTask: Object {
 	dynamic var notes: String? = nil
 	dynamic var targetDate: Date? = nil
 	dynamic var targetDateIncludeTime: Bool = false
-	dynamic var isSynchronized: Bool = false
+	dynamic var _synchronizationStatus: String = ObjectSynchronizationStatus.created.rawValue
+	
+	var synchronizationStatus: ObjectSynchronizationStatus {
+		get {
+			return ObjectSynchronizationStatus(rawValue: _synchronizationStatus)!
+		}
+		set {
+			_synchronizationStatus = newValue.rawValue
+		}
+	}
 	
 	var taskDate: TaskDate? {
 		guard let targetDate = targetDate else { return nil }
@@ -43,6 +59,7 @@ protocol RepositoryType {
 	func task(for index: Int) -> RealmTask
 	func delete(task: Task) throws
 	func addOrUpdate(task: Task) throws -> RealmTask
+	func modifiedTasks() -> Results<RealmTask>
 }
 
 final class Repository: RepositoryType {
@@ -56,6 +73,10 @@ final class Repository: RepositoryType {
 		return realm.objects(RealmTask.self).filter("completed == false")
 	}
 	
+	func modifiedTasks() -> Results<RealmTask> {
+		return realm.objects(RealmTask.self).filter("_synchronizationStatus == %@", ObjectSynchronizationStatus.modified)
+	}
+	
 	func task(for uuid: UUID) -> RealmTask? {
 		return realm.object(ofType: RealmTask.self, forPrimaryKey: uuid.uuidString)
 	}
@@ -64,21 +85,11 @@ final class Repository: RepositoryType {
 		return tasks()[index]
 	}
 	
-	private func create(new task: Task) throws -> RealmTask {
-		let object = RealmTask()
-		
-		object.uuid = task.uuid.uuid.uuidString
-		object.completed = task.completed
-		object.notes = task.notes
-		object.targetDate = task.targetDate?.date
-		object.targetDateIncludeTime = task.targetDate?.includeTime ?? false
-		object.taskDescription = task.description
-		
+	func markDeleted(task: Task) throws {
+		guard let object = self.task(for: task.uuid.uuid) else { return }
 		try realm.write {
-			realm.add(object)
+			object.synchronizationStatus = .deleted
 		}
-		
-		return object
 	}
 	
 	func delete(task: Task) throws {
@@ -88,20 +99,47 @@ final class Repository: RepositoryType {
 		}
 	}
 	
-	private func update(existing object: RealmTask, with task: Task) throws -> RealmTask {
+	func addOrUpdate(task: Task) throws -> RealmTask {
+		return try addOrUpdate(task: task, createStatus: .created, updateStatus: .modified)
+	}
+	
+	func `import`(task: Task) throws -> RealmTask {
+		return try addOrUpdate(task: task, createStatus: .unchanged, updateStatus: .unchanged)
+	}
+	
+	func addOrUpdate(task: Task, createStatus: ObjectSynchronizationStatus, updateStatus: ObjectSynchronizationStatus) throws -> RealmTask {
+		guard let t = self.task(for: task.uuid.uuid) else { return try self.create(new: task, withSyncStatus: createStatus) }
+		return try self.update(existing: t, with: task, withSyncStatus: updateStatus)
+	}
+	
+	private func update(existing object: RealmTask, with task: Task, withSyncStatus syncStatus: ObjectSynchronizationStatus) throws -> RealmTask {
 		try realm.write {
 			object.completed = task.completed
 			object.notes = task.notes
 			object.targetDate = task.targetDate?.date
 			object.targetDateIncludeTime = task.targetDate?.includeTime ?? false
 			object.taskDescription = task.description
+			object.synchronizationStatus = syncStatus
 		}
 		
 		return object
 	}
 	
-	func addOrUpdate(task: Task) throws -> RealmTask {
-		guard let t = self.task(for: task.uuid.uuid) else { return try self.create(new: task) }
-		return try self.update(existing: t, with: task)
+	private func create(new task: Task, withSyncStatus syncStatus: ObjectSynchronizationStatus) throws -> RealmTask {
+		let object = RealmTask()
+		
+		object.uuid = task.uuid.uuid.uuidString
+		object.completed = task.completed
+		object.notes = task.notes
+		object.targetDate = task.targetDate?.date
+		object.targetDateIncludeTime = task.targetDate?.includeTime ?? false
+		object.taskDescription = task.description
+		object.synchronizationStatus = syncStatus
+		
+		try realm.write {
+			realm.add(object)
+		}
+		
+		return object
 	}
 }
