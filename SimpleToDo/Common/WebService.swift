@@ -35,7 +35,7 @@ final class WebSerivce {
 			let headers = ["Authorization": "\(token)"]
 			let request = URLRequest(url: URL(string: "\(HttpClient.baseUrl)/tasks/")!, headers: headers)
 			
-			return httpClient.requestData(request).flatMap { result -> Observable<[Task]> in
+			return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache).flatMap { result -> Observable<[Task]> in
 				return .just(try unbox(data: result))
 			}
 		}
@@ -49,7 +49,7 @@ final class WebSerivce {
 			let headers = ["Authorization": "\(token)"]
 			let request = URLRequest(url: URL(string: "\(HttpClient.baseUrl)/tasks/\(task.uuid)")!, method: .delete, headers: headers)
 			
-			return httpClient.requestData(request).flatMap { _ -> Observable<Void> in
+			return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache).flatMap { _ -> Observable<Void> in
 				return .just()
 			}
 		}
@@ -64,7 +64,7 @@ final class WebSerivce {
 			let url = URL(baseUrl: "\(HttpClient.baseUrl)/tasks/\(task.uuid)/ChangeCompletionStatus", parameters: ["completed":"\(!task.completed)"])!
 			let request = URLRequest(url: url, method: .post, headers: headers)
 			
-			return httpClient.requestData(request).flatMap { _ -> Observable<Void> in
+			return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache).flatMap { _ -> Observable<Void> in
 				return .just()
 			}
 		}
@@ -88,7 +88,8 @@ final class WebSerivce {
 				                                               method: .put,
 				                                               jsonBody: result.json,
 				                                               options: [],
-				                                               httpHeaders: headers)
+				                                               httpHeaders: headers,
+				                                               requestCacheMode: CacheMode.withoutCache)
 					.flatMap { result -> Observable<Task> in
 						return .just(try unbox(data: result))
 				}
@@ -111,7 +112,8 @@ final class WebSerivce {
 				                                               method: .post,
 				                                               jsonBody: result.json,
 				                                               options: [],
-				                                               httpHeaders: headers)
+				                                               httpHeaders: headers,
+				                                               requestCacheMode: CacheMode.withoutCache)
 					.flatMap { result -> Observable<Task> in
 						return .just(try unbox(data: result))
 				}

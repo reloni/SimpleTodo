@@ -45,6 +45,7 @@
 		6EA022CE1E755A7C00934BB7 /* EditTaskReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022CD1E755A7C00934BB7 /* EditTaskReducer.swift */; };
 		6EA0B47E1EC1C9F4005BA709 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47C1EC1C9F4005BA709 /* Realm.framework */; };
 		6EA0B47F1EC1C9F4005BA709 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */; };
+		6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA0B4801EC1D25E005BA709 /* Repository.swift */; };
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
 		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
 		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
@@ -159,6 +160,7 @@
 		6EA022CD1E755A7C00934BB7 /* EditTaskReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskReducer.swift; sourceTree = "<group>"; };
 		6EA0B47C1EC1C9F4005BA709 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		6EA0B4801EC1D25E005BA709 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = State.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 				6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */,
 				6E05D0031E881F0B00C293B8 /* WebService.swift */,
 				6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */,
+				6EA0B4801EC1D25E005BA709 /* Repository.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */,
 				6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */,
 				6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */,
+				6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */,
 				6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */,

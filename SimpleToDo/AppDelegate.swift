@@ -25,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		                            webService: WebSerivce(httpClient: httpClient),
 		                            tasks: [],
 		                            uiApplication: UIApplication.shared,
-		                            authenticationService: Auth0AuthenticationService())
+		                            authenticationService: Auth0AuthenticationService(),
+		                            repository: Repository())
 		
 		return RxDataFlowController(reducer: RootReducer(), initialState: initialState, maxHistoryItems: 1)
 	}()
