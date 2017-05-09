@@ -36,6 +36,7 @@ class RealmTask: Object {
 }
 
 protocol RepositoryType {
+	func overdueTasksCount() -> Int
 	func tasks() -> Results<RealmTask>
 	func task(for uuid: UUID) -> RealmTask?
 	func delete(task: Task) throws
@@ -44,6 +45,10 @@ protocol RepositoryType {
 
 final class Repository: RepositoryType {
 	var realm: Realm { return try! Realm() }
+	
+	func overdueTasksCount() -> Int {
+		return realm.objects(RealmTask.self).filter("targetDate < %@ || targetDate = nil", Date()).count
+	}
 	
 	func tasks() -> Results<RealmTask> {
 		return realm.objects(RealmTask.self).filter("completed == false")
@@ -56,6 +61,7 @@ final class Repository: RepositoryType {
 	private func create(new task: Task) throws -> RealmTask {
 		let object = RealmTask()
 		
+		object.uuid = task.uuid.uuid.uuidString
 		object.completed = task.completed
 		object.notes = task.notes
 		object.targetDate = task.targetDate?.date

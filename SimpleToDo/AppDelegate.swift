@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!),
 		                            authentication: .none,
 		                            webService: WebSerivce(httpClient: httpClient),
-		                            tasks: [],
+		                            //tasks: [],
 		                            uiApplication: UIApplication.shared,
 		                            authenticationService: Auth0AuthenticationService(),
 		                            repository: Repository())

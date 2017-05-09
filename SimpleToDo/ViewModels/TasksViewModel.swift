@@ -27,7 +27,7 @@ final class TasksViewModel {
 			}
 			}
 			.flatMap { newState ->  Observable<[TaskSection]> in
-				return Observable.just([TaskSection(header: "Tasks", items: newState.state.tasks)])
+				return Observable.just([TaskSection(header: "Tasks", items: newState.state.repository.tasks().map { $0.toStruct() })])
 		}
 	}()
 	
@@ -52,7 +52,7 @@ final class TasksViewModel {
 	}
 	
 	func editTask(index: Int) {
-		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.tasks[index]))
+		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.repository.tasks()[index].toStruct()))
 	}
 	
 	func deleteTask(index: Int) {

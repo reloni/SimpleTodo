@@ -43,17 +43,17 @@ struct AppState : RxStateType {
 	let coordinator: ApplicationCoordinatorType
 	let authentication: Authentication
 	let webService: WebSerivce
-	let tasks: [Task]
 	let uiApplication: UIApplication
 	let authenticationService: AuthenticationServiceType
 	let repository: RepositoryType
-	var overdueTasksCount: Int {
-		let now = Date()
-		return tasks.filter {
-			guard let d = $0.targetDate?.date else { return false }
-			return d <= now
-			}.count
-	}
+//	var overdueTasksCount: Int {
+//		return 0
+////		let now = Date()
+////		return tasks.filter {
+////			guard let d = $0.targetDate?.date else { return false }
+////			return d <= now
+////			}.count
+//	}
 }
 
 struct AppStateMutation {
@@ -65,31 +65,12 @@ extension AppState {
 }
 
 extension AppStateMutation {
-	func new(tasks: [Task]? = nil, coordinator: ApplicationCoordinatorType? = nil, authentication: Authentication? = nil) -> AppState {
+	func new(coordinator: ApplicationCoordinatorType? = nil, authentication: Authentication? = nil) -> AppState {
 		return AppState(coordinator: coordinator ?? state.coordinator,
 		                authentication: authentication ?? state.authentication,
-		                webService: state.webService, 
-		                tasks: tasks ?? state.tasks,
+		                webService: state.webService,
 		                uiApplication: state.uiApplication,
 		                authenticationService: state.authenticationService,
 		                repository: state.repository)
 	}
-	
-//	func new(with tasks: [Task]) -> AppState {
-////		return AppState(coordinator: state.coordinator, authentication: state.authentication, webService: state.webService,
-////		                tasks: tasks, uiApplication: state.uiApplication, authenticationService: state.authenticationService)
-//		return new(tasks: tasks)
-//	}
-//	
-//	func new(with coordinator: ApplicationCoordinatorType) -> AppState {
-//		return new(coordinator: coordinator)
-////		return AppState(coordinator: coordinator, authentication: state.authentication, webService: state.webService,
-////		                tasks: state.tasks, uiApplication: state.uiApplication, authenticationService: state.authenticationService)
-//	}
-//	
-//	func new(with authentication: Authentication) -> AppState {
-//		return new(authentication: authentication)
-////		return AppState(coordinator: state.coordinator, authentication: authentication, webService: state.webService,
-////		                tasks: state.tasks, uiApplication: state.uiApplication, authenticationService: state.authenticationService)
-//	}
 }
