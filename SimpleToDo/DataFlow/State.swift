@@ -42,18 +42,9 @@ enum Authentication {
 struct AppState : RxStateType {
 	let coordinator: ApplicationCoordinatorType
 	let authentication: Authentication
-	let webService: WebSerivce
 	let uiApplication: UIApplication
 	let authenticationService: AuthenticationServiceType
-	let repository: RepositoryType
-//	var overdueTasksCount: Int {
-//		return 0
-////		let now = Date()
-////		return tasks.filter {
-////			guard let d = $0.targetDate?.date else { return false }
-////			return d <= now
-////			}.count
-//	}
+	let syncService: SynchronizationServiceType
 }
 
 struct AppStateMutation {
@@ -68,9 +59,8 @@ extension AppStateMutation {
 	func new(coordinator: ApplicationCoordinatorType? = nil, authentication: Authentication? = nil) -> AppState {
 		return AppState(coordinator: coordinator ?? state.coordinator,
 		                authentication: authentication ?? state.authentication,
-		                webService: state.webService,
 		                uiApplication: state.uiApplication,
 		                authenticationService: state.authenticationService,
-		                repository: state.repository)
+										syncService: state.syncService)
 	}
 }

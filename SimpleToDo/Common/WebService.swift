@@ -13,7 +13,15 @@ import RxHttpClient
 import Unbox
 import Wrap
 
-final class WebSerivce {
+protocol WebServiceType {
+	func loadTasks(tokenHeader: Observable<String>) -> Observable<[Task]>
+	func delete(task: Task, tokenHeader: Observable<String>) -> Observable<Void>
+	func updateTaskCompletionStatus(task: Task, tokenHeader: Observable<String>) -> Observable<Void>
+	func update(task: Task, tokenHeader: Observable<String>) -> Observable<Task>
+	func add(task: Task, tokenHeader: Observable<String>) -> Observable<Task>
+}
+
+final class WebSerivce: WebServiceType {
 	let httpClient: HttpClientType
 	
 	init(httpClient: HttpClientType) {

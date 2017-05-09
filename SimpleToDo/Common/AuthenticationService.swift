@@ -131,10 +131,6 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 					switch result {
 					case .success(let credentials):
 						
-						#if DEBUG
-							print("token: \(credentials.idToken!)")
-						#endif
-						
 						let jwt = try? decode(jwt: credentials.idToken!)
 						observer.onNext((idToken: credentials.idToken!, refreshToken: credentials.refreshToken!, accessToken: credentials.accessToken!, expiresAt: jwt?.expiresAt))
 						observer.onCompleted()

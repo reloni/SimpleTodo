@@ -29,16 +29,16 @@ struct EditTaskReducer : RxReducerType {
 
 extension EditTaskReducer {
 	func update(task: Task, currentState state: AppState) -> Observable<RxStateType> {
-		return state.webService.update(task: task, tokenHeader: state.authentication.tokenHeader).flatMap { updated -> Observable<RxStateType> in
-			_ = try! state.repository.addOrUpdate(task: updated)
+		return state.syncService.webService.update(task: task, tokenHeader: state.authentication.tokenHeader).flatMap { updated -> Observable<RxStateType> in
+			state.syncService.addOrUpdate(task: updated)
 			
 			return .just(state)
 		}
 	}
 	
 	func add(task: Task, currentState state: AppState) -> Observable<RxStateType> {
-		return state.webService.add(task: task, tokenHeader: state.authentication.tokenHeader).flatMap { added -> Observable<RxStateType> in
-			_ = try! state.repository.addOrUpdate(task: added)
+		return state.syncService.webService.add(task: task, tokenHeader: state.authentication.tokenHeader).flatMap { added -> Observable<RxStateType> in
+			state.syncService.addOrUpdate(task: added)
 			return .just(state)
 		}
 	}

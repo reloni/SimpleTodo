@@ -22,11 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
 		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!),
 		                            authentication: .none,
-		                            webService: WebSerivce(httpClient: httpClient),
-		                            //tasks: [],
 		                            uiApplication: UIApplication.shared,
 		                            authenticationService: Auth0AuthenticationService(),
-		                            repository: Repository())
+		                            syncService: SynchronizationService(webService: WebSerivce(httpClient: httpClient), repository: Repository()))
 		
 		return RxDataFlowController(reducer: RootReducer(), initialState: initialState, maxHistoryItems: 1)
 	}()

@@ -36,7 +36,7 @@ extension ApplicationCoordinatorType {
 			hideSpinner()
 			return .just(flowController.currentState.state)
 		case UIAction.updateIconBadge:
-			flowController.currentState.state.uiApplication.applicationIconBadgeNumber = flowController.currentState.state.repository.overdueTasksCount()
+			flowController.currentState.state.uiApplication.applicationIconBadgeNumber = flowController.currentState.state.syncService.overdueTasksCount()
 			return .just(flowController.currentState.state)
 		default: return nil
 		}

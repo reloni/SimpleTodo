@@ -16,6 +16,7 @@ class RealmTask: Object {
 	dynamic var notes: String? = nil
 	dynamic var targetDate: Date? = nil
 	dynamic var targetDateIncludeTime: Bool = false
+	dynamic var isSynchronized: Bool = false
 	
 	var taskDate: TaskDate? {
 		guard let targetDate = targetDate else { return nil }
@@ -39,6 +40,7 @@ protocol RepositoryType {
 	func overdueTasksCount() -> Int
 	func tasks() -> Results<RealmTask>
 	func task(for uuid: UUID) -> RealmTask?
+	func task(for index: Int) -> RealmTask
 	func delete(task: Task) throws
 	func addOrUpdate(task: Task) throws -> RealmTask
 }
@@ -56,6 +58,10 @@ final class Repository: RepositoryType {
 	
 	func task(for uuid: UUID) -> RealmTask? {
 		return realm.object(ofType: RealmTask.self, forPrimaryKey: uuid.uuidString)
+	}
+	
+	func task(for index: Int) -> RealmTask {
+		return tasks()[index]
 	}
 	
 	private func create(new task: Task) throws -> RealmTask {

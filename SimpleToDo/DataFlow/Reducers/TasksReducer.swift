@@ -32,25 +32,25 @@ extension TasksReducer {
 	func reloadTasks(currentState state: AppState, fromRemote: Bool) -> Observable<RxStateType> {
 		guard fromRemote else { return Observable.just(state) }
 		
-		return state.webService.loadTasks(tokenHeader: state.authentication.tokenHeader).flatMapLatest { tasks -> Observable<RxStateType> in
-			tasks.forEach { _ = try! state.repository.addOrUpdate(task: $0) }
+		return state.syncService.webService.loadTasks(tokenHeader: state.authentication.tokenHeader).flatMapLatest { tasks -> Observable<RxStateType> in
+			tasks.forEach { state.syncService.addOrUpdate(task: $0) }
 			return .just(state)
 		}
 	}
 	
 	func deleteTask(currentState state: AppState, index: Int) -> Observable<RxStateType> {
-		let taskToDelete = state.repository.tasks()[index].toStruct()
-		return state.webService.delete(task: taskToDelete, tokenHeader: state.authentication.tokenHeader).flatMap { _ -> Observable<RxStateType> in
-			_ = try! state.repository.delete(task: taskToDelete)
+		let taskToDelete = state.syncService.task(for: index).toStruct()
+		return state.syncService.webService.delete(task: taskToDelete, tokenHeader: state.authentication.tokenHeader).flatMap { _ -> Observable<RxStateType> in
+			state.syncService.delete(task: taskToDelete)
 			return .just(state)
 		}
 	}
 	
 	func updateTaskCompletionStatus(currentState state: AppState, index: Int) -> Observable<RxStateType> {
-		let taskToDelete = state.repository.tasks()[index].toStruct()
-		return state.webService.updateTaskCompletionStatus(task: state.repository.tasks()[index].toStruct(), tokenHeader: state.authentication.tokenHeader)
+		let taskToDelete = state.syncService.task(for: index).toStruct()
+		return state.syncService.webService.updateTaskCompletionStatus(task: taskToDelete, tokenHeader: state.authentication.tokenHeader)
 			.flatMap { updated -> Observable<RxStateType> in
-				_ = try! state.repository.delete(task: taskToDelete)
+				state.syncService.delete(task: taskToDelete)
 				return .just(state)
 			}
 	}
