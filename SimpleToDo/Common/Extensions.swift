@@ -110,6 +110,11 @@ extension FileManager {
 }
 
 extension Error {
+	func isNotConnectedToInternet() -> Bool {
+		if let urlError = self as? URLError, urlError.code == URLError.notConnectedToInternet { return true }
+		return false
+	}
+	
 	func uiAlertMessage() -> String? {
 		switch self as Error {
 		case HttpClientError.clientSideError(let e):

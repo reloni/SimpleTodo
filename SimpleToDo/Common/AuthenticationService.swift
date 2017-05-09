@@ -9,6 +9,7 @@
 import Auth0
 import JWTDecode
 import RxSwift
+import RxHttpClient
 
 protocol LoginUser {
 	var uid: String { get }
@@ -101,7 +102,12 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 						let jwt = try? decode(jwt: newToken)
 						observer.onNext(AuthenticationInfo(uid: info.uid, token: newToken, expiresAt: jwt?.expiresAt, refreshToken: info.refreshToken))
 						observer.onCompleted()
-					case .failure: observer.onError(AuthenticationError.notAuthorized)
+					case .failure(let error):
+						if error.isNotConnectedToInternet() {
+							observer.onError(HttpClientError.clientSideError(error: error))
+						} else {
+							observer.onError(AuthenticationError.notAuthorized)
+						}
 					}
 			}
 			
