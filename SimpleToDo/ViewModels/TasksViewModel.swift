@@ -17,12 +17,12 @@ final class TasksViewModel {
 	
 	lazy var taskSections: Observable<[TaskSection]> = {
 		return self.flowController.state.filter {
-			switch $0.setBy {
-			case EditTaskAction.addTask: fallthrough
-			case TaskListAction.deleteTask: fallthrough
-			case EditTaskAction.updateTask: fallthrough
-			case TaskListAction.completeTask: fallthrough
-			case TaskListAction.loadTasks: return true
+			switch ($0.setBy, $0.state.syncStatus) {
+			case (SynchronizationAction.addTask, _): fallthrough
+			case (SynchronizationAction.deleteTask, _): fallthrough
+			case (SynchronizationAction.updateTask, _): fallthrough
+			case (SynchronizationAction.completeTask, _): return true
+			case (SynchronizationAction.synchronize, SynchronizationStatus.completed): return true
 			default: return false
 			}
 			}
@@ -48,7 +48,7 @@ final class TasksViewModel {
 	}
 	
 	func completeTask(index: Int) {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), TaskListAction.completeTask(index)]))
+		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), SynchronizationAction.completeTask(index)]))
 	}
 	
 	func editTask(index: Int) {
@@ -56,11 +56,11 @@ final class TasksViewModel {
 	}
 	
 	func deleteTask(index: Int) {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), TaskListAction.deleteTask(index)]))
+		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), SynchronizationAction.deleteTask(index)]))
 	}
 	
 	func loadTasks() {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), TaskListAction.loadTasks]))
+		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), SynchronizationAction.synchronize]))
 	}
 	
 	func newTask() {

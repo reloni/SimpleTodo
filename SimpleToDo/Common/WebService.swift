@@ -19,6 +19,7 @@ protocol WebServiceType {
 	func updateTaskCompletionStatus(task: Task, tokenHeader: Observable<String>) -> Observable<Void>
 	func update(task: Task, tokenHeader: Observable<String>) -> Observable<Task>
 	func add(task: Task, tokenHeader: Observable<String>) -> Observable<Task>
+	func update(with instruction: BatchUpdate, tokenHeader: Observable<String>) -> Observable<[Task]>
 }
 
 final class WebSerivce: WebServiceType {
@@ -117,14 +118,36 @@ final class WebSerivce: WebServiceType {
 					"Content-Type":"application/json; charset=utf-8"]
 				
 				return httpClient.requestData(url: URL(string: "\(HttpClient.baseUrl)/tasks")!,
-				                                               method: .post,
-				                                               jsonBody: result.json,
-				                                               options: [],
-				                                               httpHeaders: headers,
-				                                               requestCacheMode: CacheMode.withoutCache)
+				                              method: .post,
+				                              jsonBody: result.json,
+				                              options: [],
+				                              httpHeaders: headers,
+				                              requestCacheMode: CacheMode.withoutCache)
 					.flatMap { result -> Observable<Task> in
 						return .just(try unbox(data: result))
 				}
+		}
+		.catchError(catchError)
+	}
+	
+	func update(with instruction: BatchUpdate, tokenHeader: Observable<String>) -> Observable<[Task]> {
+		return tokenHeader.flatMapLatest { token -> Observable<(token: String, json: [String : Any])> in
+			return .just((token: token, json: try wrap(instruction)))
+		}
+		.flatMapLatest { [weak httpClient] result -> Observable<[Task]> in
+			guard let httpClient = httpClient else { return .empty() }
+			
+			let headers = ["Authorization": "\(result.token)",
+				"Accept":"application/json",
+				"Content-Type":"application/json; charset=utf-8"]
+			
+			return httpClient.requestData(url: URL(string: "\(HttpClient.baseUrl)/tasks/BatchUpdate")!,
+			                              method: .post,
+			                              jsonBody: result.json,
+			                              options: [],
+			                              httpHeaders: headers,
+			                              requestCacheMode: CacheMode.withoutCache)
+							.flatMap { result -> Observable<[Task]> in return .just(try unbox(data: result)) }
 		}
 		.catchError(catchError)
 	}

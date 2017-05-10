@@ -14,10 +14,11 @@ struct RootReducer : RxReducerType {
 		print("handle new action: \(action.self)")
 		switch action {
 		case _ as AuthenticationAction: return AuthenticationReducer().handle(action, flowController: flowController)
-		case _ as TaskListAction: return TasksReducer().handle(action, flowController: flowController)
-		case _ as EditTaskAction: return EditTaskReducer().handle(action, flowController: flowController)
+//		case _ as TaskListAction: return TasksReducer().handle(action, flowController: flowController)
+//		case _ as EditTaskAction: return EditTaskReducer().handle(action, flowController: flowController)
 		case _ as PushNotificationsAction: return PushNotificationsReducer().handle(action, flowController: flowController)
 		case _ as SettingsAction: return SettingsReducer().handle(action, flowController: flowController)
+		case _ as SynchronizationAction: return SynchronizationReducer().handle(action, flowController: flowController)
 		case _ as UIAction:
 			let flowController = flowController as! RxDataFlowController<AppState>
 			return flowController.currentState.state.coordinator.handle(action, flowController: flowController)

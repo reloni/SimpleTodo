@@ -151,5 +151,22 @@ extension Task : WrapCustomizable {
 		
 		return dict
 	}
-	
+}
+
+struct BatchUpdate {
+	let toCreate: [Task]
+	let toUpdate: [Task]
+	let toDelete: [UniqueIdentifier]
+}
+
+extension BatchUpdate: WrapCustomizable {
+	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
+		var dict = [String: Any]()
+		
+		dict["toCreate"] = toCreate.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
+		dict["toUpdate"] = toUpdate.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
+		dict["toDelete"] = toDelete.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
+		
+		return dict
+	}
 }

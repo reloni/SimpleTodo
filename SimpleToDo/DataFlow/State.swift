@@ -15,6 +15,12 @@ import UIKit
 import Wrap
 import UIKit
 
+enum SynchronizationStatus {
+	case completed
+	case failed(Error)
+	case inProgress
+}
+
 enum Authentication {
 	case none
 	case authenticated(AuthenticationInfo, UserSettings)
@@ -45,6 +51,7 @@ struct AppState : RxStateType {
 	let uiApplication: UIApplication
 	let authenticationService: AuthenticationServiceType
 	let syncService: SynchronizationServiceType
+	let syncStatus: SynchronizationStatus
 }
 
 struct AppStateMutation {
@@ -56,11 +63,12 @@ extension AppState {
 }
 
 extension AppStateMutation {
-	func new(coordinator: ApplicationCoordinatorType? = nil, authentication: Authentication? = nil) -> AppState {
+	func new(coordinator: ApplicationCoordinatorType? = nil, authentication: Authentication? = nil, syncStatus: SynchronizationStatus? = nil) -> AppState {
 		return AppState(coordinator: coordinator ?? state.coordinator,
 		                authentication: authentication ?? state.authentication,
 		                uiApplication: state.uiApplication,
 		                authenticationService: state.authenticationService,
-										syncService: state.syncService)
+										syncService: state.syncService,
+										syncStatus: syncStatus ?? state.syncStatus)
 	}
 }

@@ -54,7 +54,7 @@ final class EditTaskViewModel {
 		guard let task = task else {
 			let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
 			                                         AuthenticationAction.refreshToken(force: false),
-			                                         EditTaskAction.addTask(Task(uuid: UniqueIdentifier(),
+			                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
 			                                                                     completed: false,
 			                                                                     description: taskDescription.value,
 			                                                                     notes: taskNotes.value,
@@ -70,7 +70,7 @@ final class EditTaskViewModel {
 		let newTask = Task(uuid: task.uuid, completed: false, description: taskDescription.value, notes: taskNotes.value, targetDate: taskTargetDate.value)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
 		                                         AuthenticationAction.refreshToken(force: false),
-		                                         EditTaskAction.updateTask(newTask)])
+		                                         SynchronizationAction.updateTask(newTask)])
 		
 		flowController.dispatch(UIAction.showSpinner)
 		flowController.dispatch(action)

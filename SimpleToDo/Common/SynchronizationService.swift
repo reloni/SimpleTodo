@@ -9,28 +9,20 @@
 import RealmSwift
 import RxSwift
 
-enum SynchronizationStatus {
-	case completed
-	case failed(Error)
-	case inProgress
-}
-
 protocol SynchronizationServiceType {
-//	var status: SynchronizationStatus { get }
 	func overdueTasksCount() -> Int
 	func tasks() -> Results<RealmTask>
 	func task(for index: Int) -> RealmTask
-	func delete(task: Task)
+	func delete(taskIndex index: Int)
+	func complete(taskIndex index: Int)
 	func addOrUpdate(task: Task)
-	var webService: WebServiceType { get }
+	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void> 
 }
 
 final class SynchronizationService: SynchronizationServiceType {
 	private let repository: RepositoryType
-	let webService: WebServiceType
-	
-//	var status = SynchronizationStatus.completed
-	
+	private let webService: WebServiceType
+
 	init(webService: WebServiceType, repository: RepositoryType) {
 		self.webService = webService
 		self.repository = repository
@@ -52,56 +44,33 @@ final class SynchronizationService: SynchronizationServiceType {
 		_ = try? repository.addOrUpdate(task: task)
 	}
 	
-	func delete(task: Task) {
-		try? repository.delete(task: task)
+	func delete(taskIndex index: Int) {
+		try? repository.markDeleted(taskIndex: index)
 	}
 	
-	func synchronize() -> Observable<Void> {
-//		status = .inProgress
+	func complete(taskIndex index: Int) {
+		_ = try? repository.complete(taskIndex: index)
+	}
+	
+	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void> {
+		var toCreate = [Task]()
+		var toUpdate = [Task]()
+		var toDelete = [UniqueIdentifier]()
 		
-		let scheduler = SerialDispatchQueueScheduler(qos: .utility)
+		repository.modifiedTasks().forEach {
+			switch $0.synchronizationStatus {
+			case .created: toCreate.append($0.toStruct())
+			case .modified: toUpdate.append($0.toStruct())
+			case .deleted: toDelete.append(UniqueIdentifier(identifierString: $0.uuid)!)
+			default: break
+			}
+		}
 		
-		return Observable
-			.from(repository.modifiedTasks().map { SynchronizationTask(task: $0) } + [SynchronizationTask(type: .fullSync)])
-			.subscribeOn(scheduler)
-			.flatMap { [weak self] syncTask -> Observable<[Task]> in
-				guard let webService = self?.webService else { return .empty() }
-				return SynchronizationService.sync(task: syncTask, webService: webService)
+		return webService.update(with: BatchUpdate(toCreate: toCreate, toUpdate: toUpdate, toDelete: toDelete), tokenHeader: .just(authenticationInfo.tokenHeader))
+			.flatMapLatest { [weak self] result -> Observable<Void> in
+				try? self?.repository.removeAllTasks()
+				_ = try? self?.repository.import(tasks: result)
+				return .empty()
 			}
-			.flatMap { [weak self] tasks -> Observable<Void> in
-				guard let repository = self?.repository else { return .empty() }
-				tasks.forEach { _ = try? repository.addOrUpdate(task: $0) }; return .empty()
-			}
-	}
-	
-	private static func sync(task: SynchronizationTask, webService: WebServiceType) -> Observable<[Task]> {
-		return .empty()
-	}
-}
-
-struct SynchronizationTask {
-	enum TaskType {
-		case delete(Task)
-		case update(Task)
-		case create(Task)
-		case skip
-		case fullSync
-	}
-	
-	let type: TaskType
-	
-	init(task: RealmTask) {
-		type = {
-			switch task.synchronizationStatus {
-			case .created: return TaskType.create(task.toStruct())
-			case ObjectSynchronizationStatus.deleted: return TaskType.delete(task.toStruct())
-			case ObjectSynchronizationStatus.modified: return TaskType.update(task.toStruct())
-			default: return TaskType.skip
-			}
-		}()
-	}
-	
-	init(type: TaskType) {
-		self.type = type
 	}
 }
