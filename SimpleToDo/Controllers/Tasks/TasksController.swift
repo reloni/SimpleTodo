@@ -62,10 +62,6 @@ final class TasksController : UIViewController {
 		
 		configureDataSource()
 		bind()
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
 		
 		viewModel.synchronize()
 	}
