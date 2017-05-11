@@ -128,17 +128,17 @@ extension FileManager {
 
 extension Error {
 	func isCannotConnectToHost() -> Bool {
-		switch self as Error {
-		case HttpClientError.clientSideError(let e) where ((e as? URLError)?.code == URLError.cannotConnectToHost) : return true
-		case let urlError as URLError where urlError.code == URLError.cannotConnectToHost: return true
-		default: return false
-		}
+		return isUrlError(withCode: URLError.cannotConnectToHost)
 	}
 	
 	func isNotConnectedToInternet() -> Bool {
+		return isUrlError(withCode: URLError.notConnectedToInternet)
+	}
+	
+	func isUrlError(withCode code: URLError.Code) -> Bool {
 		switch self as Error {
-		case HttpClientError.clientSideError(let e) where ((e as? URLError)?.code == URLError.notConnectedToInternet) : return true
-		case let urlError as URLError where urlError.code == URLError.notConnectedToInternet: return true
+		case HttpClientError.clientSideError(let e) where ((e as? URLError)?.code == code) : return true
+		case let urlError as URLError where urlError.code == code: return true
 		default: return false
 		}
 	}
@@ -147,9 +147,7 @@ extension Error {
 		guard !self.isNotConnectedToInternet() else { return "Not connected to internet" }
 		
 		switch self as Error {
-		case HttpClientError.clientSideError(let e):
-			if let urlError = e as? URLError, urlError.code == URLError.notConnectedToInternet { return "Not connected to internet" }
-			return e.localizedDescription
+		case HttpClientError.clientSideError(let e): return e.localizedDescription
 		case HttpClientError.invalidResponse(let response, let data):
 			guard let data = data, data.count > 0 else {
 				switch response.statusCode {
