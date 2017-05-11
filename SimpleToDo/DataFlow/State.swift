@@ -15,6 +15,12 @@ import UIKit
 import Wrap
 import UIKit
 
+enum SynchronizationStatus {
+	case completed
+	case failed(Error)
+	case inProgress
+}
+
 enum Authentication {
 	case none
 	case authenticated(AuthenticationInfo, UserSettings)
@@ -42,17 +48,10 @@ enum Authentication {
 struct AppState : RxStateType {
 	let coordinator: ApplicationCoordinatorType
 	let authentication: Authentication
-	let webService: WebSerivce
-	let tasks: [Task]
 	let uiApplication: UIApplication
 	let authenticationService: AuthenticationServiceType
-	var overdueTasksCount: Int {
-		let now = Date()
-		return tasks.filter {
-			guard let d = $0.targetDate?.date else { return false }
-			return d <= now
-			}.count
-	}
+	let syncService: SynchronizationServiceType
+	let syncStatus: SynchronizationStatus
 }
 
 struct AppStateMutation {
@@ -64,18 +63,15 @@ extension AppState {
 }
 
 extension AppStateMutation {
-	func new(tasks: [Task]) -> AppState {
-		return AppState(coordinator: state.coordinator, authentication: state.authentication, webService: state.webService,
-		                tasks: tasks, uiApplication: state.uiApplication, authenticationService: state.authenticationService)
-	}
-	
-	func new(coordinator: ApplicationCoordinatorType) -> AppState {
-		return AppState(coordinator: coordinator, authentication: state.authentication, webService: state.webService,
-		                tasks: state.tasks, uiApplication: state.uiApplication, authenticationService: state.authenticationService)
-	}
-	
-	func new(authentication: Authentication) -> AppState {
-		return AppState(coordinator: state.coordinator, authentication: authentication, webService: state.webService,
-		                tasks: state.tasks, uiApplication: state.uiApplication, authenticationService: state.authenticationService)
+	func new(coordinator: ApplicationCoordinatorType? = nil,
+	         authentication: Authentication? = nil,
+	         syncStatus: SynchronizationStatus? = nil,
+	         syncService: SynchronizationServiceType? = nil) -> AppState {
+		return AppState(coordinator: coordinator ?? state.coordinator,
+		                authentication: authentication ?? state.authentication,
+		                uiApplication: state.uiApplication,
+		                authenticationService: state.authenticationService,
+										syncService: syncService ?? state.syncService,
+										syncStatus: syncStatus ?? state.syncStatus)
 	}
 }

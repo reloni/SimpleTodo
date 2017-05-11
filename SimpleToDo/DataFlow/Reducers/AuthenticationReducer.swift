@@ -37,17 +37,12 @@ extension AuthenticationReducer {
 	}
 	
 	func signOut(currentState state: AppState)  -> Observable<RxStateType> {
-		return Observable.create { observer in
-			Keychain.userPassword = ""
-			Keychain.token = ""
-			Keychain.refreshToken = ""
-			Keychain.userUuid = ""
-			
-			observer.onNext(state)
-			observer.onCompleted()
-			
-			return Disposables.create()
-		}
+		Keychain.userPassword = ""
+		Keychain.token = ""
+		Keychain.refreshToken = ""
+		Keychain.userUuid = ""
+		
+		return .just(state.mutation.new(authentication: .none))
 	}
 	
 	func logIn(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
@@ -80,6 +75,10 @@ extension AuthenticationReducer {
 			.flatMapLatest { result -> Observable<RxStateType> in
 				return .just(state.mutation.new(authentication: .authenticated(result, UserSettings())))
 			}
+			.catchError { error in
+				guard !error.isNotConnectedToInternet() else { return .just(state) }
+				return .error(error)
+		}
 	}
 }
 

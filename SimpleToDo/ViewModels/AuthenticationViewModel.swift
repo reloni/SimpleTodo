@@ -61,6 +61,7 @@ final class AuthenticationViewModel {
 		case .logIn:
 			flowController.dispatch(UIAction.showSpinner)
 			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(email, password),
+			                                                    SynchronizationAction.updateConfiguration,
 			                                                    UIAction.showTasksListController,
 			                                                    PushNotificationsAction.promtForPushNotifications]))
 			flowController.dispatch(UIAction.hideSpinner)

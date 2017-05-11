@@ -53,27 +53,23 @@ final class EditTaskViewModel {
 		guard taskDescription.value.characters.count > 0 else { return }
 		guard let task = task else {
 			let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-			                                         AuthenticationAction.refreshToken(force: false),
-			                                         EditTaskAction.addTask(Task(uuid: UniqueIdentifier(),
+			                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
 			                                                                     completed: false,
 			                                                                     description: taskDescription.value,
 			                                                                     notes: taskNotes.value,
 			                                                                     targetDate: taskTargetDate.value))])
 			
-			flowController.dispatch(UIAction.showSpinner)
 			flowController.dispatch(action)
-			flowController.dispatch(UIAction.hideSpinner)
+			flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 			
 			return
 		}
 		
 		let newTask = Task(uuid: task.uuid, completed: false, description: taskDescription.value, notes: taskNotes.value, targetDate: taskTargetDate.value)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-		                                         AuthenticationAction.refreshToken(force: false),
-		                                         EditTaskAction.updateTask(newTask)])
+		                                         SynchronizationAction.updateTask(newTask)])
 		
-		flowController.dispatch(UIAction.showSpinner)
 		flowController.dispatch(action)
-		flowController.dispatch(UIAction.hideSpinner)
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 }

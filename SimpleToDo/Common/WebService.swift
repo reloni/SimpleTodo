@@ -13,7 +13,16 @@ import RxHttpClient
 import Unbox
 import Wrap
 
-final class WebSerivce {
+protocol WebServiceType {
+	func loadTasks(tokenHeader: Observable<String>) -> Observable<[Task]>
+	func delete(task: Task, tokenHeader: Observable<String>) -> Observable<Void>
+	func updateTaskCompletionStatus(task: Task, tokenHeader: Observable<String>) -> Observable<Void>
+	func update(task: Task, tokenHeader: Observable<String>) -> Observable<Task>
+	func add(task: Task, tokenHeader: Observable<String>) -> Observable<Task>
+	func update(with instruction: BatchUpdate, tokenHeader: Observable<String>) -> Observable<[Task]>
+}
+
+final class WebSerivce: WebServiceType {
 	let httpClient: HttpClientType
 	
 	init(httpClient: HttpClientType) {
@@ -35,7 +44,7 @@ final class WebSerivce {
 			let headers = ["Authorization": "\(token)"]
 			let request = URLRequest(url: URL(string: "\(HttpClient.baseUrl)/tasks/")!, headers: headers)
 			
-			return httpClient.requestData(request).flatMap { result -> Observable<[Task]> in
+			return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache).flatMap { result -> Observable<[Task]> in
 				return .just(try unbox(data: result))
 			}
 		}
@@ -49,7 +58,7 @@ final class WebSerivce {
 			let headers = ["Authorization": "\(token)"]
 			let request = URLRequest(url: URL(string: "\(HttpClient.baseUrl)/tasks/\(task.uuid)")!, method: .delete, headers: headers)
 			
-			return httpClient.requestData(request).flatMap { _ -> Observable<Void> in
+			return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache).flatMap { _ -> Observable<Void> in
 				return .just()
 			}
 		}
@@ -64,7 +73,7 @@ final class WebSerivce {
 			let url = URL(baseUrl: "\(HttpClient.baseUrl)/tasks/\(task.uuid)/ChangeCompletionStatus", parameters: ["completed":"\(!task.completed)"])!
 			let request = URLRequest(url: url, method: .post, headers: headers)
 			
-			return httpClient.requestData(request).flatMap { _ -> Observable<Void> in
+			return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache).flatMap { _ -> Observable<Void> in
 				return .just()
 			}
 		}
@@ -76,8 +85,6 @@ final class WebSerivce {
 			return .just((token: token, json: try wrap(task)))
 			}
 			.flatMapLatest { [weak httpClient] result -> Observable<Task> in
-				print("wrapped: \(result.json)")
-				
 				guard let httpClient = httpClient else { return .empty() }
 				
 				let headers = ["Authorization": "\(result.token)",
@@ -88,7 +95,8 @@ final class WebSerivce {
 				                                               method: .put,
 				                                               jsonBody: result.json,
 				                                               options: [],
-				                                               httpHeaders: headers)
+				                                               httpHeaders: headers,
+				                                               requestCacheMode: CacheMode.withoutCache)
 					.flatMap { result -> Observable<Task> in
 						return .just(try unbox(data: result))
 				}
@@ -108,13 +116,36 @@ final class WebSerivce {
 					"Content-Type":"application/json; charset=utf-8"]
 				
 				return httpClient.requestData(url: URL(string: "\(HttpClient.baseUrl)/tasks")!,
-				                                               method: .post,
-				                                               jsonBody: result.json,
-				                                               options: [],
-				                                               httpHeaders: headers)
+				                              method: .post,
+				                              jsonBody: result.json,
+				                              options: [],
+				                              httpHeaders: headers,
+				                              requestCacheMode: CacheMode.withoutCache)
 					.flatMap { result -> Observable<Task> in
 						return .just(try unbox(data: result))
 				}
+		}
+		.catchError(catchError)
+	}
+	
+	func update(with instruction: BatchUpdate, tokenHeader: Observable<String>) -> Observable<[Task]> {
+		return tokenHeader.flatMapLatest { token -> Observable<(token: String, json: [String : Any])> in
+			return .just((token: token, json: try wrap(instruction)))
+		}
+		.flatMapLatest { [weak httpClient] result -> Observable<[Task]> in
+			guard let httpClient = httpClient else { return .empty() }
+			
+			let headers = ["Authorization": "\(result.token)",
+				"Accept":"application/json",
+				"Content-Type":"application/json; charset=utf-8"]
+			
+			return httpClient.requestData(url: URL(string: "\(HttpClient.baseUrl)/tasks/BatchUpdate")!,
+			                              method: .post,
+			                              jsonBody: result.json,
+			                              options: [],
+			                              httpHeaders: headers,
+			                              requestCacheMode: CacheMode.withoutCache)
+							.flatMap { result -> Observable<[Task]> in return .just(try unbox(data: result)) }
 		}
 		.catchError(catchError)
 	}

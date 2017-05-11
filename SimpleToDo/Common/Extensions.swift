@@ -14,11 +14,28 @@ import RxSwift
 import Material
 import RxDataFlow
 
+extension FileManager {
+	var realmsDirectory: URL { return urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Realms") }
+	
+	func createOrUpdateRealmsDirectory() {
+		guard !fileExists(atPath: realmsDirectory.path) else { return }
+		
+		try! createDirectory(at: realmsDirectory,
+		                     withIntermediateDirectories: false,
+		                     attributes: [FileAttributeKey.protectionKey.rawValue: FileProtectionType.completeUntilFirstUserAuthentication])
+	}
+}
+
 extension RxCompositeAction {
 	static var logOffActions: [RxActionType] {
 		return [AuthenticationAction.signOut,
 		        UIAction.returnToRootController,
 		        PushNotificationsAction.switchNotificationSubscription(subscribed: false)]
+	}
+	
+	static var refreshTokenAndSyncActions: [RxActionType] {
+		return [AuthenticationAction.refreshToken(force: false),
+						SynchronizationAction.synchronize]
 	}
 }
 
@@ -110,7 +127,17 @@ extension FileManager {
 }
 
 extension Error {
+	func isNotConnectedToInternet() -> Bool {
+		switch self as Error {
+		case HttpClientError.clientSideError(let e) where ((e as? URLError)?.code == URLError.notConnectedToInternet) : return true
+		case let urlError as URLError where urlError.code == URLError.notConnectedToInternet: return true
+		default: return false
+		}
+	}
+	
 	func uiAlertMessage() -> String? {
+		guard !self.isNotConnectedToInternet() else { return "Not connected to internet" }
+		
 		switch self as Error {
 		case HttpClientError.clientSideError(let e):
 			if let urlError = e as? URLError, urlError.code == URLError.notConnectedToInternet { return "Not connected to internet" }

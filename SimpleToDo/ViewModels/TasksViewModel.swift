@@ -17,18 +17,20 @@ final class TasksViewModel {
 	
 	lazy var taskSections: Observable<[TaskSection]> = {
 		return self.flowController.state.filter {
-			switch $0.setBy {
-			case EditTaskAction.addTask: fallthrough
-			case TaskListAction.deleteTask: fallthrough
-			case EditTaskAction.updateTask: fallthrough
-			case TaskListAction.completeTask: fallthrough
-			case TaskListAction.loadTasks: return true
+			switch ($0.setBy, $0.state.syncStatus) {
+			case (SynchronizationAction.addTask, _): fallthrough
+			case (SynchronizationAction.deleteTask, _): fallthrough
+			case (SynchronizationAction.updateTask, _): fallthrough
+			case (SynchronizationAction.completeTask, _): return true
+			case (SynchronizationAction.synchronize, SynchronizationStatus.completed): return true
 			default: return false
 			}
 			}
 			.flatMap { newState ->  Observable<[TaskSection]> in
-				return Observable.just([TaskSection(header: "Tasks", items: newState.state.tasks)])
+				return Observable.just([TaskSection(header: "Tasks", items: newState.state.syncService.tasks().map { $0.toStruct() })])
 		}
+			.startWith([TaskSection(header: "Tasks", items: self.flowController.currentState.state.syncService.tasks().map { $0.toStruct() })])
+			.subscribeOn(SerialDispatchQueueScheduler(qos: .utility))
 	}()
 	
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
@@ -48,19 +50,21 @@ final class TasksViewModel {
 	}
 	
 	func completeTask(index: Int) {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), TaskListAction.completeTask(index)]))
+		flowController.dispatch(SynchronizationAction.completeTask(index))
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 	
 	func editTask(index: Int) {
-		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.tasks[index]))
+		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.syncService.task(for: index).toStruct()))
 	}
 	
 	func deleteTask(index: Int) {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), TaskListAction.deleteTask(index)]))
+		flowController.dispatch(SynchronizationAction.deleteTask(index))
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 	
-	func loadTasks() {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), TaskListAction.loadTasks]))
+	func synchronize() {
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 	
 	func newTask() {

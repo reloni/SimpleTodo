@@ -167,9 +167,15 @@ final class AuthenticationController : UIViewController {
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)
 		
-		actionButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.performAction() }).disposed(by: bag)
+		actionButton.rx.tap.subscribe(onNext: { [weak self] _ in
+			self?.textFieldsResignFirstResponder()
+			self?.performAction()
+		}).disposed(by: bag)
 		
-		supplementalButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.performSupplementalAction() }).disposed(by: bag)
+		supplementalButton.rx.tap.subscribe(onNext: { [weak self] _ in
+			self?.textFieldsResignFirstResponder()
+			self?.viewModel.performSupplementalAction()
+		}).disposed(by: bag)
 		
 		viewModel.errors.subscribe().disposed(by: bag)
 		
@@ -177,6 +183,11 @@ final class AuthenticationController : UIViewController {
 			lostPasswordLabel.rx.tapGesture().when(UIGestureRecognizerState.recognized)
 				.subscribe(onNext: { [weak self] recognizer in self?.showResetEmailDialog(recognizer: recognizer) }).disposed(by: bag)
 		}
+	}
+	
+	func textFieldsResignFirstResponder() {
+		if passwordTextField.isFirstResponder { passwordTextField.resignFirstResponder(); return }
+		if emailTextField.isFirstResponder { emailTextField.resignFirstResponder(); return }
 	}
 	
 	func showResetEmailDialog(recognizer: UIGestureRecognizer) {
