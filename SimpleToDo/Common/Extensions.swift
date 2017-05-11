@@ -14,6 +14,18 @@ import RxSwift
 import Material
 import RxDataFlow
 
+extension FileManager {
+	var realmsDirectory: URL { return urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Realms") }
+	
+	func createOrUpdateRealmsDirectory() {
+		guard !fileExists(atPath: realmsDirectory.path) else { return }
+		
+		try! createDirectory(at: realmsDirectory,
+		                     withIntermediateDirectories: false,
+		                     attributes: [FileAttributeKey.protectionKey.rawValue: FileProtectionType.completeUntilFirstUserAuthentication])
+	}
+}
+
 extension RxCompositeAction {
 	static var logOffActions: [RxActionType] {
 		return [AuthenticationAction.signOut,

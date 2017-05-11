@@ -63,6 +63,8 @@ enum SynchronizationAction: RxActionType {
 	case updateTask(Task)
 	case deleteTask(Int)
 	case completeTask(Int)
+	
+	case updateConfiguration
 }
 
 enum PushNotificationsAction : RxActionType {

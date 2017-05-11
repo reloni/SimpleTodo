@@ -63,12 +63,15 @@ extension AppState {
 }
 
 extension AppStateMutation {
-	func new(coordinator: ApplicationCoordinatorType? = nil, authentication: Authentication? = nil, syncStatus: SynchronizationStatus? = nil) -> AppState {
+	func new(coordinator: ApplicationCoordinatorType? = nil,
+	         authentication: Authentication? = nil,
+	         syncStatus: SynchronizationStatus? = nil,
+	         syncService: SynchronizationServiceType? = nil) -> AppState {
 		return AppState(coordinator: coordinator ?? state.coordinator,
 		                authentication: authentication ?? state.authentication,
 		                uiApplication: state.uiApplication,
 		                authenticationService: state.authenticationService,
-										syncService: state.syncService,
+										syncService: syncService ?? state.syncService,
 										syncStatus: syncStatus ?? state.syncStatus)
 	}
 }

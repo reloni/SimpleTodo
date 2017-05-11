@@ -10,18 +10,21 @@ import RealmSwift
 import RxSwift
 
 protocol SynchronizationServiceType {
+	var repository: RepositoryType { get }
+	var webService: WebServiceType { get }
+	
 	func overdueTasksCount() -> Int
 	func tasks() -> Results<RealmTask>
 	func task(for index: Int) -> RealmTask
 	func delete(taskIndex index: Int)
 	func complete(taskIndex index: Int)
 	func addOrUpdate(task: Task)
-	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void> 
+	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void>
 }
 
 final class SynchronizationService: SynchronizationServiceType {
-	private let repository: RepositoryType
-	private let webService: WebServiceType
+	let repository: RepositoryType
+	let webService: WebServiceType
 
 	init(webService: WebServiceType, repository: RepositoryType) {
 		self.webService = webService

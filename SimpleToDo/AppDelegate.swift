@@ -17,14 +17,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
 	
+	var hasAuthenticationData: Bool {
+		guard Keychain.userEmail.characters.count > 0,
+			Keychain.userPassword.characters.count > 0,
+			Keychain.token.characters.count > 0,
+			Keychain.refreshToken.characters.count > 0,
+			Keychain.userUuid.characters.count > 0 else {
+				return false
+		}
+		
+		return true
+	}
+	
 	lazy var flowController: RxDataFlowController<AppState> = {
 		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
 		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
+		
+		let authentication: Authentication = {
+			guard self.hasAuthenticationData else { return .none }
+			let authenticationInfo = AuthenticationInfo(uid: Keychain.userUuid, token: Keychain.token, expiresAt: nil, refreshToken: Keychain.refreshToken)
+			return Authentication.authenticated(authenticationInfo, UserSettings())
+		}()
+		
 		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!),
-		                            authentication: .none,
+		                            authentication: authentication,
 		                            uiApplication: UIApplication.shared,
 		                            authenticationService: Auth0AuthenticationService(),
-		                            syncService: SynchronizationService(webService: WebSerivce(httpClient: httpClient), repository: Repository()),
+		                            syncService: SynchronizationService(webService: WebSerivce(httpClient: httpClient), repository: RealmRepository()),
 		                            syncStatus: .completed)
 		
 		return RxDataFlowController(reducer: RootReducer(), initialState: initialState, maxHistoryItems: 1)
@@ -33,10 +52,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
+		FileManager.default.createOrUpdateRealmsDirectory()
+		
 		setupPushNotifications(withLaunchOptions: launchOptions)
 		
 		UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
 		
+		flowController.dispatch(SynchronizationAction.updateConfiguration)
 		flowController.dispatch(UIAction.showRootController)
 
 		return true

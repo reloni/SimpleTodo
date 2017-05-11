@@ -96,10 +96,20 @@ protocol RepositoryType {
 	func delete(taskIndex index: Int) throws
 	func markDeleted(taskIndex index: Int) throws
 	func complete(taskIndex index: Int) throws -> RealmTask
+	func withNew(realmConfiguration: Realm.Configuration) -> RepositoryType
 }
 
-final class Repository: RepositoryType {
-	var realm: Realm { return try! Realm() }
+final class RealmRepository: RepositoryType {
+	var realm: Realm { return try! Realm(configuration: realmConfiguration) }
+	let realmConfiguration: Realm.Configuration
+	
+	init(realmConfiguration: Realm.Configuration = Realm.Configuration.defaultConfiguration) {
+		self.realmConfiguration = realmConfiguration
+	}
+	
+	func withNew(realmConfiguration: Realm.Configuration) -> RepositoryType {
+		return RealmRepository(realmConfiguration: realmConfiguration)
+	}
 	
 	func overdueTasksCount() -> Int {
 		return realm.objects(RealmTask.self).filter("targetDate < %@ || targetDate = nil", Date()).count

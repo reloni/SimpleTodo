@@ -29,6 +29,8 @@ final class TasksViewModel {
 			.flatMap { newState ->  Observable<[TaskSection]> in
 				return Observable.just([TaskSection(header: "Tasks", items: newState.state.syncService.tasks().map { $0.toStruct() })])
 		}
+			.startWith([TaskSection(header: "Tasks", items: self.flowController.currentState.state.syncService.tasks().map { $0.toStruct() })])
+			.subscribeOn(SerialDispatchQueueScheduler(qos: .utility))
 	}()
 	
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
