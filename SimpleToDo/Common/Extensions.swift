@@ -177,26 +177,26 @@ extension Keychain {
 	
 	static var userEmail: String {
 		get { return keychain.stringForAccount(account: "userEmail") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "userEmail", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "userEmail") }
 	}
 	
 	static var userPassword: String {
 		get { return keychain.stringForAccount(account: "userPassword") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "userPassword", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "userPassword") }
 	}
 	
 	static var token: String {
 		get { return keychain.stringForAccount(account: "token") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "token", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "token") }
 	}
 	
 	static var refreshToken: String {
 		get { return keychain.stringForAccount(account: "refreshToken") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "refreshToken", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "refreshToken") }
 	}
 	
 	static var userUuid: String {
 		get { return keychain.stringForAccount(account: "userUuid") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "userUuid", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "userUuid") }
 	}
 }

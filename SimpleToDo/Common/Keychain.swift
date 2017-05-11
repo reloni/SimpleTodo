@@ -157,12 +157,9 @@ struct Keychain {
 				kSecClass as String: kSecClassGenericPassword,
 				kSecAttrService as String: service as AnyObject,
 				kSecAttrAccount as String: account as AnyObject,
-				kSecAttrSynchronizable as String: synchronizable ?
-					kCFBooleanTrue : kCFBooleanFalse,
+				kSecAttrSynchronizable as String: synchronizable ? kCFBooleanTrue : kCFBooleanFalse,
 				kSecValueData as String: data as AnyObject,
-				kSecAttrAccessible as String: background ?
-					kSecAttrAccessibleAfterFirstUnlock :
-				kSecAttrAccessibleAlwaysThisDeviceOnly,
+				kSecAttrAccessible as String: background ? kSecAttrAccessibleAlwaysThisDeviceOnly : kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
 				])
 		} catch let error {
 			NSLog("keychain setData error: \(error)")
@@ -171,8 +168,8 @@ struct Keychain {
 	
 	func setString(string: String?,
 	               forAccount account: String,
-	               synchronizable: Bool,
-	               background: Bool) {
+	               synchronizable: Bool = false,
+	               background: Bool = true) {
 		if let string = string {
 			let data = string.data(using: String.Encoding.utf8)!
 			setData(data: data,
