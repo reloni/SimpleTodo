@@ -127,10 +127,18 @@ extension FileManager {
 }
 
 extension Error {
+	func isCannotConnectToHost() -> Bool {
+		return isUrlError(withCode: URLError.cannotConnectToHost)
+	}
+	
 	func isNotConnectedToInternet() -> Bool {
+		return isUrlError(withCode: URLError.notConnectedToInternet)
+	}
+	
+	func isUrlError(withCode code: URLError.Code) -> Bool {
 		switch self as Error {
-		case HttpClientError.clientSideError(let e) where ((e as? URLError)?.code == URLError.notConnectedToInternet) : return true
-		case let urlError as URLError where urlError.code == URLError.notConnectedToInternet: return true
+		case HttpClientError.clientSideError(let e) where ((e as? URLError)?.code == code) : return true
+		case let urlError as URLError where urlError.code == code: return true
 		default: return false
 		}
 	}
@@ -139,9 +147,7 @@ extension Error {
 		guard !self.isNotConnectedToInternet() else { return "Not connected to internet" }
 		
 		switch self as Error {
-		case HttpClientError.clientSideError(let e):
-			if let urlError = e as? URLError, urlError.code == URLError.notConnectedToInternet { return "Not connected to internet" }
-			return e.localizedDescription
+		case HttpClientError.clientSideError(let e): return e.localizedDescription
 		case HttpClientError.invalidResponse(let response, let data):
 			guard let data = data, data.count > 0 else {
 				switch response.statusCode {
@@ -177,26 +183,26 @@ extension Keychain {
 	
 	static var userEmail: String {
 		get { return keychain.stringForAccount(account: "userEmail") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "userEmail", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "userEmail") }
 	}
 	
 	static var userPassword: String {
 		get { return keychain.stringForAccount(account: "userPassword") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "userPassword", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "userPassword") }
 	}
 	
 	static var token: String {
 		get { return keychain.stringForAccount(account: "token") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "token", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "token") }
 	}
 	
 	static var refreshToken: String {
 		get { return keychain.stringForAccount(account: "refreshToken") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "refreshToken", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "refreshToken") }
 	}
 	
 	static var userUuid: String {
 		get { return keychain.stringForAccount(account: "userUuid") ?? "" }
-		set { keychain.setString(string: newValue, forAccount: "userUuid", synchronizable: true, background: false) }
+		set { keychain.setString(string: newValue, forAccount: "userUuid") }
 	}
 }
