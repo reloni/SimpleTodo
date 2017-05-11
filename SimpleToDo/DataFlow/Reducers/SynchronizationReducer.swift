@@ -64,7 +64,7 @@ extension SynchronizationReducer {
 			let subscription = state.syncService.synchronize(authenticationInfo: info)
 				.do(onError: { error in
 					observer.onNext(state.mutation.new(syncStatus: .failed(error)))
-					if error.isNotConnectedToInternet() {
+					if error.isNotConnectedToInternet() || error.isCannotConnectToHost() {
 						observer.onError(error)
 					}
 				},

@@ -127,6 +127,14 @@ extension FileManager {
 }
 
 extension Error {
+	func isCannotConnectToHost() -> Bool {
+		switch self as Error {
+		case HttpClientError.clientSideError(let e) where ((e as? URLError)?.code == URLError.cannotConnectToHost) : return true
+		case let urlError as URLError where urlError.code == URLError.cannotConnectToHost: return true
+		default: return false
+		}
+	}
+	
 	func isNotConnectedToInternet() -> Bool {
 		switch self as Error {
 		case HttpClientError.clientSideError(let e) where ((e as? URLError)?.code == URLError.notConnectedToInternet) : return true
