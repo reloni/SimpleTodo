@@ -47,29 +47,12 @@ enum AuthenticationAction : RxActionType {
 	case register(String, String)
 }
 
-//enum TaskListAction : RxActionType {
-//	var isSerial: Bool { return true }
-//	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
-//
-//	case loadTasks
-//	case deleteTask(Int)
-//	case completeTask(Int)
-//}
-
 enum SettingsAction : RxActionType {
 	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case showLogOffAlert(sourceView: UIView)
 }
-//
-//enum EditTaskAction : RxActionType {
-//	var isSerial: Bool { return true }
-//	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
-//	
-//	case addTask(Task)
-//	case updateTask(Task)
-//}
 
 enum SynchronizationAction: RxActionType {
 	var isSerial: Bool { return false }

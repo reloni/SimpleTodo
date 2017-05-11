@@ -20,6 +20,11 @@ extension RxCompositeAction {
 		        UIAction.returnToRootController,
 		        PushNotificationsAction.switchNotificationSubscription(subscribed: false)]
 	}
+	
+	static var refreshTokenAndSyncActions: [RxActionType] {
+		return [AuthenticationAction.refreshToken(force: false),
+						SynchronizationAction.synchronize]
+	}
 }
 
 extension Notification {
@@ -111,11 +116,16 @@ extension FileManager {
 
 extension Error {
 	func isNotConnectedToInternet() -> Bool {
-		if let urlError = self as? URLError, urlError.code == URLError.notConnectedToInternet { return true }
-		return false
+		switch self as Error {
+		case HttpClientError.clientSideError(let e) where ((e as? URLError)?.code == URLError.notConnectedToInternet) : return true
+		case let urlError as URLError where urlError.code == URLError.notConnectedToInternet: return true
+		default: return false
+		}
 	}
 	
 	func uiAlertMessage() -> String? {
+		guard !self.isNotConnectedToInternet() else { return "Not connected to internet" }
+		
 		switch self as Error {
 		case HttpClientError.clientSideError(let e):
 			if let urlError = e as? URLError, urlError.code == URLError.notConnectedToInternet { return "Not connected to internet" }

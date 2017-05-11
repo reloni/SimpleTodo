@@ -48,7 +48,8 @@ final class TasksViewModel {
 	}
 	
 	func completeTask(index: Int) {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), SynchronizationAction.completeTask(index)]))
+		flowController.dispatch(SynchronizationAction.completeTask(index))
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 	
 	func editTask(index: Int) {
@@ -56,11 +57,12 @@ final class TasksViewModel {
 	}
 	
 	func deleteTask(index: Int) {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), SynchronizationAction.deleteTask(index)]))
+		flowController.dispatch(SynchronizationAction.deleteTask(index))
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 	
-	func loadTasks() {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.refreshToken(force: false), SynchronizationAction.synchronize]))
+	func synchronize() {
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 	
 	func newTask() {

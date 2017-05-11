@@ -85,8 +85,6 @@ final class WebSerivce: WebServiceType {
 			return .just((token: token, json: try wrap(task)))
 			}
 			.flatMapLatest { [weak httpClient] result -> Observable<Task> in
-				print("wrapped: \(result.json)")
-				
 				guard let httpClient = httpClient else { return .empty() }
 				
 				let headers = ["Authorization": "\(result.token)",

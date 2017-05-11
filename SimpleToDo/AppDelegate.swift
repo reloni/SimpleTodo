@@ -44,26 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func notificationOpened(result: OSNotificationOpenedResult?) {
 		// This block gets called when the user reacts to a notification received
-		let payload: OSNotificationPayload = result!.notification.payload
-		
-		let fullMessage = payload.body ?? ""
-		print("Message = \(fullMessage)")
-		
-		//			if payload.additionalData != nil {
-		//				if payload.title != nil {
-		//					let messageTitle = payload.title
-		//					print("Message Title = \(messageTitle!)")
-		//				}
-		//
-		//				let additionalData = payload.additionalData
-		//				if additionalData?["actionSelected"] != nil {
-		//					fullMessage = fullMessage! + "\nPressed ButtonID: \(additionalData!["actionSelected"])"
-		//				}
-		//			}
 	}
 	
 	func notificationReceived(notification: OSNotification?) {
-		print("Received Notification: \(notification!.payload.notificationID)")
 		flowController.dispatch(UIAction.updateIconBadge)
 	}
 	
@@ -104,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 	
 	func applicationDidBecomeActive(_ application: UIApplication) {

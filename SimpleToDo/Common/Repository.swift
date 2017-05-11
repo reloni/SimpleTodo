@@ -41,7 +41,18 @@ class RealmTask: Object {
 			return ObjectSynchronizationStatus(rawValue: _synchronizationStatus)!
 		}
 		set {
-			_synchronizationStatus = newValue.rawValue
+			set(syncStatus: newValue, force: false)
+		}
+	}
+	
+	func set(syncStatus: ObjectSynchronizationStatus, force: Bool) {
+		guard !force else { _synchronizationStatus = syncStatus.rawValue; return }
+		
+		switch (current: self.synchronizationStatus, new: syncStatus) {
+		case (.created, .deleted): fallthrough
+		case (.unchanged, _): fallthrough
+		case (.modified, .deleted): _synchronizationStatus = syncStatus.rawValue
+		default: return
 		}
 	}
 	
@@ -81,7 +92,6 @@ protocol RepositoryType {
 	func modifiedTasks() -> Results<RealmTask>
 	func markDeleted(task: Task) throws
 	func removeAllTasks() throws
-	func `import`(task: Task) throws -> RealmTask
 	func `import`(tasks: [Task]) throws -> [RealmTask]
 	func delete(taskIndex index: Int) throws
 	func markDeleted(taskIndex index: Int) throws
@@ -96,7 +106,7 @@ final class Repository: RepositoryType {
 	}
 	
 	func tasks() -> Results<RealmTask> {
-		return realm.objects(RealmTask.self).filter("completed == false")
+		return realm.objects(RealmTask.self).filter("completed == false").filter("_synchronizationStatus != %@", ObjectSynchronizationStatus.deleted.rawValue)
 	}
 	
 	func modifiedTasks() -> Results<RealmTask> {
@@ -123,6 +133,7 @@ final class Repository: RepositoryType {
 		try realm.write {
 			object = tasks()[index]
 			object.completed = true
+			object.synchronizationStatus = .modified
 		}
 		
 		return object
@@ -157,7 +168,7 @@ final class Repository: RepositoryType {
 	func addOrUpdate(task: Task) throws -> RealmTask {
 		var object: RealmTask!
 		try realm.write {
-			object = addOrUpdate(task: task, createStatus: .created, updateStatus: .modified)
+			object = addOrUpdateWithoutTransaction(task: task)
 		}
 		return object
 	}
@@ -165,30 +176,26 @@ final class Repository: RepositoryType {
 	func `import`(tasks: [Task]) throws -> [RealmTask] {
 		var imported: [RealmTask]!
 		try realm.write {
-			imported = tasks.map { addOrUpdate(task: $0, createStatus: .unchanged, updateStatus: .unchanged) }
+			imported = tasks.map {
+				let object = addOrUpdateWithoutTransaction(task: $0)
+				object.set(syncStatus: .unchanged, force: true)
+				return object
+			}
 		}
 		
 		return imported
 	}
-	
-	func `import`(task: Task) throws -> RealmTask {
-		var object: RealmTask!
-		try realm.write {
-			object = addOrUpdate(task: task, createStatus: .unchanged, updateStatus: .unchanged)
-		}
-		return object
-	}
-	
-	private func addOrUpdate(task: Task, createStatus: ObjectSynchronizationStatus, updateStatus: ObjectSynchronizationStatus) -> RealmTask {
+
+	private func addOrUpdateWithoutTransaction(task: Task) -> RealmTask {
 		guard let existed = self.task(for: task.uuid.uuid) else {
 			let new = RealmTask(from: task)
-			new.synchronizationStatus = createStatus
+			new.synchronizationStatus = .created
 			realm.add(new)
 			return new
 		}
 		
 		existed.update(with: task)
-		existed.synchronizationStatus = updateStatus
+		existed.synchronizationStatus = .modified
 		return existed
 	}
 }

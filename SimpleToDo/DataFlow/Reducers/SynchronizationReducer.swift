@@ -47,17 +47,14 @@ extension SynchronizationReducer {
 			
 			let subscription = state.syncService.synchronize(authenticationInfo: info)
 				.do(onError: { error in
-					print("sync error: \(error)")
 					observer.onNext(state.mutation.new(syncStatus: .failed(error)))
+					if error.isNotConnectedToInternet() {
+						observer.onError(error)
+					}
 				},
-				    onCompleted: {
-							print("sync complete")
-							observer.onNext(state.mutation.new(syncStatus: .completed))
-				},
-				    onDispose: {
-							print("sync dispose")
-							observer.onCompleted()
-				})
+				    onCompleted: {observer.onNext(state.mutation.new(syncStatus: .completed)) },
+				    onDispose: { observer.onCompleted() })
+				.delaySubscription(10, scheduler: SerialDispatchQueueScheduler.init(qos: .utility))
 				.subscribe()
 			
 			return Disposables.create {
