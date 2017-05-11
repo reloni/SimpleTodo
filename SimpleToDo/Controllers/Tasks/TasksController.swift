@@ -62,8 +62,12 @@ final class TasksController : UIViewController {
 		
 		configureDataSource()
 		bind()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 		
-		viewModel.loadTasks()
+		viewModel.synchronize()
 	}
 	
 	func bind() {
@@ -73,12 +77,17 @@ final class TasksController : UIViewController {
 			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.addDisposableTo(bag)
 		
-		tableView.refreshControl?.rx.controlEvent(.valueChanged).filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
+		tableView.refreshControl?.rx.controlEvent(.valueChanged)
+			.filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
 			.subscribe(onNext: { [weak self] in
-				self?.viewModel.loadTasks()
+				self?.viewModel.synchronize()
 			}).addDisposableTo(bag)
 		
-		viewModel.errors.subscribe().addDisposableTo(bag)
+		viewModel.errors
+			.observeOn(MainScheduler.instance)
+			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
+			.subscribe()
+			.addDisposableTo(bag)
 		
 		tableView.rx.setDelegate(tableViewDelegate).addDisposableTo(bag)
 	}
