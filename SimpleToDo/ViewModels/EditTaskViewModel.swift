@@ -45,7 +45,7 @@ final class EditTaskViewModel {
 	func switchDatePickerExpansion() {
 		_datePickerExpanded.value = !_datePickerExpanded.value
 		if _datePickerExpanded.value, taskTargetDate.value == nil {
-			_taskTargetDateSubject.onNext(TaskDate(date: Date(), includeTime: false))
+			_taskTargetDateSubject.onNext(TaskDate(date: Date(), includeTime: true))
 		}
 	}
 	
