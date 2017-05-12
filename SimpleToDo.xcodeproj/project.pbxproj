@@ -25,6 +25,9 @@
 		6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */; };
 		6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */; };
 		6E3B8A7C1EB4D42600EC932F /* SettingsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */; };
+		6E40B9C81EC60CE100411F69 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40B9C71EC60CE100411F69 /* NotificationService.swift */; };
+		6E40B9CC1EC60CE200411F69 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6E40B9D11EC60DA200411F69 /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
 		6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E494D891EBDD13100280F5F /* JWTDecode.framework */; };
 		6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752151E05AD06002AA9B4 /* Entities.swift */; };
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
@@ -85,7 +88,28 @@
 			remoteGlobalIDString = 6E15D0171DF0A45900B4CCA7;
 			remoteInfo = SimpleToDo;
 		};
+		6E40B9CA1EC60CE200411F69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E15D0101DF0A45900B4CCA7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E40B9C41EC60CE100411F69;
+			remoteInfo = NotificationServiceExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6E40B9D01EC60CE200411F69 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6E40B9CC1EC60CE200411F69 /* NotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6E05D0031E881F0B00C293B8 /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
@@ -113,6 +137,9 @@
 		6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsReducer.swift; sourceTree = "<group>"; };
+		6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E40B9C71EC60CE100411F69 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		6E40B9C91EC60CE100411F69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E494D891EBDD13100280F5F /* JWTDecode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JWTDecode.framework; path = Carthage/Build/iOS/JWTDecode.framework; sourceTree = "<group>"; };
 		6E5752151E05AD06002AA9B4 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
@@ -226,6 +253,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6E40B9C21EC60CE100411F69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E40B9D11EC60DA200411F69 /* OneSignal.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -235,6 +270,7 @@
 				6E15D01A1DF0A45A00B4CCA7 /* SimpleToDo */,
 				6E15D02F1DF0A45A00B4CCA7 /* SimpleToDoTests */,
 				6E15D03A1DF0A45A00B4CCA7 /* SimpleToDoUITests */,
+				6E40B9C61EC60CE100411F69 /* NotificationServiceExtension */,
 				6E15D0191DF0A45A00B4CCA7 /* Products */,
 				6E15D0631DF0B62D00B4CCA7 /* Frameworks */,
 			);
@@ -246,6 +282,7 @@
 				6E15D0181DF0A45A00B4CCA7 /* SimpleToDo.app */,
 				6E15D02C1DF0A45A00B4CCA7 /* SimpleToDoTests.xctest */,
 				6E15D0371DF0A45A00B4CCA7 /* SimpleToDoUITests.xctest */,
+				6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,6 +376,15 @@
 				6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E40B9C61EC60CE100411F69 /* NotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				6E40B9C71EC60CE100411F69 /* NotificationService.swift */,
+				6E40B9C91EC60CE100411F69 /* Info.plist */,
+			);
+			path = NotificationServiceExtension;
 			sourceTree = "<group>";
 		};
 		6E5752141E05ACD9002AA9B4 /* Common */ = {
@@ -465,10 +511,12 @@
 				6E15D0151DF0A45900B4CCA7 /* Frameworks */,
 				6E15D0161DF0A45900B4CCA7 /* Resources */,
 				6EE247D61DF21216001A6F39 /* Copy carthage frameworks */,
+				6E40B9D01EC60CE200411F69 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6E40B9CB1EC60CE200411F69 /* PBXTargetDependency */,
 			);
 			name = SimpleToDo;
 			productName = SimpleToDo;
@@ -511,13 +559,30 @@
 			productReference = 6E15D0371DF0A45A00B4CCA7 /* SimpleToDoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		6E40B9C41EC60CE100411F69 /* NotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E40B9CF1EC60CE200411F69 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
+			buildPhases = (
+				6E40B9C11EC60CE100411F69 /* Sources */,
+				6E40B9C21EC60CE100411F69 /* Frameworks */,
+				6E40B9C31EC60CE100411F69 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationServiceExtension;
+			productName = NotificationServiceExtension;
+			productReference = 6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		6E15D0101DF0A45900B4CCA7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Anton Efimenko";
 				TargetAttributes = {
@@ -547,6 +612,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6E15D0171DF0A45900B4CCA7;
 					};
+					6E40B9C41EC60CE100411F69 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = SJMSRXG797;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 6E15D0131DF0A45900B4CCA7 /* Build configuration list for PBXProject "SimpleToDo" */;
@@ -565,6 +635,7 @@
 				6E15D0171DF0A45900B4CCA7 /* SimpleToDo */,
 				6E15D02B1DF0A45A00B4CCA7 /* SimpleToDoTests */,
 				6E15D0361DF0A45A00B4CCA7 /* SimpleToDoUITests */,
+				6E40B9C41EC60CE100411F69 /* NotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -588,6 +659,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6E15D0351DF0A45A00B4CCA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E40B9C31EC60CE100411F69 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -693,6 +771,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6E40B9C11EC60CE100411F69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E40B9C81EC60CE100411F69 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -705,6 +791,11 @@
 			isa = PBXTargetDependency;
 			target = 6E15D0171DF0A45900B4CCA7 /* SimpleToDo */;
 			targetProxy = 6E15D0381DF0A45A00B4CCA7 /* PBXContainerItemProxy */;
+		};
+		6E40B9CB1EC60CE200411F69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E40B9C41EC60CE100411F69 /* NotificationServiceExtension */;
+			targetProxy = 6E40B9CA1EC60CE200411F69 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -820,6 +911,7 @@
 		6E15D0411DF0A45A00B4CCA7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SimpleToDo/SimpleToDo.entitlements;
@@ -847,6 +939,7 @@
 		6E15D0421DF0A45A00B4CCA7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SimpleToDo/SimpleToDo.entitlements;
@@ -928,6 +1021,46 @@
 			};
 			name = Release;
 		};
+		6E40B9CD1EC60CE200411F69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = SJMSRXG797;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		6E40B9CE1EC60CE200411F69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = SJMSRXG797;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -966,6 +1099,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		6E40B9CF1EC60CE200411F69 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E40B9CD1EC60CE200411F69 /* Debug */,
+				6E40B9CE1EC60CE200411F69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

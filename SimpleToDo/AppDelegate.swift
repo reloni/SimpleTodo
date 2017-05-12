@@ -64,36 +64,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
-	func notificationOpened(result: OSNotificationOpenedResult?) {
-		// This block gets called when the user reacts to a notification received
-	}
-	
-	func notificationReceived(notification: OSNotification?) {
-		flowController.dispatch(UIAction.updateIconBadge)
-	}
-	
 	func setupPushNotifications(withLaunchOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
 		let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false,
 		                             kOSSettingsKeyInAppLaunchURL: true]
 		
 		OneSignal.initWithLaunchOptions(launchOptions,
 		                                appId: "ffe9789a-e9bc-4789-9cbb-4552664ba3fe",
-		                                handleNotificationReceived: notificationReceived,
-		                                handleNotificationAction: notificationOpened,
+		                                handleNotificationReceived: nil,
+		                                handleNotificationAction: nil,
 		                                settings: onesignalInitSettings)
 		
 		OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification
 	}
 	
-	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+//	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+//	}
+//	
+//	func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+//	}
+//	
+//	func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//	}
+//	
+//	func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//		completionHandler()
+//	}
+	
+	func refreshInBackground(with completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		
+		// wait for refresh and update badge
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			self.flowController.dispatch(UIAction.updateIconBadge)
+			completionHandler(.newData)
+		}
 	}
 	
-	func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+		refreshInBackground(with: completionHandler)
 	}
 	
 	func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-		flowController.dispatch(UIAction.updateIconBadge)
-		completionHandler(.newData)
+		refreshInBackground(with: completionHandler)
 	}
 	
 	func applicationWillResignActive(_ application: UIApplication) {
