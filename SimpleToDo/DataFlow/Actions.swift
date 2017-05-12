@@ -52,18 +52,26 @@ enum SettingsAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case showLogOffAlert(sourceView: UIView)
+	case showDeleteCacheAlert(sourceView: UIView)
 }
 
 enum SynchronizationAction: RxActionType {
-	var isSerial: Bool { return false }
+	var isSerial: Bool {
+		switch self {
+		case .synchronize: return false
+		default: return true
+		}
+	}
 	var scheduler: ImmediateSchedulerType? { return nil }
 	
 	case synchronize
+	
 	case addTask(Task)
 	case updateTask(Task)
 	case deleteTask(Int)
 	case completeTask(Int)
 	
+	case deleteCache
 	case updateConfiguration
 }
 

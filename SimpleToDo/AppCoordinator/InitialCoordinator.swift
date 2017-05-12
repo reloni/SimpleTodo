@@ -59,7 +59,7 @@ extension ApplicationCoordinatorType {
 	}
 	
 	func showActionSheet(in controller: UIViewController, withTitle title: String?, message: String?, actions: [UIAlertAction], sourceView: UIView?) {
-		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
 		
 		actions.forEach { alertController.addAction($0) }
 		

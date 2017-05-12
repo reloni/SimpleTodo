@@ -20,8 +20,8 @@ final class SettingsViewModel {
 	
 	let sections = Observable<[SettingsSection]>.just([SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Receive push notifications", image: Theme.Images.pushNotification)]),
 	                                                   SettingsSection(header: "", items: [.info(title: "About", image: Theme.Images.info),
-	                                                                                             .deleteAccount(title: "Delete account", image: Theme.Images.deleteAccount),
-	                                                                                             .exit(title: "Log off", image: Theme.Images.exit)])])
+	                                                                                       .deleteLocalCache(title: "Delete local cache", image: Theme.Images.file),
+	                                                                                       .exit(title: "Log off", image: Theme.Images.exit)])])
 	
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in
@@ -45,6 +45,10 @@ final class SettingsViewModel {
 		flowController.dispatch(SettingsAction.showLogOffAlert(sourceView: sourceView))
 	}
 	
+	func askForDeleteCache(sourceView: UIView) {
+		flowController.dispatch(SettingsAction.showDeleteCacheAlert(sourceView: sourceView))
+	}
+	
 	func logOff() {
 		RxCompositeAction.logOffActions.forEach { flowController.dispatch($0) }
 	}
@@ -52,5 +56,10 @@ final class SettingsViewModel {
 	func done() {
 		flowController.dispatch(RxCompositeAction(actions: [PushNotificationsAction.switchNotificationSubscription(subscribed: isPushNotificationsEnabled),
 		                                                    UIAction.dismissSettingsController]))
+	}
+	
+	func deleteCache() {
+		flowController.dispatch(SynchronizationAction.deleteCache)
+		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 }

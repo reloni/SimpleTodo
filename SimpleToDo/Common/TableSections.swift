@@ -44,5 +44,6 @@ enum SettingsSectonItem {
 	case pushNotificationsSwitch(title: String, image: UIImage)
 	case info(title: String, image: UIImage)
 	case deleteAccount(title: String, image: UIImage)
+	case deleteLocalCache(title: String, image: UIImage)
 	case exit(title: String, image: UIImage)
 }
