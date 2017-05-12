@@ -205,4 +205,17 @@ extension Keychain {
 		get { return keychain.stringForAccount(account: "userUuid") ?? "" }
 		set { keychain.setString(string: newValue, forAccount: "userUuid") }
 	}
+	
+	static var deviceUuid: String {
+		get {
+			let uuid = keychain.stringForAccount(account: "deviceUuid") ?? ""
+			
+			guard uuid.characters.count == 0 else { return uuid }
+			
+			let newUuid = UUID().uuidString
+			keychain.setString(string: newUuid, forAccount: "deviceUuid")
+			
+			return newUuid
+		}
+	}
 }

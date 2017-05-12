@@ -22,6 +22,7 @@ final class TasksViewModel {
 			case (SynchronizationAction.deleteTask, _): fallthrough
 			case (SynchronizationAction.updateTask, _): fallthrough
 			case (SynchronizationAction.completeTask, _): return true
+			case (SynchronizationAction.synchronize, SynchronizationStatus.failed): fallthrough
 			case (SynchronizationAction.synchronize, SynchronizationStatus.completed): return true
 			default: return false
 			}

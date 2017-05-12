@@ -95,6 +95,12 @@ final class SettingsController : UIViewController {
 				SettingsController.configure(defaultCell: cell, with: data)
 				cell.tapped = { viewModel?.askForLogOff(sourceView: cell) }
 				return cell
+			case .deleteLocalCache(let data):
+				let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
+				SettingsController.configure(cell: cell)
+				SettingsController.configure(defaultCell: cell, with: data)
+				cell.tapped = { viewModel?.askForDeleteCache(sourceView: cell) }
+				return cell
 			case .pushNotificationsSwitch(let data):
 				let cell = tv.dequeueReusableCell(withIdentifier: "Switch", for: ip) as! SwitchCell
 				SettingsController.configure(cell: cell)

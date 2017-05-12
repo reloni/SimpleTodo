@@ -26,12 +26,29 @@ struct SynchronizationReducer : RxReducerType {
 		case (SynchronizationAction.synchronize, .authenticated): return synchronize(currentState: currentState)
 		case (SynchronizationAction.completeTask(let index), .authenticated): return updateTaskCompletionStatus(currentState: currentState, index: index)
 		case (SynchronizationAction.updateConfiguration, _): return updateConfiguration(currentState: currentState)
+		case (SynchronizationAction.deleteCache, .authenticated): return deleteCache(currentState: currentState)
 		default: return .empty()
 		}
 	}
 }
 
 extension SynchronizationReducer {
+	func deleteCache(currentState state: AppState) -> Observable<RxStateType> {
+		guard let info = state.authentication.info else { return .empty() }
+		
+		let mainRealmFile = FileManager.default.realmsDirectory.appendingPathComponent("\(info.uid).realm")
+		let allRealmFiles = [
+			mainRealmFile,
+			mainRealmFile.appendingPathExtension("lock"),
+			mainRealmFile.appendingPathExtension("note"),
+			mainRealmFile.appendingPathExtension("management")
+		]
+		
+		allRealmFiles.forEach { try? FileManager.default.removeItem(at: $0) }
+
+		return .just(state)
+	}
+	
 	func updateConfiguration(currentState state: AppState) -> Observable<RxStateType> {
 		guard let info = state.authentication.info else { return .empty() }
 		

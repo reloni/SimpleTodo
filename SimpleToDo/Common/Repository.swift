@@ -107,8 +107,8 @@ final class RealmRepository: RepositoryType {
 		self.realmConfiguration = realmConfiguration
 	}
 	
-	func withNew(realmConfiguration: Realm.Configuration) -> RepositoryType {
-		return RealmRepository(realmConfiguration: realmConfiguration)
+	func withNew(realmConfiguration configuration: Realm.Configuration) -> RepositoryType {
+		return RealmRepository(realmConfiguration: configuration)
 	}
 	
 	func overdueTasksCount() -> Int {

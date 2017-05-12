@@ -17,6 +17,7 @@ struct SettingsReducer : RxReducerType {
 	
 	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
 		switch action {
+		case SettingsAction.showDeleteCacheAlert: fallthrough
 		case SettingsAction.showLogOffAlert: return flowController.currentState.state.coordinator.handle(action, flowController: flowController)
 		default: return .empty()
 		}
