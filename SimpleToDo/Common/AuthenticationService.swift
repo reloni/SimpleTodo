@@ -124,8 +124,8 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 				.login(usernameOrEmail: userNameOremail,
 				       password: password,
 				       connection: "Username-Password-Authentication",
-				       scope: "openid profile offline_access",
-				       parameters: ["device": UUID().uuidString])
+				       scope: "openid profile offline_access read:device_credentials",
+				       parameters: ["device": Keychain.deviceUuid])
 				.start { result in
 					
 					switch result {
