@@ -30,7 +30,7 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 		case SettingsAction.showLogOffAlert(let sourceView): return showLogOffAlert(flowController: flowController, sourceView: sourceView)
 		case SettingsAction.showDeleteCacheAlert(let sourceView): return showDeleteCacheAlert(flowController: flowController, sourceView: sourceView)
 		case UIAction.dismissSettingsController:
-			let transitionDelegate = TransitionDelegate(dismissalController: SlideDismissAnimationController(mode: .toLeft))
+			let transitionDelegate = TransitionDelegate(dismissalController: SlideDismissAnimationController(mode: .toRight))
 			navigationController.transitioningDelegate = transitionDelegate
 			
 			navigationController.dismiss(animated: true, completion: nil)

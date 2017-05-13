@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxDataFlow
 
-final class EditTaskViewModel {
+final class EditTaskViewModel: ViewModelType {
 	private let _datePickerExpanded = Variable(false)
 	private let _taskTargetDateSubject = PublishSubject<TaskDate?>()
 	

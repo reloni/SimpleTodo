@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxDataFlow
 
-final class AuthenticationViewModel {
+final class AuthenticationViewModel: ViewModelType {
 	enum Mode {
 		case logIn
 		case registration

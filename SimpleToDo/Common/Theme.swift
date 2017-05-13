@@ -73,6 +73,7 @@ final class Theme {
 		static let deleteAccount = UIImage(named: "Delete account")!.tint(with: Theme.Colors.upsdelRed)!
 		static let exit = UIImage(named: "Exit")!.tint(with: Theme.Colors.upsdelRed)!
 		static let file = UIImage(named: "File")!.tint(with: Theme.Colors.upsdelRed)!
+		static let add = UIImage(named: "Add")!.tint(with: Theme.Colors.blueberry)!
 	}
 	
 	final class Colors {

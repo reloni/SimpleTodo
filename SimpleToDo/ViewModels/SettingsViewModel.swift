@@ -10,7 +10,7 @@ import RxDataFlow
 import RxSwift
 import RxDataSources
 
-final class SettingsViewModel {
+final class SettingsViewModel: ViewModelType {
 	let flowController: RxDataFlowController<AppState>
 
 	let isPushNotificationsAllowed: Bool
@@ -24,15 +24,7 @@ final class SettingsViewModel {
 	                                                                                       .exit(title: "Log off", image: Theme.Images.exit)])])
 	
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
-		return self.flowController.errors.do(onNext: { [weak self] in
-			guard let object = self else { return }
-			if case AuthenticationError.notAuthorized = $0.error {
-				RxCompositeAction.logOffActions.forEach { object.flowController.dispatch($0) }
-				object.flowController.dispatch(UIAction.showErrorMessage($0.error))
-			} else {
-				object.flowController.dispatch(UIAction.showSnackView(error: $0.error, hideAfter: 4))
-			}
-		})
+		return self.flowController.errors.do(onNext: { [weak self] in self?.check(error: $0.error) })
 	}()
 	
 	init(flowController: RxDataFlowController<AppState>) {
