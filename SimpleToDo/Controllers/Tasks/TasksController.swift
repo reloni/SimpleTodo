@@ -11,8 +11,12 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
-import Unbox
-import RxHttpClient
+import Material
+import SnapKit
+
+class TestButton: FABButton {
+	override var alignmentRectInsets: UIEdgeInsets { return .zero }
+}
 
 final class TasksController : UIViewController {
 	let bag = DisposeBag()
@@ -24,9 +28,18 @@ final class TasksController : UIViewController {
 	let tableView: UITableView = {
 		let table = Theme.Controls.tableView()
 		
+		table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
 		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 		
 		return table
+	}()
+	
+	let addTaskButton: Button = {
+		let button = TestButton(image: Theme.Images.add)
+		button.contentEdgeInsets = UIEdgeInsets(top: -13, left: -13, bottom: -13, right: -13)
+		button.pulseColor = Theme.Colors.white
+		button.backgroundColor = Theme.Colors.white
+		return button
 	}()
 	
 	init(viewModel: TasksViewModel) {
@@ -41,24 +54,24 @@ final class TasksController : UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.backgroundColor = UIColor.white
+		view.addSubview(tableView)
+		view.addSubview(addTaskButton)
 		
-		self.view.layoutEdgeInsets = .zero
+		view.backgroundColor = UIColor.white
+		view.layoutEdgeInsets = .zero
 		
 		title = viewModel.title
 		
+		navigationItem.rightBarButtonItem = UIBarButtonItem(image: Theme.Images.settings.resize(toWidth: 22),
+		                                                    style: .plain,
+		                                                    target: self,
+		                                                    action: #selector(showSettings))
 		
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTask))
-		navigationItem.leftBarButtonItem = UIBarButtonItem(image: Theme.Images.settings.resize(toWidth: 22),
-		                                                   style: .plain,
-		                                                   target: self, 
-		                                                   action: #selector(showSettings))
 		
 		tableView.refreshControl = UIRefreshControl()
-		
-		view.addSubview(tableView)
-		
-		updateViewConstraints()
+	
+		tableView.snp.makeConstraints(tableViewConstraints)
+		addTaskButton.snp.makeConstraints(addTaskButtonConstraints)
 		
 		configureDataSource()
 		bind()
@@ -86,6 +99,8 @@ final class TasksController : UIViewController {
 			.addDisposableTo(bag)
 		
 		tableView.rx.setDelegate(tableViewDelegate).addDisposableTo(bag)
+		
+		addTaskButton.rx.tap.subscribe { [weak self] _ in self?.addNewTask() }.disposed(by: bag)
 	}
 	
 	func addNewTask() {
@@ -137,15 +152,25 @@ final class TasksController : UIViewController {
 		}
 	}
 	
+	func tableViewConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(view.snp.topMargin)
+		maker.leading.equalTo(view.snp.leading)
+		maker.trailing.equalTo(view.snp.trailing)
+		maker.bottom.equalTo(view.snp.bottomMargin)
+	}
+	
+	func addTaskButtonConstraints(maker: ConstraintMaker) {
+		maker.trailing.equalTo(view.snp.trailing).offset(-20)
+		maker.bottom.equalTo(view.snp.bottomMargin).offset(-20)
+		maker.height.equalTo(55)
+		maker.width.equalTo(55)
+	}
+	
 	override func updateViewConstraints() {
 		super.updateViewConstraints()
 		
-		tableView.snp.remakeConstraints { make in
-			make.top.equalTo(view.snp.topMargin)
-			make.leading.equalTo(view.snp.leading)
-			make.trailing.equalTo(view.snp.trailing)
-			make.bottom.equalTo(view.snp.bottomMargin)
-		}
+		tableView.snp.updateConstraints(tableViewConstraints)
+		addTaskButton.snp.updateConstraints(addTaskButtonConstraints)
 	}
 }
 
