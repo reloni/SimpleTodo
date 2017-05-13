@@ -127,6 +127,10 @@ extension FileManager {
 }
 
 extension Error {
+	func isTimedOut() -> Bool {
+		return isUrlError(withCode: URLError.timedOut)
+	}
+	
 	func isCannotConnectToHost() -> Bool {
 		return isUrlError(withCode: URLError.cannotConnectToHost)
 	}

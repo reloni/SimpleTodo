@@ -76,7 +76,7 @@ extension AuthenticationReducer {
 				return .just(state.mutation.new(authentication: .authenticated(result, UserSettings())))
 			}
 			.catchError { error in
-				guard !error.isNotConnectedToInternet() else { return .just(state) }
+				guard !error.isNotConnectedToInternet() && !error.isTimedOut() else { return .just(state) }
 				return .error(error)
 		}
 	}
