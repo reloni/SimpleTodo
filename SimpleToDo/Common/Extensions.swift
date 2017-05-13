@@ -74,12 +74,62 @@ extension TextView {
 }
 
 extension Date {
-	var isToday: Bool { return Calendar.current.isDateInToday(self) }
+	enum DateType {
+		case today
+		case yesterday
+		case tomorrow
+		case future
+		case past
+		case unknown
+	}
 	
-	static var shortDateAndTime: DateFormatter = {
+	var type: DateType {
+		if isToday {
+			return .today
+		} else if isTomorrow {
+			return .tomorrow
+		} else if isYesterday {
+			return .yesterday
+		} else if isBeforeYesterday {
+			return .past
+		} else if isAfterTomorrow {
+			return .future
+		}
+		
+		return .unknown
+	}
+	
+	func setting(_ component: Calendar.Component, value: Int) -> Date {
+		return Calendar.current.date(bySetting: component, value: value, of: self)!
+	}
+	
+	func adding(_ component: Calendar.Component, value: Int) -> Date {
+		return Calendar.current.date(byAdding: component, value: value, to: self)!
+	}
+	
+	func beginningOfDay() -> Date {
+		return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
+	}
+	
+	var isInPast: Bool { return self < Date() }
+	var isInFuture: Bool { return self < Date() }
+	var isToday: Bool { return Calendar.current.isDateInToday(self) }
+	var isTomorrow: Bool { return Calendar.current.isDateInTomorrow(self) }
+	var isYesterday: Bool { return Calendar.current.isDateInYesterday(self) }
+	
+	var isBeforeYesterday: Bool {
+		let yesterday = Date().adding(.day, value: -1).beginningOfDay()
+		return self < yesterday
+	}
+	
+	var isAfterTomorrow: Bool {
+		let tomorrow = Date().adding(.day, value: 1).beginningOfDay()
+		return self > tomorrow
+	}
+	
+	static var dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .medium
-		dateFormatter.timeStyle = .short
+		dateFormatter.locale = .current
 		return dateFormatter
 	}()
 	
@@ -90,27 +140,46 @@ extension Date {
 		return formatter
 	}()
 	
-	static var longDateFormatter: DateFormatter = {
-		let formatter = DateFormatter()
-		formatter.dateFormat = "yyyy MM dd HH:mm"
-		formatter.locale = Locale.current
-		return formatter
-	}()
+	func toServerDateString() -> String {
+		return Date.serverDateFormatter.string(from: self)
+	}
+	
+	func toSpelledDateString() -> String? {
+		switch type {
+		case .today: return "Today"
+		case .yesterday: return "Yesterday"
+		case .tomorrow: return "Tomorrow"
+		default: return nil
+		}
+	}
 	
 	static func fromServer(string: String) -> Date? {
 		return Date.serverDateFormatter.date(from: string)
 	}
 	
-	var serverDate: String {
-		return Date.serverDateFormatter.string(from: self)
+	func toString(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style, withSpelling: Bool) -> String {
+		let formatter = Date.dateFormatter
+		
+		if withSpelling, let spelled = toSpelledDateString() {
+			guard timeStyle != .none else { return spelled }
+			
+			formatter.dateStyle = .none
+			formatter.timeStyle = timeStyle
+			return "\(spelled) \(formatter.string(from: self))"
+		}
+		
+		formatter.dateStyle = dateStyle
+		formatter.timeStyle = timeStyle
+		
+		return formatter.string(from: self)
 	}
 	
-	var longDate: String {
-		return Date.longDateFormatter.string(from: self)
+	func toDateString(withSpelling: Bool) -> String {
+		return toString(dateStyle: .medium, timeStyle: .none, withSpelling: withSpelling)
 	}
 	
-	var shortDateAndTime: String {
-		return Date.shortDateAndTime.string(from: self)
+	func toDateAndTimeString(withSpelling: Bool) -> String {
+		return toString(dateStyle: .medium, timeStyle: .short, withSpelling: withSpelling)
 	}
 }
 
@@ -127,6 +196,15 @@ extension FileManager {
 }
 
 extension Error {
+	func isInvalidResponse() -> Bool {
+		guard case HttpClientError.invalidResponse = self as Error else { return false }
+		return true
+	}
+	
+	func isTimedOut() -> Bool {
+		return isUrlError(withCode: URLError.timedOut)
+	}
+	
 	func isCannotConnectToHost() -> Bool {
 		return isUrlError(withCode: URLError.cannotConnectToHost)
 	}

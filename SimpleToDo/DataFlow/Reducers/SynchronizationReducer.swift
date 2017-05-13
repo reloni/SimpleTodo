@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxDataFlow
 import RealmSwift
+import RxHttpClient
 
 struct SynchronizationReducer : RxReducerType {
 	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
@@ -81,7 +82,7 @@ extension SynchronizationReducer {
 			let subscription = state.syncService.synchronize(authenticationInfo: info)
 				.do(onError: { error in
 					observer.onNext(state.mutation.new(syncStatus: .failed(error)))
-					if error.isNotConnectedToInternet() || error.isCannotConnectToHost() {
+					if error.isNotConnectedToInternet() || error.isCannotConnectToHost() || error.isTimedOut() || error.isInvalidResponse() {
 						observer.onError(error)
 					}
 				},

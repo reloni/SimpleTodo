@@ -105,7 +105,7 @@ final class TasksController : UIViewController {
 			cell.selectionStyle = .none
 			cell.isExpanded = false
 			cell.taskDescription.text = "\(item.description)"
-			cell.targetDate.text = item.targetDate?.date.longDate
+			cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
 			cell.updateConstraints()
 			
 			cell.completeTapped = { [weak self] in

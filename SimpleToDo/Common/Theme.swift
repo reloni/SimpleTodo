@@ -80,6 +80,8 @@ final class Theme {
 		static let black = UIColor.black
 		static let clear = UIColor.clear
 		
+		static let darkSpringGreen = UIColor(red: 17/255, green: 134/255, blue: 72/255, alpha: 1)
+		
 		static let pumkinLight = UIColor(red: 250/255, green: 217/255, blue: 97/255, alpha: 1)
 		static let pumkin = UIColor(red: 247/255, green: 107/255, blue: 28/255, alpha: 1)
 		static let blueberry = UIColor(red: 67/255, green: 146/255, blue: 241/255, alpha: 1)

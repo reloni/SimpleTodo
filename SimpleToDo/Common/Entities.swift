@@ -93,6 +93,36 @@ struct Task {
 struct TaskDate {
 	let date: Date
 	let includeTime: Bool
+	
+	init(date: Date, includeTime: Bool) {
+		self.includeTime = includeTime
+		self.date = includeTime ? date.setting(.second, value: 0).setting(.nanosecond, value: 0) : date.beginningOfDay()
+	}
+	
+	var underlineColor: UIColor? {
+		switch date.type {
+		case .past: fallthrough
+		case .yesterday: return Theme.Colors.upsdelRed
+		case .tomorrow: return Theme.Colors.pumkinLight
+		default: return Theme.Colors.darkSpringGreen
+		}
+	}
+	
+	func toAttributedString(withSpelling: Bool) -> NSAttributedString {
+		let str = NSMutableAttributedString(string: toString(withSpelling: withSpelling))
+		
+		let range = NSRange(location: 0, length: str.length)
+		str.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
+		if let underlineColor = underlineColor {
+			str.addAttribute(NSUnderlineColorAttributeName, value: underlineColor, range: range)
+		}
+		
+		return str
+	}
+	
+	func toString(withSpelling: Bool) -> String {
+		return includeTime ? date.toDateAndTimeString(withSpelling: withSpelling) : date.toDateString(withSpelling: withSpelling)
+	}
 }
 
 extension TaskDate : Equatable {
@@ -146,7 +176,7 @@ extension Task : WrapCustomizable {
 		dict["completed"] = completed
 		dict["description"] = description
 		dict["notes"] = notes ?? ""
-		dict["targetDate"] = targetDate?.date.serverDate ?? NSNull()
+		dict["targetDate"] = targetDate?.date.toServerDateString() ?? NSNull()
 		dict["targetDateIncludeTime"] = targetDate?.includeTime ?? NSNull()
 		
 		return dict
