@@ -101,6 +101,7 @@ struct TaskDate {
 	
 	var underlineColor: UIColor? {
 		switch date.type {
+		case .todayPast: fallthrough
 		case .past: fallthrough
 		case .yesterday: return Theme.Colors.upsdelRed
 		case .tomorrow: return Theme.Colors.pumkinLight
