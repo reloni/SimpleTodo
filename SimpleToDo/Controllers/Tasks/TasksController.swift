@@ -28,7 +28,7 @@ final class TasksController : UIViewController {
 	let tableView: UITableView = {
 		let table = Theme.Controls.tableView()
 		
-		table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
+		table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
 		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 		
 		return table
@@ -162,8 +162,8 @@ final class TasksController : UIViewController {
 	func addTaskButtonConstraints(maker: ConstraintMaker) {
 		maker.trailing.equalTo(view.snp.trailing).offset(-20)
 		maker.bottom.equalTo(view.snp.bottomMargin).offset(-20)
-		maker.height.equalTo(55)
-		maker.width.equalTo(55)
+		maker.height.equalTo(44)
+		maker.width.equalTo(44)
 	}
 	
 	override func updateViewConstraints() {
