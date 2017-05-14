@@ -88,6 +88,10 @@ struct Task {
 	let description: String
 	let notes: String?
 	let targetDate: TaskDate?
+	
+	// this field here for checking equality and to force UITableView to refresh 
+	// when app opens on next day (when relative dates like "today" should be changed)
+	fileprivate let timestamp = Date().beginningOfDay()
 }
 
 struct TaskDate {
@@ -139,6 +143,7 @@ extension Task : Equatable {
 			&& lhs.description == rhs.description
 			&& lhs.notes == rhs.notes
 			&& lhs.targetDate == rhs.targetDate
+			&& lhs.timestamp == rhs.timestamp
 	}
 }
 
