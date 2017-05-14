@@ -97,10 +97,12 @@ struct Task {
 struct TaskDate {
 	let date: Date
 	let includeTime: Bool
+	let isFuture: Bool
 	
 	init(date: Date, includeTime: Bool) {
 		self.includeTime = includeTime
 		self.date = includeTime ? date.setting(.second, value: 0).setting(.nanosecond, value: 0) : date.beginningOfDay()
+		self.isFuture = self.date.isInFuture
 	}
 	
 	var underlineColor: UIColor? {
@@ -132,7 +134,9 @@ struct TaskDate {
 
 extension TaskDate : Equatable {
 	public static func ==(lhs: TaskDate, rhs: TaskDate) -> Bool {
-		return lhs.date == rhs.date && lhs.includeTime && rhs.includeTime
+		return lhs.date == rhs.date
+			&& (lhs.includeTime == rhs.includeTime)
+			&& lhs.isFuture == rhs.isFuture
 	}
 }
 

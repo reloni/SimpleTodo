@@ -162,8 +162,8 @@ final class TasksController : UIViewController {
 	func addTaskButtonConstraints(maker: ConstraintMaker) {
 		maker.trailing.equalTo(view.snp.trailing).offset(-20)
 		maker.bottom.equalTo(view.snp.bottomMargin).offset(-20)
-		maker.height.equalTo(44)
-		maker.width.equalTo(44)
+		maker.height.equalTo(40)
+		maker.width.equalTo(40)
 	}
 	
 	override func updateViewConstraints() {
