@@ -42,7 +42,7 @@ extension AuthenticationReducer {
 		Keychain.refreshToken = ""
 		Keychain.userUuid = ""
 		
-		return .just(state.mutation.new(authentication: .none))
+		return .just(state.mutation.new(authentication: Authentication.none))
 	}
 	
 	func logIn(currentState state: AppState, email: String, password: String) -> Observable<RxStateType> {
@@ -65,7 +65,7 @@ extension AuthenticationReducer {
 	}
 	
 	func refreshToken(currentState state: AppState, force: Bool) -> Observable<RxStateType> {
-		guard let info = state.authentication.info else { return .error(AuthenticationError.notAuthorized) }
+		guard let info = state.authentication.info else { return .empty() }
 		
 		guard info.isTokenExpired || force else {
 			return .just(state)

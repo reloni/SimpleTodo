@@ -75,28 +75,26 @@ extension TextView {
 
 extension Date {
 	enum DateType {
-		case today
+		case todayPast
+		case todayFuture
 		case yesterday
 		case tomorrow
 		case future
 		case past
-		case unknown
 	}
 	
 	var type: DateType {
 		if isToday {
-			return .today
+			return isInPast ? .todayPast : .todayFuture
 		} else if isTomorrow {
 			return .tomorrow
 		} else if isYesterday {
 			return .yesterday
 		} else if isBeforeYesterday {
 			return .past
-		} else if isAfterTomorrow {
+		} else {
 			return .future
 		}
-		
-		return .unknown
 	}
 	
 	func setting(_ component: Calendar.Component, value: Int) -> Date {
@@ -146,7 +144,8 @@ extension Date {
 	
 	func toSpelledDateString() -> String? {
 		switch type {
-		case .today: return "Today"
+		case .todayFuture: fallthrough
+		case .todayPast: return "Today"
 		case .yesterday: return "Yesterday"
 		case .tomorrow: return "Tomorrow"
 		default: return nil
