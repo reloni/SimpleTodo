@@ -49,27 +49,32 @@ final class EditTaskViewModel: ViewModelType {
 		}
 	}
 	
-	func save() {
-		guard taskDescription.value.characters.count > 0 else { return }
-		guard let task = task else {
-			let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-			                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
-			                                                                     completed: false,
-			                                                                     description: taskDescription.value,
-			                                                                     notes: taskNotes.value,
-			                                                                     targetDate: taskTargetDate.value))])
-			
-			flowController.dispatch(action)
-			flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
-			
-			return
-		}
+	private func  createTask() -> [RxActionType] {
+		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
+		                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
+		                                                                            completed: false,
+		                                                                            description: taskDescription.value,
+		                                                                            notes: taskNotes.value,
+		                                                                            targetDate: taskTargetDate.value))])
 		
+		return [action, RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions)]
+	}
+	
+	private func update(task: Task) -> [RxActionType] {
 		let newTask = Task(uuid: task.uuid, completed: false, description: taskDescription.value, notes: taskNotes.value, targetDate: taskTargetDate.value)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
 		                                         SynchronizationAction.updateTask(newTask)])
 		
-		flowController.dispatch(action)
-		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		return [action, RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions)]
+	}
+	
+	func save() {
+		guard taskDescription.value.characters.count > 0 else { return }
+		guard let task = task else {
+			createTask().forEach { flowController.dispatch($0) }
+			return
+		}
+		
+		update(task: task).forEach { flowController.dispatch($0) }
 	}
 }
