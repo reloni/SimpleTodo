@@ -9,7 +9,7 @@
 import RxDataFlow
 
 protocol ViewModelType {
-	var flowController: RxDataFlowController<AppState> { get }
+	var flowController: RxDataFlowController<RootReducer> { get }
 }
 
 extension ViewModelType {

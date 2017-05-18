@@ -12,32 +12,33 @@ import UIKit
 
 protocol ApplicationCoordinatorType {
 	var window: UIWindow { get }
-	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType>
+	var flowController: RxDataFlowController<RootReducer> { get }
+	func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>>
 }
 
 extension ApplicationCoordinatorType {
-	func handleBase(action: RxActionType, flowController: RxDataFlowController<AppState>, currentViewController controller: UIViewController) -> Observable<RxStateType>? {
+	func handleBase(action: RxActionType, currentViewController controller: UIViewController) -> Observable<RxStateMutator<AppState>>? {
 		switch action {
 		case UIAction.showErrorMessage(let error):
 			showAlert(in: controller, with: error)
-			return .just(flowController.currentState.state)
+			return .just( { $0 })
 		case UIAction.showSnackView(let error, let hideAfter):
 			showSnackView(with: error, hideAfter: hideAfter)
-			return .just(flowController.currentState.state)
+			return .just({ $0 })
 		case UIAction.returnToRootController:
-			let coordinator = AuthenticationCoordinator(window: window, controller: AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController,
-			                                                                                                                                    mode: .logIn)))
+			let model = AuthenticationViewModel(flowController: flowController, mode: .logIn)
+			let coordinator = AuthenticationCoordinator(window: window, controller: AuthenticationController(viewModel: model), flowController: flowController)
 			set(newRootController: coordinator.controller)
-			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
+			return .just({ $0.mutation.new(coordinator: coordinator) })
 		case UIAction.showSpinner:
 			showSpinner()
-			return .just(flowController.currentState.state)
+			return .just({ $0 })
 		case UIAction.hideSpinner:
 			hideSpinner()
-			return .just(flowController.currentState.state)
+			return .just({ $0 })
 		case UIAction.updateIconBadge:
 			flowController.currentState.state.uiApplication.applicationIconBadgeNumber = flowController.currentState.state.syncService.overdueTasksCount()
-			return .just(flowController.currentState.state)
+			return .just({ $0 })
 		default: return nil
 		}
 	}
@@ -111,33 +112,36 @@ extension ApplicationCoordinatorType {
 
 struct InitialCoordinator : ApplicationCoordinatorType {
 	let window: UIWindow
+	var flowController: RxDataFlowController<RootReducer> { return flowControllerInitializer() }
+	let flowControllerInitializer: () -> RxDataFlowController<RootReducer>
 	
-	init(window: UIWindow) {
+	init(window: UIWindow, flowControllerInitializer: @escaping () -> RxDataFlowController<RootReducer>) {
 		self.window = window
+		self.flowControllerInitializer = flowControllerInitializer
 	}
 	
-	func showLogInController(flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+	func showLogInController() -> Observable<RxStateMutator<AppState>> {
 		let controller = AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController, mode: .logIn))
-		let coordinator = AuthenticationCoordinator(window: window, controller: controller)
+		let coordinator = AuthenticationCoordinator(window: window, controller: controller, flowController: flowController)
 		set(initialRootController: controller)
-		return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
+		return .just({ $0.mutation.new(coordinator: coordinator) })
 	}
 	
-	func showTasksController(flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+	func showTasksController() -> Observable<RxStateMutator<AppState>> {
 		let coordinator = TasksCoordinator(window: window, flowController: flowController)
 	
 		set(initialRootController: coordinator.navigationController)
 		
-		return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
+		return .just({ $0.mutation.new(coordinator: coordinator) })
 	}
 	
-	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+	func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
 		switch action {
 		case UIAction.showRootController:
 			if case Authentication.authenticated = flowController.currentState.state.authentication {
-				return showTasksController(flowController: flowController)
+				return showTasksController()
 			} else {
-				return showLogInController(flowController: flowController)
+				return showLogInController()
 			}
 		default: fatalError("Only UIAction.showRootController may be dispatched")
 		}

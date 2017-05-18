@@ -12,12 +12,7 @@ import OneSignal
 import RxDataFlow
 
 struct PushNotificationsReducer : RxReducerType {
-	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
-		return handle(action, flowController: flowController as! RxDataFlowController<AppState>)
-	}
-	
-	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
-		let currentState = flowController.currentState.state
+	func handle(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
 		switch action {
 		case PushNotificationsAction.promtForPushNotifications: return promtForPushNotifications(currentState: currentState)
 		case PushNotificationsAction.switchNotificationSubscription(let subscribed): return switchNotificationSubsctiption(currentState: currentState, subscribed: subscribed)
@@ -27,8 +22,8 @@ struct PushNotificationsReducer : RxReducerType {
 }
 
 extension PushNotificationsReducer {
-	func promtForPushNotifications(currentState state: AppState) -> Observable<RxStateType> {
-		guard let info = state.authentication.info else { return .just(state) }
+	func promtForPushNotifications(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
+		guard let info = state.authentication.info else { return .just({ $0 }) }
 		
 		OneSignal.promptForPushNotifications(userResponse: { accepted in
 			guard accepted else { return }
@@ -36,10 +31,10 @@ extension PushNotificationsReducer {
 			PushNotificationsReducer.enableSubscription(for: info)
 		})
 		
-		return .just(state)
+		return .just( { $0 } )
 	}
 	
-	func switchNotificationSubsctiption(currentState state: AppState, subscribed: Bool) -> Observable<RxStateType> {
+	func switchNotificationSubsctiption(currentState state: AppState, subscribed: Bool) -> Observable<RxStateMutator<AppState>> {
 		if subscribed {
 			return enablePushNotificationsSubscription(currentState: state)
 		} else {
@@ -47,19 +42,19 @@ extension PushNotificationsReducer {
 		}
 	}
 	
-	func disablePushNotificationsSubscription(currentState state: AppState) -> Observable<RxStateType> {		
+	func disablePushNotificationsSubscription(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 		OneSignal.deleteTag("user_id")
 		OneSignal.setSubscription(false)
 		
-		return .just(state)
+		return .just( { $0 } )
 	}
 	
-	func enablePushNotificationsSubscription(currentState state: AppState)  -> Observable<RxStateType> {
-		guard let info = state.authentication.info else { return .just(state) }
+	func enablePushNotificationsSubscription(currentState state: AppState)  -> Observable<RxStateMutator<AppState>> {
+		guard let info = state.authentication.info else { return .just( { $0 } ) }
 		
 		PushNotificationsReducer.enableSubscription(for: info)
 		
-		return .just(state)
+		return .just( { $0 } )
 	}
 	
 	static func enableSubscription(for info: AuthenticationInfo) {

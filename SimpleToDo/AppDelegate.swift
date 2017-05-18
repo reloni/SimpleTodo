@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
-	lazy var flowController: RxDataFlowController<AppState> = {
+	lazy var flowController: RxDataFlowController<RootReducer> = {
 		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
 		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
 		
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return Authentication.authenticated(authenticationInfo, UserSettings())
 		}()
 		
-		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!),
+		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!, flowControllerInitializer: { self.flowController }),
 		                            authentication: authentication,
 		                            uiApplication: UIApplication.shared,
 		                            authenticationService: Auth0AuthenticationService(),

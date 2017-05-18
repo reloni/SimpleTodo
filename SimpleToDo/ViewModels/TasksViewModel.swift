@@ -11,7 +11,7 @@ import RxDataFlow
 import RxSwift
 
 final class TasksViewModel: ViewModelType {
-	let flowController: RxDataFlowController<AppState>
+	let flowController: RxDataFlowController<RootReducer>
 	
 	let title = "Tasks"
 	
@@ -38,7 +38,7 @@ final class TasksViewModel: ViewModelType {
 		return self.flowController.errors.do(onNext: { [weak self] in self?.check(error: $0.error) })
 	}()
 	
-	init(flowController: RxDataFlowController<AppState>) {
+	init(flowController: RxDataFlowController<RootReducer>) {
 		self.flowController = flowController
 	}
 	

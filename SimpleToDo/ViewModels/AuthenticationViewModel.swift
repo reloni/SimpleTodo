@@ -16,7 +16,7 @@ final class AuthenticationViewModel: ViewModelType {
 		case registration
 	}
 	
-	let flowController: RxDataFlowController<AppState>
+	let flowController: RxDataFlowController<RootReducer>
 	
 	let mode: Mode
 	
@@ -27,7 +27,7 @@ final class AuthenticationViewModel: ViewModelType {
 		})
 	}()
 	
-	init(flowController: RxDataFlowController<AppState>, mode: Mode) {
+	init(flowController: RxDataFlowController<RootReducer>, mode: Mode) {
 		self.flowController = flowController
 		self.mode = mode
 	}

@@ -2,7 +2,7 @@ github "ReactiveX/RxSwift" == 3.4.1
 github "SnapKit/SnapKit" == 3.2.0
 github "CosmicMind/Material" == 2.6.3
 github "RxSwiftCommunity/RxHttpClient" == 0.8.2
-github "Reloni/RxDataFlow" == 0.7.0
+github "Reloni/RxDataFlow" == 0.8.0
 github "RxSwiftCommunity/RxDataSources" == 1.0.3
 github "JohnSundell/Unbox" == 2.4.0
 github "JohnSundell/Wrap" == 2.1.1

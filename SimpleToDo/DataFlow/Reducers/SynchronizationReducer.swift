@@ -13,13 +13,7 @@ import RealmSwift
 import RxHttpClient
 
 struct SynchronizationReducer : RxReducerType {
-	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
-		return handle(action, flowController: flowController as! RxDataFlowController<AppState>)
-	}
-	
-	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
-		let currentState = flowController.currentState.state
-
+	func handle(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
 		switch (action, currentState.authentication) {
 		case (SynchronizationAction.addTask(let task), .authenticated): return add(task: task, currentState: currentState)
 		case (SynchronizationAction.updateTask(let task), .authenticated): return update(task: task, currentState: currentState)
@@ -34,7 +28,7 @@ struct SynchronizationReducer : RxReducerType {
 }
 
 extension SynchronizationReducer {
-	func deleteCache(currentState state: AppState) -> Observable<RxStateType> {
+	func deleteCache(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 		guard let info = state.authentication.info else { return .empty() }
 		
 		let mainRealmFile = FileManager.default.realmsDirectory.appendingPathComponent("\(info.uid).realm")
@@ -47,10 +41,10 @@ extension SynchronizationReducer {
 		
 		allRealmFiles.forEach { try? FileManager.default.removeItem(at: $0) }
 
-		return .just(state)
+		return .just( { $0 } )
 	}
 	
-	func updateConfiguration(currentState state: AppState) -> Observable<RxStateType> {
+	func updateConfiguration(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 		guard let info = state.authentication.info else { return .empty() }
 		
 		var newConfig = Realm.Configuration()
@@ -60,33 +54,33 @@ extension SynchronizationReducer {
 		let newSyncService = SynchronizationService(webService: state.syncService.webService,
 		                                            repository: state.syncService.repository.withNew(realmConfiguration: newConfig))
 		
-		return .just(state.mutation.new(syncService: newSyncService))
+		return .just( { $0.mutation.new(syncService: newSyncService) } )
 	}
 	
-	func update(task: Task, currentState state: AppState) -> Observable<RxStateType> {
+	func update(task: Task, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 		state.syncService.addOrUpdate(task: task)
-		return .just(state)
+		return .just( { $0 } )
 	}
 	
-	func add(task: Task, currentState state: AppState) -> Observable<RxStateType> {
+	func add(task: Task, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 		state.syncService.addOrUpdate(task: task)
-		return .just(state)
+		return .just( { $0 } )
 	}
 	
-	func synchronize(currentState state: AppState) -> Observable<RxStateType> {
+	func synchronize(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 		guard let info = state.authentication.info else { return .empty() }
 		
 		return Observable.create { observer in
-			observer.onNext(state.mutation.new(syncStatus: .inProgress))
+			observer.onNext( { $0.mutation.new(syncStatus: .inProgress) })
 			
 			let subscription = state.syncService.synchronize(authenticationInfo: info)
 				.do(onError: { error in
-					observer.onNext(state.mutation.new(syncStatus: .failed(error)))
+					observer.onNext( { $0.mutation.new(syncStatus: .failed(error)) } )
 					if error.isNotConnectedToInternet() || error.isCannotConnectToHost() || error.isTimedOut() || error.isInvalidResponse() {
 						observer.onError(error)
 					}
 				},
-				    onCompleted: {observer.onNext(state.mutation.new(syncStatus: .completed)) },
+				    onCompleted: {observer.onNext( { $0.mutation.new(syncStatus: .completed) }) },
 				    onDispose: { observer.onCompleted() })
 				.subscribe()
 			
@@ -96,13 +90,13 @@ extension SynchronizationReducer {
 		}
 	}
 	
-	func deleteTask(by index: Int, currentState state: AppState) -> Observable<RxStateType> {
+	func deleteTask(by index: Int, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 		state.syncService.delete(taskIndex: index)
-		return .just(state)
+		return .just( { $0 } )
 	}
 	
-	func updateTaskCompletionStatus(currentState state: AppState, index: Int) -> Observable<RxStateType> {
+	func updateTaskCompletionStatus(currentState state: AppState, index: Int) -> Observable<RxStateMutator<AppState>> {
 		state.syncService.complete(taskIndex: index)
-		return .just(state)
+		return .just({ $0 })
 	}
 }

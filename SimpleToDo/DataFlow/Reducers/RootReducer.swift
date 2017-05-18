@@ -10,19 +10,18 @@ import RxSwift
 import RxDataFlow
 
 struct RootReducer : RxReducerType {
-	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
+	func handle(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
 		#if DEBUG
 			print("Handle action: \(action.self)")
 		#endif
 		
 		switch action {
-		case _ as AuthenticationAction: return AuthenticationReducer().handle(action, flowController: flowController)
-		case _ as PushNotificationsAction: return PushNotificationsReducer().handle(action, flowController: flowController)
-		case _ as SettingsAction: return SettingsReducer().handle(action, flowController: flowController)
-		case _ as SynchronizationAction: return SynchronizationReducer().handle(action, flowController: flowController)
+		case _ as AuthenticationAction: return AuthenticationReducer().handle(action, currentState: currentState)
+		case _ as PushNotificationsAction: return PushNotificationsReducer().handle(action, currentState: currentState)
+		case _ as SettingsAction: return SettingsReducer().handle(action, currentState: currentState)
+		case _ as SynchronizationAction: return SynchronizationReducer().handle(action, currentState: currentState)
 		case _ as UIAction:
-			let flowController = flowController as! RxDataFlowController<AppState>
-			return flowController.currentState.state.coordinator.handle(action, flowController: flowController)
+			return currentState.coordinator.handle(action)
 		default: fatalError("Unknown action type")
 		}
 	}

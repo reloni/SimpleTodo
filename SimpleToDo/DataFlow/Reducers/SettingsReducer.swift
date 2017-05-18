@@ -11,14 +11,10 @@ import RxDataFlow
 
 
 struct SettingsReducer : RxReducerType {
-	func handle(_ action: RxActionType, flowController: RxDataFlowControllerType) -> Observable<RxStateType> {
-		return handle(action, flowController: flowController as! RxDataFlowController<AppState>)
-	}
-	
-	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
+	func handle(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
 		switch action {
 		case SettingsAction.showDeleteCacheAlert: fallthrough
-		case SettingsAction.showLogOffAlert: return flowController.currentState.state.coordinator.handle(action, flowController: flowController)
+		case SettingsAction.showLogOffAlert: return currentState.coordinator.handle(action)
 		default: return .empty()
 		}
 	}
