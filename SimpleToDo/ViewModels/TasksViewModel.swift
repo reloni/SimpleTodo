@@ -11,7 +11,7 @@ import RxDataFlow
 import RxSwift
 
 final class TasksViewModel: ViewModelType {
-	let flowController: RxDataFlowController<AppState>
+	let flowController: RxDataFlowController<RootReducer>
 	
 	let title = "Tasks"
 	
@@ -38,13 +38,13 @@ final class TasksViewModel: ViewModelType {
 		return self.flowController.errors.do(onNext: { [weak self] in self?.check(error: $0.error) })
 	}()
 	
-	init(flowController: RxDataFlowController<AppState>) {
+	init(flowController: RxDataFlowController<RootReducer>) {
 		self.flowController = flowController
 	}
 	
 	func completeTask(index: Int) {
 		flowController.dispatch(SynchronizationAction.completeTask(index))
-		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		flowController.dispatch(RxCompositeAction.synchronizationAction)
 	}
 	
 	func editTask(index: Int) {
@@ -53,11 +53,11 @@ final class TasksViewModel: ViewModelType {
 	
 	func deleteTask(index: Int) {
 		flowController.dispatch(SynchronizationAction.deleteTask(index))
-		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		flowController.dispatch(RxCompositeAction.synchronizationAction)
 	}
 	
 	func synchronize() {
-		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		flowController.dispatch(RxCompositeAction.synchronizationAction)
 	}
 	
 	func newTask() {

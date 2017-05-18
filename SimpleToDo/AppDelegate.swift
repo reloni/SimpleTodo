@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
-	lazy var flowController: RxDataFlowController<AppState> = {
+	lazy var flowController: RxDataFlowController<RootReducer> = {
 		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
 		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
 		
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return Authentication.authenticated(authenticationInfo, UserSettings())
 		}()
 		
-		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!),
+		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!, flowControllerInitializer: { self.flowController }),
 		                            authentication: authentication,
 		                            uiApplication: UIApplication.shared,
 		                            authenticationService: Auth0AuthenticationService(),
@@ -91,13 +91,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //	}
 	
 	func refreshInBackground(with completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		// compose refreshing action
+		let refreshAction = RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions + [UIAction.updateIconBadge, UIAction.invoke(handler: { completionHandler(.newData) })],
+		                                      fallbackAction: UIAction.invoke(handler: { completionHandler(.failed) }),
+		                                      isSerial: false)
 		
-		// wait for refresh and update badge
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			self.flowController.dispatch(UIAction.updateIconBadge)
-			completionHandler(.newData)
-		}
+		flowController.dispatch(refreshAction)
 	}
 	
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {

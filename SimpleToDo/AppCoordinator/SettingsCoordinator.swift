@@ -14,34 +14,38 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 	let parent: ApplicationCoordinatorType
 	let window: UIWindow
 	let navigationController: GenericNavigationController
+	let flowController: RxDataFlowController<RootReducer>
 	
-	init(parent: ApplicationCoordinatorType, navigationController: GenericNavigationController) {
+	init(parent: ApplicationCoordinatorType, navigationController: GenericNavigationController, flowController: RxDataFlowController<RootReducer>) {
 		self.parent = parent
 		self.window = parent.window
 		self.navigationController = navigationController
+		self.flowController = flowController
 	}
 	
-	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
-		if let state = handleBase(action: action, flowController: flowController, currentViewController: navigationController) {
+	func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
+		if let state = handleBase(action: action, currentViewController: navigationController) {
 			return state
 		}
 		
 		switch action {
-		case SettingsAction.showLogOffAlert(let sourceView): return showLogOffAlert(flowController: flowController, sourceView: sourceView)
-		case SettingsAction.showDeleteCacheAlert(let sourceView): return showDeleteCacheAlert(flowController: flowController, sourceView: sourceView)
+		case SettingsAction.showLogOffAlert(let sourceView): return showLogOffAlert(sourceView: sourceView)
+		case SettingsAction.showDeleteCacheAlert(let sourceView): return showDeleteCacheAlert(sourceView: sourceView)
 		case UIAction.dismissSettingsController:
 			let transitionDelegate = TransitionDelegate(dismissalController: SlideDismissAnimationController(mode: .toRight))
 			navigationController.transitioningDelegate = transitionDelegate
 			
 			navigationController.dismiss(animated: true, completion: nil)
-			return .just(flowController.currentState.state.mutation.new(coordinator: parent))
-		default: return .just(flowController.currentState.state)
+
+			let parentCoordinator = parent
+			return .just({ $0.mutation.new(coordinator: parentCoordinator) })
+		default: return .just({ $0 })
 		}
 	}
 	
-	func showLogOffAlert(flowController: RxDataFlowController<AppState>, sourceView: UIView) -> Observable<RxStateType> {
+	func showLogOffAlert(sourceView: UIView) -> Observable<RxStateMutator<AppState>> {
 		guard let settingsController = navigationController.topViewController as? SettingsController else {
-			return .just(flowController.currentState.state)
+			return .just({ $0 })
 		}
 		
 		let logOffHandler: ((UIAlertAction) -> Void)? = { _ in settingsController.viewModel.logOff() }
@@ -50,12 +54,12 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 		
 		showActionSheet(in: settingsController, withTitle: nil, message: nil, actions: actions, sourceView: sourceView)
 		
-		return .just(flowController.currentState.state)
+		return .just({ $0 })
 	}
 	
-	func showDeleteCacheAlert(flowController: RxDataFlowController<AppState>, sourceView: UIView) -> Observable<RxStateType> {
+	func showDeleteCacheAlert(sourceView: UIView) -> Observable<RxStateMutator<AppState>> {
 		guard let settingsController = navigationController.topViewController as? SettingsController else {
-			return .just(flowController.currentState.state)
+			return .just({ $0 })
 		}
 		
 		let deleteHandler: ((UIAlertAction) -> Void)? = { _ in settingsController.viewModel.deleteCache() }
@@ -64,6 +68,6 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 		
 		showActionSheet(in: settingsController, withTitle: "Warning", message: "Not synchronized data will be lost", actions: actions, sourceView: sourceView)
 		
-		return .just(flowController.currentState.state)
+		return .just({ $0 })
 	}
 }
