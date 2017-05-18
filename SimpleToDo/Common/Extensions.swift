@@ -37,6 +37,10 @@ extension RxCompositeAction {
 		return [AuthenticationAction.refreshToken(force: false),
 						SynchronizationAction.synchronize]
 	}
+	
+	static var synchronizationAction: RxCompositeAction {
+		return RxCompositeAction(actions: refreshTokenAndSyncActions, isSerial: false)
+	}
 }
 
 extension Notification {

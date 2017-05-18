@@ -183,22 +183,18 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
 		
 		cell.isExpanded = !cell.isExpanded
-		animateCellExpansion(forIndexPath: indexPath, tableView: tableView)
+		animateCellExpansion(tableView: tableView)
 	}
 	
 	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
 		
 		cell.isExpanded = false
-		animateCellExpansion(forIndexPath: nil, tableView: tableView)
 	}
 	
-	func animateCellExpansion(forIndexPath indexPath: IndexPath?, tableView: UITableView) {
+	func animateCellExpansion(tableView: UITableView) {
 		tableView.beginUpdates()
 		tableView.endUpdates()
-		
-		if let indexPath = indexPath, tableView.numberOfRows(inSection: 0) == indexPath.row + 1 {
-			tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-		}
+		tableView.scrollToNearestSelectedRow(at: .none, animated: true)
 	}
 }

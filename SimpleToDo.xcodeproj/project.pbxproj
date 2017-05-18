@@ -21,6 +21,7 @@
 		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
+		6E2BAE911ECE28170030C2C0 /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */; };
 		6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A751EB4CD9500EC932F /* SettingsController.swift */; };
 		6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */; };
 		6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */; };
@@ -133,6 +134,7 @@
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		6E16914B1E61F63A004EE586 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
+		6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemReducer.swift; sourceTree = "<group>"; };
 		6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
 		6E3B8A751EB4CD9500EC932F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 				6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */,
 				6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */,
 				6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */,
+				6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */,
 			);
 			path = Reducers;
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				6ED3F4471E7DA3D50003C1CC /* EditTaskController.swift in Sources */,
 				6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */,
 				6EA022CA1E755A5700934BB7 /* AuthenticationReducer.swift in Sources */,
+				6E2BAE911ECE28170030C2C0 /* SystemReducer.swift in Sources */,
 				6E96B07B1EBAE69B0096ACFE /* ActivityView.swift in Sources */,
 				6E96B07F1EBC361A0096ACFE /* SnackView.swift in Sources */,
 				6EA7B4211E06A3940043BAA1 /* State.swift in Sources */,

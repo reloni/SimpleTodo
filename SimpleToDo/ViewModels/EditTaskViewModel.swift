@@ -14,7 +14,7 @@ final class EditTaskViewModel: ViewModelType {
 	private let _datePickerExpanded = Variable(false)
 	private let _taskTargetDateSubject = PublishSubject<TaskDate?>()
 	
-	let flowController: RxDataFlowController<AppState>
+	let flowController: RxDataFlowController<RootReducer>
 	let task: Task?
 	
 	lazy var taskDescription: Variable<String> = { return Variable<String>(self.task?.description ?? "") }()
@@ -24,7 +24,7 @@ final class EditTaskViewModel: ViewModelType {
 	lazy var datePickerExpanded: Observable<Bool> = { self._datePickerExpanded.asObservable() }()
 	lazy var taskTargetDateChanged: Observable<TaskDate?> = { self._taskTargetDateSubject.asObservable() }()
 	
-	init(task: Task?, flowController: RxDataFlowController<AppState>) {
+	init(task: Task?, flowController: RxDataFlowController<RootReducer>) {
 		self.task = task
 		self.flowController = flowController
 	}
@@ -49,27 +49,32 @@ final class EditTaskViewModel: ViewModelType {
 		}
 	}
 	
-	func save() {
-		guard taskDescription.value.characters.count > 0 else { return }
-		guard let task = task else {
-			let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-			                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
-			                                                                     completed: false,
-			                                                                     description: taskDescription.value,
-			                                                                     notes: taskNotes.value,
-			                                                                     targetDate: taskTargetDate.value))])
-			
-			flowController.dispatch(action)
-			flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
-			
-			return
-		}
+	private func  createTask() -> [RxActionType] {
+		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
+		                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
+		                                                                            completed: false,
+		                                                                            description: taskDescription.value,
+		                                                                            notes: taskNotes.value,
+		                                                                            targetDate: taskTargetDate.value))])
 		
+		return [action, RxCompositeAction.synchronizationAction]
+	}
+	
+	private func update(task: Task) -> [RxActionType] {
 		let newTask = Task(uuid: task.uuid, completed: false, description: taskDescription.value, notes: taskNotes.value, targetDate: taskTargetDate.value)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
 		                                         SynchronizationAction.updateTask(newTask)])
 		
-		flowController.dispatch(action)
-		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		return [action, RxCompositeAction.synchronizationAction]
+	}
+	
+	func save() {
+		guard taskDescription.value.characters.count > 0 else { return }
+		guard let task = task else {
+			createTask().forEach { flowController.dispatch($0) }
+			return
+		}
+		
+		update(task: task).forEach { flowController.dispatch($0) }
 	}
 }

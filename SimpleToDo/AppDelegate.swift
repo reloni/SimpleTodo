@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
-	lazy var flowController: RxDataFlowController<AppState> = {
+	lazy var flowController: RxDataFlowController<RootReducer> = {
 		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
 		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
 		
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return Authentication.authenticated(authenticationInfo, UserSettings())
 		}()
 		
-		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!),
+		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!, flowControllerInitializer: { self.flowController }),
 		                            authentication: authentication,
 		                            uiApplication: UIApplication.shared,
 		                            authenticationService: Auth0AuthenticationService(),
@@ -91,13 +91,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //	}
 	
 	func refreshInBackground(with completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		// compose refreshing action
+		let actions = RxCompositeAction.refreshTokenAndSyncActions +
+			[SystemAction.updateIconBadge, SystemAction.invoke(handler: { print("completed"); completionHandler(.newData) })]
+		let compositeAction = RxCompositeAction(actions: actions,
+		                                      fallbackAction: SystemAction.invoke(handler: { print("failed"); completionHandler(.failed) }),
+		                                      isSerial: false)
 		
-		// wait for refresh and update badge
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			self.flowController.dispatch(UIAction.updateIconBadge)
-			completionHandler(.newData)
-		}
+		flowController.dispatch(compositeAction)
 	}
 	
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -109,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillResignActive(_ application: UIApplication) {
-		flowController.dispatch(UIAction.updateIconBadge)
+		flowController.dispatch(SystemAction.updateIconBadge)
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 	}

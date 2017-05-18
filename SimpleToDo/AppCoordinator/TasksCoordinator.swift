@@ -13,15 +13,17 @@ import UIKit
 struct TasksCoordinator : ApplicationCoordinatorType {
 	let window: UIWindow
 	let navigationController: GenericNavigationController
+	let flowController: RxDataFlowController<RootReducer>
 	
-	init(window: UIWindow, flowController: RxDataFlowController<AppState>) {
+	init(window: UIWindow, flowController: RxDataFlowController<RootReducer>) {
 		self.window = window
+		self.flowController = flowController
 		let viewModel = TasksViewModel(flowController: flowController)
 		navigationController = GenericNavigationController(rootViewController: TasksController(viewModel: viewModel))
 	}
 	
-	func handle(_ action: RxActionType, flowController: RxDataFlowController<AppState>) -> Observable<RxStateType> {
-		if let state = handleBase(action: action, flowController: flowController, currentViewController: navigationController) {
+	func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
+		if let state = handleBase(action: action, currentViewController: navigationController) {
 			return state
 		}
 		
@@ -29,10 +31,10 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 		case UIAction.showEditTaskController(let task):
 			let viewModel = EditTaskViewModel(task: task, flowController: flowController)
 			navigationController.pushViewController(EditTaskController(viewModel: viewModel), animated: true)
-			return .just(flowController.currentState.state)
+			return .just({ $0 })
 		case UIAction.dismisEditTaskController:
 			navigationController.popViewController(animated: true)
-			return .just(flowController.currentState.state)
+			return .just({ $0 })
 		case UIAction.showSettingsController:
 			let controller = GenericNavigationController(rootViewController: SettingsController(viewModel: SettingsViewModel(flowController: flowController)))
 			
@@ -40,9 +42,9 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 			controller.transitioningDelegate = transitionDelegate
 			
 			let coordinator = SettingsCoordinator(parent: self,
-			                                      navigationController: controller)
+			                                      navigationController: controller, flowController: flowController)
 			navigationController.present(coordinator.navigationController, animated: true, completion: nil)
-			return .just(flowController.currentState.state.mutation.new(coordinator: coordinator))
+			return .just({ $0.mutation.new(coordinator: coordinator) })
 		default: return .empty()
 		}
 	}
