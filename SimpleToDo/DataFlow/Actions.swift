@@ -10,6 +10,14 @@ import RxDataFlow
 import RxSwift
 import UIKit
 
+enum SystemAction: RxActionType {
+	var isSerial: Bool { return true }
+	var scheduler: ImmediateSchedulerType? { return nil }
+	
+	case updateIconBadge
+	case invoke(handler: () -> ())
+}
+
 enum UIAction : RxActionType {
 	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
@@ -32,10 +40,6 @@ enum UIAction : RxActionType {
 	case showErrorMessage(Error)
 	
 	case returnToRootController
-	
-	case updateIconBadge
-	
-	case invoke(handler: () -> ())
 }
 
 enum AuthenticationAction : RxActionType {

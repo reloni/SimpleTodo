@@ -92,11 +92,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func refreshInBackground(with completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 		// compose refreshing action
-		let refreshAction = RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions + [UIAction.updateIconBadge, UIAction.invoke(handler: { completionHandler(.newData) })],
-		                                      fallbackAction: UIAction.invoke(handler: { completionHandler(.failed) }),
+		let actions = RxCompositeAction.refreshTokenAndSyncActions +
+			[SystemAction.updateIconBadge, SystemAction.invoke(handler: { print("completed"); completionHandler(.newData) })]
+		let compositeAction = RxCompositeAction(actions: actions,
+		                                      fallbackAction: SystemAction.invoke(handler: { print("failed"); completionHandler(.failed) }),
 		                                      isSerial: false)
 		
-		flowController.dispatch(refreshAction)
+		flowController.dispatch(compositeAction)
 	}
 	
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -108,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillResignActive(_ application: UIApplication) {
-		flowController.dispatch(UIAction.updateIconBadge)
+		flowController.dispatch(SystemAction.updateIconBadge)
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 	}
