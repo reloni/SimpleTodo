@@ -57,7 +57,7 @@ final class EditTaskViewModel: ViewModelType {
 		                                                                            notes: taskNotes.value,
 		                                                                            targetDate: taskTargetDate.value))])
 		
-		return [action, RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions)]
+		return [action, RxCompositeAction.synchronizationAction]
 	}
 	
 	private func update(task: Task) -> [RxActionType] {
@@ -65,7 +65,7 @@ final class EditTaskViewModel: ViewModelType {
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
 		                                         SynchronizationAction.updateTask(newTask)])
 		
-		return [action, RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions)]
+		return [action, RxCompositeAction.synchronizationAction]
 	}
 	
 	func save() {

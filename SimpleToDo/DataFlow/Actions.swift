@@ -34,6 +34,8 @@ enum UIAction : RxActionType {
 	case returnToRootController
 	
 	case updateIconBadge
+	
+	case invoke(handler: () -> ())
 }
 
 enum AuthenticationAction : RxActionType {
@@ -56,12 +58,8 @@ enum SettingsAction : RxActionType {
 }
 
 enum SynchronizationAction: RxActionType {
-	var isSerial: Bool {
-		switch self {
-		case .synchronize: return false
-		default: return true
-		}
-	}
+	var isSerial: Bool { return true }
+	
 	var scheduler: ImmediateSchedulerType? { return nil }
 	
 	case synchronize

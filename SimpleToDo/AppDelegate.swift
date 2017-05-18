@@ -91,13 +91,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //	}
 	
 	func refreshInBackground(with completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		// compose refreshing action
+		let refreshAction = RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions + [UIAction.updateIconBadge, UIAction.invoke(handler: { completionHandler(.newData) })],
+		                                      fallbackAction: UIAction.invoke(handler: { completionHandler(.failed) }),
+		                                      isSerial: false)
 		
-		// wait for refresh and update badge
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			self.flowController.dispatch(UIAction.updateIconBadge)
-			completionHandler(.newData)
-		}
+		flowController.dispatch(refreshAction)
 	}
 	
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
