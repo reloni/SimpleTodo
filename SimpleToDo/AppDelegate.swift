@@ -76,20 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification
 	}
-	
-//	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//	}
-//	
-//	func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-//	}
-//	
-//	func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-//	}
-//	
-//	func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-//		completionHandler()
-//	}
-	
+
 	func refreshInBackground(with completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 		// compose refreshing action
 		let actions = RxCompositeAction.refreshTokenAndSyncActions +
@@ -122,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		flowController.dispatch(RxCompositeAction.synchronizationAction)
 	}
 	
 	func applicationDidBecomeActive(_ application: UIApplication) {

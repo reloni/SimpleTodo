@@ -71,6 +71,8 @@ extension ApplicationCoordinatorType {
 	
 	func set(newRootController controller: UIViewController) {
 		transition {
+			self.window.rootViewController?.childViewControllers.forEach { $0.dismiss(animated: false, completion: nil) }
+			self.window.rootViewController?.dismiss(animated: false, completion: nil)
 			self.window.rootViewController = controller
 		}
 	}
