@@ -30,7 +30,8 @@ extension RxCompositeAction {
 	static var logOffActions: [RxActionType] {
 		return [AuthenticationAction.signOut,
 		        UIAction.returnToRootController,
-		        PushNotificationsAction.switchNotificationSubscription(subscribed: false)]
+		        PushNotificationsAction.switchNotificationSubscription(subscribed: false),
+		        SynchronizationAction.updateConfiguration]
 	}
 	
 	static var refreshTokenAndSyncActions: [RxActionType] {
