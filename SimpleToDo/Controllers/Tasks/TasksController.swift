@@ -41,7 +41,7 @@ final class TasksController : UIViewController {
 		button.backgroundColor = Theme.Colors.white
 		return button
 	}()
-	
+
 	init(viewModel: TasksViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
@@ -112,7 +112,7 @@ final class TasksController : UIViewController {
 	}
 	
 	func configureDataSource() {
-		dataSource.configureCell = { ds, tv, ip, item in
+		dataSource.configureCell = { [weak viewModel] ds, tv, ip, item in
 			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
 			cell.preservesSuperviewLayoutMargins = false
 			cell.layoutMargins = .zero
@@ -123,23 +123,21 @@ final class TasksController : UIViewController {
 			cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
 			cell.updateConstraints()
 			
-			cell.completeTapped = { [weak self] in
-				guard let object = self else { return }
+			cell.completeTapped = {
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.viewModel.completeTask(index: row)
+				viewModel?.completeTask(index: row)
 			}
 			
-			cell.editTapped = { [weak self] in
-				guard let object = self else { return }
+			cell.editTapped = {
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.viewModel.editTask(index: row)
+				viewModel?.editTask(index: row)
 			}
 			
-			cell.deleteTapped = { [weak self] in
-				guard let object = self else { return }
+			cell.deleteTapped = {
 				guard let row = tv.indexPath(for: cell)?.row else { return }
-				object.viewModel.deleteTask(index: row)
+				viewModel?.deleteTask(index: row)
 			}
+			
 			return cell
 		}
 		
