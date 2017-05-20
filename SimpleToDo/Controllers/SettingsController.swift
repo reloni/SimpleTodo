@@ -22,7 +22,6 @@ final class SettingsController : UIViewController {
 		let table = Theme.Controls.tableView()
 		
 		table.register(DefaultCell.self, forCellReuseIdentifier: "Default")
-		table.register(SwitchCell.self, forCellReuseIdentifier: "Switch")
 		
 		return table
 	}()
@@ -102,7 +101,7 @@ final class SettingsController : UIViewController {
 				cell.tapped = { viewModel?.askForDeleteCache(sourceView: cell) }
 				return cell
 			case .pushNotificationsSwitch(let data):
-				let cell = tv.dequeueReusableCell(withIdentifier: "Switch", for: ip) as! SwitchCell
+				let cell = SwitchCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Switch")
 				SettingsController.configure(cell: cell)
 				SettingsController.configure(switchCell: cell, with: data)
 				
@@ -129,8 +128,10 @@ final class SettingsController : UIViewController {
 		cell.tintColor = Theme.Colors.pumkin
 	}
 	
-	static func configure(switchCell cell: SwitchCell, with data: (title: String, image: UIImage)) {
+	static func configure(switchCell cell: SwitchCell, with data: (title: String, subtitle: String?, image: UIImage)) {
 		cell.textLabel?.text = data.title
+		cell.detailTextLabel?.text = data.subtitle
+		cell.detailTextLabel?.textColor = Theme.Colors.romanSilver
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 	}
 	
