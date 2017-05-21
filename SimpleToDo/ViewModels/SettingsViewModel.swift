@@ -18,10 +18,13 @@ final class SettingsViewModel: ViewModelType {
 	
 	let title = "Settings"
 	
-	let sections = Observable<[SettingsSection]>.just([SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Receive push notifications", image: Theme.Images.pushNotification)]),
-	                                                   SettingsSection(header: "", items: [.info(title: "About", image: Theme.Images.info),
-	                                                                                       .deleteLocalCache(title: "Delete local cache", image: Theme.Images.file),
-	                                                                                       .exit(title: "Log off", image: Theme.Images.exit)])])
+	lazy var sections: Observable<[SettingsSection]> = {
+		let pushSubtitle: String? = self.isPushNotificationsAllowed ? nil : "Notifications disabled by user"
+		let pushSection = SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification)])
+		let exitSection = SettingsSection(header: "", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.file),
+		                                                      .exit(title: "Log off", image: Theme.Images.exit)])
+		return .just([pushSection, exitSection])
+	}()
 	
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
 		return self.flowController.errors.do(onNext: { [weak self] in self?.check(error: $0.error) })
