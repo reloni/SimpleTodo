@@ -17,7 +17,7 @@ final class DatePickerView : UIView {
 		let picker = UIDatePicker()
 		picker.minimumDate = Date()
 		picker.setValue(Theme.Colors.black, forKeyPath: "textColor")
-		picker.setValue(false, forKey: "highlightsToday")
+		picker.setValue(true, forKey: "highlightsToday")
 		return picker
 	}()
 
