@@ -38,6 +38,7 @@
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
 		6E7AAA501EB4DB8800F2ACC3 /* GenericNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */; };
+		6E86F4FC1EE3028500102AC3 /* TasksTableBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */; };
 		6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8845CB1E24056000EA3C2A /* TaskActionView.swift */; };
 		6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
 		6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */; };
@@ -166,6 +167,7 @@
 		6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
 		6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericNavigationController.swift; sourceTree = "<group>"; };
+		6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableBackground.swift; sourceTree = "<group>"; };
 		6E8845CB1E24056000EA3C2A /* TaskActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskActionView.swift; sourceTree = "<group>"; };
 		6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OneSignal.framework; path = Carthage/Build/iOS/OneSignal.framework; sourceTree = "<group>"; };
 		6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationsReducer.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				6EAACA2C1EB75F99004EB190 /* SwitchCell.swift */,
 				6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */,
 				6E96B07E1EBC361A0096ACFE /* SnackView.swift */,
+				6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */,
 				6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
+				6E86F4FC1EE3028500102AC3 /* TasksTableBackground.swift in Sources */,
 				6ED3F4471E7DA3D50003C1CC /* EditTaskController.swift in Sources */,
 				6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */,
 				6EA022CA1E755A5700934BB7 /* AuthenticationReducer.swift in Sources */,

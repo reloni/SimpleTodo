@@ -80,11 +80,19 @@ final class TasksController : UIViewController {
 	}
 	
 	func bind() {
-		viewModel.taskSections
+		let sectionsObservable = viewModel.taskSections.shareReplay(1)
+		
+		sectionsObservable
 			.observeOn(MainScheduler.instance)
 			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
 			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.addDisposableTo(bag)
+		
+		sectionsObservable
+			.map { $0.first?.items.count == 0 ? TasksTableBackground() : nil }
+			.observeOn(MainScheduler.instance)
+			.subscribe(onNext: { [weak self] background in self?.tableView.backgroundView = background })
+			.disposed(by: bag)
 		
 		tableView.refreshControl?.rx.controlEvent(.valueChanged)
 			.filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
