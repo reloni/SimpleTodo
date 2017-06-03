@@ -13,17 +13,19 @@ import RxDataSources
 final class SettingsViewModel: ViewModelType {
 	let flowController: RxDataFlowController<RootReducer>
 
-	let isPushNotificationsAllowed: Bool
+	let isPushNotificationsAllowed: Observable<Bool>
 	var isPushNotificationsEnabled: Bool
 	
 	let title = "Settings"
 	
 	lazy var sections: Observable<[SettingsSection]> = {
-		let pushSubtitle: String? = self.isPushNotificationsAllowed ? nil : "Notifications disabled by user"
-		let pushSection = SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification)])
-		let exitSection = SettingsSection(header: "", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.file),
-		                                                      .exit(title: "Log off", image: Theme.Images.exit)])
-		return .just([pushSection, exitSection])
+		return self.isPushNotificationsAllowed.flatMap { isPushNotificationsAllowed -> Observable<[SettingsSection]> in
+			let pushSubtitle: String? = isPushNotificationsAllowed ? nil : "Notifications disabled by user"
+			let pushSection = SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification)])
+			let exitSection = SettingsSection(header: "", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.file),
+			                                                      .exit(title: "Log off", image: Theme.Images.exit)])
+			return .just([pushSection, exitSection])
+		}
 	}()
 	
 	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
@@ -32,7 +34,7 @@ final class SettingsViewModel: ViewModelType {
 	
 	init(flowController: RxDataFlowController<RootReducer>) {
 		self.flowController = flowController
-		isPushNotificationsAllowed = flowController.currentState.state.authentication.settings?.pushNotificationsAllowed ?? false
+		isPushNotificationsAllowed = flowController.currentState.state.authentication.settings?.pushNotificationsAllowed ?? .just(false)
 		isPushNotificationsEnabled = flowController.currentState.state.authentication.settings?.pushNotificationsEnabled ?? false
 	}
 	

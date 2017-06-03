@@ -11,10 +11,7 @@ import RxDataSources
 import RxSwift
 import Wrap
 import OneSignal
-
-//enum ApplicationError : Error {
-//    case notAuthenticated
-//}
+import UserNotificationsUI
 
 enum AuthenticationError : Error {
 	case signInError(Error)
@@ -36,7 +33,17 @@ extension ServerSideError : Unboxable {
 }
 
 struct UserSettings {
-	var pushNotificationsAllowed: Bool { return UIApplication.shared.isRegisteredForRemoteNotifications }
+	var pushNotificationsAllowed: Observable<Bool> {
+		return Observable.create { observer in
+			UNUserNotificationCenter.current().getNotificationSettings {
+				print($0.alertSetting.rawValue)
+				observer.onNext($0.alertSetting.rawValue == 2)
+				observer.onCompleted()
+			}
+			
+			return Disposables.create()
+		}
+	}
 	var pushNotificationsEnabled: Bool { return OneSignal.getPermissionSubscriptionState().subscriptionStatus.subscribed }
 }
 

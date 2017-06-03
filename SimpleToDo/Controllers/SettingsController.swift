@@ -73,7 +73,7 @@ final class SettingsController : UIViewController {
 	}
 	
 	func configureDataSource() {
-		dataSource.configureCell = { [weak viewModel] ds, tv, ip, item in
+		dataSource.configureCell = { [weak self] ds, tv, ip, item in
 			
 			switch item {
 			case .info(let data):
@@ -92,22 +92,25 @@ final class SettingsController : UIViewController {
 				let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
 				SettingsController.configure(cell: cell)
 				SettingsController.configure(defaultCell: cell, with: data)
-				cell.tapped = { viewModel?.askForLogOff(sourceView: cell) }
+				cell.tapped = { self?.viewModel.askForLogOff(sourceView: cell) }
 				return cell
 			case .deleteLocalCache(let data):
 				let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
 				SettingsController.configure(cell: cell)
 				SettingsController.configure(defaultCell: cell, with: data)
-				cell.tapped = { viewModel?.askForDeleteCache(sourceView: cell) }
+				cell.tapped = { self?.viewModel.askForDeleteCache(sourceView: cell) }
 				return cell
 			case .pushNotificationsSwitch(let data):
 				let cell = SwitchCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Switch")
 				SettingsController.configure(cell: cell)
 				SettingsController.configure(switchCell: cell, with: data)
 				
-				cell.switchView.setOn(viewModel?.isPushNotificationsEnabled ?? false, animated: false)
-				cell.switchView.isEnabled = viewModel?.isPushNotificationsAllowed ?? false
-				cell.switchChanged = { isOn in viewModel?.isPushNotificationsEnabled = isOn }
+				cell.switchView.setOn(self?.viewModel.isPushNotificationsEnabled ?? false, animated: false)
+				if let object = self {
+					object.viewModel.isPushNotificationsAllowed.bind(to: cell.switchView.rx.isEnabled).disposed(by: object.bag)
+				}
+
+				cell.switchChanged = { isOn in self?.viewModel.isPushNotificationsEnabled = isOn }
 				
 				return cell
 			}
