@@ -40,7 +40,7 @@ final class SynchronizationService: SynchronizationServiceType {
 	}
 	
 	func tasks() -> Results<RealmTask> {
-		return repository.tasks()
+		return repository.tasks().sorted(byKeyPath: "targetDate", ascending: true)
 	}
 	
 	func addOrUpdate(task: Task) {
