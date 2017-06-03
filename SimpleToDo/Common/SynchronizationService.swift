@@ -6,6 +6,7 @@
 //  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
 
+import Foundation
 import RealmSwift
 import RxSwift
 
@@ -16,7 +17,7 @@ protocol SynchronizationServiceType {
 	func overdueTasksCount() -> Int
 	func tasks() -> Results<RealmTask>
 	func task(for index: Int) -> RealmTask
-	func delete(taskIndex index: Int)
+	func delete(taskUuid uuid: UUID)
 	func complete(taskIndex index: Int)
 	func addOrUpdate(task: Task)
 	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void>
@@ -47,8 +48,8 @@ final class SynchronizationService: SynchronizationServiceType {
 		_ = try? repository.addOrUpdate(task: task)
 	}
 	
-	func delete(taskIndex index: Int) {
-		try? repository.markDeleted(taskIndex: index)
+	func delete(taskUuid uuid: UUID) {
+		try? repository.markDeleted(taskUuid: uuid)
 	}
 	
 	func complete(taskIndex index: Int) {

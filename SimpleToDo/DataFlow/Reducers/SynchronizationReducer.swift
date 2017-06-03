@@ -17,7 +17,7 @@ struct SynchronizationReducer : RxReducerType {
 		switch (action, currentState.authentication) {
 		case (SynchronizationAction.addTask(let task), .authenticated): return add(task: task, currentState: currentState)
 		case (SynchronizationAction.updateTask(let task), .authenticated): return update(task: task, currentState: currentState)
-		case (SynchronizationAction.deleteTask(let index), .authenticated): return deleteTask(by: index, currentState: currentState)
+		case (SynchronizationAction.deleteTask(let uuid), .authenticated): return deleteTask(by: uuid, currentState: currentState)
 		case (SynchronizationAction.synchronize, .authenticated): return synchronize(currentState: currentState)
 		case (SynchronizationAction.completeTask(let index), .authenticated): return updateTaskCompletionStatus(currentState: currentState, index: index)
 		case (SynchronizationAction.updateConfiguration, _): return updateConfiguration(currentState: currentState)
@@ -94,8 +94,8 @@ extension SynchronizationReducer {
 		}
 	}
 	
-	func deleteTask(by index: Int, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
-		state.syncService.delete(taskIndex: index)
+	func deleteTask(by uuid: UniqueIdentifier, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
+		state.syncService.delete(taskUuid: uuid.uuid)
 		return .just( { $0 } )
 	}
 	
