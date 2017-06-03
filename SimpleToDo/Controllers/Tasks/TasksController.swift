@@ -141,7 +141,7 @@ final class TasksController : UIViewController {
 			}
 			
 			cell.deleteTapped = {
-				viewModel?.deleteTask(forUuid: item.uuid)
+				viewModel?.askForDeleteTask(sourceView: cell.deleteActionView, taskUuid: item.uuid)
 			}
 			
 			return cell

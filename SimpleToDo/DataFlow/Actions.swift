@@ -61,6 +61,12 @@ enum SettingsAction : RxActionType {
 	case showDeleteCacheAlert(sourceView: UIView)
 }
 
+enum TasksAction: RxActionType {
+	var isSerial: Bool { return true }
+	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
+	case showDeleteTaskAlert(sourceView: UIView, taskUuid: UniqueIdentifier)
+}
+
 enum SynchronizationAction: RxActionType {
 	var isSerial: Bool { return true }
 	

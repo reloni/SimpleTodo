@@ -45,7 +45,22 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 			                                      navigationController: controller, flowController: flowController)
 			navigationController.present(coordinator.navigationController, animated: true, completion: nil)
 			return .just({ $0.mutation.new(coordinator: coordinator) })
+		case TasksAction.showDeleteTaskAlert(let sourceView, let taskUuid): return showDeleteTaskAlert(sourceView: sourceView, taskUuid: taskUuid)
 		default: return .empty()
 		}
+	}
+	
+	func showDeleteTaskAlert(sourceView: UIView, taskUuid: UniqueIdentifier) -> Observable<RxStateMutator<AppState>> {
+		guard let controller = navigationController.topViewController as? TasksController else {
+			return .just({ $0 })
+		}
+		
+		let deleteHandler: ((UIAlertAction) -> Void)? = { _ in controller.viewModel.deleteTask(forUuid: taskUuid) }
+		let actions = [UIAlertAction(title: "Delete task", style: .destructive, handler: deleteHandler),
+		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
+		
+		showActionSheet(in: controller, withTitle: nil, message: nil, actions: actions, sourceView: sourceView)
+		
+		return .just({ $0 })
 	}
 }
