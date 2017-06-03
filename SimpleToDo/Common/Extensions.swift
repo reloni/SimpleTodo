@@ -28,10 +28,12 @@ extension FileManager {
 
 extension RxCompositeAction {
 	static var logOffActions: [RxActionType] {
-		return [AuthenticationAction.signOut,
+		return [UIAction.showSpinner,
+						AuthenticationAction.signOut,
 		        UIAction.returnToRootController,
 		        PushNotificationsAction.switchNotificationSubscription(subscribed: false),
-		        SynchronizationAction.updateConfiguration]
+		        SynchronizationAction.updateConfiguration,
+						UIAction.hideSpinner]
 	}
 	
 	static var refreshTokenAndSyncActions: [RxActionType] {
