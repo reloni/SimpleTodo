@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:SimpleToDo.xcodeproj">
+      location = "self:/Users/AntonEfimenko/Documents/Programming/TodoistClone/SimpleToDo/Aika.xcodeproj">
    </FileRef>
 </Workspace>

@@ -124,15 +124,16 @@
 		6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationReducer.swift; sourceTree = "<group>"; };
 		6E14E5E31EE31E810021DE02 /* TasksReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksReducer.swift; sourceTree = "<group>"; };
-		6E15D0181DF0A45A00B4CCA7 /* SimpleToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E14E5E51EE321A90021DE02 /* Aika.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Aika.entitlements; sourceTree = "<group>"; };
+		6E15D0181DF0A45A00B4CCA7 /* Aika.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aika.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E15D0251DF0A45A00B4CCA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6E15D0271DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E15D02C1DF0A45A00B4CCA7 /* SimpleToDoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleToDoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoTests.swift; sourceTree = "<group>"; };
 		6E15D0321DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E15D0371DF0A45A00B4CCA7 /* SimpleToDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleToDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoUITests.swift; sourceTree = "<group>"; };
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
@@ -182,7 +183,6 @@
 		6E9026E81E5AA57E00851B4D /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Carthage/googlesignin/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
 		6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		6E96B07E1EBC361A0096ACFE /* SnackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackView.swift; sourceTree = "<group>"; };
-		6E99ADE91EA3D76F00B88E6E /* SimpleToDo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleToDo.entitlements; sourceTree = "<group>"; };
 		6E9AA3E91E540D9100BA8283 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		6E9AA3EA1E540D9100BA8283 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Firebase/Analytics/FirebaseCore.framework; sourceTree = "<group>"; };
 		6E9AA3EB1E540D9100BA8283 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Firebase/Analytics/FirebaseInstanceID.framework; sourceTree = "<group>"; };
@@ -275,9 +275,10 @@
 		6E15D00F1DF0A45900B4CCA7 = {
 			isa = PBXGroup;
 			children = (
-				6E15D01A1DF0A45A00B4CCA7 /* SimpleToDo */,
-				6E15D02F1DF0A45A00B4CCA7 /* SimpleToDoTests */,
-				6E15D03A1DF0A45A00B4CCA7 /* SimpleToDoUITests */,
+				6E14E5E51EE321A90021DE02 /* Aika.entitlements */,
+				6E15D01A1DF0A45A00B4CCA7 /* Aika */,
+				6E15D02F1DF0A45A00B4CCA7 /* AikaTests */,
+				6E15D03A1DF0A45A00B4CCA7 /* AikaTests */,
 				6E40B9C61EC60CE100411F69 /* NotificationServiceExtension */,
 				6E15D0191DF0A45A00B4CCA7 /* Products */,
 				6E15D0631DF0B62D00B4CCA7 /* Frameworks */,
@@ -287,18 +288,17 @@
 		6E15D0191DF0A45A00B4CCA7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6E15D0181DF0A45A00B4CCA7 /* SimpleToDo.app */,
-				6E15D02C1DF0A45A00B4CCA7 /* SimpleToDoTests.xctest */,
-				6E15D0371DF0A45A00B4CCA7 /* SimpleToDoUITests.xctest */,
+				6E15D0181DF0A45A00B4CCA7 /* Aika.app */,
+				6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */,
+				6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */,
 				6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6E15D01A1DF0A45A00B4CCA7 /* SimpleToDo */ = {
+		6E15D01A1DF0A45A00B4CCA7 /* Aika */ = {
 			isa = PBXGroup;
 			children = (
-				6E99ADE91EA3D76F00B88E6E /* SimpleToDo.entitlements */,
 				6EBD408B1E60ABB100661CA6 /* AppCoordinator */,
 				6E5FD9B41E59F9D2002C71F2 /* ViewModels */,
 				6EA7B41F1E06A36D0043BAA1 /* DataFlow */,
@@ -312,25 +312,26 @@
 				6E15D0271DF0A45A00B4CCA7 /* Info.plist */,
 				6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */,
 			);
-			path = SimpleToDo;
+			path = Aika;
 			sourceTree = "<group>";
 		};
-		6E15D02F1DF0A45A00B4CCA7 /* SimpleToDoTests */ = {
+		6E15D02F1DF0A45A00B4CCA7 /* AikaTests */ = {
 			isa = PBXGroup;
 			children = (
 				6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */,
 				6E15D0321DF0A45A00B4CCA7 /* Info.plist */,
 			);
-			path = SimpleToDoTests;
+			path = AikaTests;
 			sourceTree = "<group>";
 		};
-		6E15D03A1DF0A45A00B4CCA7 /* SimpleToDoUITests */ = {
+		6E15D03A1DF0A45A00B4CCA7 /* AikaTests */ = {
 			isa = PBXGroup;
 			children = (
 				6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */,
 				6E15D03D1DF0A45A00B4CCA7 /* Info.plist */,
 			);
-			path = SimpleToDoUITests;
+			name = AikaTests;
+			path = AikaUITests;
 			sourceTree = "<group>";
 		};
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
@@ -515,9 +516,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6E15D0171DF0A45900B4CCA7 /* SimpleToDo */ = {
+		6E15D0171DF0A45900B4CCA7 /* Aika */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6E15D0401DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "SimpleToDo" */;
+			buildConfigurationList = 6E15D0401DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "Aika" */;
 			buildPhases = (
 				6E15D0141DF0A45900B4CCA7 /* Sources */,
 				6E15D0151DF0A45900B4CCA7 /* Frameworks */,
@@ -530,14 +531,14 @@
 			dependencies = (
 				6E40B9CB1EC60CE200411F69 /* PBXTargetDependency */,
 			);
-			name = SimpleToDo;
+			name = Aika;
 			productName = SimpleToDo;
-			productReference = 6E15D0181DF0A45A00B4CCA7 /* SimpleToDo.app */;
+			productReference = 6E15D0181DF0A45A00B4CCA7 /* Aika.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6E15D02B1DF0A45A00B4CCA7 /* SimpleToDoTests */ = {
+		6E15D02B1DF0A45A00B4CCA7 /* AikaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6E15D0431DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "SimpleToDoTests" */;
+			buildConfigurationList = 6E15D0431DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "AikaTests" */;
 			buildPhases = (
 				6E15D0281DF0A45A00B4CCA7 /* Sources */,
 				6E15D0291DF0A45A00B4CCA7 /* Frameworks */,
@@ -548,14 +549,14 @@
 			dependencies = (
 				6E15D02E1DF0A45A00B4CCA7 /* PBXTargetDependency */,
 			);
-			name = SimpleToDoTests;
+			name = AikaTests;
 			productName = SimpleToDoTests;
-			productReference = 6E15D02C1DF0A45A00B4CCA7 /* SimpleToDoTests.xctest */;
+			productReference = 6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6E15D0361DF0A45A00B4CCA7 /* SimpleToDoUITests */ = {
+		6E15D0361DF0A45A00B4CCA7 /* AikaUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6E15D0461DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "SimpleToDoUITests" */;
+			buildConfigurationList = 6E15D0461DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "AikaUITests" */;
 			buildPhases = (
 				6E15D0331DF0A45A00B4CCA7 /* Sources */,
 				6E15D0341DF0A45A00B4CCA7 /* Frameworks */,
@@ -566,9 +567,9 @@
 			dependencies = (
 				6E15D0391DF0A45A00B4CCA7 /* PBXTargetDependency */,
 			);
-			name = SimpleToDoUITests;
+			name = AikaUITests;
 			productName = SimpleToDoUITests;
-			productReference = 6E15D0371DF0A45A00B4CCA7 /* SimpleToDoUITests.xctest */;
+			productReference = 6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		6E40B9C41EC60CE100411F69 /* NotificationServiceExtension */ = {
@@ -631,7 +632,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6E15D0131DF0A45900B4CCA7 /* Build configuration list for PBXProject "SimpleToDo" */;
+			buildConfigurationList = 6E15D0131DF0A45900B4CCA7 /* Build configuration list for PBXProject "Aika" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -644,9 +645,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6E15D0171DF0A45900B4CCA7 /* SimpleToDo */,
-				6E15D02B1DF0A45A00B4CCA7 /* SimpleToDoTests */,
-				6E15D0361DF0A45A00B4CCA7 /* SimpleToDoUITests */,
+				6E15D0171DF0A45900B4CCA7 /* Aika */,
+				6E15D02B1DF0A45A00B4CCA7 /* AikaTests */,
+				6E15D0361DF0A45A00B4CCA7 /* AikaUITests */,
 				6E40B9C41EC60CE100411F69 /* NotificationServiceExtension */,
 			);
 		};
@@ -800,12 +801,12 @@
 /* Begin PBXTargetDependency section */
 		6E15D02E1DF0A45A00B4CCA7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6E15D0171DF0A45900B4CCA7 /* SimpleToDo */;
+			target = 6E15D0171DF0A45900B4CCA7 /* Aika */;
 			targetProxy = 6E15D02D1DF0A45A00B4CCA7 /* PBXContainerItemProxy */;
 		};
 		6E15D0391DF0A45A00B4CCA7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6E15D0171DF0A45900B4CCA7 /* SimpleToDo */;
+			target = 6E15D0171DF0A45900B4CCA7 /* Aika */;
 			targetProxy = 6E15D0381DF0A45A00B4CCA7 /* PBXContainerItemProxy */;
 		};
 		6E40B9CB1EC60CE200411F69 /* PBXTargetDependency */ = {
@@ -930,7 +931,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = SimpleToDo/SimpleToDo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Aika.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = SJMSRXG797;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -941,7 +942,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -958,7 +959,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = SimpleToDo/SimpleToDo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Aika.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = SJMSRXG797;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -969,7 +970,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -990,7 +991,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SimpleToDo.app/SimpleToDo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aika.app/Aika";
 			};
 			name = Debug;
 		};
@@ -1005,7 +1006,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SimpleToDo.app/SimpleToDo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aika.app/Aika";
 			};
 			name = Release;
 		};
@@ -1050,7 +1051,7 @@
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo.NotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1070,7 +1071,7 @@
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDo.NotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1080,7 +1081,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6E15D0131DF0A45900B4CCA7 /* Build configuration list for PBXProject "SimpleToDo" */ = {
+		6E15D0131DF0A45900B4CCA7 /* Build configuration list for PBXProject "Aika" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6E15D03E1DF0A45A00B4CCA7 /* Debug */,
@@ -1089,7 +1090,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6E15D0401DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "SimpleToDo" */ = {
+		6E15D0401DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "Aika" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6E15D0411DF0A45A00B4CCA7 /* Debug */,
@@ -1098,7 +1099,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6E15D0431DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "SimpleToDoTests" */ = {
+		6E15D0431DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "AikaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6E15D0441DF0A45A00B4CCA7 /* Debug */,
@@ -1107,7 +1108,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6E15D0461DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "SimpleToDoUITests" */ = {
+		6E15D0461DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "AikaUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6E15D0471DF0A45A00B4CCA7 /* Debug */,

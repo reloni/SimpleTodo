@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6E15D0171DF0A45900B4CCA7"
-               BuildableName = "SimpleToDo.app"
-               BlueprintName = "SimpleToDo"
-               ReferencedContainer = "container:SimpleToDo.xcodeproj">
+               BuildableName = "Aika.app"
+               BlueprintName = "Aika"
+               ReferencedContainer = "container:Aika.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6E15D02B1DF0A45A00B4CCA7"
-               BuildableName = "SimpleToDoTests.xctest"
-               BlueprintName = "SimpleToDoTests"
-               ReferencedContainer = "container:SimpleToDo.xcodeproj">
+               BuildableName = "AikaTests.xctest"
+               BlueprintName = "AikaTests"
+               ReferencedContainer = "container:Aika.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6E15D0361DF0A45A00B4CCA7"
-               BuildableName = "SimpleToDoUITests.xctest"
-               BlueprintName = "SimpleToDoUITests"
-               ReferencedContainer = "container:SimpleToDo.xcodeproj">
+               BuildableName = "AikaUITests.xctest"
+               BlueprintName = "AikaUITests"
+               ReferencedContainer = "container:Aika.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6E15D0171DF0A45900B4CCA7"
-            BuildableName = "SimpleToDo.app"
-            BlueprintName = "SimpleToDo"
-            ReferencedContainer = "container:SimpleToDo.xcodeproj">
+            BuildableName = "Aika.app"
+            BlueprintName = "Aika"
+            ReferencedContainer = "container:Aika.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6E15D0171DF0A45900B4CCA7"
-            BuildableName = "SimpleToDo.app"
-            BlueprintName = "SimpleToDo"
-            ReferencedContainer = "container:SimpleToDo.xcodeproj">
+            BuildableName = "Aika.app"
+            BlueprintName = "Aika"
+            ReferencedContainer = "container:Aika.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6E15D0171DF0A45900B4CCA7"
-            BuildableName = "SimpleToDo.app"
-            BlueprintName = "SimpleToDo"
-            ReferencedContainer = "container:SimpleToDo.xcodeproj">
+            BuildableName = "Aika.app"
+            BlueprintName = "Aika"
+            ReferencedContainer = "container:Aika.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
