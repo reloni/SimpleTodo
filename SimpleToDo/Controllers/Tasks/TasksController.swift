@@ -89,8 +89,8 @@ final class TasksController : UIViewController {
 			.addDisposableTo(bag)
 		
 		sectionsObservable
-			.map { $0.first?.items.count == 0 ? TasksTableBackground() : nil }
 			.observeOn(MainScheduler.instance)
+			.map { $0.first?.items.count == 0 ? TasksTableBackground() : nil }
 			.subscribe(onNext: { [weak self] background in self?.tableView.backgroundView = background })
 			.disposed(by: bag)
 		
@@ -132,8 +132,7 @@ final class TasksController : UIViewController {
 			cell.updateConstraints()
 			
 			cell.completeTapped = {
-				guard let row = tv.indexPath(for: cell)?.row else { return }
-				viewModel?.completeTask(index: row)
+				viewModel?.completeTask(uuid: item.uuid)
 			}
 			
 			cell.editTapped = {

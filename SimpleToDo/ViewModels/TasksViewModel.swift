@@ -42,8 +42,8 @@ final class TasksViewModel: ViewModelType {
 		self.flowController = flowController
 	}
 	
-	func completeTask(index: Int) {
-		flowController.dispatch(SynchronizationAction.completeTask(index))
+	func completeTask(uuid: UniqueIdentifier) {
+		flowController.dispatch(SynchronizationAction.completeTask(uuid))
 		flowController.dispatch(RxCompositeAction.synchronizationAction)
 	}
 	

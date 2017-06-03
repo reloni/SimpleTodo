@@ -95,7 +95,7 @@ protocol RepositoryType {
 	func `import`(tasks: [Task]) throws -> [RealmTask]
 	func delete(taskIndex index: Int) throws
 	func markDeleted(taskUuid uuid: UUID) throws
-	func complete(taskIndex index: Int) throws -> RealmTask
+	func complete(taskUuid uuid: UUID) throws -> RealmTask
 	func withNew(realmConfiguration: Realm.Configuration) -> RepositoryType
 }
 
@@ -137,11 +137,10 @@ final class RealmRepository: RepositoryType {
 		return tasks()[index]
 	}
 	
-	func complete(taskIndex index: Int) throws -> RealmTask {
-		var object: RealmTask!
+	func complete(taskUuid uuid: UUID) throws -> RealmTask {
+		guard let object = task(for: uuid) else { fatalError("Unable to complete task with uuid = \(uuid.uuidString)") }
 		
 		try realm.write {
-			object = tasks()[index]
 			object.completed = true
 			object.synchronizationStatus = .modified
 		}

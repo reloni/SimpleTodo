@@ -18,7 +18,7 @@ protocol SynchronizationServiceType {
 	func tasks() -> Results<RealmTask>
 	func task(for index: Int) -> RealmTask
 	func delete(taskUuid uuid: UUID)
-	func complete(taskIndex index: Int)
+	func complete(taskUuid uuid: UUID)
 	func addOrUpdate(task: Task)
 	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void>
 }
@@ -52,8 +52,8 @@ final class SynchronizationService: SynchronizationServiceType {
 		try? repository.markDeleted(taskUuid: uuid)
 	}
 	
-	func complete(taskIndex index: Int) {
-		_ = try? repository.complete(taskIndex: index)
+	func complete(taskUuid uuid: UUID) {
+		_ = try? repository.complete(taskUuid: uuid)
 	}
 	
 	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void> {
