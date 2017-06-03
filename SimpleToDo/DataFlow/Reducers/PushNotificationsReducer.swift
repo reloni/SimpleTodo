@@ -38,11 +38,11 @@ extension PushNotificationsReducer {
 		if subscribed {
 			return enablePushNotificationsSubscription(currentState: state)
 		} else {
-			return disablePushNotificationsSubscription(currentState: state)
+			return disablePushNotificationsSubscription()
 		}
 	}
 	
-	func disablePushNotificationsSubscription(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
+	func disablePushNotificationsSubscription() -> Observable<RxStateMutator<AppState>> {
 		OneSignal.deleteTag("user_id")
 		OneSignal.setSubscription(false)
 		

@@ -15,7 +15,7 @@ struct AuthenticationReducer : RxReducerType {
 		switch action as? AuthenticationAction {
 		case .logIn(let email, let password)?: return logIn(currentState: currentState, email: email, password: password)
 		case .register(let email, let password)?: return register(currentState: currentState, email: email, password: password)
-		case .signOut?: return signOut(currentState: currentState)
+		case .signOut?: return signOut()
 		case .resetPassword(let email)?: return resetPassword(currentState: currentState, email: email)
 		case .refreshToken(let force)?: return refreshToken(currentState: currentState, force: force)
 		default: return .empty()
@@ -31,7 +31,7 @@ extension AuthenticationReducer {
 			}
 	}
 	
-	func signOut(currentState state: AppState)  -> Observable<RxStateMutator<AppState>> {
+	func signOut()  -> Observable<RxStateMutator<AppState>> {
 		Keychain.userPassword = ""
 		Keychain.token = ""
 		Keychain.refreshToken = ""
