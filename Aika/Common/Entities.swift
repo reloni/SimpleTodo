@@ -36,7 +36,6 @@ struct UserSettings {
 	var pushNotificationsAllowed: Observable<Bool> {
 		return Observable.create { observer in
 			UNUserNotificationCenter.current().getNotificationSettings {
-				print($0.alertSetting.rawValue)
 				observer.onNext($0.alertSetting.rawValue == 2)
 				observer.onCompleted()
 			}
