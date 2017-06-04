@@ -258,7 +258,7 @@ extension UIFont {
 
 
 extension HttpClient {
-	static let baseUrl = "https://simpletaskmanager.net:443/api/v1"
+	static let baseUrl = "https://aika.cloud:443/api/v1"
 //	static let baseUrl = "http://localhost:5000/api/v1"
 }
 
