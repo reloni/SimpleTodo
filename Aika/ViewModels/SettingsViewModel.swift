@@ -22,9 +22,13 @@ final class SettingsViewModel: ViewModelType {
 		return self.isPushNotificationsAllowed.flatMap { isPushNotificationsAllowed -> Observable<[SettingsSection]> in
 			let pushSubtitle: String? = isPushNotificationsAllowed ? nil : "Notifications disabled by user"
 			let pushSection = SettingsSection(header: "NOTIFICATIONS", items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification)])
+			
+			let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+			let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
 			let aboutSection = SettingsSection(header: "ABOUT", items: [.info(title: "About", image: Theme.Images.info),
 			                                                            .sourceCode(title: "Source code", image: Theme.Images.info),
-			                                                            .text(title: "App version", value: "1.0", image: Theme.Images.info)])
+			                                                            .text(title: "App version", value: "\(appVersion) (\(buildVersion))", image: Theme.Images.info)])
+			
 			let exitSection = SettingsSection(header: "ACCOUNT", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.file),
 			                                                             .deleteAccount(title: "Delete account", image: Theme.Images.deleteAccount),
 			                                                             .exit(title: "Log off", image: Theme.Images.exit)])
