@@ -25,7 +25,7 @@ final class SettingsViewModel: ViewModelType {
 			
 			let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
 			let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
-			let aboutSection = SettingsSection(header: "ABOUT", items: [.info(title: "About", image: Theme.Images.info),
+			let aboutSection = SettingsSection(header: "ABOUT", items: [.frameworks(title: "Frameworks", image: Theme.Images.info),
 			                                                            .sourceCode(title: "Source code", image: Theme.Images.info),
 			                                                            .text(title: "App version", value: "\(appVersion) (\(buildVersion))", image: Theme.Images.info)])
 			

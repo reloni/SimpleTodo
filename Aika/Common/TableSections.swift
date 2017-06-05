@@ -42,7 +42,7 @@ extension SettingsSection : SectionModelType {
 
 enum SettingsSectonItem {
 	case pushNotificationsSwitch(title: String, subtitle: String?, image: UIImage)
-	case info(title: String, image: UIImage)
+	case frameworks(title: String, image: UIImage)
 	case sourceCode(title: String, image: UIImage)
 	case deleteAccount(title: String, image: UIImage)
 	case deleteLocalCache(title: String, image: UIImage)

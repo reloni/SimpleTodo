@@ -76,7 +76,7 @@ final class SettingsController : UIViewController {
 		dataSource.configureCell = { [weak self] ds, tv, ip, item in
 			
 			switch item {
-			case .info(let data):
+			case .frameworks(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
 				cell.tapped = { print("about tapped") }
 				return cell
