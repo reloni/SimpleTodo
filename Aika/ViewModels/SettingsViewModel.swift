@@ -21,10 +21,14 @@ final class SettingsViewModel: ViewModelType {
 	lazy var sections: Observable<[SettingsSection]> = {
 		return self.isPushNotificationsAllowed.flatMap { isPushNotificationsAllowed -> Observable<[SettingsSection]> in
 			let pushSubtitle: String? = isPushNotificationsAllowed ? nil : "Notifications disabled by user"
-			let pushSection = SettingsSection(header: "", items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification)])
-			let exitSection = SettingsSection(header: "", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.file),
-			                                                      .exit(title: "Log off", image: Theme.Images.exit)])
-			return .just([pushSection, exitSection])
+			let pushSection = SettingsSection(header: "NOTIFICATIONS", items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification)])
+			let aboutSection = SettingsSection(header: "ABOUT", items: [.info(title: "About", image: Theme.Images.info),
+			                                                            .sourceCode(title: "Source code", image: Theme.Images.info),
+			                                                            .text(title: "App version", value: "1.0", image: Theme.Images.info)])
+			let exitSection = SettingsSection(header: "ACCOUNT", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.file),
+			                                                             .deleteAccount(title: "Delete account", image: Theme.Images.deleteAccount),
+			                                                             .exit(title: "Log off", image: Theme.Images.exit)])
+			return .just([pushSection, exitSection, aboutSection])
 		}
 	}()
 	
