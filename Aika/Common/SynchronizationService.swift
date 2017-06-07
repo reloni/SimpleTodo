@@ -16,7 +16,7 @@ protocol SynchronizationServiceType {
 	
 	func overdueTasksCount() -> Int
 	func tasks() -> Results<RealmTask>
-	func task(for index: Int) -> RealmTask
+	func task(for uuid: UUID) -> RealmTask
 	func delete(taskUuid uuid: UUID)
 	func complete(taskUuid uuid: UUID)
 	func addOrUpdate(task: Task)
@@ -36,8 +36,8 @@ final class SynchronizationService: SynchronizationServiceType {
 		return repository.overdueTasksCount()
 	}
 	
-	func task(for index: Int) -> RealmTask {
-		return repository.task(for: index)
+	func task(for uuid: UUID) -> RealmTask {
+		return repository.task(for: uuid)!
 	}
 	
 	func tasks() -> Results<RealmTask> {

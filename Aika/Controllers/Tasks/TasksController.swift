@@ -136,8 +136,7 @@ final class TasksController : UIViewController {
 			}
 			
 			cell.editTapped = {
-				guard let row = tv.indexPath(for: cell)?.row else { return }
-				viewModel?.editTask(index: row)
+				viewModel?.editTask(uuid: item.uuid)
 			}
 			
 			cell.deleteTapped = {
