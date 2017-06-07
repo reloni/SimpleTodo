@@ -67,4 +67,8 @@ final class SettingsViewModel: ViewModelType {
 		flowController.dispatch(SynchronizationAction.deleteCache)
 		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
+	
+	func showFramwrorks() {
+		flowController.dispatch(SettingsAction.showFrameworksController)
+	}
 }

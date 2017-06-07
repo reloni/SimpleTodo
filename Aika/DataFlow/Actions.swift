@@ -59,6 +59,7 @@ enum SettingsAction : RxActionType {
 	
 	case showLogOffAlert(sourceView: UIView)
 	case showDeleteCacheAlert(sourceView: UIView)
+	case showFrameworksController
 }
 
 enum TasksAction: RxActionType {

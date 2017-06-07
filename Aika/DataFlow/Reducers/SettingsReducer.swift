@@ -15,6 +15,7 @@ struct SettingsReducer : RxReducerType {
 		switch action {
 		case SettingsAction.showDeleteCacheAlert: fallthrough
 		case SettingsAction.showLogOffAlert: return currentState.coordinator.handle(action)
+		case SettingsAction.showFrameworksController: return currentState.coordinator.handle(action)
 		default: return .empty()
 		}
 	}

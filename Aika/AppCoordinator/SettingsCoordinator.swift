@@ -31,16 +31,27 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 		switch action {
 		case SettingsAction.showLogOffAlert(let sourceView): return showLogOffAlert(sourceView: sourceView)
 		case SettingsAction.showDeleteCacheAlert(let sourceView): return showDeleteCacheAlert(sourceView: sourceView)
-		case UIAction.dismissSettingsController:
-			let transitionDelegate = TransitionDelegate(dismissalController: SlideDismissAnimationController(mode: .toRight))
-			navigationController.transitioningDelegate = transitionDelegate
-			
-			navigationController.dismiss(animated: true, completion: nil)
-
-			let parentCoordinator = parent
-			return .just({ $0.mutation.new(coordinator: parentCoordinator) })
+		case UIAction.dismissSettingsController: return dismissSettingsController()
+		case SettingsAction.showFrameworksController: return showFrameworksController()
 		default: return .just({ $0 })
 		}
+	}
+	
+	func showFrameworksController() -> Observable<RxStateMutator<AppState>> {
+		let viewModel = FrameworksViewModel(flowController: flowController)
+		let controller = FrameworksController(viewModel: viewModel)
+		navigationController.pushViewController(controller, animated: true)
+		return .just { $0 }
+	}
+	
+	func dismissSettingsController() -> Observable<RxStateMutator<AppState>> {
+		let transitionDelegate = TransitionDelegate(dismissalController: SlideDismissAnimationController(mode: .toRight))
+		navigationController.transitioningDelegate = transitionDelegate
+		
+		navigationController.dismiss(animated: true, completion: nil)
+		
+		let parentCoordinator = parent
+		return .just({ $0.mutation.new(coordinator: parentCoordinator) })
 	}
 	
 	func showLogOffAlert(sourceView: UIView) -> Observable<RxStateMutator<AppState>> {

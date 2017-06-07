@@ -78,7 +78,7 @@ final class SettingsController : UIViewController {
 			switch item {
 			case .frameworks(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-				cell.tapped = { print("about tapped") }
+				cell.tapped = { self?.viewModel.showFramwrorks() }
 				return cell
 			case .deleteAccount(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
