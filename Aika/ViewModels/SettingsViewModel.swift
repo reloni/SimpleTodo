@@ -68,6 +68,16 @@ final class SettingsViewModel: ViewModelType {
 		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
 	}
 	
+	func deleteUser() {
+		flowController.dispatch(UIAction.showSpinner)
+		flowController.dispatch(RxCompositeAction.deleteUserAction)
+		flowController.dispatch(UIAction.hideSpinner)
+	}
+	
+	func askForDeleteUser(sourceView: UIView) {
+		flowController.dispatch(SettingsAction.showDeleteUserAlert(sourceView: sourceView))
+	}
+	
 	func showFramwrorks() {
 		flowController.dispatch(SettingsAction.showFrameworksController)
 	}

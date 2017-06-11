@@ -82,7 +82,7 @@ final class SettingsController : UIViewController {
 				return cell
 			case .deleteAccount(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-				cell.tapped = { print("deleteAccount tapped") }
+				cell.tapped = { self?.viewModel.askForDeleteUser(sourceView: cell) }
 				return cell
 			case .exit(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)

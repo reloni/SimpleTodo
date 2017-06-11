@@ -20,6 +20,7 @@ protocol WebServiceType {
 	func update(task: Task, tokenHeader: Observable<String>) -> Observable<Task>
 	func add(task: Task, tokenHeader: Observable<String>) -> Observable<Task>
 	func update(with instruction: BatchUpdate, tokenHeader: Observable<String>) -> Observable<[Task]>
+	func deleteUser(tokenHeader: Observable<String>) -> Observable<Void>
 }
 
 final class WebSerivce: WebServiceType {
@@ -124,6 +125,23 @@ final class WebSerivce: WebServiceType {
 				}
 		}
 		.catchError(WebSerivce.catchError)
+	}
+	
+	func deleteUser(tokenHeader: Observable<String>) -> Observable<Void> {
+		return tokenHeader
+			.flatMapLatest { [weak httpClient] token -> Observable<Void> in
+				guard let httpClient = httpClient else { return .empty() }
+				
+				let request = URLRequest(url: URL(string: "\(HttpClient.baseUrl)/users")!,
+				                         method: .delete,
+				                         headers: WebSerivce.headers(withToken: token))
+				
+				return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
+					.flatMap { _ -> Observable<Void> in
+						return .just()
+				}
+			}
+			.catchError(WebSerivce.catchError)
 	}
 	
 	func update(with instruction: BatchUpdate, tokenHeader: Observable<String>) -> Observable<[Task]> {

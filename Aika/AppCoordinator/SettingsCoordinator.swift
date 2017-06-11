@@ -33,6 +33,7 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 		case SettingsAction.showDeleteCacheAlert(let sourceView): return showDeleteCacheAlert(sourceView: sourceView)
 		case UIAction.dismissSettingsController: return dismissSettingsController()
 		case SettingsAction.showFrameworksController: return showFrameworksController()
+		case SettingsAction.showDeleteUserAlert(let sourceView): return showDeleteUserAlert(sourceView: sourceView)
 		default: return .just({ $0 })
 		}
 	}
@@ -78,6 +79,20 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
 		
 		showActionSheet(in: settingsController, withTitle: "Warning", message: "Not synchronized data will be lost", actions: actions, sourceView: sourceView)
+		
+		return .just({ $0 })
+	}
+	
+	func showDeleteUserAlert(sourceView: UIView) -> Observable<RxStateMutator<AppState>> {
+		guard let settingsController = navigationController.topViewController as? SettingsController else {
+			return .just({ $0 })
+		}
+		
+		let deleteHandler: ((UIAlertAction) -> Void)? = { _ in settingsController.viewModel.deleteUser() }
+		let actions = [UIAlertAction(title: "Delete user", style: .destructive, handler: deleteHandler),
+		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
+		
+		showActionSheet(in: settingsController, withTitle: "Warning", message: "Account and all data will be deleted", actions: actions, sourceView: sourceView)
 		
 		return .just({ $0 })
 	}
