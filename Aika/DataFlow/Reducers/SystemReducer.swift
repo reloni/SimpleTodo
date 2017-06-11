@@ -18,7 +18,18 @@ struct SystemReducer : RxReducerType {
 		case .invoke(let handler)?:
 			handler()
 			return .just({ $0 })
+		case .clearKeychain?:
+			clearKeychain()
+			return .just({ $0 })
 		default: return .empty()
 		}
+	}
+	
+	func clearKeychain() {
+		Keychain.userEmail = ""
+		Keychain.userPassword = ""
+		Keychain.token = ""
+		Keychain.refreshToken = ""
+		Keychain.userUuid = ""
 	}
 }

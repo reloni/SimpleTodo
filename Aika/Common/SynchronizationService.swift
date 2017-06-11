@@ -21,6 +21,7 @@ protocol SynchronizationServiceType {
 	func complete(taskUuid uuid: UUID)
 	func addOrUpdate(task: Task)
 	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void>
+	func deleteUser(authenticationInfo: AuthenticationInfo) -> Observable<Void>
 }
 
 final class SynchronizationService: SynchronizationServiceType {
@@ -54,6 +55,10 @@ final class SynchronizationService: SynchronizationServiceType {
 	
 	func complete(taskUuid uuid: UUID) {
 		_ = try? repository.complete(taskUuid: uuid)
+	}
+	
+	func deleteUser(authenticationInfo: AuthenticationInfo) -> Observable<Void> {
+		return webService.deleteUser(tokenHeader: .just(authenticationInfo.tokenHeader))
 	}
 	
 	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void> {

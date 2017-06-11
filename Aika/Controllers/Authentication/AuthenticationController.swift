@@ -108,9 +108,6 @@ final class AuthenticationController : UIViewController {
 		
 		view.backgroundColor = UIColor.white
 		
-		emailTextField.text = viewModel.email
-		passwordTextField.text = viewModel.password
-		
 		emailTextField.delegate = self
 		passwordTextField.delegate = self
 		
@@ -138,6 +135,12 @@ final class AuthenticationController : UIViewController {
 		}
 		
 		bind()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		emailTextField.text = viewModel.email
+		passwordTextField.text = viewModel.password
 	}
 	
 	override func viewWillLayoutSubviews() {
