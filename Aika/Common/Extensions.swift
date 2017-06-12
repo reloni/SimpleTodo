@@ -36,6 +36,15 @@ extension RxCompositeAction {
 						UIAction.hideSpinner]
 	}
 	
+	static var deleteUserActions: [RxActionType] {
+		return [SynchronizationAction.deleteUser,
+		        AuthenticationAction.signOut,
+		        PushNotificationsAction.switchNotificationSubscription(subscribed: false),
+		        SynchronizationAction.updateConfiguration,
+						SystemAction.clearKeychain,
+						UIAction.returnToRootController]
+	}
+	
 	static var refreshTokenAndSyncActions: [RxActionType] {
 		return [AuthenticationAction.refreshToken(force: false),
 						SynchronizationAction.synchronize]
@@ -43,6 +52,10 @@ extension RxCompositeAction {
 	
 	static var synchronizationAction: RxCompositeAction {
 		return RxCompositeAction(actions: refreshTokenAndSyncActions, isSerial: false)
+	}
+	
+	static var deleteUserAction: RxCompositeAction {
+		return RxCompositeAction(actions: deleteUserActions, isSerial: true)
 	}
 }
 

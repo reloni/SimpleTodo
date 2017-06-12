@@ -14,6 +14,7 @@ enum SystemAction: RxActionType {
 	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return nil }
 	
+	case clearKeychain
 	case updateIconBadge
 	case invoke(handler: () -> ())
 }
@@ -59,6 +60,8 @@ enum SettingsAction : RxActionType {
 	
 	case showLogOffAlert(sourceView: UIView)
 	case showDeleteCacheAlert(sourceView: UIView)
+	case showDeleteUserAlert(sourceView: UIView)
+	case showFrameworksController
 }
 
 enum TasksAction: RxActionType {
@@ -78,6 +81,8 @@ enum SynchronizationAction: RxActionType {
 	case updateTask(Task)
 	case deleteTask(UniqueIdentifier)
 	case completeTask(UniqueIdentifier)
+	
+	case deleteUser
 	
 	case deleteCache
 	case updateConfiguration

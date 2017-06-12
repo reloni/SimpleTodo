@@ -67,7 +67,9 @@ final class AuthenticationViewModel: ViewModelType {
 			flowController.dispatch(UIAction.hideSpinner)
 		case .registration:
 			flowController.dispatch(UIAction.showSpinner)
-			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.register(email, password), UIAction.dismissFirebaseRegistrationController]))
+			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.register(email, password),
+			                                                    SystemAction.clearKeychain,
+			                                                    UIAction.dismissFirebaseRegistrationController]))
 			flowController.dispatch(UIAction.hideSpinner)
 		}
 
