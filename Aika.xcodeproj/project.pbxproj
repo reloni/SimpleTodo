@@ -35,6 +35,8 @@
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
+		6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5BA8A91EEEF40F00B61645 /* Crashlytics.framework */; };
+		6E5BA8AC1EEEF40F00B61645 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5BA8AA1EEEF40F00B61645 /* Fabric.framework */; };
 		6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */; };
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
@@ -169,6 +171,8 @@
 		6E58722A1E5BF6B20003D9D2 /* GPPACLPickerResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GPPACLPickerResources.bundle; path = Carthage/Firebase/Invites/Resources/GPPACLPickerResources.bundle; sourceTree = "<group>"; };
 		6E59883A1EB8C0AB00501B7F /* FirebaseCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCrash.framework; path = Carthage/Firebase/Crash/FirebaseCrash.framework; sourceTree = "<group>"; };
 		6E59883B1EB8C0AB00501B7F /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = Carthage/Firebase/Crash/Protobuf.framework; sourceTree = "<group>"; };
+		6E5BA8A91EEEF40F00B61645 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Carthage/Crashlytics.framework; sourceTree = "<group>"; };
+		6E5BA8AA1EEEF40F00B61645 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Carthage/Fabric.framework; sourceTree = "<group>"; };
 		6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCoordinator.swift; sourceTree = "<group>"; };
 		6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
@@ -235,6 +239,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */,
+				6E5BA8AC1EEEF40F00B61645 /* Fabric.framework in Frameworks */,
 				6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */,
 				6EA0B47E1EC1C9F4005BA709 /* Realm.framework in Frameworks */,
 				6EA0B47F1EC1C9F4005BA709 /* RealmSwift.framework in Frameworks */,
@@ -344,6 +350,8 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E5BA8A91EEEF40F00B61645 /* Crashlytics.framework */,
+				6E5BA8AA1EEEF40F00B61645 /* Fabric.framework */,
 				6EB04F231EEE85F30023619A /* SimpleKeychain.framework */,
 				6EA0B47C1EC1C9F4005BA709 /* Realm.framework */,
 				6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */,
@@ -535,6 +543,7 @@
 				6E15D0161DF0A45900B4CCA7 /* Resources */,
 				6EE247D61DF21216001A6F39 /* Copy carthage frameworks */,
 				6E40B9D01EC60CE200411F69 /* Embed App Extensions */,
+				6E4DC3321EEEEE93008E7439 /* Run Fabric */,
 			);
 			buildRules = (
 			);
@@ -698,6 +707,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6E4DC3321EEEEE93008E7439 /* Run Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Fabric";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run cec32bfee3ead7eccfaa80f9230ea1e992e5a506 0bb27a541ca56b583174a57af53f62c4d010329a94ba190f85ee25cba5de4b63";
+		};
 		6EE247D61DF21216001A6F39 /* Copy carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -950,6 +973,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -978,6 +1003,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
