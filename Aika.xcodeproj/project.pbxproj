@@ -543,7 +543,6 @@
 				6E15D0161DF0A45900B4CCA7 /* Resources */,
 				6EE247D61DF21216001A6F39 /* Copy carthage frameworks */,
 				6E40B9D01EC60CE200411F69 /* Embed App Extensions */,
-				6E4DC3321EEEEE93008E7439 /* Run Fabric */,
 			);
 			buildRules = (
 			);
@@ -707,20 +706,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6E4DC3321EEEEE93008E7439 /* Run Fabric */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Fabric";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run cec32bfee3ead7eccfaa80f9230ea1e992e5a506 0bb27a541ca56b583174a57af53f62c4d010329a94ba190f85ee25cba5de4b63";
-		};
 		6EE247D61DF21216001A6F39 /* Copy carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
