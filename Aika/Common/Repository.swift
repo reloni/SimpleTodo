@@ -112,7 +112,11 @@ final class RealmRepository: RepositoryType {
 	}
 	
 	func overdueTasksCount() -> Int {
-		return realm.objects(RealmTask.self).filter("targetDate < %@ || targetDate = nil", Date()).count
+		return realm.objects(RealmTask.self)
+			.filter("targetDate < %@ || targetDate = nil", Date())
+			.filter("completed = false")
+			.filter("_synchronizationStatus != %@", ObjectSynchronizationStatus.deleted.rawValue)
+			.count
 	}
 	
 	func tasks() -> Results<RealmTask> {
