@@ -72,8 +72,13 @@ final class Theme {
 		static let info = UIImage(named: "Info")!.tint(with: Theme.Colors.blueberry)!
 		static let deleteAccount = UIImage(named: "Delete account")!.tint(with: Theme.Colors.upsdelRed)!
 		static let exit = UIImage(named: "Exit")!.tint(with: Theme.Colors.upsdelRed)!
-		static let file = UIImage(named: "File")!.tint(with: Theme.Colors.upsdelRed)!
+		static let deleteCache = UIImage(named: "Delete cache")!.tint(with: Theme.Colors.upsdelRed)!
 		static let add = UIImage(named: "Add")!.tint(with: Theme.Colors.blueberry)!
+		static let sourceCode = UIImage(named: "Source code")!.tint(with: Theme.Colors.blueberry)!
+		static let frameworks = UIImage(named: "Frameworks")!.tint(with: Theme.Colors.blueberry)!
+		static let email = UIImage(named: "Email")!.tint(with: Theme.Colors.blueberry)!
+		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.blueberry)!
+		static let accessoryArrow = UIImage(named: "Accessory arrow")!.tint(with: Theme.Colors.romanSilver)!
 	}
 	
 	final class Colors {

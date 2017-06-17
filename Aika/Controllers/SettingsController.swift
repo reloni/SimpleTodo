@@ -20,7 +20,6 @@ final class SettingsController : UIViewController {
 	
 	let tableView: UITableView = {
 		let table = Theme.Controls.tableView()
-		table.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
 		table.register(DefaultCell.self, forCellReuseIdentifier: "Default")
 		
 		return table
@@ -137,9 +136,9 @@ final class SettingsController : UIViewController {
 		cell.selectionStyle = .none
 	}
 	
-	static func configureTextCell(_ cell: UITableViewCell, with data: (title: String, value: String, image: UIImage)) {
+	static func configureTextCell(_ cell: UITableViewCell, with data: (title: String, value: String, image: UIImage?)) {
 		cell.textLabel?.text = data.title
-		cell.imageView?.image = data.image.resize(toWidth: 22)
+		cell.imageView?.image = data.image?.resize(toWidth: 22)
 		cell.detailTextLabel?.text = data.value
 		cell.tintColor = Theme.Colors.pumkin
 	}
@@ -148,6 +147,7 @@ final class SettingsController : UIViewController {
 		cell.textLabel?.text = data.title
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 		cell.accessoryType = .disclosureIndicator
+		cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
 		cell.tintColor = Theme.Colors.pumkin
 	}
 	

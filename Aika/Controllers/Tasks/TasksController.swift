@@ -14,10 +14,6 @@ import RxDataSources
 import Material
 import SnapKit
 
-class TestButton: FABButton {
-	override var alignmentRectInsets: UIEdgeInsets { return .zero }
-}
-
 final class TasksController : UIViewController {
 	let bag = DisposeBag()
 	
@@ -34,8 +30,8 @@ final class TasksController : UIViewController {
 		return table
 	}()
 	
-	let addTaskButton: Button = {
-		let button = TestButton(image: Theme.Images.add)
+	let addTaskButton: FABButton = {
+		let button = FABButton(image: Theme.Images.add.resize(toWidth: 50))
 		button.contentEdgeInsets = UIEdgeInsets(top: -13, left: -13, bottom: -13, right: -13)
 		button.pulseColor = Theme.Colors.white
 		button.backgroundColor = Theme.Colors.white
