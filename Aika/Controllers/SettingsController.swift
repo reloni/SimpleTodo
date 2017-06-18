@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxDataSources
+import MessageUI
 
 final class SettingsController : UIViewController {
 	let viewModel: SettingsViewModel
@@ -20,7 +21,9 @@ final class SettingsController : UIViewController {
 	
 	let tableView: UITableView = {
 		let table = Theme.Controls.tableView()
+		
 		table.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+		
 		table.register(DefaultCell.self, forCellReuseIdentifier: "Default")
 		
 		return table
@@ -103,16 +106,14 @@ final class SettingsController : UIViewController {
 				return cell
 			case .pushNotificationsSwitch(let data):
 				let cell = SwitchCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Switch")
-				SettingsController.configure(cell: cell)
-				SettingsController.configure(switchCell: cell, with: data)
-				
-				cell.switchView.setOn(self?.viewModel.isPushNotificationsEnabled ?? false, animated: false)
-				if let object = self {
-					object.viewModel.isPushNotificationsAllowed.bind(to: cell.switchView.rx.isEnabled).disposed(by: object.bag)
+				self?.configure(pushNotificationCell: cell, data: data)
+				return cell
+			case .email(let data):
+				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+				cell.tapped = { [weak self] in
+					guard let object = self else { return }
+					SettingsController.composeEmail(in: object)
 				}
-
-				cell.switchChanged = { isOn in self?.viewModel.isPushNotificationsEnabled = isOn }
-				
 				return cell
 			}
 		}
@@ -121,6 +122,25 @@ final class SettingsController : UIViewController {
 			return ds.sectionModels[index].header
 			
 		}
+	}
+	
+	static func composeEmail(in controller: SettingsController) {
+		guard MFMailComposeViewController.canSendMail() else { return }
+		let mail = MFMailComposeViewController()
+		mail.mailComposeDelegate = controller
+		mail.setToRecipients(["asefimenko87@gmail.com"])
+		mail.setMessageBody("<p></p>", isHTML: true)
+		controller.present(mail, animated: true)
+	}
+	
+	func configure(pushNotificationCell cell: SwitchCell, data: (title: String, subtitle: String?, image: UIImage)) {
+		SettingsController.configure(cell: cell)
+		SettingsController.configure(switchCell: cell, with: data)
+		
+		cell.switchView.setOn(viewModel.isPushNotificationsEnabled, animated: false)
+		viewModel.isPushNotificationsAllowed.bind(to: cell.switchView.rx.isEnabled).disposed(by: bag)
+		
+		cell.switchChanged = { [weak viewModel] isOn in viewModel?.isPushNotificationsEnabled = isOn }
 	}
 	
 	static func dequeueAndConfigureDefaultCell(for indexPath: IndexPath, with data: (title: String, image: UIImage), in table: UITableView) -> DefaultCell {
@@ -137,9 +157,9 @@ final class SettingsController : UIViewController {
 		cell.selectionStyle = .none
 	}
 	
-	static func configureTextCell(_ cell: UITableViewCell, with data: (title: String, value: String, image: UIImage)) {
+	static func configureTextCell(_ cell: UITableViewCell, with data: (title: String, value: String, image: UIImage?)) {
 		cell.textLabel?.text = data.title
-		cell.imageView?.image = data.image.resize(toWidth: 22)
+		cell.imageView?.image = data.image?.resize(toWidth: 22)
 		cell.detailTextLabel?.text = data.value
 		cell.tintColor = Theme.Colors.pumkin
 	}
@@ -148,6 +168,7 @@ final class SettingsController : UIViewController {
 		cell.textLabel?.text = data.title
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 		cell.accessoryType = .disclosureIndicator
+		cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
 		cell.tintColor = Theme.Colors.pumkin
 	}
 	
@@ -170,6 +191,12 @@ final class SettingsController : UIViewController {
 	}
 }
 
+extension SettingsController: MFMailComposeViewControllerDelegate {
+	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+		controller.dismiss(animated: true, completion: nil)
+	}
+}
+
 final class SettingsTableViewDelegate : NSObject, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 40
@@ -181,6 +208,7 @@ final class SettingsTableViewDelegate : NSObject, UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let header = UITableViewHeaderFooterView()
+		header.preservesSuperviewLayoutMargins = false
 		return header
 	}
 	

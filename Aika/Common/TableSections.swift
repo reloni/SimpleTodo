@@ -47,7 +47,8 @@ enum SettingsSectonItem {
 	case deleteAccount(title: String, image: UIImage)
 	case deleteLocalCache(title: String, image: UIImage)
 	case exit(title: String, image: UIImage)
-	case text(title: String, value: String, image: UIImage)
+	case text(title: String, value: String, image: UIImage?)
+	case email(title: String, image: UIImage)
 }
 
 struct FrameworksSection {

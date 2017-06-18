@@ -38,6 +38,9 @@ final class AuthenticationController : UIViewController {
 		field.autocapitalizationType = .none
 		field.returnKeyType = .next
 		field.isClearIconButtonEnabled = true
+		field.leftView = UIImageView(image: Theme.Images.email.resize(toWidth: 22))
+		field.leftViewOffset = 0
+		
 		return field
 	}()
 	
@@ -50,6 +53,9 @@ final class AuthenticationController : UIViewController {
 		field.keyboardType = .default
 		field.returnKeyType = .done
 		field.isClearIconButtonEnabled = true
+		field.leftView = UIImageView(image: Theme.Images.password.resize(toWidth: 22))
+		field.leftViewOffset = 0
+		
 		return field
 	}()
 	

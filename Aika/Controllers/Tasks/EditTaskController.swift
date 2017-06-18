@@ -108,7 +108,7 @@ final class EditTaskController : UIViewController {
 	}()
 	
 	let notesTextField: TextView = {
-		let text = Theme.Controls.textView(withStyle: .footnote)
+		let text = Theme.Controls.textView(withStyle: .callout)
 
 		text.layoutEdgeInsets = .zero
 		text.textContainerInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)

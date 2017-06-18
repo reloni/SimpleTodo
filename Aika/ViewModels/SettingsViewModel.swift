@@ -25,11 +25,12 @@ final class SettingsViewModel: ViewModelType {
 			
 			let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
 			let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
-			let aboutSection = SettingsSection(header: "ABOUT", items: [.frameworks(title: "Frameworks", image: Theme.Images.info),
-			                                                            .sourceCode(title: "Source code", image: Theme.Images.info),
-			                                                            .text(title: "App version", value: "\(appVersion) (\(buildVersion))", image: Theme.Images.info)])
+			let aboutSection = SettingsSection(header: "ABOUT", items: [.frameworks(title: "Frameworks", image: Theme.Images.frameworks),
+			                                                            .sourceCode(title: "Source code", image: Theme.Images.sourceCode),
+			                                                            .email(title: "Support", image: Theme.Images.questionMark),
+			                                                            .text(title: "App version", value: "\(appVersion) (\(buildVersion))", image: nil)])
 			
-			let exitSection = SettingsSection(header: "ACCOUNT", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.file),
+			let exitSection = SettingsSection(header: "ACCOUNT", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.deleteCache),
 			                                                             .deleteAccount(title: "Delete account", image: Theme.Images.deleteAccount),
 			                                                             .exit(title: "Log off", image: Theme.Images.exit)])
 			return .just([pushSection, exitSection, aboutSection])

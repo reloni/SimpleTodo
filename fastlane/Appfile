@@ -1,4 +1,4 @@
-app_identifier "com.AntonEfimenko.SimpleToDo" # The bundle identifier of your app
+app_identifier "com.AntonEfimenko.Aika" # The bundle identifier of your app
 apple_id "reloni@ya.ru" # Your Apple email address
 
 team_id "SJMSRXG797"  # Developer Portal Team ID
