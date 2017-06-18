@@ -78,6 +78,7 @@ final class Theme {
 		static let email = UIImage(named: "Email")!.tint(with: Theme.Colors.white)!
 		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.white)!
 		static let accessoryArrow = UIImage(named: "Accessory arrow")!.tint(with: Theme.Colors.romanSilver)!
+		static let questionMark = UIImage(named: "Question mark")!.tint(with: Theme.Colors.blueberry)!
 	}
 	
 	final class Colors {

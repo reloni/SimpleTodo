@@ -50,6 +50,7 @@
 		6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
 		6E96B07B1EBAE69B0096ACFE /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */; };
 		6E96B07F1EBC361A0096ACFE /* SnackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07E1EBC361A0096ACFE /* SnackView.swift */; };
+		6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E97DD1E1EF674F600542768 /* MessageUI.framework */; };
 		6EA022C81E755A3600934BB7 /* RootReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022C71E755A3600934BB7 /* RootReducer.swift */; };
 		6EA022CA1E755A5700934BB7 /* AuthenticationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022C91E755A5700934BB7 /* AuthenticationReducer.swift */; };
 		6EA0B47E1EC1C9F4005BA709 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47C1EC1C9F4005BA709 /* Realm.framework */; };
@@ -192,6 +193,7 @@
 		6E9026E81E5AA57E00851B4D /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Carthage/googlesignin/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
 		6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		6E96B07E1EBC361A0096ACFE /* SnackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackView.swift; sourceTree = "<group>"; };
+		6E97DD1E1EF674F600542768 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		6E9AA3E91E540D9100BA8283 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		6E9AA3EA1E540D9100BA8283 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Firebase/Analytics/FirebaseCore.framework; sourceTree = "<group>"; };
 		6E9AA3EB1E540D9100BA8283 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Firebase/Analytics/FirebaseInstanceID.framework; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */,
 				6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */,
 				6E5BA8AC1EEEF40F00B61645 /* Fabric.framework in Frameworks */,
 				6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */,
@@ -350,6 +353,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E97DD1E1EF674F600542768 /* MessageUI.framework */,
 				6E5BA8A91EEEF40F00B61645 /* Crashlytics.framework */,
 				6E5BA8AA1EEEF40F00B61645 /* Fabric.framework */,
 				6EB04F231EEE85F30023619A /* SimpleKeychain.framework */,

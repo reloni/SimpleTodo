@@ -27,6 +27,7 @@ final class SettingsViewModel: ViewModelType {
 			let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
 			let aboutSection = SettingsSection(header: "ABOUT", items: [.frameworks(title: "Frameworks", image: Theme.Images.frameworks),
 			                                                            .sourceCode(title: "Source code", image: Theme.Images.sourceCode),
+			                                                            .email(title: "Support", image: Theme.Images.questionMark),
 			                                                            .text(title: "App version", value: "\(appVersion) (\(buildVersion))", image: nil)])
 			
 			let exitSection = SettingsSection(header: "ACCOUNT", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.deleteCache),
