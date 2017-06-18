@@ -153,6 +153,10 @@ final class EditTaskController : UIViewController {
 		updateViewConstraints()
 		
 		bind()
+		
+		if viewModel.task == nil {
+			descriptionTextField.becomeFirstResponder()
+		}
 	}
 	
 	func bind() {
