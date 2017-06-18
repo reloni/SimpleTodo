@@ -187,8 +187,15 @@ final class EditTaskController : UIViewController {
 		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.switchDatePickerExpansion() }).disposed(by: bag)
 		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.clearTargetDate() }).disposed(by: bag)
 		
-		
 		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
+		
+		let recognizer = UITapGestureRecognizer(target: self, action: #selector(targetDateTextFieldTapped(_:)))
+		targetDateView.textField.superview?.addGestureRecognizer(recognizer)
+	}
+	
+	func targetDateTextFieldTapped(_ gesture: UITapGestureRecognizer) {
+		guard gesture.state == .ended else { return }
+		viewModel.switchDatePickerExpansion()
 	}
 	
 	func switchDatePickerExpandMode(_ expand: Bool) {

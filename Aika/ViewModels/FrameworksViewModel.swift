@@ -10,21 +10,6 @@ import RxDataFlow
 import RxSwift
 import RxDataSources
 
-/*
-github "CosmicMind/Material" == 2.6.3
-github "RxSwiftCommunity/RxHttpClient" == 0.8.2
-github "Reloni/RxDataFlow" == 0.8.0
-github "RxSwiftCommunity/RxDataSources" == 1.0.3
-github "JohnSundell/Unbox" == 2.4.0
-github "JohnSundell/Wrap" == 2.1.1
-github "RxSwiftCommunity/RxGesture" == 1.0.1
-github "OneSignal/OneSignal-iOS-SDK" == 2.5.3
-github "auth0/Auth0.swift" == 1.5.0
-github "auth0/JWTDecode.swift" == 2.0.0
-github "realm/realm-cocoa" == 2.7.0
-
-*/
-
 final class FrameworksViewModel: ViewModelType {
 	let flowController: RxDataFlowController<RootReducer>
 	static let frameworks = [FrameworkSectionItem(name: "RxSwift", url: URL(string: "https://github.com/ReactiveX/RxSwift")!),
