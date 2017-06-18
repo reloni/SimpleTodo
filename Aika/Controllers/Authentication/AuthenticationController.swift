@@ -204,6 +204,7 @@ final class AuthenticationController : UIViewController {
 		
 		alert.addTextField { textField in
 			textField.placeholder = "E-mail"
+			textField.keyboardType = .emailAddress
 		}
 		
 		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert, weak viewModel] _ in
