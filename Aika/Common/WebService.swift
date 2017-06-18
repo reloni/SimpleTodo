@@ -41,7 +41,8 @@ final class WebSerivce: WebServiceType {
 	private static func headers(withToken token: String) -> [String: String] {
 		return ["Authorization": "\(token)",
 			"Accept":"application/json",
-			"Content-Type":"application/json; charset=utf-8"]
+			"Content-Type":"application/json; charset=utf-8",
+			"Host": HttpClient.host]
 	}
 	
 	func loadTasks(tokenHeader: Observable<String>) -> Observable<[Task]> {
