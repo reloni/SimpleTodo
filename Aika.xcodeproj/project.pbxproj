@@ -14,7 +14,6 @@
 		6E07B8951EBDB9A700ADA5A8 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */; };
 		6E07B8971EBDBC9800ADA5A8 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */; };
 		6E07ED2C1EC3636A00154DF4 /* SynchronizationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */; };
-		6E14E5E41EE31E810021DE02 /* TasksReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E14E5E31EE31E810021DE02 /* TasksReducer.swift */; };
 		6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */; };
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
@@ -129,7 +128,6 @@
 		6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationReducer.swift; sourceTree = "<group>"; };
-		6E14E5E31EE31E810021DE02 /* TasksReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksReducer.swift; sourceTree = "<group>"; };
 		6E14E5E51EE321A90021DE02 /* Aika.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Aika.entitlements; sourceTree = "<group>"; };
 		6E15D0181DF0A45A00B4CCA7 /* Aika.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aika.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -472,7 +470,6 @@
 				6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */,
 				6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */,
 				6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */,
-				6E14E5E31EE31E810021DE02 /* TasksReducer.swift */,
 			);
 			path = Reducers;
 			sourceTree = "<group>";
@@ -753,7 +750,6 @@
 				6EA022C81E755A3600934BB7 /* RootReducer.swift in Sources */,
 				6EAF1B391EB5244C00C72BF5 /* InitialCoordinator.swift in Sources */,
 				6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */,
-				6E14E5E41EE31E810021DE02 /* TasksReducer.swift in Sources */,
 				6ED0A20A1E79835E00B59B52 /* EditTaskViewModel.swift in Sources */,
 				6EAACA2D1EB75F99004EB190 /* SwitchCell.swift in Sources */,
 				6EAACA291EB7591D004EB190 /* DefaultCell.swift in Sources */,

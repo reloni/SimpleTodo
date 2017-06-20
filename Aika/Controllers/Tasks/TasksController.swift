@@ -121,7 +121,7 @@ final class TasksController : UIViewController {
 	}
 	
 	func configureDataSource() {
-		dataSource.configureCell = { [weak viewModel] ds, tv, ip, item in
+		dataSource.configureCell = { [weak viewModel, weak self] ds, tv, ip, item in
 			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
 			cell.preservesSuperviewLayoutMargins = false
 			cell.layoutMargins = .zero
@@ -141,7 +141,7 @@ final class TasksController : UIViewController {
 			}
 			
 			cell.deleteTapped = {
-				viewModel?.askForDeleteTask(sourceView: cell.deleteActionView, taskUuid: item.uuid)
+				self?.showDeleteTaskAlert(sourceView: cell.deleteActionView, taskUuid: item.uuid)
 			}
 			
 			return cell
@@ -154,6 +154,14 @@ final class TasksController : UIViewController {
 		dataSource.canMoveRowAtIndexPath = { _ in
 			return true
 		}
+	}
+	
+	func showDeleteTaskAlert(sourceView: UIView, taskUuid: UniqueIdentifier) {
+		let deleteHandler: ((UIAlertAction) -> Void)? = { _ in self.viewModel.deleteTask(forUuid: taskUuid) }
+		let actions = [UIAlertAction(title: "Delete task", style: .destructive, handler: deleteHandler),
+		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
+		
+		viewModel.showWarning(in: self, title: nil, message: nil, actions: actions, sourceView: sourceView)
 	}
 	
 	func tableViewConstraints(maker: ConstraintMaker) {

@@ -50,11 +50,7 @@ final class TasksViewModel: ViewModelType {
 	func editTask(uuid: UniqueIdentifier) {
 		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.syncService.task(for: uuid.uuid).toStruct()))
 	}
-	
-	func askForDeleteTask(sourceView: UIView, taskUuid: UniqueIdentifier) {
-		flowController.dispatch(TasksAction.showDeleteTaskAlert(sourceView: sourceView, taskUuid: taskUuid))
-	}
-	
+
 	func deleteTask(forUuid uuid: UniqueIdentifier) {
 		flowController.dispatch(SynchronizationAction.deleteTask(uuid))
 		flowController.dispatch(RxCompositeAction.synchronizationAction)
@@ -70,5 +66,9 @@ final class TasksViewModel: ViewModelType {
 	
 	func showSettings() {
 		flowController.dispatch(UIAction.showSettingsController)
+	}
+	
+	func showWarning(in controller: UIViewController, title: String?, message: String?, actions: [UIAlertAction], sourceView: UIView?) {
+		flowController.dispatch(UIAction.showActionSheet(inController: controller, title: title, message: message, actions: actions, sourceView: sourceView))
 	}
 }

@@ -21,7 +21,6 @@ struct RootReducer : RxReducerType {
 		case _ as SettingsAction: return SettingsReducer().handle(action, currentState: currentState)
 		case _ as SynchronizationAction: return SynchronizationReducer().handle(action, currentState: currentState)
 		case _ as SystemAction: return SystemReducer().handle(action, currentState: currentState)
-		case _ as TasksAction: return TasksReducer().handle(action, currentState: currentState)
 		case _ as UIAction: return currentState.coordinator.handle(action)
 		default: fatalError("Unknown action type")
 		}
