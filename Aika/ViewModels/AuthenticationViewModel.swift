@@ -59,12 +59,12 @@ final class AuthenticationViewModel: ViewModelType {
 	func performAction(email: String, password: String) {
 		switch mode {
 		case .logIn:
-			flowController.dispatch(UIAction.showSpinner)
+//			flowController.dispatch(UIAction.showSpinner)
 			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(email, password),
 			                                                    SynchronizationAction.updateConfiguration,
 			                                                    UIAction.showTasksListController,
 			                                                    PushNotificationsAction.promtForPushNotifications]))
-			flowController.dispatch(UIAction.hideSpinner)
+//			flowController.dispatch(UIAction.hideSpinner)
 		case .registration:
 			flowController.dispatch(UIAction.showSpinner)
 			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.register(email, password),

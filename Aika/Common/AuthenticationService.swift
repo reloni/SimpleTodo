@@ -114,21 +114,43 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 	
 	static func authenticate(userNameOremail: String, password: String) -> Observable<(idToken: String, refreshToken: String, accessToken: String, expiresAt: Date?)> {
 		return Observable.create { observer in
+			
+			/*
 			Auth0
-				.authentication()
-				.login(usernameOrEmail: userNameOremail,
-				       password: password,
-				       connection: "Username-Password-Authentication",
-				       scope: "openid profile offline_access read:device_credentials",
-				       parameters: ["device": Keychain.deviceUuid])
+			.webAuth()
+			.connection("facebook")
+			.start { result in
+			switch result {
+			case .success(let credentials):
+			print("credentials: \(credentials)")
+			case .failure(let error):
+			print(error)
+			}
+			}
+*/
+			
+			Auth0
+				.webAuth()
+				//.connection("google-oauth2")
+				.connection("twitter")
+//				.authentication()
+//				.login(usernameOrEmail: userNameOremail,
+//				       password: password,
+//				       connection: "Username-Password-Authentication",
+//				       scope: "openid profile offline_access read:device_credentials",
+//				       parameters: ["device": Keychain.deviceUuid])
 				.start { result in
 					
 					switch result {
 					case .success(let credentials):
-						
+						print(credentials.idToken)
 						let jwt = try? decode(jwt: credentials.idToken!)
-						observer.onNext((idToken: credentials.idToken!, refreshToken: credentials.refreshToken!, accessToken: credentials.accessToken!, expiresAt: jwt?.expiresAt))
-						observer.onCompleted()
+						print(jwt?.body)
+						
+						//let jwt = try? decode(jwt: credentials.idToken!)
+						//observer.onNext((idToken: credentials.idToken!, refreshToken: credentials.refreshToken!, accessToken: credentials.accessToken!, expiresAt: jwt?.expiresAt))
+						//observer.onCompleted()
+						observer.onError(AuthenticationError.signInError(AuthenticationError.unknown))
 					case .failure(let error):
 						observer.onError(AuthenticationError.signInError(error))
 					}
