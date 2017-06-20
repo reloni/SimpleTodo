@@ -47,14 +47,6 @@ final class SettingsViewModel: ViewModelType {
 		isPushNotificationsEnabled = flowController.currentState.state.authentication.settings?.pushNotificationsEnabled ?? false
 	}
 	
-	func askForLogOff(sourceView: UIView) {
-		flowController.dispatch(SettingsAction.showLogOffAlert(sourceView: sourceView))
-	}
-	
-	func askForDeleteCache(sourceView: UIView) {
-		flowController.dispatch(SettingsAction.showDeleteCacheAlert(sourceView: sourceView))
-	}
-	
 	func logOff() {
 		RxCompositeAction.logOffActions.forEach { flowController.dispatch($0) }
 	}
@@ -73,10 +65,6 @@ final class SettingsViewModel: ViewModelType {
 		flowController.dispatch(UIAction.showSpinner)
 		flowController.dispatch(RxCompositeAction.deleteUserAction)
 		flowController.dispatch(UIAction.hideSpinner)
-	}
-	
-	func askForDeleteUser(sourceView: UIView) {
-		flowController.dispatch(SettingsAction.showDeleteUserAlert(sourceView: sourceView))
 	}
 	
 	func showFramwrorks() {

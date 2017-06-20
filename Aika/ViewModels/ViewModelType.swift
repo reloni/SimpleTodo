@@ -7,6 +7,7 @@
 //
 
 import RxDataFlow
+import UIKit
 
 protocol ViewModelType {
 	var flowController: RxDataFlowController<RootReducer> { get }
@@ -20,5 +21,9 @@ extension ViewModelType {
 		} else {
 			flowController.dispatch(UIAction.showSnackView(error: error, hideAfter: 4))
 		}
+	}
+	
+	func showWarning(in controller: UIViewController, title: String?, message: String?, actions: [UIAlertAction], sourceView: UIView?) {
+		flowController.dispatch(UIAction.showActionSheet(inController: controller, title: title, message: message, actions: actions, sourceView: sourceView))
 	}
 }

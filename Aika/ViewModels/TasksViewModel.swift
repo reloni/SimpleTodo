@@ -67,8 +67,4 @@ final class TasksViewModel: ViewModelType {
 	func showSettings() {
 		flowController.dispatch(UIAction.showSettingsController)
 	}
-	
-	func showWarning(in controller: UIViewController, title: String?, message: String?, actions: [UIAlertAction], sourceView: UIView?) {
-		flowController.dispatch(UIAction.showActionSheet(inController: controller, title: title, message: message, actions: actions, sourceView: sourceView))
-	}
 }

@@ -59,9 +59,6 @@ enum SettingsAction : RxActionType {
 	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
-	case showLogOffAlert(sourceView: UIView)
-	case showDeleteCacheAlert(sourceView: UIView)
-	case showDeleteUserAlert(sourceView: UIView)
 	case showFrameworksController
 }
 
