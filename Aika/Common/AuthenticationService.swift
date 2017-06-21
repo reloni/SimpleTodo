@@ -132,7 +132,7 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 			Auth0
 				.webAuth()
 				//.connection("google-oauth2")
-				.connection("twitter")
+				.connection("facebook")
 //				.authentication()
 //				.login(usernameOrEmail: userNameOremail,
 //				       password: password,

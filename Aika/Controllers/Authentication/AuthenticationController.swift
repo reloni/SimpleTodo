@@ -59,6 +59,36 @@ final class AuthenticationController : UIViewController {
 		return field
 	}()
 	
+	let googleLoginButton: Button = {
+		let button = Button()
+		button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+		button.layer.cornerRadius = 3
+		button.contentHorizontalAlignment = .left
+		button.title = "Log in with Google"
+		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+		button.setImage(Theme.Images.google.resize(toWidth: 22), for: UIControlState.normal)
+		button.backgroundColor = Theme.Colors.blueberry
+		button.alpha = 0
+		button.pulseColor = Theme.Colors.white
+		button.titleColor = Theme.Colors.white
+		return button
+	}()
+	
+	let facebookLoginButton: Button = {
+		let button = Button()
+		button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+		button.layer.cornerRadius = 3
+		button.contentHorizontalAlignment = .left
+		button.title = "Log in with Facebook"
+		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+		button.setImage(Theme.Images.facebook.resize(toWidth: 22), for: UIControlState.normal)
+		button.backgroundColor = Theme.Colors.blueberry
+		button.alpha = 0
+		button.pulseColor = Theme.Colors.white
+		button.titleColor = Theme.Colors.white
+		return button
+	}()
+	
 	let actionButton: Button = {
 		let button = Button()
 		button.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
@@ -120,6 +150,8 @@ final class AuthenticationController : UIViewController {
 		view.addSubview(scrollView)
 		scrollView.addSubview(containerView)
 		containerView.addSubview(actionButton)
+		containerView.addSubview(googleLoginButton)
+		containerView.addSubview(facebookLoginButton)
 		containerView.addSubview(emailTextField)
 		containerView.addSubview(passwordTextField)
 		containerView.addSubview(supplementalButton)
@@ -127,11 +159,15 @@ final class AuthenticationController : UIViewController {
 		
 		actionButton.snp.makeConstraints(loginButtonConstraints)
 		passwordTextField.snp.makeConstraints(passwordTextFieldConstraints)
+		googleLoginButton.snp.makeConstraints(googleLoginButtonConstraints)
+		facebookLoginButton.snp.makeConstraints(facebookLoginButtonConstraints)
 		emailTextField.snp.makeConstraints(emailTextFieldConstraints)
 		scrollView.snp.makeConstraints(scrollViewConstraints)
 		supplementalButton.snp.makeConstraints(registrationButtonConstraints)
 		containerView.snp.makeConstraints(containerViewConstraints)
-		if viewModel.mode == .logIn { lostPasswordLabel.snp.makeConstraints(lostPasswordLabelConstraints) }
+		if viewModel.mode == .logIn {
+			lostPasswordLabel.snp.makeConstraints(lostPasswordLabelConstraints)
+		}
 		
 		if viewModel.mode == .registration {
 			emailTextField.alpha = 1
@@ -157,11 +193,13 @@ final class AuthenticationController : UIViewController {
 		super.viewDidAppear(animated)
 		
 		if viewModel.mode == .logIn {
-			UIView.animate(withDuration: 0.2, delay: 0.1, options: [], animations: { self.emailTextField.alpha = 1 }, completion: nil)
-			UIView.animate(withDuration: 0.2, delay: 0.25, options: [], animations: { self.passwordTextField.alpha = 1 }, completion: nil)
-			UIView.animate(withDuration: 0.2, delay: 0.40, options: [], animations: { self.actionButton.alpha = 1 }, completion: nil)
-			UIView.animate(withDuration: 0.2, delay: 0.55, options: [], animations: { self.supplementalButton.alpha = 1 }, completion: nil)
-			UIView.animate(withDuration: 0.2, delay: 0.70, options: [], animations: { self.lostPasswordLabel.alpha = 1 }, completion: nil)
+			UIView.animate(withDuration: 0.2, delay: 0.1, options: [], animations: { self.googleLoginButton.alpha = 1 }, completion: nil)
+			UIView.animate(withDuration: 0.2, delay: 0.2, options: [], animations: { self.facebookLoginButton.alpha = 1 }, completion: nil)
+			UIView.animate(withDuration: 0.2, delay: 0.3, options: [], animations: { self.emailTextField.alpha = 1 }, completion: nil)
+			UIView.animate(withDuration: 0.2, delay: 0.4, options: [], animations: { self.passwordTextField.alpha = 1 }, completion: nil)
+			UIView.animate(withDuration: 0.2, delay: 0.5, options: [], animations: { self.actionButton.alpha = 1 }, completion: nil)
+			UIView.animate(withDuration: 0.2, delay: 0.6, options: [], animations: { self.supplementalButton.alpha = 1 }, completion: nil)
+			UIView.animate(withDuration: 0.2, delay: 0.7, options: [], animations: { self.lostPasswordLabel.alpha = 1 }, completion: nil)
 		}
 	}
 	
@@ -231,8 +269,20 @@ final class AuthenticationController : UIViewController {
 		maker.bottom.equalTo(scrollView).inset(10)
 	}
 	
+	func googleLoginButtonConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(containerView.snp.top).offset(10)
+		maker.leading.equalTo(containerView.snp.leading).inset(20)
+		maker.trailing.equalTo(containerView.snp.trailing).inset(20)
+	}
+	
+	func facebookLoginButtonConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(googleLoginButton.snp.bottom).offset(10)
+		maker.leading.equalTo(containerView.snp.leading).inset(20)
+		maker.trailing.equalTo(containerView.snp.trailing).inset(20)
+	}
+	
 	func emailTextFieldConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(containerView.snp.top).offset(50)
+		maker.top.equalTo(facebookLoginButton.snp.bottom).offset(20)
 		maker.leading.equalTo(actionButton.snp.leading)
 		maker.trailing.equalTo(actionButton.snp.trailing)
 	}
@@ -250,14 +300,14 @@ final class AuthenticationController : UIViewController {
 	}
 	
 	func registrationButtonConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(actionButton.snp.bottom).offset(25)
+		maker.top.equalTo(actionButton.snp.bottom).offset(10)
 		maker.leading.equalTo(containerView.snp.leading).inset(20)
 		maker.trailing.equalTo(containerView.snp.trailing).inset(20)
 		if viewModel.mode == .registration { maker.bottom.equalTo(containerView).inset(50) }
 	}
 	
 	func lostPasswordLabelConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(supplementalButton.snp.bottom).offset(25)
+		maker.top.equalTo(supplementalButton.snp.bottom).offset(10)
 		maker.leading.equalTo(containerView.snp.leading).inset(20)
 		maker.trailing.equalTo(containerView.snp.trailing).inset(20)
 		maker.bottom.equalTo(containerView).inset(50)
@@ -268,6 +318,8 @@ final class AuthenticationController : UIViewController {
 		
 		actionButton.snp.updateConstraints(loginButtonConstraints)
 		passwordTextField.snp.updateConstraints(passwordTextFieldConstraints)
+		googleLoginButton.snp.updateConstraints(googleLoginButtonConstraints)
+		facebookLoginButton.snp.updateConstraints(facebookLoginButtonConstraints)
 		emailTextField.snp.updateConstraints(emailTextFieldConstraints)
 		scrollView.snp.updateConstraints(scrollViewConstraints)
 		containerView.snp.updateConstraints(containerViewConstraints)
