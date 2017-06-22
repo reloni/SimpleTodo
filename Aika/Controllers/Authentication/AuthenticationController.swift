@@ -224,6 +224,16 @@ final class AuthenticationController : UIViewController {
 			self?.viewModel.performSupplementalAction()
 		}).disposed(by: bag)
 		
+		googleLoginButton.rx.tap.subscribe(onNext: { [weak self] _ in
+			self?.textFieldsResignFirstResponder()
+			self?.viewModel.authenticateWithGoogle()
+		}).disposed(by: bag)
+		
+		facebookLoginButton.rx.tap.subscribe(onNext: { [weak self] _ in
+			self?.textFieldsResignFirstResponder()
+			self?.viewModel.authenticateWithFacebook()
+		}).disposed(by: bag)
+		
 		viewModel.errors.subscribe().disposed(by: bag)
 		
 		if viewModel.mode == .logIn {
@@ -282,7 +292,7 @@ final class AuthenticationController : UIViewController {
 	}
 	
 	func emailTextFieldConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(facebookLoginButton.snp.bottom).offset(20)
+		maker.top.equalTo(facebookLoginButton.snp.bottom).offset(30)
 		maker.leading.equalTo(actionButton.snp.leading)
 		maker.trailing.equalTo(actionButton.snp.trailing)
 	}

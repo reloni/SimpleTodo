@@ -56,14 +56,32 @@ final class AuthenticationViewModel: ViewModelType {
 		return Keychain.userPassword
 	}
 	
+	func authenticateWithFacebook() {
+		authenticate(authType: AuthenticationType.facebook)
+	}
+	
+	func authenticateWithGoogle() {
+		authenticate(authType: AuthenticationType.google)
+	}
+	
+	private func authenticate(authType: AuthenticationType) {
+		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(authType),
+		                                                    SynchronizationAction.updateConfiguration,
+		                                                    UIAction.showTasksListController,
+		                                                    PushNotificationsAction.promtForPushNotifications]))
+	}
+	
 	func performAction(email: String, password: String) {
 		switch mode {
 		case .logIn:
+			flowController.dispatch(UIAction.showSpinner)
+			authenticate(authType: AuthenticationType.db(email: email, password: password))
+			flowController.dispatch(UIAction.hideSpinner)
 //			flowController.dispatch(UIAction.showSpinner)
-			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(email, password),
-			                                                    SynchronizationAction.updateConfiguration,
-			                                                    UIAction.showTasksListController,
-			                                                    PushNotificationsAction.promtForPushNotifications]))
+//			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(AuthenticationType.db(email: email, password: password)),
+//			                                                    SynchronizationAction.updateConfiguration,
+//			                                                    UIAction.showTasksListController,
+//			                                                    PushNotificationsAction.promtForPushNotifications]))
 //			flowController.dispatch(UIAction.hideSpinner)
 		case .registration:
 			flowController.dispatch(UIAction.showSpinner)
@@ -72,7 +90,6 @@ final class AuthenticationViewModel: ViewModelType {
 			                                                    UIAction.dismissFirebaseRegistrationController]))
 			flowController.dispatch(UIAction.hideSpinner)
 		}
-
 	}
 	
 	func performSupplementalAction() {
