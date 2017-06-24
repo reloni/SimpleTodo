@@ -30,7 +30,15 @@ final class AuthenticationViewModel: ViewModelType {
 	init(flowController: RxDataFlowController<RootReducer>, mode: Mode) {
 		self.flowController = flowController
 		self.mode = mode
+		showPasswordOrRegistrationEnterSubject = BehaviorSubject(value: mode == .registration)
+		showAuthenticationTypesSubject = BehaviorSubject(value: mode == .logIn)
 	}
+	
+	private let showAuthenticationTypesSubject: BehaviorSubject<Bool>
+	var showAuthenticationTypes: Observable<Bool> { return showAuthenticationTypesSubject.asObservable() }
+	
+	private let showPasswordOrRegistrationEnterSubject: BehaviorSubject<Bool>
+	var showPasswordOrRegistrationEnter: Observable<Bool> { return showPasswordOrRegistrationEnterSubject.asObservable() }
 	
 	var actionButtonTitle: String {
 		switch mode {
@@ -56,15 +64,37 @@ final class AuthenticationViewModel: ViewModelType {
 		return Keychain.userPassword
 	}
 	
+	func toggleShowPasswordOrRegistrationEnter() {
+		showPasswordOrRegistrationEnterSubject.onNext(!((try? showPasswordOrRegistrationEnterSubject.value()) ?? true))
+	}
+	
+	func authenticateWithFacebook() {
+		authenticate(authType: AuthenticationType.facebook)
+	}
+	
+	func authenticateWithGoogle() {
+		authenticate(authType: AuthenticationType.google)
+	}
+	
+	private func authenticate(authType: AuthenticationType) {
+		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(authType),
+		                                                    SynchronizationAction.updateConfiguration,
+		                                                    UIAction.showTasksListController,
+		                                                    PushNotificationsAction.promtForPushNotifications]))
+	}
+	
 	func performAction(email: String, password: String) {
 		switch mode {
 		case .logIn:
 			flowController.dispatch(UIAction.showSpinner)
-			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(email, password),
-			                                                    SynchronizationAction.updateConfiguration,
-			                                                    UIAction.showTasksListController,
-			                                                    PushNotificationsAction.promtForPushNotifications]))
+			authenticate(authType: AuthenticationType.db(email: email, password: password))
 			flowController.dispatch(UIAction.hideSpinner)
+//			flowController.dispatch(UIAction.showSpinner)
+//			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(AuthenticationType.db(email: email, password: password)),
+//			                                                    SynchronizationAction.updateConfiguration,
+//			                                                    UIAction.showTasksListController,
+//			                                                    PushNotificationsAction.promtForPushNotifications]))
+//			flowController.dispatch(UIAction.hideSpinner)
 		case .registration:
 			flowController.dispatch(UIAction.showSpinner)
 			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.register(email, password),
@@ -72,7 +102,6 @@ final class AuthenticationViewModel: ViewModelType {
 			                                                    UIAction.dismissFirebaseRegistrationController]))
 			flowController.dispatch(UIAction.hideSpinner)
 		}
-
 	}
 	
 	func performSupplementalAction() {

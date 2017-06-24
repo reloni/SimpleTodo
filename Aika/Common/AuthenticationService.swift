@@ -22,6 +22,12 @@ extension LoginUser {
 	}
 }
 
+enum AuthenticationType {
+	case db(email: String, password: String)
+	case google
+	case facebook
+}
+
 struct AuthenticationInfo {
 	let uid: String
 	let token: String
@@ -35,15 +41,15 @@ struct AuthenticationInfo {
 }
 
 protocol AuthenticationServiceType {
-	func logIn(userNameOrEmail: String, password: String) -> Observable<AuthenticationInfo>
+	func logIn(authType: AuthenticationType) -> Observable<AuthenticationInfo>
 	func resetPassword(email: String) -> Observable<Void>
 	func createUser(email: String, password: String) -> Observable<Void>
 	func refreshToken(info: AuthenticationInfo) -> Observable<AuthenticationInfo>
 }
 
 struct Auth0AuthenticationService: AuthenticationServiceType {
-	func logIn(userNameOrEmail: String, password: String) -> Observable<AuthenticationInfo> {
-		return Auth0AuthenticationService.authenticate(userNameOremail: userNameOrEmail, password: password)
+	func logIn(authType: AuthenticationType) -> Observable<AuthenticationInfo> {
+		return Auth0AuthenticationService.authenticate(authType: authType)
 			.flatMapLatest { tokens -> Observable<AuthenticationInfo> in
 				return Auth0AuthenticationService.userProfile(token: tokens.accessToken)
 					.flatMapLatest { profile -> Observable<AuthenticationInfo> in
@@ -112,23 +118,92 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 		}
 	}
 	
+	static func authenticate(authType type: AuthenticationType) -> Observable<(idToken: String, refreshToken: String, accessToken: String, expiresAt: Date?)> {
+		return Observable.create { observer in
+			
+			let callback: (Auth0.Result<Auth0.Credentials>) -> () = { result in
+				switch result {
+				case .success(let credentials):
+					let jwt = try? decode(jwt: credentials.idToken!)
+					observer.onNext((idToken: credentials.idToken!,
+					                 refreshToken: credentials.refreshToken!, 
+					                 accessToken: credentials.accessToken!, 
+					                 expiresAt: jwt?.expiresAt))
+					observer.onCompleted()
+				case .failure(let error):
+					observer.onError(AuthenticationError.signInError(error))
+				}
+			}
+			
+			switch type {
+			case .db(let email, let password):
+				Auth0
+					.authentication()
+					.login(usernameOrEmail: email,
+					       password: password,
+					       connection: "Username-Password-Authentication",
+					       scope: "openid profile offline_access read:device_credentials",
+					       parameters: ["device": Keychain.deviceUuid])
+					.start(callback)
+			case .google:
+				Auth0
+					.webAuth()
+					.scope("openid profile offline_access")
+					.connection("google-oauth2")
+					.start(callback)
+			case .facebook:
+				Auth0
+					.webAuth()
+					.scope("openid profile offline_access")
+					.connection("facebook")
+					.start(callback)
+			}
+			
+			return Disposables.create {
+				observer.onCompleted()
+			}
+		}
+	}
+	/*
 	static func authenticate(userNameOremail: String, password: String) -> Observable<(idToken: String, refreshToken: String, accessToken: String, expiresAt: Date?)> {
 		return Observable.create { observer in
+			
+			/*
 			Auth0
-				.authentication()
-				.login(usernameOrEmail: userNameOremail,
-				       password: password,
-				       connection: "Username-Password-Authentication",
-				       scope: "openid profile offline_access read:device_credentials",
-				       parameters: ["device": Keychain.deviceUuid])
+			.webAuth()
+			.connection("facebook")
+			.start { result in
+			switch result {
+			case .success(let credentials):
+			print("credentials: \(credentials)")
+			case .failure(let error):
+			print(error)
+			}
+			}
+*/
+			
+			Auth0
+				.webAuth()
+				.connection("google-oauth2")
+//				.connection("facebook")
+//				.authentication()
+//				.login(usernameOrEmail: userNameOremail,
+//				       password: password,
+//				       connection: "Username-Password-Authentication",
+//				       scope: "openid profile offline_access read:device_credentials",
+//				       parameters: ["device": Keychain.deviceUuid])
 				.start { result in
 					
 					switch result {
 					case .success(let credentials):
-						
+						print(credentials.idToken)
 						let jwt = try? decode(jwt: credentials.idToken!)
-						observer.onNext((idToken: credentials.idToken!, refreshToken: credentials.refreshToken!, accessToken: credentials.accessToken!, expiresAt: jwt?.expiresAt))
-						observer.onCompleted()
+						print(jwt?.body)
+						
+						//let jwt = try? decode(jwt: credentials.idToken!)
+						//observer.onNext((idToken: credentials.idToken!, refreshToken: credentials.refreshToken!, accessToken: credentials.accessToken!, expiresAt: jwt?.expiresAt))
+						//observer.onCompleted()
+						observer.onError(AuthenticationError.signInError(AuthenticationError.unknown))
 					case .failure(let error):
 						observer.onError(AuthenticationError.signInError(error))
 					}
@@ -139,7 +214,7 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 			}
 		}
 	}
-
+*/
 	
 	static func userProfile(token: String) -> Observable<Profile> {
 		return Observable.create { observer in

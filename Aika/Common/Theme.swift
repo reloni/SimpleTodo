@@ -79,6 +79,8 @@ final class Theme {
 		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.white)!
 		static let accessoryArrow = UIImage(named: "Accessory arrow")!.tint(with: Theme.Colors.romanSilver)!
 		static let questionMark = UIImage(named: "Question mark")!.tint(with: Theme.Colors.blueberry)!
+		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.white)!
+		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.white)!
 	}
 	
 	final class Colors {
