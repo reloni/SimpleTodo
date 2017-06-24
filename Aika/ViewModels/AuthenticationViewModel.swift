@@ -30,7 +30,15 @@ final class AuthenticationViewModel: ViewModelType {
 	init(flowController: RxDataFlowController<RootReducer>, mode: Mode) {
 		self.flowController = flowController
 		self.mode = mode
+		showPasswordOrRegistrationEnterSubject = BehaviorSubject(value: mode == .registration)
+		showAuthenticationTypesSubject = BehaviorSubject(value: mode == .logIn)
 	}
+	
+	private let showAuthenticationTypesSubject: BehaviorSubject<Bool>
+	var showAuthenticationTypes: Observable<Bool> { return showAuthenticationTypesSubject.asObservable() }
+	
+	private let showPasswordOrRegistrationEnterSubject: BehaviorSubject<Bool>
+	var showPasswordOrRegistrationEnter: Observable<Bool> { return showPasswordOrRegistrationEnterSubject.asObservable() }
 	
 	var actionButtonTitle: String {
 		switch mode {
@@ -54,6 +62,10 @@ final class AuthenticationViewModel: ViewModelType {
 	var password: String {
 		guard mode == .logIn else { return "" }
 		return Keychain.userPassword
+	}
+	
+	func toggleShowPasswordOrRegistrationEnter() {
+		showPasswordOrRegistrationEnterSubject.onNext(!((try? showPasswordOrRegistrationEnterSubject.value()) ?? true))
 	}
 	
 	func authenticateWithFacebook() {
