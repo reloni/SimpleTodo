@@ -39,6 +39,7 @@ enum UIAction : RxActionType {
 	
 	case showSnackView(error: Error, hideAfter: Double?)
 	case showErrorMessage(Error)
+	case showActionSheet(inController: UIViewController, title: String?, message: String?, actions: [UIAlertAction], sourceView: UIView?)
 	
 	case returnToRootController
 }
@@ -50,7 +51,7 @@ enum AuthenticationAction : RxActionType {
 	case resetPassword(String)
 	case refreshToken(force: Bool)
 	case signOut
-	case logIn(String, String)
+	case logIn(AuthenticationType)
 	case register(String, String)
 }
 
@@ -58,16 +59,7 @@ enum SettingsAction : RxActionType {
 	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
-	case showLogOffAlert(sourceView: UIView)
-	case showDeleteCacheAlert(sourceView: UIView)
-	case showDeleteUserAlert(sourceView: UIView)
 	case showFrameworksController
-}
-
-enum TasksAction: RxActionType {
-	var isSerial: Bool { return true }
-	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
-	case showDeleteTaskAlert(sourceView: UIView, taskUuid: UniqueIdentifier)
 }
 
 enum SynchronizationAction: RxActionType {

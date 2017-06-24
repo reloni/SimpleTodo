@@ -13,6 +13,7 @@ import RxSwift
 import OneSignal
 import Fabric
 import Crashlytics
+import Auth0
 
 
 @UIApplicationMain
@@ -69,6 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		flowController.dispatch(UIAction.showRootController)
 
 		return true
+	}
+	
+	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+		return Auth0.resumeAuth(url, options: options)
 	}
 	
 	func setupPushNotifications(withLaunchOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {

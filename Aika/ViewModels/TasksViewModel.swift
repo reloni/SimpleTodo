@@ -50,11 +50,7 @@ final class TasksViewModel: ViewModelType {
 	func editTask(uuid: UniqueIdentifier) {
 		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.syncService.task(for: uuid.uuid).toStruct()))
 	}
-	
-	func askForDeleteTask(sourceView: UIView, taskUuid: UniqueIdentifier) {
-		flowController.dispatch(TasksAction.showDeleteTaskAlert(sourceView: sourceView, taskUuid: taskUuid))
-	}
-	
+
 	func deleteTask(forUuid uuid: UniqueIdentifier) {
 		flowController.dispatch(SynchronizationAction.deleteTask(uuid))
 		flowController.dispatch(RxCompositeAction.synchronizationAction)

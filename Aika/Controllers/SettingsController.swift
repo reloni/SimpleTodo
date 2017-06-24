@@ -85,15 +85,15 @@ final class SettingsController : UIViewController {
 				return cell
 			case .deleteAccount(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-				cell.tapped = { self?.viewModel.askForDeleteUser(sourceView: cell) }
+				cell.tapped = { self?.showDeleteUserAlert(sourceView: cell) }
 				return cell
 			case .exit(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-				cell.tapped = { self?.viewModel.askForLogOff(sourceView: cell) }
+				cell.tapped = { self?.showLogOffAlert(sourceView: cell) }
 				return cell
 			case .deleteLocalCache(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-				cell.tapped = { self?.viewModel.askForDeleteCache(sourceView: cell) }
+				cell.tapped = { self?.showDeleteCacheAlert(sourceView: cell) }
 				return cell
 			case .sourceCode(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
@@ -177,6 +177,30 @@ final class SettingsController : UIViewController {
 		cell.detailTextLabel?.text = data.subtitle
 		cell.detailTextLabel?.textColor = Theme.Colors.romanSilver
 		cell.imageView?.image = data.image.resize(toWidth: 22)
+	}
+	
+	func showLogOffAlert(sourceView: UIView) {
+		let logOffHandler: ((UIAlertAction) -> Void)? = { _ in self.viewModel.logOff() }
+		let actions = [UIAlertAction(title: "Log off", style: .destructive, handler: logOffHandler),
+		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
+		
+		viewModel.showWarning(in: self, title: nil, message: nil, actions: actions, sourceView: sourceView)
+	}
+	
+	func showDeleteCacheAlert(sourceView: UIView) {
+		let deleteHandler: ((UIAlertAction) -> Void)? = { _ in self.viewModel.deleteCache() }
+		let actions = [UIAlertAction(title: "Delete cache", style: .destructive, handler: deleteHandler),
+		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
+		
+		viewModel.showWarning(in: self, title: "Warning", message: "Not synchronized data will be lost", actions: actions, sourceView: sourceView)
+	}
+	
+	func showDeleteUserAlert(sourceView: UIView) {
+		let deleteHandler: ((UIAlertAction) -> Void)? = { _ in self.viewModel.deleteUser() }
+		let actions = [UIAlertAction(title: "Delete user", style: .destructive, handler: deleteHandler),
+		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
+		
+		viewModel.showWarning(in: self, title: "Warning", message: "Account and all data will be deleted", actions: actions, sourceView: sourceView)
 	}
 	
 	override func updateViewConstraints() {
