@@ -6,6 +6,7 @@
 //  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
 
+import Foundation
 import RxDataFlow
 import RxSwift
 
@@ -20,6 +21,9 @@ struct SystemReducer : RxReducerType {
 			return .just({ $0 })
 		case .clearKeychain?:
 			clearKeychain()
+			return .just({ $0 })
+		case .setBadgeStyle(let style)?:
+			UserDefaults.standard.iconBadgeStyle = style
 			return .just({ $0 })
 		default: return .empty()
 		}

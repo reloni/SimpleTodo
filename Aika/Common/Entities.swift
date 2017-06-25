@@ -13,6 +13,12 @@ import Wrap
 import OneSignal
 import UserNotificationsUI
 
+enum IconBadgeStyle: String {
+	case overdue
+	case today
+	case all
+}
+
 enum AuthenticationError : Error {
 	case signInError(Error)
 	case registerError(Error)

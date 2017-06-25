@@ -14,6 +14,7 @@ struct SettingsReducer : RxReducerType {
 	func handle(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
 		switch action {
 		case SettingsAction.showFrameworksController: return currentState.coordinator.handle(action)
+		case SettingsAction.reloadTable: return .just( { $0 } )
 		default: return .empty()
 		}
 	}

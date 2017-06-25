@@ -276,6 +276,30 @@ extension HttpClient {
 	static let host = "aika.cloud"
 }
 
+extension UserDefaults {
+	var iconBadgeStyle: IconBadgeStyle {
+		get {
+			guard let style = IconBadgeStyle(rawValue: string(forKey: "iconBadgeStyle") ?? "") else {
+				return .overdue
+			}
+			return style
+		}
+		set {
+			set(newValue.rawValue, forKey: "iconBadgeStyle")
+		}
+	}
+}
+
+extension IconBadgeStyle {
+	var description: String {
+		switch self {
+		case .all: return "All tasks"
+		case .overdue: return "Overdue tasks"
+		case .today: return "Today tasks"
+		}
+	}
+}
+
 extension Keychain {
 	private static let keychain = Keychain()
 	
