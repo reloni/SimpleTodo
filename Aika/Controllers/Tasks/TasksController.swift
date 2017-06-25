@@ -31,8 +31,8 @@ final class TasksController : UIViewController {
 	}()
 	
 	let addTaskButton: FABButton = {
-		let button = FABButton(image: Theme.Images.add.resize(toWidth: 50))
-		button.contentEdgeInsets = UIEdgeInsets(top: -13, left: -13, bottom: -13, right: -13)
+		let button = FABButton(image: Theme.Images.add.resize(toWidth: 55))
+		button.contentEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
 		button.pulseColor = Theme.Colors.white
 		button.backgroundColor = Theme.Colors.white
 		return button
@@ -174,8 +174,8 @@ final class TasksController : UIViewController {
 	func addTaskButtonConstraints(maker: ConstraintMaker) {
 		maker.leading.equalTo(view.snp.leading).offset(20)
 		maker.bottom.equalTo(view.snp.bottomMargin).offset(-20)
-		maker.height.equalTo(40)
-		maker.width.equalTo(40)
+		maker.height.equalTo(45)
+		maker.width.equalTo(45)
 	}
 	
 	override func updateViewConstraints() {
