@@ -84,6 +84,8 @@ class RealmTask: Object {
 
 protocol RepositoryType {
 	func overdueTasksCount() -> Int
+	func todayTasksCount() -> Int
+	func allTasksCount() -> Int
 	func tasks() -> Results<RealmTask>
 	func task(for uuid: UUID) -> RealmTask?
 	func task(for index: Int) -> RealmTask
@@ -113,9 +115,19 @@ final class RealmRepository: RepositoryType {
 	
 	func overdueTasksCount() -> Int {
 		return realm.objects(RealmTask.self)
-			.filter("targetDate < %@ || targetDate = nil", Date())
+			.filter("targetDate < %@", Date())
 			.filter("completed = false")
 			.filter("_synchronizationStatus != %@", ObjectSynchronizationStatus.deleted.rawValue)
+			.count
+	}
+	
+	func allTasksCount() -> Int {
+		return realm.objects(RealmTask.self).count
+	}
+	
+	func todayTasksCount() -> Int {
+		return realm.objects(RealmTask.self)
+			.filter("targetDate >= %@ && targetDate <= %@", Date().beginningOfDay(), Date().endingOfDay())
 			.count
 	}
 	

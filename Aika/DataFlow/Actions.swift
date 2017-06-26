@@ -17,6 +17,7 @@ enum SystemAction: RxActionType {
 	case clearKeychain
 	case updateIconBadge
 	case invoke(handler: () -> ())
+	case setBadgeStyle(IconBadgeStyle)
 }
 
 enum UIAction : RxActionType {
@@ -60,6 +61,7 @@ enum SettingsAction : RxActionType {
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case showFrameworksController
+	case reloadTable
 }
 
 enum SynchronizationAction: RxActionType {

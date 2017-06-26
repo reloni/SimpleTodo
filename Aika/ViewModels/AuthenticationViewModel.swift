@@ -89,12 +89,6 @@ final class AuthenticationViewModel: ViewModelType {
 			flowController.dispatch(UIAction.showSpinner)
 			authenticate(authType: AuthenticationType.db(email: email, password: password))
 			flowController.dispatch(UIAction.hideSpinner)
-//			flowController.dispatch(UIAction.showSpinner)
-//			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(AuthenticationType.db(email: email, password: password)),
-//			                                                    SynchronizationAction.updateConfiguration,
-//			                                                    UIAction.showTasksListController,
-//			                                                    PushNotificationsAction.promtForPushNotifications]))
-//			flowController.dispatch(UIAction.hideSpinner)
 		case .registration:
 			flowController.dispatch(UIAction.showSpinner)
 			flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.register(email, password),

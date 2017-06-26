@@ -129,6 +129,10 @@ extension Date {
 		return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
 	}
 	
+	func endingOfDay() -> Date {
+		return Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: self)!
+	}
+	
 	var isInPast: Bool { return self < Date() }
 	var isInFuture: Bool { return self < Date() }
 	var isToday: Bool { return Calendar.current.isDateInToday(self) }
@@ -274,6 +278,30 @@ extension HttpClient {
 	static let baseUrl = "https://aika.cloud:443/api/v1"
 //	static let baseUrl = "http://localhost:5000/api/v1"
 	static let host = "aika.cloud"
+}
+
+extension UserDefaults {
+	var iconBadgeStyle: IconBadgeStyle {
+		get {
+			guard let style = IconBadgeStyle(rawValue: string(forKey: "iconBadgeStyle") ?? "") else {
+				return .overdue
+			}
+			return style
+		}
+		set {
+			set(newValue.rawValue, forKey: "iconBadgeStyle")
+		}
+	}
+}
+
+extension IconBadgeStyle {
+	var description: String {
+		switch self {
+		case .all: return "All tasks"
+		case .overdue: return "Overdue tasks"
+		case .today: return "Today tasks"
+		}
+	}
 }
 
 extension Keychain {

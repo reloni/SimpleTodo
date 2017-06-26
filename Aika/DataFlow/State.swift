@@ -52,6 +52,7 @@ struct AppState : RxStateType {
 	let authenticationService: AuthenticationServiceType
 	let syncService: SynchronizationServiceType
 	let syncStatus: SynchronizationStatus
+	var badgeStyle: IconBadgeStyle { return UserDefaults.standard.iconBadgeStyle }
 }
 
 struct AppStateMutation {

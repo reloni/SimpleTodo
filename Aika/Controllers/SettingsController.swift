@@ -57,7 +57,9 @@ final class SettingsController : UIViewController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
 		
 		configureDataSource()
-		bind()	
+		bind()
+		
+		viewModel.reloadSections()
 	}
 	
 	func bind() {
@@ -113,6 +115,15 @@ final class SettingsController : UIViewController {
 				cell.tapped = { [weak self] in
 					guard let object = self else { return }
 					SettingsController.composeEmail(in: object)
+				}
+				return cell
+			case .iconBadgeStyle(let data):
+				let cell = DefaultCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
+				SettingsController.configure(cell: cell)
+				SettingsController.configureTextCell(cell, with: data)
+				cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
+				cell.tapped = { [weak self] in
+					self?.showBadgeAlert(sourceView: cell)
 				}
 				return cell
 			}
@@ -182,6 +193,15 @@ final class SettingsController : UIViewController {
 	func showLogOffAlert(sourceView: UIView) {
 		let logOffHandler: ((UIAlertAction) -> Void)? = { _ in self.viewModel.logOff() }
 		let actions = [UIAlertAction(title: "Log off", style: .destructive, handler: logOffHandler),
+		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
+		
+		viewModel.showWarning(in: self, title: nil, message: nil, actions: actions, sourceView: sourceView)
+	}
+	
+	func showBadgeAlert(sourceView: UIView) {
+		let actions = [UIAlertAction(title: IconBadgeStyle.all.description, style: .default, handler: { _ in self.viewModel.updateBadgeStyle(.all) }),
+		               UIAlertAction(title: IconBadgeStyle.overdue.description, style: .default, handler: { _ in self.viewModel.updateBadgeStyle(.overdue) }),
+		               UIAlertAction(title: IconBadgeStyle.today.description, style: .default, handler: { _ in self.viewModel.updateBadgeStyle(.today) }),
 		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
 		
 		viewModel.showWarning(in: self, title: nil, message: nil, actions: actions, sourceView: sourceView)

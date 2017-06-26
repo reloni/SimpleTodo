@@ -19,9 +19,37 @@ final class SettingsViewModel: ViewModelType {
 	let title = "Settings"
 	
 	lazy var sections: Observable<[SettingsSection]> = {
-		return self.isPushNotificationsAllowed.flatMap { isPushNotificationsAllowed -> Observable<[SettingsSection]> in
+		return self.flowController.state.filter {
+			switch $0.setBy {
+			case SettingsAction.reloadTable: fallthrough
+			case SystemAction.setBadgeStyle: return true
+			default: return false
+			}
+			}
+			.flatMap { newState ->  Observable<[SettingsSection]> in
+				return SettingsViewModel.buidSections(for: newState.state)
+			}
+	}()
+	
+	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
+		return self.flowController.errors.do(onNext: { [weak self] in self?.check(error: $0.error) })
+	}()
+	
+	init(flowController: RxDataFlowController<RootReducer>) {
+		self.flowController = flowController
+
+		isPushNotificationsAllowed = flowController.currentState.state.authentication.settings?.pushNotificationsAllowed ?? .just(false)
+		isPushNotificationsEnabled = flowController.currentState.state.authentication.settings?.pushNotificationsEnabled ?? false
+	}
+	
+	static func buidSections(for state: AppState) -> Observable<[SettingsSection]> {
+		return (state.authentication.settings?.pushNotificationsAllowed ?? .just(false)).flatMap { isPushNotificationsAllowed -> Observable<[SettingsSection]> in
+			let badgeDescription = state.badgeStyle.description
 			let pushSubtitle: String? = isPushNotificationsAllowed ? nil : "Notifications disabled by user"
-			let pushSection = SettingsSection(header: "NOTIFICATIONS", items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification)])
+			
+			let pushSection = SettingsSection(header: "NOTIFICATIONS",
+			                                  items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification),
+			                                          .iconBadgeStyle(title: "Badge", value: badgeDescription, image: Theme.Images.badge)])
 			
 			let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
 			let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
@@ -35,16 +63,14 @@ final class SettingsViewModel: ViewModelType {
 			                                                             .exit(title: "Log off", image: Theme.Images.exit)])
 			return .just([pushSection, exitSection, aboutSection])
 		}
-	}()
+	}
 	
-	lazy var errors: Observable<(state: AppState, action: RxActionType, error: Error)> = {
-		return self.flowController.errors.do(onNext: { [weak self] in self?.check(error: $0.error) })
-	}()
+	func reloadSections() {
+		flowController.dispatch(SettingsAction.reloadTable)
+	}
 	
-	init(flowController: RxDataFlowController<RootReducer>) {
-		self.flowController = flowController
-		isPushNotificationsAllowed = flowController.currentState.state.authentication.settings?.pushNotificationsAllowed ?? .just(false)
-		isPushNotificationsEnabled = flowController.currentState.state.authentication.settings?.pushNotificationsEnabled ?? false
+	func updateBadgeStyle(_ style: IconBadgeStyle) {
+		flowController.dispatch(SystemAction.setBadgeStyle(style))
 	}
 	
 	func logOff() {

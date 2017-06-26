@@ -286,9 +286,8 @@ final class AuthenticationController : UIViewController {
 			onNext: { [weak self] v in
 				if v { self?.passwordContainerHeightConstraint.deactivate() }
 				else { self?.passwordContainerHeightConstraint.activate() }
-				UIView.animate(withDuration: 0.3) {
-					self?.view.layoutIfNeeded()
-				}
+				UIView.animate(withDuration: 0.3,
+				               animations: { [weak self] in self?.view.layoutIfNeeded(); self?.emailTextField.reload(); self?.passwordTextField.reload() })
 		}).disposed(by: bag)
 		
 		viewModel.errors.subscribe().disposed(by: bag)
@@ -384,25 +383,25 @@ final class AuthenticationController : UIViewController {
 	}
 	
 	func emailTextFieldConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(passwordEnterContainerView.snp.topMargin).priority(999)
+		maker.top.equalTo(passwordEnterContainerView.snp.topMargin)//.priority(999)
 		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
 		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
 	}
 	
 	func passwordTextFieldConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(emailTextField.snp.bottom).offset(50)
+		maker.top.equalTo(emailTextField.snp.bottom).offset(50).priority(999)
 		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
 		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
 	}
 
 	func loginButtonConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(passwordTextField.snp.bottom).offset(50)
+		maker.top.equalTo(passwordTextField.snp.bottom).offset(50).priority(999)
 		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
 		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
 	}
 	
 	func registrationButtonConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(actionButton.snp.bottom).offset(10)
+		maker.top.equalTo(actionButton.snp.bottom).offset(10).priority(999)
 		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
 		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
 		if viewModel.mode == .registration {
@@ -411,7 +410,7 @@ final class AuthenticationController : UIViewController {
 	}
 	
 	func lostPasswordLabelConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(supplementalButton.snp.bottom).offset(10)
+		maker.top.equalTo(supplementalButton.snp.bottom).offset(10).priority(999)
 		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
 		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
 		maker.bottom.equalTo(passwordEnterContainerView.snp.bottomMargin)//.priority(999)
