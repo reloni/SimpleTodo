@@ -15,6 +15,8 @@ protocol SynchronizationServiceType {
 	var webService: WebServiceType { get }
 	
 	func overdueTasksCount() -> Int
+	func todayTasksCount() -> Int
+	func allTasksCount() -> Int
 	func tasks() -> Results<RealmTask>
 	func task(for uuid: UUID) -> RealmTask
 	func delete(taskUuid uuid: UUID)
@@ -35,6 +37,14 @@ final class SynchronizationService: SynchronizationServiceType {
 	
 	func overdueTasksCount() -> Int {
 		return repository.overdueTasksCount()
+	}
+	
+	func allTasksCount() -> Int {
+		return repository.allTasksCount()
+	}
+	
+	func todayTasksCount() -> Int {
+		return repository.todayTasksCount()
 	}
 	
 	func task(for uuid: UUID) -> RealmTask {

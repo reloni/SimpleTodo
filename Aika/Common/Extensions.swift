@@ -129,6 +129,10 @@ extension Date {
 		return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
 	}
 	
+	func endingOfDay() -> Date {
+		return Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: self)!
+	}
+	
 	var isInPast: Bool { return self < Date() }
 	var isInFuture: Bool { return self < Date() }
 	var isToday: Bool { return Calendar.current.isDateInToday(self) }
