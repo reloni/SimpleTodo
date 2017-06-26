@@ -45,7 +45,7 @@ platform :ios do
   lane :refresh_dsyms do
     download_dsyms(
         version: "1.0",
-        build_number: latest_testflight_build_number(version: "1.0").to_s
+        build_number: latest_testflight_build_number(version: "1.0.1").to_s
     )
     #download_dsyms                  # Download dSYM files from iTC
     upload_symbols_to_crashlytics   # Upload them to Crashlytics
