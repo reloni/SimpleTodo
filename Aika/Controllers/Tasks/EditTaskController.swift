@@ -159,6 +159,10 @@ final class EditTaskController : UIViewController {
 		}
 	}
 	
+	deinit {
+		print("ololo")
+	}
+	
 	func bind() {
 		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow).observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] notification in
