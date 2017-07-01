@@ -12,6 +12,7 @@ import SnapKit
 import Material
 import RxSwift
 import RxDataFlow
+import RxGesture
 
 final class EditTaskController : UIViewController {
 	enum DatePickerExpandMode {
@@ -19,7 +20,7 @@ final class EditTaskController : UIViewController {
 		case collapsed
 	}
 	
-	let viewModel: EditTaskViewModel
+	let viewModel: EditTaskViewModel2
 	let bag = DisposeBag()
 	
 	var datePickerHeightConstraint: Constraint?
@@ -119,12 +120,12 @@ final class EditTaskController : UIViewController {
 		return text
 	}()
 	
-	init(viewModel: EditTaskViewModel) {
+	init(viewModel: EditTaskViewModel2) {
 		self.viewModel = viewModel
 		
-		descriptionTextField.text = viewModel.taskDescription.value
-		notesTextField.text = viewModel.taskNotes.value
-		targetDatePickerView.date = viewModel.taskTargetDate.value
+//		descriptionTextField.text = viewModel.taskDescription.value
+//		notesTextField.text = viewModel.taskNotes.value
+//		targetDatePickerView.date = viewModel.taskTargetDate.value
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -140,7 +141,7 @@ final class EditTaskController : UIViewController {
 		
 		view.backgroundColor = Theme.Colors.isabelline
 		
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+//		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
 		view.addSubview(scrollView)
 		scrollView.addSubview(containerView)
@@ -154,9 +155,9 @@ final class EditTaskController : UIViewController {
 		
 		bind()
 		
-		if viewModel.task == nil {
-			descriptionTextField.becomeFirstResponder()
-		}
+//		if viewModel.task == nil {
+//			descriptionTextField.becomeFirstResponder()
+//		}
 	}
 	
 	deinit {
@@ -174,24 +175,46 @@ final class EditTaskController : UIViewController {
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)
 		
-		descriptionTextField.rx.didChange.subscribe(onNext: { [weak self] _ in
-			self?.viewModel.taskDescription.value = self?.descriptionTextField.text ?? ""
-		}).disposed(by: bag)
+//		targetDateView.calendarButton.sendActions(for: .touchUpInside)
 		
-		notesTextField.rx.didChange.subscribe(onNext: { [weak self] _ in
-			self?.viewModel.taskNotes.value = self?.notesTextField.text
-		}).disposed(by: bag)
+		let datePickerExpanded = targetDateView.calendarButton.rx.tap
+			.flatMap { Observable<Void>.just() }
+			.scan(false, accumulator: { !$0.0 })
+		
+		viewModel.subscribe(taskDescription: descriptionTextField.rx.didChange.withLatestFrom(descriptionTextField.rx.text.orEmpty) { return $0.1 },
+		                    taskNotes: notesTextField.rx.didChange.withLatestFrom(notesTextField.rx.text) { return $0.1 },
+		                    taskTargetDate: targetDatePickerView.currentDate,
+		                    datePickerExpanded: datePickerExpanded,
+		                    clearTargetDate: targetDateView.clearButton.rx.tap.flatMap { Observable<Void>.just() },
+		                    saveChanges: .empty())
+				.forEach { bag.insert($0) }
+		
+		let state = viewModel.state.shareReplay(1)
+		
+		state.take(1).map { $0.description }.bind(to: descriptionTextField.rx.text).disposed(by: bag)
+		state.take(1).map { $0.notes }.bind(to: notesTextField.rx.text).disposed(by: bag)
+		state.map { $0.targetDate?.toString(withSpelling: false) ?? "" }.distinctUntilChanged().bind(to: targetDateView.textField.rx.text).disposed(by: bag)
+		state.map { $0.targetDate }.distinctUntilChanged({ $0.0 == $0.1 }).do(onNext: { [weak self] in self?.targetDatePickerView.date = $0 }).subscribe().disposed(by: bag)
+		state.map { $0.datePickerExpanded }.distinctUntilChanged().do(onNext: { [weak self] in print($0); self?.switchDatePickerExpandMode($0) }).subscribe().disposed(by: bag)
+		
+//		descriptionTextField.rx.didChange.subscribe(onNext: { [weak self] _ in
+//			self?.viewModel.taskDescription.value = self?.descriptionTextField.text ?? ""
+//		}).disposed(by: bag)
+		
+//		notesTextField.rx.didChange.subscribe(onNext: { [weak self] _ in
+//			self?.viewModel.taskNotes.value = self?.notesTextField.text
+//		}).disposed(by: bag)
 
-		targetDatePickerView.currentDate.bind(to: viewModel.taskTargetDate).disposed(by: bag)
+//		targetDatePickerView.currentDate.bind(to: viewModel.taskTargetDate).disposed(by: bag)
 		
-		viewModel.datePickerExpanded.skip(1).subscribe(onNext: { [weak self] isExpanded in self?.switchDatePickerExpandMode(isExpanded) }).disposed(by: bag)
+//		viewModel.datePickerExpanded.skip(1).subscribe(onNext: { [weak self] isExpanded in self?.switchDatePickerExpandMode(isExpanded) }).disposed(by: bag)
 		
-		viewModel.taskTargetDateChanged.subscribe(onNext: { [weak self] next in self?.targetDatePickerView.date = next }).disposed(by: bag)
+//		viewModel.taskTargetDateChanged.subscribe(onNext: { [weak self] next in self?.targetDatePickerView.date = next }).disposed(by: bag)
 		
-		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.switchDatePickerExpansion() }).disposed(by: bag)
-		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.clearTargetDate() }).disposed(by: bag)
+//		targetDateView.calendarButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.switchDatePickerExpansion() }).disposed(by: bag)
+//		targetDateView.clearButton.rx.tap.subscribe(onNext: { [weak self] _ in self?.viewModel.clearTargetDate() }).disposed(by: bag)
 		
-		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
+		//targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
 		
 		let recognizer = UITapGestureRecognizer(target: self, action: #selector(targetDateTextFieldTapped(_:)))
 		targetDateView.textField.superview?.addGestureRecognizer(recognizer)
@@ -199,7 +222,7 @@ final class EditTaskController : UIViewController {
 	
 	func targetDateTextFieldTapped(_ gesture: UITapGestureRecognizer) {
 		guard gesture.state == .ended else { return }
-		viewModel.switchDatePickerExpansion()
+		targetDateView.calendarButton.sendActions(for: .touchUpInside)
 	}
 	
 	func switchDatePickerExpandMode(_ expand: Bool) {
@@ -223,9 +246,9 @@ final class EditTaskController : UIViewController {
 		               completion: nil)
 	}
 	
-	func done() {
-		viewModel.save()
-	}
+//	func done() {
+//		viewModel.save()
+//	}
 	
 	override func updateViewConstraints() {
 		super.updateViewConstraints()

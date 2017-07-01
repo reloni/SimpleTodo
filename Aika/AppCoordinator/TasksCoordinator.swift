@@ -29,7 +29,7 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 		
 		switch action {
 		case UIAction.showEditTaskController(let task):
-			let viewModel = EditTaskViewModel(task: task, flowController: flowController)
+			let viewModel = EditTaskViewModel2(task: task, flowController: flowController)
 			navigationController.pushViewController(EditTaskController(viewModel: viewModel), animated: true)
 			return .just({ $0 })
 		case UIAction.dismisEditTaskController:
