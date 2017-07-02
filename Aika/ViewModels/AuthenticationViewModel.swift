@@ -54,14 +54,19 @@ final class AuthenticationViewModel: ViewModelType {
 		}
 	}
 	
+	var dbAuthentication: (email: String, password: String)? {
+		guard case let AuthenticationType.db(email, password)? = Keychain.authenticationType else { return nil }
+		return (email: email, password: password)
+	}
+	
 	var email: String {
 		guard mode == .logIn else { return "" }
-		return Keychain.userEmail
+		return dbAuthentication?.email ?? ""
 	}
 	
 	var password: String {
 		guard mode == .logIn else { return "" }
-		return Keychain.userPassword
+		return dbAuthentication?.password ?? ""
 	}
 	
 	func toggleShowPasswordOrRegistrationEnter() {

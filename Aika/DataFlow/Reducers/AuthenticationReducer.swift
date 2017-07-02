@@ -32,7 +32,11 @@ extension AuthenticationReducer {
 	}
 	
 	func signOut()  -> Observable<RxStateMutator<AppState>> {
-		Keychain.userPassword = ""
+		if case let AuthenticationType.db(email, _)? = Keychain.authenticationType {
+			Keychain.authenticationType = AuthenticationType.db(email: email, password: "")
+		} else {
+			Keychain.authenticationType = nil
+		}
 		Keychain.token = ""
 		Keychain.refreshToken = ""
 		Keychain.userUuid = ""
@@ -43,10 +47,7 @@ extension AuthenticationReducer {
 	func logIn(currentState state: AppState, authType: AuthenticationType) -> Observable<RxStateMutator<AppState>> {
 		return state.authenticationService.logIn(authType: authType)
 			.flatMapLatest { result -> Observable<RxStateMutator<AppState>> in
-				if case .db(let data) = authType {
-					Keychain.userEmail = data.email
-					Keychain.userPassword = data.password
-				}
+				Keychain.authenticationType = authType
 				Keychain.token = result.token
 				Keychain.refreshToken = result.refreshToken
 				Keychain.userUuid = result.uid
