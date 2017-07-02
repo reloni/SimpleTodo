@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxDataFlow
 
-final class EditTaskViewModel2: ViewModelType {
+final class EditTaskViewModel: ViewModelType {
 	struct State: RxStateType {
 		let description: String
 		let notes: String?
@@ -29,37 +29,10 @@ final class EditTaskViewModel2: ViewModelType {
 	
 	let title: String
 	
-//	struct EditTaskReducer : RxReducerType {
-//		func handle(_ action: RxActionType, currentState: State) -> Observable<RxStateMutator<State>> {
-//			guard let action = action as? EditTaskAction else { return .just { $0 } }
-//			
-//			switch action {
-//			case .datePickerExpanded(let e): return .just { $0.new(datePickerExpanded: e) }
-//			case .description(let d): return .just { $0.new(description: d) }
-//			case .notes(let n): return .just { $0.new(notes: n) }
-//			case .targetDate(let t): return .just { $0.new(targetDate: t) }
-//			}
-//		}
-//	}
-//	
-//	enum EditTaskAction: RxActionType {
-//		var isSerial: Bool { return true }
-//		var scheduler: ImmediateSchedulerType? { return nil }
-//		
-//		case description(String)
-//		case notes(String?)
-//		case targetDate(TaskDate?)
-//		case datePickerExpanded(Bool)
-//	}
-
-	
 	let flowController: RxDataFlowController<RootReducer>
-//	let localStateFlowController: RxDataFlowController<EditTaskReducer>
+
 	let localStateSubject: BehaviorSubject<State>
-	
-//	lazy var state: Observable<State> = { return self.localStateFlowController.state.map { $0.state } }()
 	var state: Observable<State> { return localStateSubject.asObservable() }
-//	let bag = DisposeBag()
 	
 	init(task: Task?, flowController: RxDataFlowController<RootReducer>) {
 		self.flowController = flowController
@@ -70,9 +43,7 @@ final class EditTaskViewModel2: ViewModelType {
 		                         datePickerExpanded: false, 
 		                         currentTask: task)
 		localStateSubject = BehaviorSubject(value: initialState)
-//		localStateFlowController = RxDataFlowController(reducer: EditTaskReducer(), initialState: initialState)
-		
-//		let controllerObservable = Observable.just(localStateFlowController).share()
+
 		title = {
 			if let desc = task?.description {
 				return "Edit \(desc)"
@@ -100,10 +71,18 @@ final class EditTaskViewModel2: ViewModelType {
 				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(targetDate: $0.1)) })
 				.subscribe(),
 			datePickerExpanded.withLatestFrom(currentState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(datePickerExpanded: $0.1)) })
+				.do(onNext: { [weak localStateSubject] in
+					if $0.1, $0.0.targetDate == nil {
+						localStateSubject?.onNext($0.0.new(targetDate: TaskDate(date: Date(), includeTime: true), datePickerExpanded: $0.1))
+					} else {
+						localStateSubject?.onNext($0.0.new(datePickerExpanded: $0.1))
+					}
+				})
 				.subscribe(),
 			clearTargetDate.withLatestFrom(currentState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(targetDate: nil, datePickerExpanded: false)) })
+				.do(onNext: { [weak localStateSubject] in
+					localStateSubject?.onNext($0.0.new(targetDate: Optional<TaskDate?>.some(Optional<TaskDate>.none), datePickerExpanded: false))
+				})
 				.subscribe(),
 			saveChanges.withLatestFrom(currentState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak self] in self?.save(state: $0.0) })
@@ -140,79 +119,79 @@ final class EditTaskViewModel2: ViewModelType {
 		update(task: task, state: state).forEach { flowController.dispatch($0) }
 	}
 }
-
-final class EditTaskViewModel: ViewModelType {
-	struct State {
-		let description: String
-		let notes: String
-		let targetDate: TaskDate?
-		let datePickerExpanded: Bool
-	}
-	
-	private let _datePickerExpanded = Variable(false)
-	private let _taskTargetDateSubject = PublishSubject<TaskDate?>()
-	
-	let flowController: RxDataFlowController<RootReducer>
-	let task: Task?
-	
-	lazy var taskDescription: Variable<String> = { return Variable<String>(self.task?.description ?? "") }()
-	lazy var taskNotes: Variable<String?> = { return Variable<String?>(self.task?.notes) }()
-	lazy var taskTargetDate: Variable<TaskDate?> = { return Variable<TaskDate?>(self.task?.targetDate) }()
-	
-	lazy var datePickerExpanded: Observable<Bool> = { self._datePickerExpanded.asObservable() }()
-	lazy var taskTargetDateChanged: Observable<TaskDate?> = { self._taskTargetDateSubject.asObservable() }()
-	
-	init(task: Task?, flowController: RxDataFlowController<RootReducer>) {
-		self.task = task
-		self.flowController = flowController
-	}
-	
-	lazy var title: String = {
-		if let desc = self.task?.description {
-			return "Edit \(desc)"
-		} else {
-			return "New task"
-		}
-	}()
-	
-	func clearTargetDate() {
-		_taskTargetDateSubject.onNext(nil)
-		_datePickerExpanded.value = false
-	}
-	
-	func switchDatePickerExpansion() {
-		_datePickerExpanded.value = !_datePickerExpanded.value
-		if _datePickerExpanded.value, taskTargetDate.value == nil {
-			_taskTargetDateSubject.onNext(TaskDate(date: Date(), includeTime: true))
-		}
-	}
-	
-	private func createTask() -> [RxActionType] {
-		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-		                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
-		                                                                            completed: false,
-		                                                                            description: taskDescription.value,
-		                                                                            notes: taskNotes.value,
-		                                                                            targetDate: taskTargetDate.value))])
-		
-		return [action, RxCompositeAction.synchronizationAction]
-	}
-	
-	private func update(task: Task) -> [RxActionType] {
-		let newTask = Task(uuid: task.uuid, completed: false, description: taskDescription.value, notes: taskNotes.value, targetDate: taskTargetDate.value)
-		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-		                                         SynchronizationAction.updateTask(newTask)])
-		
-		return [action, RxCompositeAction.synchronizationAction]
-	}
-	
-	func save() {
-		guard taskDescription.value.characters.count > 0 else { return }
-		guard let task = task else {
-			createTask().forEach { flowController.dispatch($0) }
-			return
-		}
-		
-		update(task: task).forEach { flowController.dispatch($0) }
-	}
-}
+//
+//final class EditTaskViewModel: ViewModelType {
+//	struct State {
+//		let description: String
+//		let notes: String
+//		let targetDate: TaskDate?
+//		let datePickerExpanded: Bool
+//	}
+//	
+//	private let _datePickerExpanded = Variable(false)
+//	private let _taskTargetDateSubject = PublishSubject<TaskDate?>()
+//	
+//	let flowController: RxDataFlowController<RootReducer>
+//	let task: Task?
+//	
+//	lazy var taskDescription: Variable<String> = { return Variable<String>(self.task?.description ?? "") }()
+//	lazy var taskNotes: Variable<String?> = { return Variable<String?>(self.task?.notes) }()
+//	lazy var taskTargetDate: Variable<TaskDate?> = { return Variable<TaskDate?>(self.task?.targetDate) }()
+//	
+//	lazy var datePickerExpanded: Observable<Bool> = { self._datePickerExpanded.asObservable() }()
+//	lazy var taskTargetDateChanged: Observable<TaskDate?> = { self._taskTargetDateSubject.asObservable() }()
+//	
+//	init(task: Task?, flowController: RxDataFlowController<RootReducer>) {
+//		self.task = task
+//		self.flowController = flowController
+//	}
+//	
+//	lazy var title: String = {
+//		if let desc = self.task?.description {
+//			return "Edit \(desc)"
+//		} else {
+//			return "New task"
+//		}
+//	}()
+//	
+//	func clearTargetDate() {
+//		_taskTargetDateSubject.onNext(nil)
+//		_datePickerExpanded.value = false
+//	}
+//	
+//	func switchDatePickerExpansion() {
+//		_datePickerExpanded.value = !_datePickerExpanded.value
+//		if _datePickerExpanded.value, taskTargetDate.value == nil {
+//			_taskTargetDateSubject.onNext(TaskDate(date: Date(), includeTime: true))
+//		}
+//	}
+//	
+//	private func createTask() -> [RxActionType] {
+//		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
+//		                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
+//		                                                                            completed: false,
+//		                                                                            description: taskDescription.value,
+//		                                                                            notes: taskNotes.value,
+//		                                                                            targetDate: taskTargetDate.value))])
+//		
+//		return [action, RxCompositeAction.synchronizationAction]
+//	}
+//	
+//	private func update(task: Task) -> [RxActionType] {
+//		let newTask = Task(uuid: task.uuid, completed: false, description: taskDescription.value, notes: taskNotes.value, targetDate: taskTargetDate.value)
+//		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
+//		                                         SynchronizationAction.updateTask(newTask)])
+//		
+//		return [action, RxCompositeAction.synchronizationAction]
+//	}
+//	
+//	func save() {
+//		guard taskDescription.value.characters.count > 0 else { return }
+//		guard let task = task else {
+//			createTask().forEach { flowController.dispatch($0) }
+//			return
+//		}
+//		
+//		update(task: task).forEach { flowController.dispatch($0) }
+//	}
+//}
