@@ -39,8 +39,7 @@ struct SystemReducer : RxReducerType {
 	}
 	
 	func clearKeychain() {
-		Keychain.userEmail = ""
-		Keychain.userPassword = ""
+		Keychain.authenticationType = nil
 		Keychain.token = ""
 		Keychain.refreshToken = ""
 		Keychain.userUuid = ""

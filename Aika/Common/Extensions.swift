@@ -307,12 +307,42 @@ extension IconBadgeStyle {
 extension Keychain {
 	private static let keychain = Keychain()
 	
-	static var userEmail: String {
+	static var authenticationType: AuthenticationType? {
+		get {
+			guard let type = keychain.stringForAccount(account: "authenticationType") else { return nil }
+			
+			switch type {
+			case "db": return AuthenticationType.db(email: userEmail, password: userPassword)
+			case "facebook": return AuthenticationType.facebook
+			case "google": return AuthenticationType.google
+			default:return nil
+			}
+		}
+		set {
+			guard let type = newValue else {
+				userEmail = ""
+				userPassword = ""
+				keychain.setString(string: "", forAccount: "authenticationType")
+				return
+			}
+			
+			switch type {
+			case .facebook: keychain.setString(string: "facebook", forAccount: "authenticationType")
+			case .google: keychain.setString(string: "google", forAccount: "authenticationType")
+			case let .db(email, password):
+				keychain.setString(string: "db", forAccount: "authenticationType")
+				userEmail = email
+				userPassword = password
+			}
+		}
+	}
+	
+	private static var userEmail: String {
 		get { return keychain.stringForAccount(account: "userEmail") ?? "" }
 		set { keychain.setString(string: newValue, forAccount: "userEmail") }
 	}
 	
-	static var userPassword: String {
+	private static var userPassword: String {
 		get { return keychain.stringForAccount(account: "userPassword") ?? "" }
 		set { keychain.setString(string: newValue, forAccount: "userPassword") }
 	}
