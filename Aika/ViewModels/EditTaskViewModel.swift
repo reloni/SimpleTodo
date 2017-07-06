@@ -29,12 +29,12 @@ final class EditTaskViewModel: ViewModelType {
 	
 	let title: String
 	
-	let flowController: RxDataFlowController<RootReducer>
+	let flowController: RxDataFlowController<AppState>
 
 	let localStateSubject: BehaviorSubject<State>
 	var state: Observable<State> { return localStateSubject.asObservable() }
 	
-	init(task: Task?, flowController: RxDataFlowController<RootReducer>) {
+	init(task: Task?, flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController
 		
 		let initialState = State(description: task?.description ?? "",

@@ -11,8 +11,8 @@ import UIKit
 import RxDataFlow
 import RxSwift
 
-struct SystemReducer : RxReducerType {
-	func handle(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
+//struct SystemReducer : RxReducerType {
+	func systemReducer(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
 		switch action as? SystemAction {
 		case .updateIconBadge?:
 			updateBadge(state: currentState)
@@ -44,4 +44,4 @@ struct SystemReducer : RxReducerType {
 		Keychain.refreshToken = ""
 		Keychain.userUuid = ""
 	}
-}
+//}

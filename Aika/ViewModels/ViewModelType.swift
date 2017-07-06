@@ -10,7 +10,7 @@ import RxDataFlow
 import UIKit
 
 protocol ViewModelType {
-	var flowController: RxDataFlowController<RootReducer> { get }
+	var flowController: RxDataFlowController<AppState> { get }
 }
 
 extension ViewModelType {

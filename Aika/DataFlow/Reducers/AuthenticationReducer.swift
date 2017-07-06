@@ -10,8 +10,8 @@ import RxSwift
 import RxDataFlow
 import Auth0
 
-struct AuthenticationReducer : RxReducerType {	
-	func handle(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
+//struct AuthenticationReducer : RxReducerType {	
+	func authenticationReducer(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
 		switch action as? AuthenticationAction {
 		case .logIn(let authType)?: return logIn(currentState: currentState, authType: authType)
 		case .register(let email, let password)?: return register(currentState: currentState, email: email, password: password)
@@ -21,17 +21,17 @@ struct AuthenticationReducer : RxReducerType {
 		default: return .empty()
 		}
 	}
-}
+//}
 
-extension AuthenticationReducer {
-	func resetPassword(currentState state: AppState, email: String)  -> Observable<RxStateMutator<AppState>> {
+//extension AuthenticationReducer {
+	fileprivate func resetPassword(currentState state: AppState, email: String)  -> Observable<RxStateMutator<AppState>> {
 		return state.authenticationService.resetPassword(email: email)
 			.flatMapLatest { _ -> Observable<RxStateMutator<AppState>> in
 				return .just({ $0 })
 			}
 	}
 	
-	func signOut()  -> Observable<RxStateMutator<AppState>> {
+	fileprivate func signOut()  -> Observable<RxStateMutator<AppState>> {
 		if case let AuthenticationType.db(email, _)? = Keychain.authenticationType {
 			Keychain.authenticationType = AuthenticationType.db(email: email, password: "")
 		} else {
@@ -44,7 +44,7 @@ extension AuthenticationReducer {
 		return .just( { $0.mutation.new(authentication: Authentication.none) })
 	}
 	
-	func logIn(currentState state: AppState, authType: AuthenticationType) -> Observable<RxStateMutator<AppState>> {
+	fileprivate func logIn(currentState state: AppState, authType: AuthenticationType) -> Observable<RxStateMutator<AppState>> {
 		return state.authenticationService.logIn(authType: authType)
 			.flatMapLatest { result -> Observable<RxStateMutator<AppState>> in
 				Keychain.authenticationType = authType
@@ -55,14 +55,14 @@ extension AuthenticationReducer {
 			}
 	}
 	
-	func register(currentState state: AppState, email: String, password: String) -> Observable<RxStateMutator<AppState>> {
+	fileprivate func register(currentState state: AppState, email: String, password: String) -> Observable<RxStateMutator<AppState>> {
 		return state.authenticationService.createUser(email: email, password: password)
 			.flatMapLatest { _ -> Observable<RxStateMutator<AppState>> in
 				return .just( { $0 } )
 		}
 	}
 	
-	func refreshToken(currentState state: AppState, force: Bool) -> Observable<RxStateMutator<AppState>> {
+	fileprivate func refreshToken(currentState state: AppState, force: Bool) -> Observable<RxStateMutator<AppState>> {
 		guard let info = state.authentication.info else { return .empty() }
 		
 		guard info.isTokenExpired || force else {
@@ -78,5 +78,5 @@ extension AuthenticationReducer {
 				return .error(error)
 		}
 	}
-}
+//}
 

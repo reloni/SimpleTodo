@@ -11,7 +11,7 @@ import RxSwift
 import RxDataSources
 
 final class SettingsViewModel: ViewModelType {
-	let flowController: RxDataFlowController<RootReducer>
+	let flowController: RxDataFlowController<AppState>
 
 	let isPushNotificationsAllowed: Observable<Bool>
 	var isPushNotificationsEnabled: Bool
@@ -35,7 +35,7 @@ final class SettingsViewModel: ViewModelType {
 		return self.flowController.errors.do(onNext: { [weak self] in self?.check(error: $0.error) })
 	}()
 	
-	init(flowController: RxDataFlowController<RootReducer>) {
+	init(flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController
 
 		isPushNotificationsAllowed = flowController.currentState.state.authentication.settings?.pushNotificationsAllowed ?? .just(false)

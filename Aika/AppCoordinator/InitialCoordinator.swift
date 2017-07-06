@@ -12,7 +12,7 @@ import UIKit
 
 protocol ApplicationCoordinatorType {
 	var window: UIWindow { get }
-	var flowController: RxDataFlowController<RootReducer> { get }
+	var flowController: RxDataFlowController<AppState> { get }
 	func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>>
 }
 
@@ -114,10 +114,10 @@ extension ApplicationCoordinatorType {
 
 struct InitialCoordinator : ApplicationCoordinatorType {
 	let window: UIWindow
-	var flowController: RxDataFlowController<RootReducer> { return flowControllerInitializer() }
-	let flowControllerInitializer: () -> RxDataFlowController<RootReducer>
+	var flowController: RxDataFlowController<AppState> { return flowControllerInitializer() }
+	let flowControllerInitializer: () -> RxDataFlowController<AppState>
 	
-	init(window: UIWindow, flowControllerInitializer: @escaping () -> RxDataFlowController<RootReducer>) {
+	init(window: UIWindow, flowControllerInitializer: @escaping () -> RxDataFlowController<AppState>) {
 		self.window = window
 		self.flowControllerInitializer = flowControllerInitializer
 	}
