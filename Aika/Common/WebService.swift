@@ -41,6 +41,7 @@ final class WebSerivce: WebServiceType {
 	private static func headers(withToken token: String) -> [String: String] {
 		return ["Authorization": "\(token)",
 			"Accept":"application/json",
+			"Accept-Encoding":"gzip",
 			"Content-Type":"application/json; charset=utf-8",
 			"Host": HttpClient.host]
 	}
@@ -157,7 +158,7 @@ final class WebSerivce: WebServiceType {
 			                         jsonBody: result.json,
 			                         options: [],
 			                         headers: WebSerivce.headers(withToken: result.token))!
-			
+
 			return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
 							.flatMap { result -> Observable<[Task]> in return .just(try unbox(data: result)) }
 		}
