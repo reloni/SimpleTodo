@@ -183,7 +183,8 @@ final class EditTaskController : UIViewController {
 		state.take(1).map { $0.notes }.bind(to: notesTextField.rx.text).disposed(by: bag)
 		state.map { $0.targetDate }.distinctUntilChanged({ $0.0 == $0.1 }).do(onNext: { [weak self] in self?.targetDatePickerView.date = $0 }).subscribe().disposed(by: bag)
 		state.map { $0.datePickerExpanded }.distinctUntilChanged().do(onNext: { [weak self] in self?.switchDatePickerExpandMode($0) }).subscribe().disposed(by: bag)
-		state.take(1).map { $0.currentTask == nil }.filter { $0 }.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() }).subscribe().disposed(by: bag)
+		state.take(1).filter { $0.currentTask == nil }.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() }).subscribe().disposed(by: bag)
+		state.map { $0.description.characters.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
 		
 		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
 		

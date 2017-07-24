@@ -62,7 +62,7 @@ final class EditTaskViewModel: ViewModelType {
 		let currentState = localStateSubject.asObservable().shareReplay(1)
 		return [
 			taskDescription.withLatestFrom(currentState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(description: $0.1)) })
+				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(description: $0.1.trimmingCharacters(in: .whitespacesAndNewlines))) })
 				.subscribe(),
 			taskNotes.withLatestFrom(currentState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(notes: $0.1)) })
