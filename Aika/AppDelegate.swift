@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		setupPushNotifications(withLaunchOptions: launchOptions)
 		
-		UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+		UIApplication.shared.setMinimumBackgroundFetchInterval(60 * 60 * 6)
 		
 		flowController.dispatch(SynchronizationAction.updateConfiguration)
 		flowController.dispatch(UIAction.showRootController)
