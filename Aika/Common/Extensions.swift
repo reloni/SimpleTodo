@@ -260,7 +260,7 @@ extension Error {
 		case AuthenticationError.signInError(let error): return error.localizedDescription
 		case AuthenticationError.passwordResetError: return "Unable to send instructions to specified email adress"
 		case AuthenticationError.registerError(let error): return error.localizedDescription
-		case AuthenticationError.tokenRequestError(let error): return error.localizedDescription
+		case AuthenticationError.tokenRefreshError: return "Error while refreshing access token"
 		case AuthenticationError.notAuthorized: return "Unauthorized access"
 		default: return "Unknown error"
 		}
@@ -278,6 +278,7 @@ extension HttpClient {
 	static let baseUrl = "https://aika.cloud:443/api/v1"
 //	static let baseUrl = "http://localhost:5000/api/v1"
 	static let host = "aika.cloud"
+//	static let host = "dev.aika.cloud"
 }
 
 extension UserDefaults {

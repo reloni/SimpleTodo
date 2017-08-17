@@ -11,7 +11,7 @@ import RxSwift
 import RxDataSources
 
 final class FrameworksViewModel: ViewModelType {
-	let flowController: RxDataFlowController<RootReducer>
+	let flowController: RxDataFlowController<AppState>
 	static let frameworks = [FrameworkSectionItem(name: "RxSwift", url: URL(string: "https://github.com/ReactiveX/RxSwift")!),
 	                         FrameworkSectionItem(name: "SnapKit", url: URL(string: "https://github.com/SnapKit/SnapKit")!),
 	                         FrameworkSectionItem(name: "Material", url: URL(string: "https://github.com/CosmicMind/Material")!),
@@ -33,7 +33,7 @@ final class FrameworksViewModel: ViewModelType {
 			return .just([section])
 	}()
 	
-	init(flowController: RxDataFlowController<RootReducer>) {
+	init(flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController
 	}
 }

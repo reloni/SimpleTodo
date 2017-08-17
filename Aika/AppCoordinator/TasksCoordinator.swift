@@ -13,9 +13,9 @@ import UIKit
 struct TasksCoordinator : ApplicationCoordinatorType {
 	let window: UIWindow
 	let navigationController: GenericNavigationController
-	let flowController: RxDataFlowController<RootReducer>
+	let flowController: RxDataFlowController<AppState>
 	
-	init(window: UIWindow, flowController: RxDataFlowController<RootReducer>) {
+	init(window: UIWindow, flowController: RxDataFlowController<AppState>) {
 		self.window = window
 		self.flowController = flowController
 		let viewModel = TasksViewModel(flowController: flowController)

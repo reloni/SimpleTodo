@@ -14,9 +14,9 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 	let parent: ApplicationCoordinatorType
 	let window: UIWindow
 	let navigationController: GenericNavigationController
-	let flowController: RxDataFlowController<RootReducer>
+	let flowController: RxDataFlowController<AppState>
 	
-	init(parent: ApplicationCoordinatorType, navigationController: GenericNavigationController, flowController: RxDataFlowController<RootReducer>) {
+	init(parent: ApplicationCoordinatorType, navigationController: GenericNavigationController, flowController: RxDataFlowController<AppState>) {
 		self.parent = parent
 		self.window = parent.window
 		self.navigationController = navigationController

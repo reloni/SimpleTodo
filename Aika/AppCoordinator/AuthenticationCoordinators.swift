@@ -13,9 +13,9 @@ import RxDataFlow
 struct AuthenticationCoordinator : ApplicationCoordinatorType {
 	let controller: UIViewController
 	let window: UIWindow
-	let flowController: RxDataFlowController<RootReducer>
+	let flowController: RxDataFlowController<AppState>
 	
-	init(window: UIWindow, controller: UIViewController, flowController: RxDataFlowController<RootReducer>) {
+	init(window: UIWindow, controller: UIViewController, flowController: RxDataFlowController<AppState>) {
 		self.window = window
 		self.controller = controller
 		self.flowController = flowController
@@ -46,9 +46,9 @@ struct FirebaseRegistrationCoordinator : ApplicationCoordinatorType {
 	let parent: ApplicationCoordinatorType
 	let window: UIWindow
 	let controller: UIViewController
-	let flowController: RxDataFlowController<RootReducer>
+	let flowController: RxDataFlowController<AppState>
 	
-	init(parent: ApplicationCoordinatorType, controller: UIViewController, flowController: RxDataFlowController<RootReducer>) {
+	init(parent: ApplicationCoordinatorType, controller: UIViewController, flowController: RxDataFlowController<AppState>) {
 		self.parent = parent
 		self.window = parent.window
 		self.controller = controller

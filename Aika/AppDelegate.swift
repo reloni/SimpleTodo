@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
-	lazy var flowController: RxDataFlowController<RootReducer> = {
+	lazy var flowController: RxDataFlowController<AppState> = {
 		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
 		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
 		
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		                            syncService: SynchronizationService(webService: WebSerivce(httpClient: httpClient), repository: RealmRepository()),
 		                            syncStatus: .completed)
 		
-		return RxDataFlowController(reducer: RootReducer(), initialState: initialState, maxHistoryItems: 1)
+		return RxDataFlowController(reducer: rootReducer, initialState: initialState, maxHistoryItems: 1)
 	}()
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		setupPushNotifications(withLaunchOptions: launchOptions)
 		
-		UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+		UIApplication.shared.setMinimumBackgroundFetchInterval(60 * 60 * 6)
 		
 		flowController.dispatch(SynchronizationAction.updateConfiguration)
 		flowController.dispatch(UIAction.showRootController)
