@@ -22,7 +22,7 @@ enum IconBadgeStyle: String {
 enum AuthenticationError : Error {
 	case signInError(Error)
 	case registerError(Error)
-	case tokenRequestError(Error)
+	case tokenRefreshError(Error)
 	case unknown
 	case passwordResetError(Error)
 	case notAuthorized

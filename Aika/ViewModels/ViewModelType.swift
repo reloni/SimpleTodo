@@ -15,11 +15,12 @@ protocol ViewModelType {
 
 extension ViewModelType {
 	func check(error: Error) {
-		if case AuthenticationError.notAuthorized = error {
+		switch error {
+		case AuthenticationError.tokenRefreshError: fallthrough
+		case AuthenticationError.notAuthorized:
 			RxCompositeAction.logOffActions.forEach { flowController.dispatch($0) }
 			flowController.dispatch(UIAction.showErrorMessage(error))
-		} else {
-			flowController.dispatch(UIAction.showSnackView(error: error, hideAfter: 4))
+		default: flowController.dispatch(UIAction.showSnackView(error: error, hideAfter: 4))
 		}
 	}
 	
