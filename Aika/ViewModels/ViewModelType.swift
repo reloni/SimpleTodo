@@ -21,11 +21,8 @@ extension ViewModelType {
     
 	func check(error: Error) {
 		switch error {
-		case AuthenticationError.tokenRefreshError(let e as NSError) where e.domain == "com.auth0.authentication" && e.code == 1:
-            logOut(flowController: flowController, error: error)
-        case AuthenticationError.tokenRefreshError: break
-		case AuthenticationError.notAuthorized:
-            logOut(flowController: flowController, error: error)
+        case AuthenticationError.tokenRevokedError: fallthrough
+		case AuthenticationError.notAuthorized: logOut(flowController: flowController, error: error)
 		default: flowController.dispatch(UIAction.showSnackView(error: error, hideAfter: 4))
 		}
 	}
