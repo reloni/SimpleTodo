@@ -14,12 +14,18 @@ protocol ViewModelType {
 }
 
 extension ViewModelType {
+    private func logOut(flowController: RxDataFlowController<AppState>, error: Error) {
+        RxCompositeAction.logOffActions.forEach { flowController.dispatch($0) }
+        flowController.dispatch(UIAction.showErrorMessage(error))
+    }
+    
 	func check(error: Error) {
 		switch error {
-		case AuthenticationError.tokenRefreshError: fallthrough
+		case AuthenticationError.tokenRefreshError(let e as NSError) where e.domain == "com.auth0.authentication" && e.code == 1:
+            logOut(flowController: flowController, error: error)
+        case AuthenticationError.tokenRefreshError: break
 		case AuthenticationError.notAuthorized:
-			RxCompositeAction.logOffActions.forEach { flowController.dispatch($0) }
-			flowController.dispatch(UIAction.showErrorMessage(error))
+            logOut(flowController: flowController, error: error)
 		default: flowController.dispatch(UIAction.showSnackView(error: error, hideAfter: 4))
 		}
 	}
