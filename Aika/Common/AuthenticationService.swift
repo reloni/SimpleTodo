@@ -108,7 +108,10 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 						let jwt = try? decode(jwt: newToken)
 						observer.onNext(AuthenticationInfo(uid: info.uid, token: newToken, expiresAt: jwt?.expiresAt, refreshToken: info.refreshToken))
 						observer.onCompleted()
-					case .failure(let error): observer.onError(AuthenticationError.tokenRefreshError(error))
+					case .failure(let e as NSError) where e.domain == "com.auth0.authentication" && e.code == 1:
+                        observer.onError(AuthenticationError.tokenRevokedError(e))
+                    case .failure(let e):
+                        observer.onError(e)
 					}
 			}
 			
