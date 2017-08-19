@@ -1,4 +1,4 @@
-github "ReactiveX/RxSwift" == 3.5.0
+github "ReactiveX/RxSwift" == 3.6.1
 github "SnapKit/SnapKit" == 3.2.0
 github "CosmicMind/Material" == 2.6.3
 github "RxSwiftCommunity/RxHttpClient" == 0.8.2
