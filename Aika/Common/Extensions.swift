@@ -273,14 +273,6 @@ extension UIFont {
 	}
 }
 
-
-extension HttpClient {
-	static let baseUrl = "https://aika.cloud:443/api/v1"
-//	static let baseUrl = "http://localhost:5000/api/v1"
-	static let host = "aika.cloud"
-//	static let host = "dev.aika.cloud"
-}
-
 extension UserDefaults {
 	var iconBadgeStyle: IconBadgeStyle {
 		get {
@@ -291,6 +283,15 @@ extension UserDefaults {
 		}
 		set {
 			set(newValue.rawValue, forKey: "iconBadgeStyle")
+		}
+	}
+	
+	var serverHost: String {
+		get {
+			return string(forKey: "serverHost") ?? AppConstants.host
+		}
+		set {
+			set(newValue, forKey: "serverHost")
 		}
 	}
 }
@@ -374,5 +375,13 @@ extension Keychain {
 			
 			return newUuid
 		}
+	}
+}
+
+extension UIViewController {
+	func createAlertContoller(withTitle title: String, message: String, actions: [UIAlertAction] = []) -> UIAlertController {
+		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		actions.forEach { alert.addAction($0) }
+		return alert
 	}
 }
