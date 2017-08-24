@@ -22,6 +22,7 @@ func synchronizationReducer(_ action: RxActionType, currentState: AppState) -> O
 	case (SynchronizationAction.completeTask(let uuid), .authenticated): return updateTaskCompletionStatus(currentState: currentState, taskUuid: uuid)
 	case (SynchronizationAction.updateConfiguration, _): return updateConfiguration(currentState: currentState)
 	case (SynchronizationAction.deleteCache, .authenticated): return deleteCache(currentState: currentState)
+	case (SynchronizationAction.updateHost(let newHost), .none): return updateHost(currentState: currentState, newHost: newHost)
 	default: return .empty()
 	}
 }
@@ -48,6 +49,13 @@ fileprivate func deleteCache(currentState state: AppState) -> Observable<RxState
 	
 	return .just( { $0 } )
 }
+fileprivate func updateHost(currentState state: AppState, newHost: String) -> Observable<RxStateMutator<AppState>> {
+	let newSyncService = SynchronizationService(webService: state.syncService.webService.withNew(host: newHost),
+	                                            repository: state.syncService.repository)
+	
+	return .just( { $0.mutation.new(syncService: newSyncService) } )
+}
+
 
 fileprivate func updateConfiguration(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 	guard let info = state.authentication.info else {

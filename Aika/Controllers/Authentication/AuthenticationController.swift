@@ -199,13 +199,7 @@ final class AuthenticationController : UIViewController {
 		
 		view.addSubview(scrollView)
 		scrollView.addSubview(topContainerView)
-		if viewModel.mode == .logIn {
-            passwordEnterContainerView.addSubview(lostPasswordLabel)
-            let recognizer = UITapGestureRecognizer(target: self, action: #selector(changeServer))
-            recognizer.numberOfTapsRequired = 5
-            scrollView.isUserInteractionEnabled = true
-            scrollView.addGestureRecognizer(recognizer)
-        }
+		if viewModel.mode == .logIn { passwordEnterContainerView.addSubview(lostPasswordLabel) }
 		
 		topContainerView.snp.makeConstraints(topContainerViewConstraints)
 		topOffsetView.snp.makeConstraints(topOffsetViewConstraints)
@@ -231,10 +225,6 @@ final class AuthenticationController : UIViewController {
 		
 		bind()
 	}
-    
-    func changeServer() {
-        print("change!!!")
-    }
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -305,7 +295,32 @@ final class AuthenticationController : UIViewController {
 		if viewModel.mode == .logIn {
 			lostPasswordLabel.rx.tapGesture().when(UIGestureRecognizerState.recognized)
 				.subscribe(onNext: { [weak self] recognizer in self?.showResetEmailDialog(recognizer: recognizer) }).disposed(by: bag)
+			
+			let recognizer = UITapGestureRecognizer(target: self, action: #selector(changeServer))
+			recognizer.numberOfTapsRequired = 5
+			scrollView.isUserInteractionEnabled = true
+			scrollView.addGestureRecognizer(recognizer)
 		}
+	}
+	
+	
+	func changeServer() {
+		let alert = createAlertContoller(withTitle: "Server host", message: "")
+		
+		alert.addTextField { textField in
+			textField.placeholder = AppConstants.host
+			textField.text = UserDefaults.standard.serverHost
+			textField.keyboardType = .URL
+		}
+		
+		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert, weak viewModel] _ in
+			let newHost = alert?.textFields?.first?.text ?? AppConstants.host
+			viewModel?.update(host: newHost)
+			UserDefaults.standard.serverHost = newHost
+		}))
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+		
+		present(alert, animated: true, completion: nil)
 	}
 	
 	func textFieldsResignFirstResponder() {
@@ -314,8 +329,9 @@ final class AuthenticationController : UIViewController {
 	}
 	
 	func showResetEmailDialog(recognizer: UIGestureRecognizer) {
-		let alert = UIAlertController(title: "Reset password", message: "Enter your email and we will send instructions how to reset your password", preferredStyle: .alert)
-		
+		let alert = createAlertContoller(withTitle: "Reset password",
+		                                 message: "Enter your email and we will send instructions how to reset your password")
+
 		alert.addTextField { textField in
 			textField.placeholder = "E-mail"
 			textField.keyboardType = .emailAddress

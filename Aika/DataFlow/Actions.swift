@@ -80,6 +80,7 @@ enum SynchronizationAction: RxActionType {
 	
 	case deleteCache
 	case updateConfiguration
+	case updateHost(String)
 }
 
 enum PushNotificationsAction : RxActionType {

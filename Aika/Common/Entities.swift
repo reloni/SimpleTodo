@@ -13,6 +13,13 @@ import Wrap
 import OneSignal
 import UserNotificationsUI
 
+struct AppConstants {
+	static let baseUrl = "https://aika.cloud:443/api/v1"
+	//	static let baseUrl = "http://localhost:5000/api/v1"
+	static let host = "aika.cloud"
+	//	static let host = "dev.aika.cloud"
+}
+
 enum IconBadgeStyle: String {
 	case overdue
 	case today
