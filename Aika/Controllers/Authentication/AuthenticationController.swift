@@ -199,7 +199,13 @@ final class AuthenticationController : UIViewController {
 		
 		view.addSubview(scrollView)
 		scrollView.addSubview(topContainerView)
-		if viewModel.mode == .logIn { passwordEnterContainerView.addSubview(lostPasswordLabel) }
+		if viewModel.mode == .logIn {
+            passwordEnterContainerView.addSubview(lostPasswordLabel)
+            let recognizer = UITapGestureRecognizer(target: self, action: #selector(changeServer))
+            recognizer.numberOfTapsRequired = 5
+            scrollView.isUserInteractionEnabled = true
+            scrollView.addGestureRecognizer(recognizer)
+        }
 		
 		topContainerView.snp.makeConstraints(topContainerViewConstraints)
 		topOffsetView.snp.makeConstraints(topOffsetViewConstraints)
@@ -225,6 +231,10 @@ final class AuthenticationController : UIViewController {
 		
 		bind()
 	}
+    
+    func changeServer() {
+        print("change!!!")
+    }
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
