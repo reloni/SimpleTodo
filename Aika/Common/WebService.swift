@@ -16,6 +16,7 @@ import Wrap
 protocol WebServiceType {
 	func update(with instruction: BatchUpdate, tokenHeader: Observable<String>) -> Observable<[Task]>
 	func deleteUser(tokenHeader: Observable<String>) -> Observable<Void>
+	func logOut(refreshToken: String, tokenHeader: Observable<String>) -> Observable<Void>
 	func withNew(host: String) -> WebServiceType
 }
 
@@ -56,6 +57,24 @@ final class WebSerivce: WebServiceType {
 				let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/users")!,
 				                         method: .delete,
 				                         headers: object.headers(withToken: token))
+				
+				return object.httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
+					.flatMap { _ -> Observable<Void> in
+						return .just()
+				}
+			}
+			.catchError(WebSerivce.catchError)
+	}
+	
+	func logOut(refreshToken: String, tokenHeader: Observable<String>) -> Observable<Void> {
+		return tokenHeader
+			.flatMapLatest { [weak self] token -> Observable<Void> in
+				guard let object = self else { return .empty() }
+				
+				let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/users/LogOut")!,
+				                         method: .post,
+				                         jsonBody: ["RefreshToken": refreshToken],
+				                         headers: object.headers(withToken: token))!
 				
 				return object.httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
 					.flatMap { _ -> Observable<Void> in

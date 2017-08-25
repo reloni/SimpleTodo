@@ -22,7 +22,7 @@ func synchronizationReducer(_ action: RxActionType, currentState: AppState) -> O
 	case (SynchronizationAction.completeTask(let uuid), .authenticated): return updateTaskCompletionStatus(currentState: currentState, taskUuid: uuid)
 	case (SynchronizationAction.updateConfiguration, _): return updateConfiguration(currentState: currentState)
 	case (SynchronizationAction.deleteCache, .authenticated): return deleteCache(currentState: currentState)
-	case (SynchronizationAction.updateHost(let newHost), .none): return updateHost(currentState: currentState, newHost: newHost)
+	case (SynchronizationAction.updateHost(let newHost), _): return updateHost(currentState: currentState, newHost: newHost)
 	default: return .empty()
 	}
 }

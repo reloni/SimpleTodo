@@ -51,7 +51,7 @@ enum AuthenticationAction : RxActionType {
 
 	case resetPassword(String)
 	case refreshToken(force: Bool)
-	case signOut
+	case logOut
 	case logIn(AuthenticationType)
 	case register(String, String)
 }
