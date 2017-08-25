@@ -30,6 +30,8 @@ fileprivate func resetPassword(currentState state: AppState, email: String)  -> 
 fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMutator<AppState>> {
 	guard let info = state.authentication.info else { return .empty() }
 	
+	let returnMutator: RxStateMutator<AppState> = { $0.mutation.new(authentication: Authentication.none) }
+	
 	return state.syncService.logOut(authenticationInfo: info)
 		.do(onDispose: {
 			if case let AuthenticationType.db(email, _)? = Keychain.authenticationType {
@@ -41,7 +43,8 @@ fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMuta
 			Keychain.refreshToken = ""
 			Keychain.userUuid = ""
 		})
-		.flatMap { Observable.just( { $0.mutation.new(authentication: Authentication.none) } ) }
+		.flatMap { Observable<RxStateMutator<AppState>>.just(returnMutator) }
+		.catchErrorJustReturn(returnMutator)
 }
 
 fileprivate func logIn(currentState state: AppState, authType: AuthenticationType) -> Observable<RxStateMutator<AppState>> {
