@@ -81,6 +81,10 @@ final class AuthenticationViewModel: ViewModelType {
 		authenticate(authType: AuthenticationType.google)
 	}
 	
+	func update(host: String) {
+		flowController.dispatch(SynchronizationAction.updateHost(host))
+	}
+	
 	private func authenticate(authType: AuthenticationType) {
 		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(authType),
 		                                                    SynchronizationAction.updateConfiguration,

@@ -24,6 +24,7 @@ protocol SynchronizationServiceType {
 	func addOrUpdate(task: Task)
 	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void>
 	func deleteUser(authenticationInfo: AuthenticationInfo) -> Observable<Void>
+	func logOut(authenticationInfo: AuthenticationInfo) -> Observable<Void>
 }
 
 final class SynchronizationService: SynchronizationServiceType {
@@ -69,6 +70,10 @@ final class SynchronizationService: SynchronizationServiceType {
 	
 	func deleteUser(authenticationInfo: AuthenticationInfo) -> Observable<Void> {
 		return webService.deleteUser(tokenHeader: .just(authenticationInfo.tokenHeader))
+	}
+	
+	func logOut(authenticationInfo: AuthenticationInfo) -> Observable<Void> {
+		return webService.logOut(refreshToken: authenticationInfo.refreshToken, tokenHeader: .just(authenticationInfo.tokenHeader))
 	}
 	
 	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void> {

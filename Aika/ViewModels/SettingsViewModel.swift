@@ -58,8 +58,8 @@ final class SettingsViewModel: ViewModelType {
 			                                                            .email(title: "Support", image: Theme.Images.questionMark),
 			                                                            .text(title: "App version", value: "\(appVersion) (\(buildVersion))", image: nil)])
 			
-			let exitSection = SettingsSection(header: "ACCOUNT", items: [.deleteLocalCache(title: "Delete local cache", image: Theme.Images.deleteCache),
-			                                                             .deleteAccount(title: "Delete account", image: Theme.Images.deleteAccount),
+			let exitSection = SettingsSection(header: "ACCOUNT", items: [.deleteAccount(title: "Delete account", image: Theme.Images.deleteAccount),
+			                                                             .deleteLocalCache(title: "Delete local cache", image: Theme.Images.deleteCache),
 			                                                             .exit(title: "Log off", image: Theme.Images.exit)])
 			return .just([pushSection, exitSection, aboutSection])
 		}
