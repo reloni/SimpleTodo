@@ -14,7 +14,7 @@ func authenticationReducer(_ action: RxActionType, currentState: AppState) -> Ob
 	switch action as? AuthenticationAction {
 	case .logIn(let authType)?: return logIn(currentState: currentState, authType: authType)
 	case .register(let email, let password)?: return register(currentState: currentState, email: email, password: password)
-	case .signOut?: return signOut()
+	case .logOut?: return logOut(currentState: currentState)
 	case .resetPassword(let email)?: return resetPassword(currentState: currentState, email: email)
 	case .refreshToken(let force)?: return refreshToken(currentState: currentState, force: force)
 	default: return .empty()
@@ -27,17 +27,21 @@ fileprivate func resetPassword(currentState state: AppState, email: String)  -> 
 	}
 }
 
-fileprivate func signOut()  -> Observable<RxStateMutator<AppState>> {
-	if case let AuthenticationType.db(email, _)? = Keychain.authenticationType {
-		Keychain.authenticationType = AuthenticationType.db(email: email, password: "")
-	} else {
-		Keychain.authenticationType = nil
-	}
-	Keychain.token = ""
-	Keychain.refreshToken = ""
-	Keychain.userUuid = ""
+fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMutator<AppState>> {
+	guard let info = state.authentication.info else { return .empty() }
 	
-	return .just( { $0.mutation.new(authentication: Authentication.none) })
+	return state.syncService.logOut(authenticationInfo: info)
+		.do(onDispose: {
+			if case let AuthenticationType.db(email, _)? = Keychain.authenticationType {
+				Keychain.authenticationType = AuthenticationType.db(email: email, password: "")
+			} else {
+				Keychain.authenticationType = nil
+			}
+			Keychain.token = ""
+			Keychain.refreshToken = ""
+			Keychain.userUuid = ""
+		})
+		.flatMap { Observable.just( { $0.mutation.new(authentication: Authentication.none) } ) }
 }
 
 fileprivate func logIn(currentState state: AppState, authType: AuthenticationType) -> Observable<RxStateMutator<AppState>> {

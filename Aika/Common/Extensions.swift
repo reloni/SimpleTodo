@@ -29,20 +29,20 @@ extension FileManager {
 extension RxCompositeAction {
 	static var logOffActions: [RxActionType] {
 		return [UIAction.showSpinner,
-						AuthenticationAction.signOut,
+		        AuthenticationAction.logOut,
 		        UIAction.returnToRootController,
 		        PushNotificationsAction.switchNotificationSubscription(subscribed: false),
 		        SynchronizationAction.updateConfiguration,
-						UIAction.hideSpinner]
+		        UIAction.hideSpinner]
 	}
 	
 	static var deleteUserActions: [RxActionType] {
 		return [SynchronizationAction.deleteUser,
-		        AuthenticationAction.signOut,
+		        AuthenticationAction.logOut,
 		        PushNotificationsAction.switchNotificationSubscription(subscribed: false),
 		        SynchronizationAction.updateConfiguration,
-						SystemAction.clearKeychain,
-						UIAction.returnToRootController]
+		        SystemAction.clearKeychain,
+		        UIAction.returnToRootController]
 	}
 	
 	static var refreshTokenAndSyncActions: [RxActionType] {
