@@ -17,7 +17,6 @@
 		6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */; };
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
-		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
 		6E2BAE911ECE28170030C2C0 /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */; };
@@ -157,7 +156,6 @@
 		6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D0321DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoUITests.swift; sourceTree = "<group>"; };
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		6E16914B1E61F63A004EE586 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
@@ -381,7 +379,6 @@
 		6E15D03A1DF0A45A00B4CCA7 /* AikaUITests */ = {
 			isa = PBXGroup;
 			children = (
-				6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */,
 				6E15D03D1DF0A45A00B4CCA7 /* Info.plist */,
 			);
 			path = AikaUITests;
@@ -878,7 +875,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
