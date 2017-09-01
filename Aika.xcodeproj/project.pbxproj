@@ -17,7 +17,6 @@
 		6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */; };
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
-		6E15D0311DF0A45A00B4CCA7 /* SimpleToDoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */; };
 		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
@@ -65,6 +64,8 @@
 		6EAF1B3C1EB5297C00C72BF5 /* SlidePresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAF1B3B1EB5297C00C72BF5 /* SlidePresentAnimationController.swift */; };
 		6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB04F231EEE85F30023619A /* SimpleKeychain.framework */; };
 		6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB36A791E1ED9CA006B5239 /* TaskCell.swift */; };
+		6EBC6A501F59104C0041456A /* TaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */; };
+		6EBC6A551F5920770041456A /* TaskSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBC6A541F5920770041456A /* TaskSchedulerTests.swift */; };
 		6EBD408D1E60ABF700661CA6 /* AuthenticationCoordinators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBD408C1E60ABF700661CA6 /* AuthenticationCoordinators.swift */; };
 		6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */; };
 		6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */; };
@@ -135,7 +136,6 @@
 		6E15D0251DF0A45A00B4CCA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6E15D0271DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoTests.swift; sourceTree = "<group>"; };
 		6E15D0321DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoUITests.swift; sourceTree = "<group>"; };
@@ -213,6 +213,8 @@
 		6EAF1B3B1EB5297C00C72BF5 /* SlidePresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidePresentAnimationController.swift; sourceTree = "<group>"; };
 		6EB04F231EEE85F30023619A /* SimpleKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleKeychain.framework; path = Carthage/Build/iOS/SimpleKeychain.framework; sourceTree = "<group>"; };
 		6EB36A791E1ED9CA006B5239 /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduler.swift; sourceTree = "<group>"; };
+		6EBC6A541F5920770041456A /* TaskSchedulerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSchedulerTests.swift; sourceTree = "<group>"; };
 		6EBD408C1E60ABF700661CA6 /* AuthenticationCoordinators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinators.swift; sourceTree = "<group>"; };
 		6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetDateView.swift; sourceTree = "<group>"; };
@@ -292,7 +294,7 @@
 				6E14E5E51EE321A90021DE02 /* Aika.entitlements */,
 				6E15D01A1DF0A45A00B4CCA7 /* Aika */,
 				6E15D02F1DF0A45A00B4CCA7 /* AikaTests */,
-				6E15D03A1DF0A45A00B4CCA7 /* AikaTests */,
+				6E15D03A1DF0A45A00B4CCA7 /* AikaUITests */,
 				6E40B9C61EC60CE100411F69 /* NotificationServiceExtension */,
 				6E15D0191DF0A45A00B4CCA7 /* Products */,
 				6E15D0631DF0B62D00B4CCA7 /* Frameworks */,
@@ -332,19 +334,18 @@
 		6E15D02F1DF0A45A00B4CCA7 /* AikaTests */ = {
 			isa = PBXGroup;
 			children = (
-				6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */,
 				6E15D0321DF0A45A00B4CCA7 /* Info.plist */,
+				6EBC6A541F5920770041456A /* TaskSchedulerTests.swift */,
 			);
 			path = AikaTests;
 			sourceTree = "<group>";
 		};
-		6E15D03A1DF0A45A00B4CCA7 /* AikaTests */ = {
+		6E15D03A1DF0A45A00B4CCA7 /* AikaUITests */ = {
 			isa = PBXGroup;
 			children = (
 				6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */,
 				6E15D03D1DF0A45A00B4CCA7 /* Info.plist */,
 			);
-			name = AikaTests;
 			path = AikaUITests;
 			sourceTree = "<group>";
 		};
@@ -426,6 +427,7 @@
 				6E05D0031E881F0B00C293B8 /* WebService.swift */,
 				6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */,
 				6EA0B4821EC20801005BA709 /* SynchronizationService.swift */,
+				6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -635,6 +637,7 @@
 					6E15D02B1DF0A45A00B4CCA7 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = SJMSRXG797;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6E15D0171DF0A45900B4CCA7;
 					};
@@ -757,6 +760,7 @@
 				6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */,
 				6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */,
 				6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */,
+				6EBC6A501F59104C0041456A /* TaskScheduler.swift in Sources */,
 				6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */,
 				6E8A9E8D1EE7AD5800F2FA1F /* FrameworksController.swift in Sources */,
 				6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */,
@@ -797,7 +801,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E15D0311DF0A45A00B4CCA7 /* SimpleToDoTests.swift in Sources */,
+				6EBC6A551F5920770041456A /* TaskSchedulerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1010,11 +1014,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = SimpleToDoTests/Info.plist;
+				INFOPLIST_FILE = AikaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aika.app/Aika";
 			};
@@ -1025,11 +1032,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = SimpleToDoTests/Info.plist;
+				INFOPLIST_FILE = AikaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aika.app/Aika";
 			};
@@ -1040,7 +1049,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = SimpleToDoUITests/Info.plist;
+				INFOPLIST_FILE = AikaUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1054,7 +1063,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = SimpleToDoUITests/Info.plist;
+				INFOPLIST_FILE = AikaUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

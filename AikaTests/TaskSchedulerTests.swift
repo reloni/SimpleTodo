@@ -1,15 +1,14 @@
 //
-//  SimpleToDoTests.swift
-//  SimpleToDoTests
+//  TaskSchedulerTests.swift
+//  Aika
 //
-//  Created by Anton Efimenko on 01.12.16.
-//  Copyright © 2016 Anton Efimenko. All rights reserved.
+//  Created by Anton Efimenko on 01.09.17.
+//  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
 
 import XCTest
-@testable import SimpleToDo
 
-class SimpleToDoTests: XCTestCase {
+class TaskSchedulerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
