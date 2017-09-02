@@ -56,11 +56,11 @@ struct TaskScheduler {
 	}
 	
 	static func nextTimeDaily(_ value: Date) -> Date {
-		let components = calendar.dateComponents([.hour, .minute], from: value)
+		let components = calendar.dateComponents([.hour, .minute, .second], from: value)
 		
 		return calendar.nextDate(after: value,
-		                         matching: DateComponents(calendar: calendar, timeZone: TimeZone.current, hour: components.hour, minute: components.minute, second: 0),
-		                         matchingPolicy: .nextTime,
+		                         matching: DateComponents(calendar: calendar, hour: components.hour, minute: components.minute, second: components.second),
+		                         matchingPolicy: .nextTimePreservingSmallerComponents,
 		                         repeatedTimePolicy: .first,
 		                         direction: .forward)!
 	}
