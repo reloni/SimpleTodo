@@ -15,8 +15,6 @@ import Fabric
 import Crashlytics
 import Auth0
 
-
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
