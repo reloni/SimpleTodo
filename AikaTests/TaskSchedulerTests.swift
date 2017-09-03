@@ -157,11 +157,6 @@ class TaskSchedulerTests: XCTestCase {
         XCTAssertEqual(formatter.string(from: taskDate.adding(.year, value: 1)), formatter.string(from: result))
     }
     
-    
-    
-    
-    
-    
     func testByDay_inFuture() {
         let currentDate = Date()
         let taskDate = currentDate.adding(.hour, value: 3)
@@ -188,5 +183,9 @@ class TaskSchedulerTests: XCTestCase {
         let taskDate = currentDate.adding(.day, value: 2)
         let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .byDay(repeatEvery: 500))!
         XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 500)), formatter.string(from: result))
+    }
+    
+    func testShit() {
+        print(Calendar.current.dateComponents([.weekday], from: Date().adding(.day, value: -1)).weekday)
     }
 }
