@@ -65,6 +65,10 @@ struct TaskScheduler {
     var currentDayOfWeek: Int? {
         return calendar.dateComponents([.weekday], from: currentDate).weekday
     }
+    
+    var currentDayOfMonth: Int? {
+        return calendar.dateComponents([.day], from: currentDate).day
+    }
 	
 	func scheduleNext(from time: Date, withPattern pattern: Pattern) -> Date? {
 		switch pattern {
@@ -75,8 +79,9 @@ struct TaskScheduler {
         case .yearly: return nextTime(for: time.adding(.year, value: 1).adding(.day, value: -1))
         case .byDay(let repeatEvery): return nextTime(for: time.adding(.day, value: Int(repeatEvery) - 1))
         case let .byWeek(repeatEvery, weekDays):
-			return nextTimeByWeek(for: time, repeatEvery: repeatEvery, weekDays: weekDays.sorted(by: { $0.0.rawValue < $0.1.rawValue }))
-		default: return currentDate
+			return nextTimeByWeek(for: time, repeatEvery: Int(repeatEvery), weekDays: weekDays.sorted(by: { $0.0.rawValue < $0.1.rawValue }))
+        case let .byMonthDays(repeatEvery, days):
+            return nextTimeByMonthDays(for: time, repeatEvery: Int(repeatEvery), days: days.map { Int($0) }.sorted(by: <))
 		}
 	}
     
@@ -92,16 +97,16 @@ struct TaskScheduler {
                                  direction: .forward)
     }
     
-    func nextTimeByWeek(for value: Date, repeatEvery: UInt, weekDays: [DayOfWeek]) -> Date? {
+    func nextTimeByWeek(for value: Date, repeatEvery: Int, weekDays: [DayOfWeek]) -> Date? {
 		guard weekDays.count > 0 else {
 			return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1))
 		}
 		
 		guard let currentDayOfWeek = currentDayOfWeek else { return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1)) }
 		
-		let components = dateComponents(for: value)
-		
-		let nextDayOfWeek = weekDays.filter({ $0.rawValue > currentDayOfWeek }).first
+        let nextDayOfWeek = weekDays.first(where: { $0.rawValue > currentDayOfWeek })//.filter({ $0.rawValue > currentDayOfWeek }).first
+        
+        let components = dateComponents(for: value)
 		
 		let matchingComponents = DateComponents(calendar: calendar,
 		                                        hour: components.hour,
@@ -110,10 +115,36 @@ struct TaskScheduler {
 		                                        weekday: nextDayOfWeek?.rawValue ?? weekDays.first?.rawValue)
 
 		
-		return calendar.nextDate(after: nextDayOfWeek != nil ? value : value.adding(.day, value: (Int(repeatEvery) * 7) - 1),
+		return calendar.nextDate(after: nextDayOfWeek != nil ? value : value.adding(.day, value: (repeatEvery * 7) - 1),
 		                         matching: matchingComponents,
 		                         matchingPolicy: .nextTimePreservingSmallerComponents,
 		                         repeatedTimePolicy: .first,
 		                         direction: .forward)
+    }
+    
+    func nextTimeByMonthDays(for value: Date, repeatEvery: Int, days: [Int]) -> Date? {
+        guard days.count > 0 else {
+            return nextTime(for: value.adding(.month, value: Int(repeatEvery)).adding(.day, value: -1))
+        }
+        
+        guard let currentDayOfMonth = currentDayOfMonth else {
+            return nextTime(for: value.adding(.month, value: Int(repeatEvery)).adding(.day, value: -1))
+        }
+        
+        let nextDayOfMonth = days.first(where: { $0 > currentDayOfMonth })
+        
+        let components = dateComponents(for: value)
+        
+        let matchingComponents = DateComponents(calendar: calendar,
+                                                day: nextDayOfMonth ?? days.first,
+                                                hour: components.hour,
+                                                minute: components.minute,
+                                                second: components.second)
+        
+        return calendar.nextDate(after: nextDayOfMonth != nil ? value : value.adding(.month, value: repeatEvery),
+                                 matching: matchingComponents,
+                                 matchingPolicy: .nextTimePreservingSmallerComponents,
+                                 repeatedTimePolicy: .first,
+                                 direction: .forward)
     }
 }

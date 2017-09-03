@@ -16,9 +16,14 @@ extension Date {
         return formatter.date(from: value)
     }
     
-    public func beginningOfDay() -> Date {
-        return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
-    }
+//    public func beginningOfDay() -> Date {
+//        return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
+//    }
+//    
+//    public func beginningOfMonth() -> Date {
+//        let components = Calendar.current.dateComponents([.year, .month], from: self)
+//        return Calendar.current.date(from: components)!
+//    }
 	
 	public func startOfWeek() -> Date {
 		return Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!

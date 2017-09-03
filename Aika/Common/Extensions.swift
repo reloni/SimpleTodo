@@ -124,6 +124,11 @@ extension Date {
 	func adding(_ component: Calendar.Component, value: Int) -> Date {
 		return Calendar.current.date(byAdding: component, value: value, to: self)!
 	}
+    
+    public func beginningOfMonth() -> Date {
+        let components = Calendar.current.dateComponents([.year, .month], from: self)
+        return Calendar.current.date(from: components)!
+    }
 	
 	func beginningOfDay() -> Date {
 		return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
