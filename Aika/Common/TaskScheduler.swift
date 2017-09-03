@@ -47,21 +47,29 @@ struct TaskScheduler {
 	}
 	
 	static var calendar: Calendar { return Calendar.current }
+    
+    static func dateComponents(for date: Date) -> DateComponents {
+        return calendar.dateComponents([.hour, .minute, .second], from: date)
+    }
 	
-	static func scheduleNext(from time: Date, withPattern pattern: Pattern) -> Date {
+	static func scheduleNext(from time: Date, withPattern pattern: Pattern) -> Date? {
 		switch pattern {
-		case .daily: return nextTimeDaily(time)
+        case .daily: return nextTime(for: time)
+        case .weekly: return nextTime(for: time.adding(.day, value: 6))
+        case .biweekly: return nextTime(for: time.adding(.day, value: 13))
+        case .monthly: return nextTime(for: time.adding(.month, value: 1).adding(.day, value: -1))
+        case .yearly: return nextTime(for: time.adding(.year, value: 1).adding(.day, value: -1))
 		default: return Date()
 		}
 	}
-	
-	static func nextTimeDaily(_ value: Date) -> Date {
-		let components = calendar.dateComponents([.hour, .minute, .second], from: value)
-		
-		return calendar.nextDate(after: value,
-		                         matching: DateComponents(calendar: calendar, hour: components.hour, minute: components.minute, second: components.second),
-		                         matchingPolicy: .nextTimePreservingSmallerComponents,
-		                         repeatedTimePolicy: .first,
-		                         direction: .forward)!
-	}
+    
+    static func nextTime(for value: Date) -> Date? {
+        let components = dateComponents(for: value)
+        
+        return calendar.nextDate(after: value,
+                                 matching: DateComponents(calendar: calendar, hour: components.hour, minute: components.minute, second: components.second),
+                                 matchingPolicy: .nextTimePreservingSmallerComponents,
+                                 repeatedTimePolicy: .first,
+                                 direction: .forward)
+    }
 }

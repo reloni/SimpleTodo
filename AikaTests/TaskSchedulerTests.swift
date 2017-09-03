@@ -20,28 +20,140 @@ class TaskSchedulerTests: XCTestCase {
 	func testDaily_inFuture() {
         let currentDate = Date()
         let taskDate = currentDate.adding(.hour, value: 3)
-		let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .daily)
+		let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .daily)!
         XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 1)), formatter.string(from: result))
 	}
     
     func testDaily_inFuture_2() {
         let currentDate = Date()
         let taskDate = currentDate.adding(.month, value: 3)
-        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .daily)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .daily)!
         XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 1)), formatter.string(from: result))
     }
     
     func testDaily_inPast() {
         let currentDate = Date()
         let taskDate = currentDate.adding(.hour, value: -3)
-        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .daily)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .daily)!
         XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 1)), formatter.string(from: result))
     }
     
     func testDaily_inPast_2() {
         let currentDate = Date()
         let taskDate = currentDate.adding(.day, value: 2)
-        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .daily)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .daily)!
         XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 1)), formatter.string(from: result))
+    }
+    
+    func testWeekly_inFuture() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .weekly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 7)), formatter.string(from: result))
+    }
+    
+    func testWeekly_inFuture_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.month, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .weekly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 7)), formatter.string(from: result))
+    }
+    
+    func testWeekly_inPast() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: -3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .weekly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 7)), formatter.string(from: result))
+    }
+    
+    func testWeekly_inPast_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.day, value: 2)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .weekly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 7)), formatter.string(from: result))
+    }
+    
+    func testBiWeekly_inFuture() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .biweekly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 14)), formatter.string(from: result))
+    }
+    
+    func testBiWeekly_inFuture_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.month, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .biweekly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 14)), formatter.string(from: result))
+    }
+    
+    func testBiWeekly_inPast() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: -3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .biweekly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 14)), formatter.string(from: result))
+    }
+    
+    func testBiWeekly_inPast_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.day, value: 2)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .biweekly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 14)), formatter.string(from: result))
+    }
+    
+    func testMonthly_inFuture() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .monthly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.month, value: 1)), formatter.string(from: result))
+    }
+    
+    func testMonthly_inFuture_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.month, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .monthly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.month, value: 1)), formatter.string(from: result))
+    }
+    
+    func testMonthly_inPast() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: -3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .monthly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.month, value: 1)), formatter.string(from: result))
+    }
+    
+    func testMonthly_inPast_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.day, value: 2)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .monthly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.month, value: 1)), formatter.string(from: result))
+    }
+    
+    func testYearly_inFuture() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .yearly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.year, value: 1)), formatter.string(from: result))
+    }
+    
+    func testYearly_inFuture_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.month, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .yearly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.year, value: 1)), formatter.string(from: result))
+    }
+    
+    func testYearly_inPast() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: -3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .yearly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.year, value: 1)), formatter.string(from: result))
+    }
+    
+    func testYearly_inPast_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.day, value: 2)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .yearly)!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.year, value: 1)), formatter.string(from: result))
     }
 }
