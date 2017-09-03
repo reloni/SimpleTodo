@@ -19,7 +19,11 @@ extension Date {
     public func beginningOfDay() -> Date {
         return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
     }
-    
+	
+	public func startOfWeek() -> Date {
+		return Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!
+	}
+	
     public func adding(_ component: Calendar.Component, value: Int) -> Date {
         return Calendar.current.date(byAdding: component, value: value, to: self)!
     }
