@@ -110,13 +110,6 @@
 			remoteGlobalIDString = 6E15D0171DF0A45900B4CCA7;
 			remoteInfo = SimpleToDo;
 		};
-		6E15D0381DF0A45A00B4CCA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6E15D0101DF0A45900B4CCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6E15D0171DF0A45900B4CCA7;
-			remoteInfo = SimpleToDo;
-		};
 		6E40B9CA1EC60CE200411F69 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6E15D0101DF0A45900B4CCA7 /* Project object */;
@@ -156,7 +149,6 @@
 		6E15D0271DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D0321DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		6E16914B1E61F63A004EE586 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
@@ -308,13 +300,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6E15D0341DF0A45A00B4CCA7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6E40B9C21EC60CE100411F69 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -344,7 +329,6 @@
 			children = (
 				6E15D0181DF0A45A00B4CCA7 /* Aika.app */,
 				6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */,
-				6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */,
 				6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */,
 			);
 			name = Products;
@@ -614,24 +598,6 @@
 			productReference = 6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6E15D0361DF0A45A00B4CCA7 /* AikaUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6E15D0461DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "AikaUITests" */;
-			buildPhases = (
-				6E15D0331DF0A45A00B4CCA7 /* Sources */,
-				6E15D0341DF0A45A00B4CCA7 /* Frameworks */,
-				6E15D0351DF0A45A00B4CCA7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6E15D0391DF0A45A00B4CCA7 /* PBXTargetDependency */,
-			);
-			name = AikaUITests;
-			productName = SimpleToDoUITests;
-			productReference = 6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		6E40B9C41EC60CE100411F69 /* NotificationServiceExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E40B9CF1EC60CE200411F69 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
@@ -680,12 +646,6 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6E15D0171DF0A45900B4CCA7;
 					};
-					6E15D0361DF0A45A00B4CCA7 = {
-						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = SJMSRXG797;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 6E15D0171DF0A45900B4CCA7;
-					};
 					6E40B9C41EC60CE100411F69 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = SJMSRXG797;
@@ -708,7 +668,6 @@
 			targets = (
 				6E15D0171DF0A45900B4CCA7 /* Aika */,
 				6E15D02B1DF0A45A00B4CCA7 /* AikaTests */,
-				6E15D0361DF0A45A00B4CCA7 /* AikaUITests */,
 				6E40B9C41EC60CE100411F69 /* NotificationServiceExtension */,
 			);
 		};
@@ -726,13 +685,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6E15D02A1DF0A45A00B4CCA7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6E15D0351DF0A45A00B4CCA7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -875,13 +827,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6E15D0331DF0A45A00B4CCA7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6E40B9C11EC60CE100411F69 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -897,11 +842,6 @@
 			isa = PBXTargetDependency;
 			target = 6E15D0171DF0A45900B4CCA7 /* Aika */;
 			targetProxy = 6E15D02D1DF0A45A00B4CCA7 /* PBXContainerItemProxy */;
-		};
-		6E15D0391DF0A45A00B4CCA7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6E15D0171DF0A45900B4CCA7 /* Aika */;
-			targetProxy = 6E15D0381DF0A45A00B4CCA7 /* PBXContainerItemProxy */;
 		};
 		6E40B9CB1EC60CE200411F69 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1123,34 +1063,6 @@
 			};
 			name = Release;
 		};
-		6E15D0471DF0A45A00B4CCA7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = AikaUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = SimpleToDo;
-			};
-			name = Debug;
-		};
-		6E15D0481DF0A45A00B4CCA7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = AikaUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = SimpleToDo;
-			};
-			name = Release;
-		};
 		6E40B9CD1EC60CE200411F69 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1217,15 +1129,6 @@
 			buildConfigurations = (
 				6E15D0441DF0A45A00B4CCA7 /* Debug */,
 				6E15D0451DF0A45A00B4CCA7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6E15D0461DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "AikaUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6E15D0471DF0A45A00B4CCA7 /* Debug */,
-				6E15D0481DF0A45A00B4CCA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

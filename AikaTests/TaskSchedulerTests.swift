@@ -24,6 +24,13 @@ class TaskSchedulerTests: XCTestCase {
         XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 1)), formatter.string(from: result))
 	}
     
+    func testDaily_inFuture_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.month, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .daily)
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 1)), formatter.string(from: result))
+    }
+    
     func testDaily_inPast() {
         let currentDate = Date()
         let taskDate = currentDate.adding(.hour, value: -3)
