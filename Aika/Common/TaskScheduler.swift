@@ -59,6 +59,7 @@ struct TaskScheduler {
         case .biweekly: return nextTime(for: time.adding(.day, value: 13))
         case .monthly: return nextTime(for: time.adding(.month, value: 1).adding(.day, value: -1))
         case .yearly: return nextTime(for: time.adding(.year, value: 1).adding(.day, value: -1))
+        case .byDay(let repeatEvery): return nextTime(for: time.adding(.day, value: Int(repeatEvery) - 1))
 		default: return Date()
 		}
 	}

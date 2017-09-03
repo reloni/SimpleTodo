@@ -156,4 +156,37 @@ class TaskSchedulerTests: XCTestCase {
         let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .yearly)!
         XCTAssertEqual(formatter.string(from: taskDate.adding(.year, value: 1)), formatter.string(from: result))
     }
+    
+    
+    
+    
+    
+    
+    func testByDay_inFuture() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .byDay(repeatEvery: 2))!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 2)), formatter.string(from: result))
+    }
+    
+    func testByDay_inFuture_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.month, value: 3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .byDay(repeatEvery: 55))!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 55)), formatter.string(from: result))
+    }
+    
+    func testByDay_inPast() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.hour, value: -3)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .byDay(repeatEvery: 10))!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 10)), formatter.string(from: result))
+    }
+    
+    func testByDay_inPast_2() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.day, value: 2)
+        let result = TaskScheduler.scheduleNext(from: taskDate, withPattern: .byDay(repeatEvery: 500))!
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.day, value: 500)), formatter.string(from: result))
+    }
 }
