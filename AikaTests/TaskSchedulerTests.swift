@@ -274,7 +274,7 @@ class TaskSchedulerTests: XCTestCase {
         let result = scheduler.scheduleNext(from: taskDate, withPattern: .byMonthDays(repeatEvery: 3, days: [1]))!
         print(taskDate)
         print(result)
-        XCTAssertEqual(formatter.string(from: taskDate.adding(.month, value: 3).adding(.day, value: 1)), formatter.string(from: result))
+        XCTAssertEqual(formatter.string(from: taskDate.adding(.month, value: 2).adding(.day, value: 1)), formatter.string(from: result))
     }
     
     func testByMonthDays_3() {

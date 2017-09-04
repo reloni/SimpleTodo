@@ -18,7 +18,6 @@ struct TaskScheduler {
 		case byDay(repeatEvery: UInt)
 		case byWeek(repeatEvery: UInt, weekDays: [DayOfWeek])
 		case byMonthDays(repeatEvery: UInt, days: [UInt])
-//		case byYearMonths(repeatEvery: UInt, months: [Month])
 	}
 	
     enum DayOfWeek: Int {
@@ -29,21 +28,6 @@ struct TaskScheduler {
 		case thursday = 5
 		case friday = 6
 		case saturday = 7
-	}
-	
-	enum Month {
-		case january
-		case february
-		case march
-		case april
-		case may
-		case june
-		case july
-		case august
-		case september
-		case october
-		case november
-		case december
 	}
 	
 	let currentDate: Date
@@ -141,7 +125,7 @@ struct TaskScheduler {
                                                 minute: components.minute,
                                                 second: components.second)
         
-        return calendar.nextDate(after: nextDayOfMonth != nil ? value : value.adding(.month, value: repeatEvery),
+        return calendar.nextDate(after: nextDayOfMonth != nil ? value : value.adding(.month, value: repeatEvery).beginningOfMonth(),
                                  matching: matchingComponents,
                                  matchingPolicy: .nextTimePreservingSmallerComponents,
                                  repeatedTimePolicy: .first,
