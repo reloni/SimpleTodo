@@ -272,8 +272,6 @@ class TaskSchedulerTests: XCTestCase {
         let scheduler = TaskScheduler(currentDate: currentDate)
         let taskDate = currentDate.adding(.hour, value: -3)
         let result = scheduler.scheduleNext(from: taskDate, withPattern: .byMonthDays(repeatEvery: 3, days: [1]))!
-        print(taskDate)
-        print(result)
         XCTAssertEqual(formatter.string(from: taskDate.adding(.month, value: 2).adding(.day, value: 1)), formatter.string(from: result))
     }
     
@@ -290,8 +288,6 @@ class TaskSchedulerTests: XCTestCase {
         let scheduler = TaskScheduler(currentDate: currentDate)
         let taskDate = currentDate.adding(.hour, value: 10)
         let result = scheduler.scheduleNext(from: taskDate, withPattern: .byMonthDays(repeatEvery: 3, days: [1, 2, 4, 8]))!
-        print(taskDate)
-        print(result)
         XCTAssertEqual(formatter.string(from: taskDate.adding(.month, value: 3).adding(.day, value: -9)), formatter.string(from: result))
     }
 }
