@@ -160,7 +160,14 @@ final class EditTaskController : UIViewController {
 		containerView.addSubview(notesWrapper)
 		notesWrapper.addSubview(notesStack)
 		
-		updateViewConstraints()
+		scrollView.snp.makeConstraints(scrollViewConstraints(make:))
+		containerView.snp.makeConstraints(containerViewConstraints(make:))
+		descriptionTextField.snp.makeConstraints(descriptionTextFieldConstraints(make:))
+		targetDateView.snp.makeConstraints(targetDateViewConstraints(make:))
+		targetDatePickerView.snp.makeConstraints(targetDatePickerViewConstraints(make:))
+		taskRepeatDescriptionView.snp.makeConstraints(taskRepeatDescriptionViewConstraints(make:))
+		notesWrapper.snp.makeConstraints(notesWrapperConstraints(make:))
+		notesStack.snp.makeConstraints(notesStackConstraints(make:))
 		
 		bind()
 	}
@@ -247,55 +254,5 @@ final class EditTaskController : UIViewController {
 	
 	func done() {
 		saveSubject.onNext()
-	}
-	
-	override func updateViewConstraints() {
-		super.updateViewConstraints()
-		
-		scrollView.snp.remakeConstraints { make in
-			make.edges.equalTo(view).inset(UIEdgeInsets.zero)
-		}
-		
-		containerView.snp.remakeConstraints { make in
-			make.edges.equalTo(scrollView).inset(UIEdgeInsets.zero)
-			make.width.equalTo(scrollView)
-		}
-		
-		descriptionTextField.snp.remakeConstraints { make in
-			make.top.equalTo(containerView.snp.topMargin).offset(25)
-			make.leading.equalTo(containerView.snp.leadingMargin)
-			make.trailing.equalTo(containerView.snp.trailingMargin)
-		}
-		
-		targetDateView.snp.remakeConstraints { make in
-			make.top.equalTo(descriptionTextField.snp.bottom).offset(25)
-			make.leading.equalTo(containerView.snp.leadingMargin)
-			make.trailing.equalTo(containerView.snp.trailingMargin)
-		}
-		
-		targetDatePickerView.snp.remakeConstraints { make in
-			make.top.equalTo(targetDateView.snp.bottom)
-			make.leading.equalTo(containerView.snp.leadingMargin)
-			make.trailing.equalTo(containerView.snp.trailingMargin)
-			datePickerHeightConstraint = make.height.equalTo(0).constraint
-		}
-		
-		taskRepeatDescriptionView.snp.remakeConstraints { make in
-			make.top.equalTo(targetDatePickerView.snp.bottom)
-			make.leading.equalTo(containerView.snp.leadingMargin)
-			make.trailing.equalTo(containerView.snp.trailingMargin)
-			taskRepeatDescriptionViewHeightConstraint = make.height.equalTo(0).constraint
-		}
-		
-		notesWrapper.snp.remakeConstraints { make in
-			make.top.equalTo(taskRepeatDescriptionView.snp.bottom).offset(25)
-			make.leading.equalTo(containerView.snp.leadingMargin)
-			make.trailing.equalTo(containerView.snp.trailingMargin)
-			make.bottom.equalTo(containerView.snp.bottomMargin)
-		}
-		
-		notesStack.snp.remakeConstraints {
-			$0.edges.equalTo(notesWrapper.snp.margins)
-		}
 	}
 }
