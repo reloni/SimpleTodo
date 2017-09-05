@@ -24,6 +24,7 @@ final class EditTaskController : UIViewController {
 	let bag = DisposeBag()
 	
 	var datePickerHeightConstraint: Constraint?
+	var taskRepeatDescriptionViewHeightConstraint: Constraint?
 	
 	let scrollView: UIScrollView = {
 		let scroll = UIScrollView()
@@ -194,6 +195,7 @@ final class EditTaskController : UIViewController {
 		state.map { $0.datePickerExpanded }.distinctUntilChanged().do(onNext: { [weak self] in self?.switchDatePickerExpandMode($0) }).subscribe().disposed(by: bag)
 		state.take(1).filter { $0.currentTask == nil }.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() }).subscribe().disposed(by: bag)
 		state.map { $0.description.characters.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
+		state.map { $0.targetDate != nil }.do(onNext: { [weak self] selected in self?.changeTaskRepeatDescriptionExpandMode(selected) }).subscribe().disposed(by: bag)
 		
 		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
 		
@@ -204,6 +206,21 @@ final class EditTaskController : UIViewController {
 	func targetDateTextFieldTapped(_ gesture: UITapGestureRecognizer) {
 		guard gesture.state == .ended else { return }
 		targetDateView.calendarButton.sendActions(for: .touchUpInside)
+	}
+	
+	func changeTaskRepeatDescriptionExpandMode(_ expand: Bool) {
+		guard let taskRepeatDescriptionViewHeightConstraint = taskRepeatDescriptionViewHeightConstraint else { return }
+		
+		switch !expand {
+		case true: taskRepeatDescriptionViewHeightConstraint.activate()
+		case false: taskRepeatDescriptionViewHeightConstraint.deactivate()
+		}
+		
+		UIView.animate(withDuration: 0.5,
+		               delay: 0.0,
+		               options: [.curveEaseOut],
+		               animations: { self.view.layoutIfNeeded() },
+		               completion: nil)
 	}
 	
 	func switchDatePickerExpandMode(_ expand: Bool) {
@@ -221,8 +238,8 @@ final class EditTaskController : UIViewController {
 		               delay: 0.0,
 		               options: [.curveEaseOut],
 		               animations: {
-										self.targetDatePickerView.alpha = self.datePickerHeightConstraint?.isActive ?? false ? 0 : 1
-										self.view.layoutIfNeeded()
+						self.targetDatePickerView.alpha = self.datePickerHeightConstraint?.isActive ?? false ? 0 : 1
+						self.view.layoutIfNeeded()
 		},
 		               completion: nil)
 	}
@@ -266,7 +283,7 @@ final class EditTaskController : UIViewController {
 			make.top.equalTo(targetDatePickerView.snp.bottom)
 			make.leading.equalTo(containerView.snp.leadingMargin)
 			make.trailing.equalTo(containerView.snp.trailingMargin)
-//			make.height.equalTo(0).constraint
+			taskRepeatDescriptionViewHeightConstraint = make.height.equalTo(0).constraint
 		}
 		
 		notesWrapper.snp.remakeConstraints { make in
