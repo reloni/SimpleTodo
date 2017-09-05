@@ -79,6 +79,14 @@ final class EditTaskController : UIViewController {
 		return picker
 	}()
 	
+	let taskRepeatDescriptionView: TaskRepeatDescriptionView = {
+		let view = TaskRepeatDescriptionView()
+		view.borderColor = Theme.Colors.romanSilver
+		view.borderWidth = 0.5
+		view.layoutMargins = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+		return view
+	}()
+	
 	let notesLabel: UILabel = {
 		let text = Theme.Controls.label(withStyle: .body)
 		text.text = "Task notes"
@@ -147,6 +155,7 @@ final class EditTaskController : UIViewController {
 		containerView.addSubview(descriptionTextField)
 		containerView.addSubview(targetDateView)
 		containerView.addSubview(targetDatePickerView)
+		containerView.addSubview(taskRepeatDescriptionView)
 		containerView.addSubview(notesWrapper)
 		notesWrapper.addSubview(notesStack)
 		
@@ -253,8 +262,15 @@ final class EditTaskController : UIViewController {
 			datePickerHeightConstraint = make.height.equalTo(0).constraint
 		}
 		
+		taskRepeatDescriptionView.snp.remakeConstraints { make in
+			make.top.equalTo(targetDatePickerView.snp.bottom)
+			make.leading.equalTo(containerView.snp.leadingMargin)
+			make.trailing.equalTo(containerView.snp.trailingMargin)
+//			make.height.equalTo(0).constraint
+		}
+		
 		notesWrapper.snp.remakeConstraints { make in
-			make.top.equalTo(targetDatePickerView.snp.bottom).offset(25)
+			make.top.equalTo(taskRepeatDescriptionView.snp.bottom).offset(25)
 			make.leading.equalTo(containerView.snp.leadingMargin)
 			make.trailing.equalTo(containerView.snp.trailingMargin)
 			make.bottom.equalTo(containerView.snp.bottomMargin)
