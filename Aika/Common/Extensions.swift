@@ -59,6 +59,21 @@ extension RxCompositeAction {
 	}
 }
 
+extension TaskScheduler.Pattern {
+	var description: String {
+		switch self {
+		case .daily: return "Every day"
+		case .weekly: return "Every week"
+		case .biweekly: return "Every two weeks"
+		case .monthly: return "Every month"
+		case .yearly: return "Every year"
+		case .byDay(let repeatEvery): return "Every \(repeatEvery) day(s)"
+		case let .byWeek(repeatEvery, weekDays): return "Every \(repeatEvery) week(s)"
+		case let .byMonthDays(repeatEvery, days): return "Every \(repeatEvery) month(s)"
+		}
+	}
+}
+
 extension Notification {
 	func keyboardHeight() -> CGFloat {
 		return (userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0

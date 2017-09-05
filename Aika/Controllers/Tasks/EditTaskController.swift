@@ -196,6 +196,7 @@ final class EditTaskController : UIViewController {
 		state.take(1).filter { $0.currentTask == nil }.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() }).subscribe().disposed(by: bag)
 		state.map { $0.description.characters.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
 		state.map { $0.targetDate != nil }.do(onNext: { [weak self] selected in self?.changeTaskRepeatDescriptionExpandMode(selected) }).subscribe().disposed(by: bag)
+		state.map { $0.repeatPattern?.description }.bind(to: taskRepeatDescriptionView.rightLabel.rx.text).disposed(by: bag)
 		
 		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
 		
