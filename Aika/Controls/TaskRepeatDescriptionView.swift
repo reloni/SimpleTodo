@@ -66,20 +66,20 @@ final class TaskRepeatDescriptionView: UIView {
 	}
 	
 	func makeLeftLabelConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(snp.topMargin)
+		maker.top.equalTo(snp.topMargin).priority(999)
 		maker.leading.equalTo(snp.leadingMargin)
 		maker.trailing.equalTo(rightLabel.snp.leading).offset(-10)
 		maker.bottom.equalTo(snp.bottomMargin)
 	}
 	
 	func makeRightLabelConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(snp.topMargin)
+		maker.top.equalTo(snp.topMargin).priority(999)
 		maker.bottom.equalTo(snp.bottomMargin)
 		maker.trailing.equalTo(arrowImage.snp.leading).offset(-5)
 	}
 	
 	func makeArrowImageConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(snp.topMargin)
+		maker.top.equalTo(snp.topMargin).priority(999)
 		maker.bottom.equalTo(snp.bottomMargin)
 		maker.trailing.equalTo(snp.trailingMargin)
 		maker.height.equalTo(arrowImage.snp.width)
