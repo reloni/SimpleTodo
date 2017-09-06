@@ -74,3 +74,22 @@ extension FrameworksSection: SectionModelType {
 		self.items = items
 	}
 }
+
+struct TaskRepeatModeSection {
+	let header: String
+	var items: [Item]
+}
+
+extension TaskRepeatModeSection: SectionModelType {
+	typealias Item = TaskRepeatModeSectionItem
+	
+	init(original: TaskRepeatModeSection, items: [TaskRepeatModeSectionItem]) {
+		self = original
+		self.items = items
+	}
+}
+
+struct TaskRepeatModeSectionItem {
+	let text: String
+	let isSelected: Bool
+}

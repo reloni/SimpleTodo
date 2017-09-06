@@ -61,7 +61,8 @@ final class EditTaskViewModel: ViewModelType {
 	               taskTargetDate: Observable<TaskDate?>,
 	               datePickerExpanded: Observable<Bool>,
 	               clearTargetDate: Observable<Void>,
-	               saveChanges: Observable<Void>) -> [Disposable] {
+	               saveChanges: Observable<Void>,
+	               editRepeatMode: Observable<Void>) -> [Disposable] {
 		let currentState = localStateSubject.asObservable().shareReplay(1)
 		return [
 			taskDescription.withLatestFrom(currentState) { return ($0.1, $0.0) }
@@ -89,6 +90,9 @@ final class EditTaskViewModel: ViewModelType {
 				.subscribe(),
 			saveChanges.withLatestFrom(currentState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak self] in self?.save(state: $0.0) })
+				.subscribe(),
+			editRepeatMode.withLatestFrom(currentState) { return ($0.1, $0.0) }
+				.do(onNext: { [weak self] in self?.editRepeatMode(currentMode: $0.0.repeatPattern) })
 				.subscribe()
 		]
 	}
@@ -120,5 +124,9 @@ final class EditTaskViewModel: ViewModelType {
 		}
 		
 		update(task: task, state: state).forEach { flowController.dispatch($0) }
+	}
+	
+	func editRepeatMode(currentMode: TaskScheduler.Pattern?) {
+		flowController.dispatch(UIAction.showTaskRepeatModeController(currentMode: currentMode))
 	}
 }

@@ -188,12 +188,15 @@ final class EditTaskController : UIViewController {
 		let datePickerExpanded = targetDateView.calendarButton.rx.tap
 			.withLatestFrom(state.map { !$0.datePickerExpanded })
 		
+		let editRepeatModeEvent = taskRepeatDescriptionView.rx.tapGesture().when(.recognized).flatMap { _ in Observable<Void>.just() }
+		
 		viewModel.subscribe(taskDescription: descriptionTextField.rx.didChange.map { [weak self] _ in return self?.descriptionTextField.text ?? "" }.distinctUntilChanged(),
 		                    taskNotes: notesTextField.rx.didChange.map { [weak self] _ in return self?.notesTextField.text }.distinctUntilChanged { $0.0 == $0.1 },
 		                    taskTargetDate: targetDatePickerView.currentDate.skip(1).distinctUntilChanged { $0.0 == $0.1 },
 		                    datePickerExpanded: datePickerExpanded,
 		                    clearTargetDate: targetDateView.clearButton.rx.tap.flatMap { Observable<Void>.just() },
-		                    saveChanges: saveSubject.asObservable())
+		                    saveChanges: saveSubject.asObservable(),
+		                    editRepeatMode: editRepeatModeEvent)
 				.forEach { bag.insert($0) }
 		
 		state.take(1).map { $0.description }.bind(to: descriptionTextField.rx.text).disposed(by: bag)
