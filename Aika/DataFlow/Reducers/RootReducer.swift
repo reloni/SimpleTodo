@@ -21,6 +21,7 @@ func rootReducer(_ action: RxActionType, currentState: AppState) -> Observable<R
 	case _ as SynchronizationAction: return synchronizationReducer(action, currentState: currentState)
 	case _ as SystemAction: return systemReducer(action, currentState: currentState)
 	case _ as UIAction: return currentState.coordinator.handle(action)
+	case _ as EditTaskAction: return .just({ $0 })
 	default: fatalError("Unknown action type")
 	}
 }

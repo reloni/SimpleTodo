@@ -65,6 +65,13 @@ enum SettingsAction : RxActionType {
 	case reloadTable
 }
 
+enum EditTaskAction: RxActionType {
+	var isSerial: Bool { return true }
+	var scheduler: ImmediateSchedulerType? { return nil }
+	
+	case setRepeatMode(TaskScheduler.Pattern?)
+}
+
 enum SynchronizationAction: RxActionType {
 	var isSerial: Bool { return true }
 	

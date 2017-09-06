@@ -78,7 +78,7 @@ final class TaskRepeatModeController: UIViewController {
 			cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 			
 			cell.tapped = {
-				self?.viewModel.setNew(mode: .biweekly)
+				self?.viewModel.setNew(mode: item.mode)
 			}
 			
 			return cell

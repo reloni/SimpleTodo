@@ -16,9 +16,9 @@ final class TaskRepeatModeViewModel: ViewModelType {
 	let title = "Title"
 	
 	lazy var sections: Observable<[TaskRepeatModeSection]> = {
-		let items = [TaskRepeatModeSectionItem(text: "Test 1", isSelected: false),
-		             TaskRepeatModeSectionItem(text: "Test 2", isSelected: true),
-		             TaskRepeatModeSectionItem(text: "Test 3", isSelected: false)]
+		let items = [TaskRepeatModeSectionItem(text: "Test 1", isSelected: false, mode: .daily),
+		             TaskRepeatModeSectionItem(text: "Test 2", isSelected: true, mode: .weekly),
+		             TaskRepeatModeSectionItem(text: "Test 3", isSelected: false, mode: .monthly)]
 		
 		return .just([TaskRepeatModeSection(header: "Header", items: items)])
 	}()
@@ -30,6 +30,7 @@ final class TaskRepeatModeViewModel: ViewModelType {
 	
 	func setNew(mode: TaskScheduler.Pattern) {
 		flowController.dispatch(UIAction.dismissTaskRepeatModeController)
+		flowController.dispatch(EditTaskAction.setRepeatMode(mode))
 	}
 }
 

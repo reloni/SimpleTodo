@@ -34,7 +34,7 @@ final class EditTaskViewModel: ViewModelType {
 	let flowController: RxDataFlowController<AppState>
 
 	let localStateSubject: BehaviorSubject<State>
-	var state: Observable<State> { return localStateSubject.asObservable() }
+	var state: Observable<State> { return localStateSubject.asObservable().observeOn(MainScheduler.instance) }
 	
 	init(task: Task?, flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController
@@ -64,6 +64,7 @@ final class EditTaskViewModel: ViewModelType {
 	               saveChanges: Observable<Void>,
 	               editRepeatMode: Observable<Void>) -> [Disposable] {
 		let currentState = localStateSubject.asObservable().shareReplay(1)
+		
 		return [
 			taskDescription.withLatestFrom(currentState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(description: $0.1.trimmingCharacters(in: .whitespacesAndNewlines))) })
@@ -93,7 +94,12 @@ final class EditTaskViewModel: ViewModelType {
 				.subscribe(),
 			editRepeatMode.withLatestFrom(currentState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak self] in self?.editRepeatMode(currentMode: $0.0.repeatPattern) })
-				.subscribe()
+				.subscribe(),
+			flowController.state.withLatestFrom(currentState) { return ($0.1, $0.0) }
+				.do(onNext: { [weak localStateSubject] event in
+					guard case EditTaskAction.setRepeatMode(let mode) = event.1.setBy else { return }
+					localStateSubject?.onNext(event.0.new(repeatPattern: mode))
+				}).subscribe()
 		]
 	}
 	
