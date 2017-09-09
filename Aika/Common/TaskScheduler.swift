@@ -8,6 +8,7 @@
 
 import Foundation
 import Wrap
+import Unbox
 
 struct TaskScheduler {
 	enum Pattern {
@@ -152,6 +153,34 @@ extension TaskScheduler.Pattern: Equatable {
 	}
 }
 
+extension TaskScheduler.Pattern {
+	static func parse(fromJson string: String) -> TaskScheduler.Pattern? {
+		guard let data = string.data(using: .utf8) else { return nil }
+		guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
+		guard let dictionary = json as? [String : Any] else { return nil }
+		
+		switch dictionary["type"] as? String {
+		case let type where type == "daily": return .daily
+		case let type where type == "weekly": return .weekly
+		case let type where type == "biweekly": return .biweekly
+		case let type where type == "monthly": return .monthly
+		case let type where type == "yearly": return .yearly
+		case let type where type == "byDay":
+			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
+			return .byDay(repeatEvery: repeatEvery)
+		case let type where type == "byWeek":
+			guard let weekDays = (dictionary["weekDays"] as? [Int])?.flatMap({ TaskScheduler.DayOfWeek.init(rawValue: $0) }), weekDays.count > 0 else { return nil }
+			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
+			return .byWeek(repeatEvery: repeatEvery, weekDays: weekDays)
+		case let type where type == "byMonthDays":
+			guard let days = (dictionary["days"] as? [UInt])?.filter({ 0...31 ~= $0 }).distinct().sorted(), days.count > 0 else { return nil }
+			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
+			return .byMonthDays(repeatEvery: repeatEvery, days: days)
+		default: return nil
+		}
+	}
+}
+
 extension TaskScheduler.Pattern: WrapCustomizable {
     func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
         var dict = [String: Any]()
@@ -176,4 +205,3 @@ extension TaskScheduler.Pattern: WrapCustomizable {
         return dict
     }
 }
-

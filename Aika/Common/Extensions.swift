@@ -405,3 +405,19 @@ extension UIViewController {
 		return alert
 	}
 }
+
+extension Array where Element : Hashable {
+	func distinct() -> [Element] {
+		return Set(self).map { $0 }
+	}
+}
+
+extension Dictionary where Key == String, Value == Any {
+	func toJsonString() throws -> String? {
+		return String(data: try JSONSerialization.data(withJSONObject: self, options: []), encoding: .utf8)
+	}
+	
+	func toUint(_ key: String) -> UInt? {
+		return UInt(exactly: self[key] as? Int ?? -1)
+	}
+}
