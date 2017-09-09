@@ -19,7 +19,7 @@ final class EditTaskViewModel: ViewModelType {
 		let currentTask: Task?
 		let repeatPattern: TaskScheduler.Pattern?
 		
-		func new(description: String? = nil, notes: String? = nil, targetDate: TaskDate?? = nil, datePickerExpanded: Bool? = nil, repeatPattern: TaskScheduler.Pattern? = nil) -> State {
+		func new(description: String? = nil, notes: String? = nil, targetDate: TaskDate?? = nil, datePickerExpanded: Bool? = nil, repeatPattern: TaskScheduler.Pattern?? = nil) -> State {
 			return State(description: description ?? self.description,
 			             notes: notes ?? self.notes,
 			             targetDate: targetDate ?? self.targetDate,
@@ -44,7 +44,7 @@ final class EditTaskViewModel: ViewModelType {
 		                         targetDate: task?.targetDate, 
 		                         datePickerExpanded: false, 
 		                         currentTask: task,
-		                         repeatPattern: .byWeek(repeatEvery: 2, weekDays: [.sunday]))
+		                         repeatPattern: nil)
 		localStateSubject = BehaviorSubject(value: initialState)
 
 		title = {

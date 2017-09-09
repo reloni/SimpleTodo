@@ -13,12 +13,14 @@ final class TaskRepeatModeViewModel: ViewModelType {
 	let flowController: RxDataFlowController<AppState>
 	let currentMode: TaskScheduler.Pattern?
 	
-	let title = "Title"
+	let title = "Repeat"
 	
 	lazy var sections: Observable<[TaskRepeatModeSection]> = {
-		let items = [TaskRepeatModeSectionItem(text: "Test 1", isSelected: false, mode: .daily),
-		             TaskRepeatModeSectionItem(text: "Test 2", isSelected: true, mode: .weekly),
-		             TaskRepeatModeSectionItem(text: "Test 3", isSelected: false, mode: .monthly)]
+		let items = [TaskRepeatModeSectionItem(text: "Never", isSelected: self.currentMode == nil, mode: nil),
+		             TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.daily.description, isSelected: self.currentMode == .daily, mode: .daily),
+		             TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.weekly.description, isSelected: self.currentMode == .weekly, mode: .weekly),
+		             TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.monthly.description, isSelected: self.currentMode == .monthly, mode: .monthly),
+		             TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.yearly.description, isSelected: self.currentMode == .yearly, mode: .yearly)]
 		
 		return .just([TaskRepeatModeSection(header: "Header", items: items)])
 	}()
@@ -28,7 +30,7 @@ final class TaskRepeatModeViewModel: ViewModelType {
 		self.currentMode = currentMode
 	}
 	
-	func setNew(mode: TaskScheduler.Pattern) {
+	func setNew(mode: TaskScheduler.Pattern?) {
 		flowController.dispatch(UIAction.dismissTaskRepeatModeController)
 		flowController.dispatch(EditTaskAction.setRepeatMode(mode))
 	}

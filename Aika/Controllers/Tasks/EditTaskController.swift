@@ -55,7 +55,7 @@ final class EditTaskController : UIViewController {
 		
 		text.placeholderLabel.text = "Task description"
 		
-		text.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 15)
+		text.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 15)
 		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		return text
 	}()
@@ -74,7 +74,7 @@ final class EditTaskController : UIViewController {
 		picker.alpha = 0
 		picker.borderColor = Theme.Colors.romanSilver
 		picker.borderWidth = 0.5
-		picker.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		picker.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		picker.date = nil
 		
 		return picker
@@ -206,7 +206,7 @@ final class EditTaskController : UIViewController {
 		state.take(1).filter { $0.currentTask == nil }.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() }).subscribe().disposed(by: bag)
 		state.map { $0.description.characters.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
 		state.map { $0.targetDate != nil }.do(onNext: { [weak self] selected in self?.changeTaskRepeatDescriptionExpandMode(selected) }).subscribe().disposed(by: bag)
-		state.map { $0.repeatPattern?.description }.bind(to: taskRepeatDescriptionView.rightLabel.rx.text).disposed(by: bag)
+		state.map { $0.repeatPattern?.description ?? "" }.bind(to: taskRepeatDescriptionView.rightLabel.rx.text).disposed(by: bag)
 		
 		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
 		

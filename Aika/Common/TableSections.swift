@@ -92,5 +92,5 @@ extension TaskRepeatModeSection: SectionModelType {
 struct TaskRepeatModeSectionItem {
 	let text: String
 	let isSelected: Bool
-	let mode: TaskScheduler.Pattern
+	let mode: TaskScheduler.Pattern?
 }

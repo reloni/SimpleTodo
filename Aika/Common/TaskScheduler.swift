@@ -134,6 +134,24 @@ struct TaskScheduler {
     }
 }
 
+extension TaskScheduler.Pattern: Equatable {
+	public static func ==(lhs: TaskScheduler.Pattern, rhs: TaskScheduler.Pattern) -> Bool {
+		switch (lhs, rhs) {
+		case (TaskScheduler.Pattern.daily, TaskScheduler.Pattern.daily): return true
+		case (TaskScheduler.Pattern.weekly, TaskScheduler.Pattern.weekly): return true
+		case (TaskScheduler.Pattern.biweekly, TaskScheduler.Pattern.biweekly): return true
+		case (TaskScheduler.Pattern.monthly, TaskScheduler.Pattern.monthly): return true
+		case (TaskScheduler.Pattern.yearly, TaskScheduler.Pattern.yearly): return true
+		case (TaskScheduler.Pattern.byDay(let l), TaskScheduler.Pattern.byDay(let r)): return l == r
+		case (TaskScheduler.Pattern.byMonthDays(let lRepeat, let lDays), TaskScheduler.Pattern.byMonthDays(let rRepeat, let rDays)):
+			return lRepeat == rRepeat && lDays == rDays
+		case (TaskScheduler.Pattern.byWeek(let lRepeat, let lWeekDays), TaskScheduler.Pattern.byWeek(let rRepeat, let rWeekDays)):
+			return lRepeat == rRepeat && lWeekDays == rWeekDays
+		default: return false
+		}
+	}
+}
+
 extension TaskScheduler.Pattern: WrapCustomizable {
     func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
         var dict = [String: Any]()
