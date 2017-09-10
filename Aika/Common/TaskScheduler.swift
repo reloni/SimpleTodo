@@ -151,6 +151,21 @@ extension TaskScheduler.Pattern: Equatable {
 		default: return false
 		}
 	}
+	
+	func toJson() -> [String: Any] {
+		switch self {
+		case .daily: return ["type": "daily"]
+		case .weekly: return ["type": "weekly"]
+		case .biweekly: return ["type": "biweekly"]
+		case .monthly: return ["type": "monthly"]
+		case .yearly: return ["type": "yearly"]
+		case .byDay(let repeatEvery): return ["type": "byDay", "repeatEvery": "\(repeatEvery)"]
+		case let .byWeek(repeatEvery, weekDays):
+			return ["type": "byWeek", "repeatEvery": "\(repeatEvery)", "weekDays": weekDays.map { $0.rawValue }]
+		case let .byMonthDays(repeatEvery, days):
+			return ["type": "byMonthDays", "repeatEvery": "\(repeatEvery)", "days": days]
+		}
+	}
 }
 
 extension TaskScheduler.Pattern {
@@ -183,25 +198,6 @@ extension TaskScheduler.Pattern {
 
 extension TaskScheduler.Pattern: WrapCustomizable {
     func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-        var dict = [String: Any]()
-        
-        switch self {
-        case .daily: dict["type"] = "daily"
-        case .weekly: dict["type"] = "weekly"
-        case .biweekly: dict["type"] = "biweekly"
-        case .monthly: dict["type"] = "monthly"
-        case .yearly: dict["type"] = "yearly"
-        case .byDay(let repeatEvery): dict["type"] = "byDay"; dict["repeatEvery"] = "\(repeatEvery)"
-        case let .byWeek(repeatEvery, weekDays):
-            dict["type"] = "byWeek"
-            dict["repeatEvery"] = "\(repeatEvery)"
-            dict["weekDays"] = weekDays.map { $0.rawValue }
-        case let .byMonthDays(repeatEvery, days):
-            dict["type"] = "byMonthDays"
-            dict["repeatEvery"] = "\(repeatEvery)"
-            dict["days"] = days
-        }
-
-        return dict
+		return toJson()
     }
 }

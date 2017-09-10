@@ -16,6 +16,27 @@ enum ObjectSynchronizationStatus: String {
 	case deleted
 }
 
+class RealmTaskPrototype: Object {
+	dynamic var uuid: String = ""
+	dynamic var repeatPattern: String? = nil
+	
+	convenience init(from prototype: TaskPrototype) {
+		self.init()
+		
+		uuid = prototype.uuid.uuid.uuidString
+		repeatPattern = (try? prototype.repeatPattern?.toJson().toJsonString()) ?? nil
+	}
+	
+	func toStruct() -> TaskPrototype {
+		return TaskPrototype(uuid: UniqueIdentifier(identifierString: uuid)!,
+		                     repeatPattern: repeatPattern != nil ? TaskScheduler.Pattern.parse(fromJson: repeatPattern!) : nil)
+	}
+	
+	func update(with prototype: TaskPrototype) {
+		repeatPattern = (try? prototype.repeatPattern?.toJson().toJsonString()) ?? nil
+	}
+}
+
 class RealmTask: Object {
 	dynamic var uuid: String = ""
 	dynamic var completed: Bool = false
@@ -24,6 +45,7 @@ class RealmTask: Object {
 	dynamic var targetDate: Date? = nil
 	dynamic var targetDateIncludeTime: Bool = false
 	dynamic var _synchronizationStatus: String = ObjectSynchronizationStatus.created.rawValue
+	dynamic var prototype: RealmTaskPrototype!
 	
 	convenience init(from task: Task) {
 		self.init()
@@ -34,6 +56,7 @@ class RealmTask: Object {
 		targetDate = task.targetDate?.date
 		targetDateIncludeTime = task.targetDate?.includeTime ?? false
 		taskDescription = task.description
+		prototype = RealmTaskPrototype(from: task.prototype)
 	}
 	
 	var synchronizationStatus: ObjectSynchronizationStatus {
@@ -70,7 +93,8 @@ class RealmTask: Object {
 		                                   completed: completed,
 		                                   description: taskDescription,
 		                                   notes: notes,
-		                                   targetDate: taskDate)
+		                                   targetDate: taskDate,
+		                                   prototype: prototype.toStruct())
 	}
 	
 	func update(with task: Task) {
@@ -79,6 +103,7 @@ class RealmTask: Object {
 		targetDate = task.targetDate?.date
 		targetDateIncludeTime = task.targetDate?.includeTime ?? false
 		taskDescription = task.description
+		prototype.update(with: task.prototype)
 	}
 }
 

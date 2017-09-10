@@ -44,7 +44,7 @@ final class EditTaskViewModel: ViewModelType {
 		                         targetDate: task?.targetDate, 
 		                         datePickerExpanded: false, 
 		                         currentTask: task,
-		                         repeatPattern: nil)
+		                         repeatPattern: task?.prototype.repeatPattern)
 		localStateSubject = BehaviorSubject(value: initialState)
 
 		title = {
@@ -73,7 +73,13 @@ final class EditTaskViewModel: ViewModelType {
 				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(notes: $0.1)) })
 				.subscribe(),
 			taskTargetDate.withLatestFrom(currentState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(targetDate: $0.1)) })
+				.do(onNext: { [weak localStateSubject] in
+					if $0.1 == nil {
+						localStateSubject?.onNext($0.0.new(targetDate: $0.1, repeatPattern: Optional<TaskScheduler.Pattern?>.some(.none)))
+					} else {
+						localStateSubject?.onNext($0.0.new(targetDate: $0.1))
+					}
+				})
 				.subscribe(),
 			datePickerExpanded.withLatestFrom(currentState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in
@@ -103,21 +109,27 @@ final class EditTaskViewModel: ViewModelType {
 		]
 	}
 	
+	func newTask(fromTask task: Task?, state: State) -> Task {
+		return Task(uuid: task?.uuid ?? UniqueIdentifier(),
+		            completed: false,
+		            description: state.description,
+		            notes: state.notes,
+		            targetDate: state.targetDate,
+					prototype: TaskPrototype(uuid: task?.prototype.uuid ?? UniqueIdentifier(), repeatPattern: state.repeatPattern))
+	}
+	
 	private func createTask(state: State) -> [RxActionType] {
+		let new = newTask(fromTask: nil, state: state)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-		                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
-		                                                                            completed: false,
-		                                                                            description: state.description,
-		                                                                            notes: state.notes,
-		                                                                            targetDate: state.targetDate))])
+		                                         SynchronizationAction.addTask(new)])
 		
 		return [action, RxCompositeAction.synchronizationAction]
 	}
 	
 	private func update(task: Task, state: State) -> [RxActionType] {
-		let newTask = Task(uuid: task.uuid, completed: false, description: state.description, notes: state.notes, targetDate: state.targetDate)
+		let new = newTask(fromTask: task, state: state)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-		                                         SynchronizationAction.updateTask(newTask)])
+		                                         SynchronizationAction.updateTask(new)])
 		
 		return [action, RxCompositeAction.synchronizationAction]
 	}

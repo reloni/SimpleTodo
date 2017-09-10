@@ -17,6 +17,7 @@ struct Task {
 	let description: String
 	let notes: String?
 	let targetDate: TaskDate?
+	let prototype: TaskPrototype
 	
 	// this field here for checking equality and to force UITableView to refresh
 	// when app opens on next day (when relative dates like "today" should be changed)
@@ -66,6 +67,28 @@ struct TaskPrototype {
 	let repeatPattern: TaskScheduler.Pattern?
 }
 
+extension TaskPrototype: Unboxable {
+	init(unboxer: Unboxer) throws {
+		self.uuid = try unboxer.unbox(key: "uuid")
+		if let cronExpression: String = unboxer.unbox(key: "cronExpression") {
+			self.repeatPattern = TaskScheduler.Pattern.parse(fromJson: cronExpression)
+		} else {
+			self.repeatPattern = nil
+		}
+	}
+}
+
+extension TaskPrototype : WrapCustomizable {
+	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
+		var dict = [String: Any]()
+		
+		dict["uuid"] = uuid.uuid.uuidString
+		dict["cronExpression"] = (try? repeatPattern?.toJson().toJsonString() ?? "") ?? ""
+		
+		return dict
+	}
+}
+
 extension TaskDate : Equatable {
 	public static func ==(lhs: TaskDate, rhs: TaskDate) -> Bool {
 		return lhs.date == rhs.date
@@ -101,6 +124,7 @@ extension Task: Unboxable {
 		} else {
 			targetDate = nil
 		}
+		self.prototype = try unboxer.unbox(key: "prototype")
 	}
 }
 
@@ -114,6 +138,7 @@ extension Task : WrapCustomizable {
 		dict["notes"] = notes ?? ""
 		dict["targetDate"] = targetDate?.date.toServerDateString() ?? NSNull()
 		dict["targetDateIncludeTime"] = targetDate?.includeTime ?? NSNull()
+		dict["prototype"] = prototype.wrap(context: context, dateFormatter: dateFormatter)
 		
 		return dict
 	}
