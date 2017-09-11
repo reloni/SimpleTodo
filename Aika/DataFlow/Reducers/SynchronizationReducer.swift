@@ -64,7 +64,7 @@ fileprivate func updateConfiguration(currentState state: AppState) -> Observable
 		return .just( { $0.mutation.new(syncService: newSyncService) } )
 	}
 
-	let newConfig = Realm.Configuration(withFileName: info.uid)//AppConstants.realmConfiguration(withFileName: info.uid)
+	let newConfig = Realm.Configuration(withFileName: info.uid)
 	
 	let newSyncService = SynchronizationService(webService: state.syncService.webService,
 	                                            repository: state.syncService.repository.withNew(realmConfiguration: newConfig))
