@@ -8,6 +8,7 @@
 
 import Foundation
 import Wrap
+import Unbox
 
 struct TaskScheduler {
 	enum Pattern {
@@ -134,28 +135,69 @@ struct TaskScheduler {
     }
 }
 
-extension TaskScheduler.Pattern: WrapCustomizable {
-    func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-        var dict = [String: Any]()
-        
-        switch self {
-        case .daily: dict["type"] = "daily"
-        case .weekly: dict["type"] = "weekly"
-        case .biweekly: dict["type"] = "biweekly"
-        case .monthly: dict["type"] = "monthly"
-        case .yearly: dict["type"] = "yearly"
-        case .byDay(let repeatEvery): dict["type"] = "byDay"; dict["repeatEvery"] = "\(repeatEvery)"
-        case let .byWeek(repeatEvery, weekDays):
-            dict["type"] = "byWeek"
-            dict["repeatEvery"] = "\(repeatEvery)"
-            dict["weekDays"] = weekDays.map { $0.rawValue }
-        case let .byMonthDays(repeatEvery, days):
-            dict["type"] = "byMonthDays"
-            dict["repeatEvery"] = "\(repeatEvery)"
-            dict["days"] = days
-        }
-
-        return dict
-    }
+extension TaskScheduler.Pattern: Equatable {
+	public static func ==(lhs: TaskScheduler.Pattern, rhs: TaskScheduler.Pattern) -> Bool {
+		switch (lhs, rhs) {
+		case (TaskScheduler.Pattern.daily, TaskScheduler.Pattern.daily): return true
+		case (TaskScheduler.Pattern.weekly, TaskScheduler.Pattern.weekly): return true
+		case (TaskScheduler.Pattern.biweekly, TaskScheduler.Pattern.biweekly): return true
+		case (TaskScheduler.Pattern.monthly, TaskScheduler.Pattern.monthly): return true
+		case (TaskScheduler.Pattern.yearly, TaskScheduler.Pattern.yearly): return true
+		case (TaskScheduler.Pattern.byDay(let l), TaskScheduler.Pattern.byDay(let r)): return l == r
+		case (TaskScheduler.Pattern.byMonthDays(let lRepeat, let lDays), TaskScheduler.Pattern.byMonthDays(let rRepeat, let rDays)):
+			return lRepeat == rRepeat && lDays == rDays
+		case (TaskScheduler.Pattern.byWeek(let lRepeat, let lWeekDays), TaskScheduler.Pattern.byWeek(let rRepeat, let rWeekDays)):
+			return lRepeat == rRepeat && lWeekDays == rWeekDays
+		default: return false
+		}
+	}
+	
+	func toJson() -> [String: Any] {
+		switch self {
+		case .daily: return ["type": "daily"]
+		case .weekly: return ["type": "weekly"]
+		case .biweekly: return ["type": "biweekly"]
+		case .monthly: return ["type": "monthly"]
+		case .yearly: return ["type": "yearly"]
+		case .byDay(let repeatEvery): return ["type": "byDay", "repeatEvery": "\(repeatEvery)"]
+		case let .byWeek(repeatEvery, weekDays):
+			return ["type": "byWeek", "repeatEvery": "\(repeatEvery)", "weekDays": weekDays.map { $0.rawValue }]
+		case let .byMonthDays(repeatEvery, days):
+			return ["type": "byMonthDays", "repeatEvery": "\(repeatEvery)", "days": days]
+		}
+	}
 }
 
+extension TaskScheduler.Pattern {
+	static func parse(fromJson string: String) -> TaskScheduler.Pattern? {
+		guard let data = string.data(using: .utf8) else { return nil }
+		guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
+		guard let dictionary = json as? [String : Any] else { return nil }
+		
+		switch dictionary["type"] as? String {
+		case let type where type == "daily": return .daily
+		case let type where type == "weekly": return .weekly
+		case let type where type == "biweekly": return .biweekly
+		case let type where type == "monthly": return .monthly
+		case let type where type == "yearly": return .yearly
+		case let type where type == "byDay":
+			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
+			return .byDay(repeatEvery: repeatEvery)
+		case let type where type == "byWeek":
+			guard let weekDays = (dictionary["weekDays"] as? [Int])?.flatMap({ TaskScheduler.DayOfWeek.init(rawValue: $0) }), weekDays.count > 0 else { return nil }
+			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
+			return .byWeek(repeatEvery: repeatEvery, weekDays: weekDays)
+		case let type where type == "byMonthDays":
+			guard let days = (dictionary["days"] as? [UInt])?.filter({ 0...31 ~= $0 }).distinct().sorted(), days.count > 0 else { return nil }
+			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
+			return .byMonthDays(repeatEvery: repeatEvery, days: days)
+		default: return nil
+		}
+	}
+}
+
+extension TaskScheduler.Pattern: WrapCustomizable {
+    func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
+		return toJson()
+    }
+}

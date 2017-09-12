@@ -59,6 +59,21 @@ extension RxCompositeAction {
 	}
 }
 
+extension TaskScheduler.Pattern {
+	var description: String {
+		switch self {
+		case .daily: return "Every day"
+		case .weekly: return "Every week"
+		case .biweekly: return "Every two weeks"
+		case .monthly: return "Every month"
+		case .yearly: return "Every year"
+		case .byDay(let repeatEvery): return "Every \(repeatEvery) day(s)"
+		case let .byWeek(repeatEvery, weekDays): return "Every \(repeatEvery) week(s)"
+		case let .byMonthDays(repeatEvery, days): return "Every \(repeatEvery) month(s)"
+		}
+	}
+}
+
 extension Notification {
 	func keyboardHeight() -> CGFloat {
 		return (userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
@@ -388,5 +403,21 @@ extension UIViewController {
 		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		actions.forEach { alert.addAction($0) }
 		return alert
+	}
+}
+
+extension Array where Element : Hashable {
+	func distinct() -> [Element] {
+		return Set(self).map { $0 }
+	}
+}
+
+extension Dictionary where Key == String, Value == Any {
+	func toJsonString() throws -> String? {
+		return String(data: try JSONSerialization.data(withJSONObject: self, options: []), encoding: .utf8)
+	}
+	
+	func toUint(_ key: String) -> UInt? {
+		return UInt(exactly: self[key] as? Int ?? -1)
 	}
 }
