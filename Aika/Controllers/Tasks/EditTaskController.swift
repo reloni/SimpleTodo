@@ -24,6 +24,7 @@ final class EditTaskController : UIViewController {
 	let bag = DisposeBag()
 	
 	var datePickerHeightConstraint: Constraint?
+	var taskRepeatDescriptionViewHeightConstraint: Constraint?
 	
 	let scrollView: UIScrollView = {
 		let scroll = UIScrollView()
@@ -54,7 +55,7 @@ final class EditTaskController : UIViewController {
 		
 		text.placeholderLabel.text = "Task description"
 		
-		text.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 15)
+		text.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 15)
 		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		return text
 	}()
@@ -73,10 +74,18 @@ final class EditTaskController : UIViewController {
 		picker.alpha = 0
 		picker.borderColor = Theme.Colors.romanSilver
 		picker.borderWidth = 0.5
-		picker.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		picker.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		picker.date = nil
 		
 		return picker
+	}()
+	
+	let taskRepeatDescriptionView: TaskRepeatDescriptionView = {
+		let view = TaskRepeatDescriptionView()
+		view.borderColor = Theme.Colors.romanSilver
+		view.borderWidth = 0.5
+		view.layoutMargins = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+		return view
 	}()
 	
 	let notesLabel: UILabel = {
@@ -147,10 +156,18 @@ final class EditTaskController : UIViewController {
 		containerView.addSubview(descriptionTextField)
 		containerView.addSubview(targetDateView)
 		containerView.addSubview(targetDatePickerView)
+		containerView.addSubview(taskRepeatDescriptionView)
 		containerView.addSubview(notesWrapper)
 		notesWrapper.addSubview(notesStack)
 		
-		updateViewConstraints()
+		scrollView.snp.makeConstraints(scrollViewConstraints(make:))
+		containerView.snp.makeConstraints(containerViewConstraints(make:))
+		descriptionTextField.snp.makeConstraints(descriptionTextFieldConstraints(make:))
+		targetDateView.snp.makeConstraints(targetDateViewConstraints(make:))
+		targetDatePickerView.snp.makeConstraints(targetDatePickerViewConstraints(make:))
+		taskRepeatDescriptionView.snp.makeConstraints(taskRepeatDescriptionViewConstraints(make:))
+		notesWrapper.snp.makeConstraints(notesWrapperConstraints(make:))
+		notesStack.snp.makeConstraints(notesStackConstraints(make:))
 		
 		bind()
 	}
@@ -171,12 +188,15 @@ final class EditTaskController : UIViewController {
 		let datePickerExpanded = targetDateView.calendarButton.rx.tap
 			.withLatestFrom(state.map { !$0.datePickerExpanded })
 		
+		let editRepeatModeEvent = taskRepeatDescriptionView.rx.tapGesture().when(.recognized).flatMap { _ in Observable<Void>.just() }
+		
 		viewModel.subscribe(taskDescription: descriptionTextField.rx.didChange.map { [weak self] _ in return self?.descriptionTextField.text ?? "" }.distinctUntilChanged(),
 		                    taskNotes: notesTextField.rx.didChange.map { [weak self] _ in return self?.notesTextField.text }.distinctUntilChanged { $0.0 == $0.1 },
 		                    taskTargetDate: targetDatePickerView.currentDate.skip(1).distinctUntilChanged { $0.0 == $0.1 },
 		                    datePickerExpanded: datePickerExpanded,
 		                    clearTargetDate: targetDateView.clearButton.rx.tap.flatMap { Observable<Void>.just() },
-		                    saveChanges: saveSubject.asObservable())
+		                    saveChanges: saveSubject.asObservable(),
+		                    editRepeatMode: editRepeatModeEvent)
 				.forEach { bag.insert($0) }
 		
 		state.take(1).map { $0.description }.bind(to: descriptionTextField.rx.text).disposed(by: bag)
@@ -185,6 +205,8 @@ final class EditTaskController : UIViewController {
 		state.map { $0.datePickerExpanded }.distinctUntilChanged().do(onNext: { [weak self] in self?.switchDatePickerExpandMode($0) }).subscribe().disposed(by: bag)
 		state.take(1).filter { $0.currentTask == nil }.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() }).subscribe().disposed(by: bag)
 		state.map { $0.description.characters.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
+		state.map { $0.targetDate != nil }.do(onNext: { [weak self] selected in self?.changeTaskRepeatDescriptionExpandMode(selected) }).subscribe().disposed(by: bag)
+		state.map { $0.repeatPattern?.description ?? "" }.bind(to: taskRepeatDescriptionView.rightLabel.rx.text).disposed(by: bag)
 		
 		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
 		
@@ -195,6 +217,21 @@ final class EditTaskController : UIViewController {
 	func targetDateTextFieldTapped(_ gesture: UITapGestureRecognizer) {
 		guard gesture.state == .ended else { return }
 		targetDateView.calendarButton.sendActions(for: .touchUpInside)
+	}
+	
+	func changeTaskRepeatDescriptionExpandMode(_ expand: Bool) {
+		guard let taskRepeatDescriptionViewHeightConstraint = taskRepeatDescriptionViewHeightConstraint else { return }
+		
+		switch !expand {
+		case true: taskRepeatDescriptionViewHeightConstraint.activate()
+		case false: taskRepeatDescriptionViewHeightConstraint.deactivate()
+		}
+		
+		UIView.animate(withDuration: 0.5,
+		               delay: 0.0,
+		               options: [.curveEaseOut],
+		               animations: { self.view.layoutIfNeeded() },
+		               completion: nil)
 	}
 	
 	func switchDatePickerExpandMode(_ expand: Bool) {
@@ -212,56 +249,13 @@ final class EditTaskController : UIViewController {
 		               delay: 0.0,
 		               options: [.curveEaseOut],
 		               animations: {
-										self.targetDatePickerView.alpha = self.datePickerHeightConstraint?.isActive ?? false ? 0 : 1
-										self.view.layoutIfNeeded()
+						self.targetDatePickerView.alpha = self.datePickerHeightConstraint?.isActive ?? false ? 0 : 1
+						self.view.layoutIfNeeded()
 		},
 		               completion: nil)
 	}
 	
 	func done() {
 		saveSubject.onNext()
-	}
-	
-	override func updateViewConstraints() {
-		super.updateViewConstraints()
-		
-		scrollView.snp.remakeConstraints { make in
-			make.edges.equalTo(view).inset(UIEdgeInsets.zero)
-		}
-		
-		containerView.snp.remakeConstraints { make in
-			make.edges.equalTo(scrollView).inset(UIEdgeInsets.zero)
-			make.width.equalTo(scrollView)
-		}
-		
-		descriptionTextField.snp.remakeConstraints { make in
-			make.top.equalTo(containerView.snp.topMargin).offset(25)
-			make.leading.equalTo(containerView.snp.leadingMargin)
-			make.trailing.equalTo(containerView.snp.trailingMargin)
-		}
-		
-		targetDateView.snp.remakeConstraints { make in
-			make.top.equalTo(descriptionTextField.snp.bottom).offset(25)
-			make.leading.equalTo(containerView.snp.leadingMargin)
-			make.trailing.equalTo(containerView.snp.trailingMargin)
-		}
-		
-		targetDatePickerView.snp.remakeConstraints { make in
-			make.top.equalTo(targetDateView.snp.bottom)
-			make.leading.equalTo(containerView.snp.leadingMargin)
-			make.trailing.equalTo(containerView.snp.trailingMargin)
-			datePickerHeightConstraint = make.height.equalTo(0).constraint
-		}
-		
-		notesWrapper.snp.remakeConstraints { make in
-			make.top.equalTo(targetDatePickerView.snp.bottom).offset(25)
-			make.leading.equalTo(containerView.snp.leadingMargin)
-			make.trailing.equalTo(containerView.snp.trailingMargin)
-			make.bottom.equalTo(containerView.snp.bottomMargin)
-		}
-		
-		notesStack.snp.remakeConstraints {
-			$0.edges.equalTo(notesWrapper.snp.margins)
-		}
 	}
 }

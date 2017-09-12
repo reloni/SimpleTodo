@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E0492291F5F0CD800E7C7D2 /* TaskRepeatDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0492281F5F0CD800E7C7D2 /* TaskRepeatDescriptionView.swift */; };
+		6E04922B1F5F18E100E7C7D2 /* TaskRepeatModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E04922A1F5F18E100E7C7D2 /* TaskRepeatModeController.swift */; };
+		6E04922D1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E04922C1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift */; };
+		6E04922F1F5F269800E7C7D2 /* EditTaskController+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E04922E1F5F269800E7C7D2 /* EditTaskController+Constraints.swift */; };
 		6E05D0041E881F0B00C293B8 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E05D0031E881F0B00C293B8 /* WebService.swift */; };
 		6E0645581E990D1500A8AA59 /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0645571E990D1500A8AA59 /* TextViewCell.swift */; };
 		6E06455A1E993EB600A8AA59 /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0645591E993EB600A8AA59 /* SwitchView.swift */; };
@@ -14,13 +18,14 @@
 		6E07B8951EBDB9A700ADA5A8 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */; };
 		6E07B8971EBDBC9800ADA5A8 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */; };
 		6E07ED2C1EC3636A00154DF4 /* SynchronizationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */; };
+		6E0D5C101F6592FB002AF563 /* RealmMigrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0D5C0F1F6592FB002AF563 /* RealmMigrations.swift */; };
 		6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */; };
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
-		6E15D0311DF0A45A00B4CCA7 /* SimpleToDoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */; };
-		6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
+		6E19E3A11F5C166D00FDE207 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A01F5C166D00FDE207 /* main.swift */; };
+		6E19E3A41F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */; };
 		6E2BAE911ECE28170030C2C0 /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */; };
 		6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A751EB4CD9500EC932F /* SettingsController.swift */; };
 		6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */; };
@@ -65,7 +70,30 @@
 		6EAF1B3C1EB5297C00C72BF5 /* SlidePresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAF1B3B1EB5297C00C72BF5 /* SlidePresentAnimationController.swift */; };
 		6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB04F231EEE85F30023619A /* SimpleKeychain.framework */; };
 		6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB36A791E1ED9CA006B5239 /* TaskCell.swift */; };
+		6EB66DFC1F64567F00C3DF76 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB66DFB1F64567F00C3DF76 /* Task.swift */; };
+		6EBC6A501F59104C0041456A /* TaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */; };
+		6EBC6A551F5920770041456A /* TaskSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBC6A541F5920770041456A /* TaskSchedulerTests.swift */; };
+		6EBC6A6B1F5924DF0041456A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E97DD1E1EF674F600542768 /* MessageUI.framework */; };
+		6EBC6A6C1F5924ED0041456A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5BA8AA1EEEF40F00B61645 /* Fabric.framework */; };
+		6EBC6A6D1F5924ED0041456A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5BA8A91EEEF40F00B61645 /* Crashlytics.framework */; };
+		6EBC6A6E1F59250C0041456A /* Auth0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E07B8921EBDB4D900ADA5A8 /* Auth0.framework */; };
+		6EBC6A6F1F59250C0041456A /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E494D891EBDD13100280F5F /* JWTDecode.framework */; };
+		6EBC6A701F59250C0041456A /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
+		6EBC6A711F59250C0041456A /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
+		6EBC6A721F59250C0041456A /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47C1EC1C9F4005BA709 /* Realm.framework */; };
+		6EBC6A731F59250C0041456A /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */; };
+		6EBC6A751F59250C0041456A /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
+		6EBC6A761F59250C0041456A /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
+		6EBC6A771F59250C0041456A /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
+		6EBC6A781F59250C0041456A /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
+		6EBC6A791F59250C0041456A /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
+		6EBC6A7A1F59250C0041456A /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
+		6EBC6A7C1F59250C0041456A /* SimpleKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB04F231EEE85F30023619A /* SimpleKeychain.framework */; };
+		6EBC6A7D1F59250C0041456A /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
+		6EBC6A7E1F59250C0041456A /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
+		6EBC6A7F1F59250C0041456A /* Wrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE91CAB1E1959430025A4BD /* Wrap.framework */; };
 		6EBD408D1E60ABF700661CA6 /* AuthenticationCoordinators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBD408C1E60ABF700661CA6 /* AuthenticationCoordinators.swift */; };
+		6EBD4A951F5A8B2300CCE0A1 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBD4A941F5A8B2300CCE0A1 /* Extension.swift */; };
 		6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */; };
 		6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */; };
 		6ED0A20A1E79835E00B59B52 /* EditTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED0A2091E79835E00B59B52 /* EditTaskViewModel.swift */; };
@@ -84,13 +112,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		6E15D02D1DF0A45A00B4CCA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6E15D0101DF0A45900B4CCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6E15D0171DF0A45900B4CCA7;
-			remoteInfo = SimpleToDo;
-		};
-		6E15D0381DF0A45A00B4CCA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6E15D0101DF0A45900B4CCA7 /* Project object */;
 			proxyType = 1;
@@ -121,6 +142,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6E0492281F5F0CD800E7C7D2 /* TaskRepeatDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskRepeatDescriptionView.swift; sourceTree = "<group>"; };
+		6E04922A1F5F18E100E7C7D2 /* TaskRepeatModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskRepeatModeController.swift; sourceTree = "<group>"; };
+		6E04922C1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskRepeatModeViewModel.swift; sourceTree = "<group>"; };
+		6E04922E1F5F269800E7C7D2 /* EditTaskController+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditTaskController+Constraints.swift"; sourceTree = "<group>"; };
 		6E05D0031E881F0B00C293B8 /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		6E0645571E990D1500A8AA59 /* TextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		6E0645591E993EB600A8AA59 /* SwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchView.swift; sourceTree = "<group>"; };
@@ -128,6 +153,7 @@
 		6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationReducer.swift; sourceTree = "<group>"; };
+		6E0D5C0F1F6592FB002AF563 /* RealmMigrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmMigrations.swift; sourceTree = "<group>"; };
 		6E14E5E51EE321A90021DE02 /* Aika.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Aika.entitlements; sourceTree = "<group>"; };
 		6E15D0181DF0A45A00B4CCA7 /* Aika.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aika.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,13 +161,12 @@
 		6E15D0251DF0A45A00B4CCA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6E15D0271DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoTests.swift; sourceTree = "<group>"; };
 		6E15D0321DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AikaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDoUITests.swift; sourceTree = "<group>"; };
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		6E16914B1E61F63A004EE586 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
+		6E19E3A01F5C166D00FDE207 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSchedulerSerializationTests.swift; sourceTree = "<group>"; };
 		6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemReducer.swift; sourceTree = "<group>"; };
 		6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
 		6E3B8A751EB4CD9500EC932F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
@@ -213,7 +238,11 @@
 		6EAF1B3B1EB5297C00C72BF5 /* SlidePresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidePresentAnimationController.swift; sourceTree = "<group>"; };
 		6EB04F231EEE85F30023619A /* SimpleKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleKeychain.framework; path = Carthage/Build/iOS/SimpleKeychain.framework; sourceTree = "<group>"; };
 		6EB36A791E1ED9CA006B5239 /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		6EB66DFB1F64567F00C3DF76 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduler.swift; sourceTree = "<group>"; };
+		6EBC6A541F5920770041456A /* TaskSchedulerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSchedulerTests.swift; sourceTree = "<group>"; };
 		6EBD408C1E60ABF700661CA6 /* AuthenticationCoordinators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinators.swift; sourceTree = "<group>"; };
+		6EBD4A941F5A8B2300CCE0A1 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetDateView.swift; sourceTree = "<group>"; };
 		6ED0A2091E79835E00B59B52 /* EditTaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskViewModel.swift; sourceTree = "<group>"; };
@@ -265,13 +294,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6E15D0341DF0A45A00B4CCA7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				6EBC6A6E1F59250C0041456A /* Auth0.framework in Frameworks */,
+				6EBC6A6F1F59250C0041456A /* JWTDecode.framework in Frameworks */,
+				6EBC6A701F59250C0041456A /* Material.framework in Frameworks */,
+				6EBC6A711F59250C0041456A /* OneSignal.framework in Frameworks */,
+				6EBC6A721F59250C0041456A /* Realm.framework in Frameworks */,
+				6EBC6A731F59250C0041456A /* RealmSwift.framework in Frameworks */,
+				6EBC6A751F59250C0041456A /* RxCocoa.framework in Frameworks */,
+				6EBC6A761F59250C0041456A /* RxDataFlow.framework in Frameworks */,
+				6EBC6A771F59250C0041456A /* RxDataSources.framework in Frameworks */,
+				6EBC6A781F59250C0041456A /* RxGesture.framework in Frameworks */,
+				6EBC6A791F59250C0041456A /* RxHttpClient.framework in Frameworks */,
+				6EBC6A7A1F59250C0041456A /* RxSwift.framework in Frameworks */,
+				6EBC6A7C1F59250C0041456A /* SimpleKeychain.framework in Frameworks */,
+				6EBC6A7D1F59250C0041456A /* SnapKit.framework in Frameworks */,
+				6EBC6A7E1F59250C0041456A /* Unbox.framework in Frameworks */,
+				6EBC6A7F1F59250C0041456A /* Wrap.framework in Frameworks */,
+				6EBC6A6C1F5924ED0041456A /* Fabric.framework in Frameworks */,
+				6EBC6A6D1F5924ED0041456A /* Crashlytics.framework in Frameworks */,
+				6EBC6A6B1F5924DF0041456A /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +333,7 @@
 				6E14E5E51EE321A90021DE02 /* Aika.entitlements */,
 				6E15D01A1DF0A45A00B4CCA7 /* Aika */,
 				6E15D02F1DF0A45A00B4CCA7 /* AikaTests */,
-				6E15D03A1DF0A45A00B4CCA7 /* AikaTests */,
+				6E15D03A1DF0A45A00B4CCA7 /* AikaUITests */,
 				6E40B9C61EC60CE100411F69 /* NotificationServiceExtension */,
 				6E15D0191DF0A45A00B4CCA7 /* Products */,
 				6E15D0631DF0B62D00B4CCA7 /* Frameworks */,
@@ -304,7 +345,6 @@
 			children = (
 				6E15D0181DF0A45A00B4CCA7 /* Aika.app */,
 				6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */,
-				6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */,
 				6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */,
 			);
 			name = Products;
@@ -325,6 +365,7 @@
 				6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */,
 				6E15D0271DF0A45A00B4CCA7 /* Info.plist */,
 				6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */,
+				6E19E3A01F5C166D00FDE207 /* main.swift */,
 			);
 			path = Aika;
 			sourceTree = "<group>";
@@ -332,19 +373,19 @@
 		6E15D02F1DF0A45A00B4CCA7 /* AikaTests */ = {
 			isa = PBXGroup;
 			children = (
-				6E15D0301DF0A45A00B4CCA7 /* SimpleToDoTests.swift */,
 				6E15D0321DF0A45A00B4CCA7 /* Info.plist */,
+				6EBD4A941F5A8B2300CCE0A1 /* Extension.swift */,
+				6EBC6A541F5920770041456A /* TaskSchedulerTests.swift */,
+				6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */,
 			);
 			path = AikaTests;
 			sourceTree = "<group>";
 		};
-		6E15D03A1DF0A45A00B4CCA7 /* AikaTests */ = {
+		6E15D03A1DF0A45A00B4CCA7 /* AikaUITests */ = {
 			isa = PBXGroup;
 			children = (
-				6E15D03B1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift */,
 				6E15D03D1DF0A45A00B4CCA7 /* Info.plist */,
 			);
-			name = AikaTests;
 			path = AikaUITests;
 			sourceTree = "<group>";
 		};
@@ -417,6 +458,7 @@
 		6E5752141E05ACD9002AA9B4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6EB66DFB1F64567F00C3DF76 /* Task.swift */,
 				6E5752151E05AD06002AA9B4 /* Entities.swift */,
 				6E57521C1E05B24A002AA9B4 /* Extensions.swift */,
 				6E6422D91E180E1B00FAFFFB /* TableSections.swift */,
@@ -426,6 +468,8 @@
 				6E05D0031E881F0B00C293B8 /* WebService.swift */,
 				6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */,
 				6EA0B4821EC20801005BA709 /* SynchronizationService.swift */,
+				6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */,
+				6E0D5C0F1F6592FB002AF563 /* RealmMigrations.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -444,6 +488,7 @@
 				6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */,
 				6E96B07E1EBC361A0096ACFE /* SnackView.swift */,
 				6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */,
+				6E0492281F5F0CD800E7C7D2 /* TaskRepeatDescriptionView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -457,6 +502,7 @@
 				6ED0A2091E79835E00B59B52 /* EditTaskViewModel.swift */,
 				6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */,
 				6E8A9E8E1EE7B02500F2FA1F /* FrameworksViewModel.swift */,
+				6E04922C1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -515,7 +561,9 @@
 			isa = PBXGroup;
 			children = (
 				6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */,
+				6E04922E1F5F269800E7C7D2 /* EditTaskController+Constraints.swift */,
 				6ED3F4451E7DA3D50003C1CC /* TasksController.swift */,
+				6E04922A1F5F18E100E7C7D2 /* TaskRepeatModeController.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -562,6 +610,7 @@
 				6E15D0281DF0A45A00B4CCA7 /* Sources */,
 				6E15D0291DF0A45A00B4CCA7 /* Frameworks */,
 				6E15D02A1DF0A45A00B4CCA7 /* Resources */,
+				6EBC6A801F5926FA0041456A /* Copy Carthage frameworks */,
 			);
 			buildRules = (
 			);
@@ -572,24 +621,6 @@
 			productName = SimpleToDoTests;
 			productReference = 6E15D02C1DF0A45A00B4CCA7 /* AikaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		6E15D0361DF0A45A00B4CCA7 /* AikaUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6E15D0461DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "AikaUITests" */;
-			buildPhases = (
-				6E15D0331DF0A45A00B4CCA7 /* Sources */,
-				6E15D0341DF0A45A00B4CCA7 /* Frameworks */,
-				6E15D0351DF0A45A00B4CCA7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6E15D0391DF0A45A00B4CCA7 /* PBXTargetDependency */,
-			);
-			name = AikaUITests;
-			productName = SimpleToDoUITests;
-			productReference = 6E15D0371DF0A45A00B4CCA7 /* AikaUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		6E40B9C41EC60CE100411F69 /* NotificationServiceExtension */ = {
 			isa = PBXNativeTarget;
@@ -635,12 +666,7 @@
 					6E15D02B1DF0A45A00B4CCA7 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = SJMSRXG797;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 6E15D0171DF0A45900B4CCA7;
-					};
-					6E15D0361DF0A45A00B4CCA7 = {
-						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = SJMSRXG797;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6E15D0171DF0A45900B4CCA7;
 					};
@@ -666,7 +692,6 @@
 			targets = (
 				6E15D0171DF0A45900B4CCA7 /* Aika */,
 				6E15D02B1DF0A45A00B4CCA7 /* AikaTests */,
-				6E15D0361DF0A45A00B4CCA7 /* AikaUITests */,
 				6E40B9C41EC60CE100411F69 /* NotificationServiceExtension */,
 			);
 		};
@@ -690,13 +715,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6E15D0351DF0A45A00B4CCA7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6E40B9C31EC60CE100411F69 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -707,6 +725,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6EBC6A801F5926FA0041456A /* Copy Carthage frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataFlow.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxHttpClient.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Unbox.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Wrap.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OneSignal.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Auth0.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/JWTDecode.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SimpleKeychain.framework",
+			);
+			name = "Copy Carthage frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 		6EE247D61DF21216001A6F39 /* Copy carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -757,22 +805,28 @@
 				6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */,
 				6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */,
 				6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */,
+				6EBC6A501F59104C0041456A /* TaskScheduler.swift in Sources */,
 				6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */,
+				6E0492291F5F0CD800E7C7D2 /* TaskRepeatDescriptionView.swift in Sources */,
 				6E8A9E8D1EE7AD5800F2FA1F /* FrameworksController.swift in Sources */,
 				6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */,
 				6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */,
+				6E04922F1F5F269800E7C7D2 /* EditTaskController+Constraints.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */,
 				6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */,
 				6E16914C1E61F63A004EE586 /* Actions.swift in Sources */,
+				6E0D5C101F6592FB002AF563 /* RealmMigrations.swift in Sources */,
 				6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */,
 				6EF799631EC73E6100C9DFF0 /* ViewModelType.swift in Sources */,
 				6E06455A1E993EB600A8AA59 /* SwitchView.swift in Sources */,
 				6E07ED2C1EC3636A00154DF4 /* SynchronizationReducer.swift in Sources */,
+				6E19E3A11F5C166D00FDE207 /* main.swift in Sources */,
 				6E05D0041E881F0B00C293B8 /* WebService.swift in Sources */,
 				6EAF1B3C1EB5297C00C72BF5 /* SlidePresentAnimationController.swift in Sources */,
 				6EA0B4831EC20801005BA709 /* SynchronizationService.swift in Sources */,
 				6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */,
+				6EB66DFC1F64567F00C3DF76 /* Task.swift in Sources */,
 				6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */,
 				6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
@@ -785,10 +839,12 @@
 				6E96B07F1EBC361A0096ACFE /* SnackView.swift in Sources */,
 				6EA7B4211E06A3940043BAA1 /* State.swift in Sources */,
 				6E7AAA501EB4DB8800F2ACC3 /* GenericNavigationController.swift in Sources */,
+				6E04922D1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift in Sources */,
 				6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */,
 				6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */,
 				6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */,
 				6E0645581E990D1500A8AA59 /* TextViewCell.swift in Sources */,
+				6E04922B1F5F18E100E7C7D2 /* TaskRepeatModeController.swift in Sources */,
 				6E07B8971EBDBC9800ADA5A8 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -797,15 +853,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E15D0311DF0A45A00B4CCA7 /* SimpleToDoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6E15D0331DF0A45A00B4CCA7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6E15D03C1DF0A45A00B4CCA7 /* SimpleToDoUITests.swift in Sources */,
+				6EBC6A551F5920770041456A /* TaskSchedulerTests.swift in Sources */,
+				6EBD4A951F5A8B2300CCE0A1 /* Extension.swift in Sources */,
+				6E19E3A41F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,11 +874,6 @@
 			isa = PBXTargetDependency;
 			target = 6E15D0171DF0A45900B4CCA7 /* Aika */;
 			targetProxy = 6E15D02D1DF0A45A00B4CCA7 /* PBXContainerItemProxy */;
-		};
-		6E15D0391DF0A45A00B4CCA7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6E15D0171DF0A45900B4CCA7 /* Aika */;
-			targetProxy = 6E15D0381DF0A45A00B4CCA7 /* PBXContainerItemProxy */;
 		};
 		6E40B9CB1EC60CE200411F69 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1010,11 +1055,19 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = SimpleToDoTests/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = AikaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aika.app/Aika";
 			};
@@ -1025,41 +1078,20 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = SimpleToDoTests/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = AikaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aika.app/Aika";
-			};
-			name = Release;
-		};
-		6E15D0471DF0A45A00B4CCA7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = SimpleToDoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = SimpleToDo;
-			};
-			name = Debug;
-		};
-		6E15D0481DF0A45A00B4CCA7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = SimpleToDoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = SimpleToDo;
 			};
 			name = Release;
 		};
@@ -1129,15 +1161,6 @@
 			buildConfigurations = (
 				6E15D0441DF0A45A00B4CCA7 /* Debug */,
 				6E15D0451DF0A45A00B4CCA7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6E15D0461DF0A45A00B4CCA7 /* Build configuration list for PBXNativeTarget "AikaUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6E15D0471DF0A45A00B4CCA7 /* Debug */,
-				6E15D0481DF0A45A00B4CCA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

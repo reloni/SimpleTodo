@@ -29,11 +29,12 @@ enum UIAction : RxActionType {
 	case showEditTaskController(Task?)
 	case showFirebaseRegistrationController
 	case showTasksListController
-	
+	case showTaskRepeatModeController(currentMode: TaskScheduler.Pattern?)
 	
 	case dismissFirebaseRegistrationController
 	case dismissSettingsController
 	case dismisEditTaskController
+	case dismissTaskRepeatModeController
 	
 	case showSpinner
 	case hideSpinner
@@ -62,6 +63,13 @@ enum SettingsAction : RxActionType {
 	
 	case showFrameworksController
 	case reloadTable
+}
+
+enum EditTaskAction: RxActionType {
+	var isSerial: Bool { return true }
+	var scheduler: ImmediateSchedulerType? { return nil }
+	
+	case setRepeatMode(TaskScheduler.Pattern?)
 }
 
 enum SynchronizationAction: RxActionType {

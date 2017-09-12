@@ -17,13 +17,15 @@ final class EditTaskViewModel: ViewModelType {
 		let targetDate: TaskDate?
 		let datePickerExpanded: Bool
 		let currentTask: Task?
+		let repeatPattern: TaskScheduler.Pattern?
 		
-		func new(description: String? = nil, notes: String? = nil, targetDate: TaskDate?? = nil, datePickerExpanded: Bool? = nil) -> State {
+		func new(description: String? = nil, notes: String? = nil, targetDate: TaskDate?? = nil, datePickerExpanded: Bool? = nil, repeatPattern: TaskScheduler.Pattern?? = nil) -> State {
 			return State(description: description ?? self.description,
 			             notes: notes ?? self.notes,
 			             targetDate: targetDate ?? self.targetDate,
 			             datePickerExpanded: datePickerExpanded ?? self.datePickerExpanded,
-			             currentTask: self.currentTask)
+			             currentTask: self.currentTask,
+			             repeatPattern: repeatPattern ?? self.repeatPattern)
 		}
 	}
 	
@@ -32,7 +34,7 @@ final class EditTaskViewModel: ViewModelType {
 	let flowController: RxDataFlowController<AppState>
 
 	let localStateSubject: BehaviorSubject<State>
-	var state: Observable<State> { return localStateSubject.asObservable() }
+	var state: Observable<State> { return localStateSubject.asObservable().observeOn(MainScheduler.instance) }
 	
 	init(task: Task?, flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController
@@ -41,7 +43,8 @@ final class EditTaskViewModel: ViewModelType {
 		                         notes: task?.notes ?? "", 
 		                         targetDate: task?.targetDate, 
 		                         datePickerExpanded: false, 
-		                         currentTask: task)
+		                         currentTask: task,
+		                         repeatPattern: task?.prototype.repeatPattern)
 		localStateSubject = BehaviorSubject(value: initialState)
 
 		title = {
@@ -58,8 +61,10 @@ final class EditTaskViewModel: ViewModelType {
 	               taskTargetDate: Observable<TaskDate?>,
 	               datePickerExpanded: Observable<Bool>,
 	               clearTargetDate: Observable<Void>,
-	               saveChanges: Observable<Void>) -> [Disposable] {
+	               saveChanges: Observable<Void>,
+	               editRepeatMode: Observable<Void>) -> [Disposable] {
 		let currentState = localStateSubject.asObservable().shareReplay(1)
+		
 		return [
 			taskDescription.withLatestFrom(currentState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(description: $0.1.trimmingCharacters(in: .whitespacesAndNewlines))) })
@@ -68,7 +73,13 @@ final class EditTaskViewModel: ViewModelType {
 				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(notes: $0.1)) })
 				.subscribe(),
 			taskTargetDate.withLatestFrom(currentState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(targetDate: $0.1)) })
+				.do(onNext: { [weak localStateSubject] in
+					if $0.1 == nil {
+						localStateSubject?.onNext($0.0.new(targetDate: $0.1, repeatPattern: Optional<TaskScheduler.Pattern?>.some(.none)))
+					} else {
+						localStateSubject?.onNext($0.0.new(targetDate: $0.1))
+					}
+				})
 				.subscribe(),
 			datePickerExpanded.withLatestFrom(currentState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in
@@ -86,25 +97,39 @@ final class EditTaskViewModel: ViewModelType {
 				.subscribe(),
 			saveChanges.withLatestFrom(currentState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak self] in self?.save(state: $0.0) })
-				.subscribe()
+				.subscribe(),
+			editRepeatMode.withLatestFrom(currentState) { return ($0.1, $0.0) }
+				.do(onNext: { [weak self] in self?.editRepeatMode(currentMode: $0.0.repeatPattern) })
+				.subscribe(),
+			flowController.state.withLatestFrom(currentState) { return ($0.1, $0.0) }
+				.do(onNext: { [weak localStateSubject] event in
+					guard case EditTaskAction.setRepeatMode(let mode) = event.1.setBy else { return }
+					localStateSubject?.onNext(event.0.new(repeatPattern: mode))
+				}).subscribe()
 		]
 	}
 	
+	func newTask(fromTask task: Task?, state: State) -> Task {
+		return Task(uuid: task?.uuid ?? UniqueIdentifier(),
+		            completed: false,
+		            description: state.description,
+		            notes: state.notes,
+		            targetDate: state.targetDate,
+					prototype: TaskPrototype(uuid: task?.prototype.uuid ?? UniqueIdentifier(), repeatPattern: state.repeatPattern))
+	}
+	
 	private func createTask(state: State) -> [RxActionType] {
+		let new = newTask(fromTask: nil, state: state)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-		                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
-		                                                                            completed: false,
-		                                                                            description: state.description,
-		                                                                            notes: state.notes,
-		                                                                            targetDate: state.targetDate))])
+		                                         SynchronizationAction.addTask(new)])
 		
 		return [action, RxCompositeAction.synchronizationAction]
 	}
 	
 	private func update(task: Task, state: State) -> [RxActionType] {
-		let newTask = Task(uuid: task.uuid, completed: false, description: state.description, notes: state.notes, targetDate: state.targetDate)
+		let new = newTask(fromTask: task, state: state)
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-		                                         SynchronizationAction.updateTask(newTask)])
+		                                         SynchronizationAction.updateTask(new)])
 		
 		return [action, RxCompositeAction.synchronizationAction]
 	}
@@ -118,80 +143,8 @@ final class EditTaskViewModel: ViewModelType {
 		
 		update(task: task, state: state).forEach { flowController.dispatch($0) }
 	}
+	
+	func editRepeatMode(currentMode: TaskScheduler.Pattern?) {
+		flowController.dispatch(UIAction.showTaskRepeatModeController(currentMode: currentMode))
+	}
 }
-//
-//final class EditTaskViewModel: ViewModelType {
-//	struct State {
-//		let description: String
-//		let notes: String
-//		let targetDate: TaskDate?
-//		let datePickerExpanded: Bool
-//	}
-//	
-//	private let _datePickerExpanded = Variable(false)
-//	private let _taskTargetDateSubject = PublishSubject<TaskDate?>()
-//	
-//	let flowController: RxDataFlowController<RootReducer>
-//	let task: Task?
-//	
-//	lazy var taskDescription: Variable<String> = { return Variable<String>(self.task?.description ?? "") }()
-//	lazy var taskNotes: Variable<String?> = { return Variable<String?>(self.task?.notes) }()
-//	lazy var taskTargetDate: Variable<TaskDate?> = { return Variable<TaskDate?>(self.task?.targetDate) }()
-//	
-//	lazy var datePickerExpanded: Observable<Bool> = { self._datePickerExpanded.asObservable() }()
-//	lazy var taskTargetDateChanged: Observable<TaskDate?> = { self._taskTargetDateSubject.asObservable() }()
-//	
-//	init(task: Task?, flowController: RxDataFlowController<RootReducer>) {
-//		self.task = task
-//		self.flowController = flowController
-//	}
-//	
-//	lazy var title: String = {
-//		if let desc = self.task?.description {
-//			return "Edit \(desc)"
-//		} else {
-//			return "New task"
-//		}
-//	}()
-//	
-//	func clearTargetDate() {
-//		_taskTargetDateSubject.onNext(nil)
-//		_datePickerExpanded.value = false
-//	}
-//	
-//	func switchDatePickerExpansion() {
-//		_datePickerExpanded.value = !_datePickerExpanded.value
-//		if _datePickerExpanded.value, taskTargetDate.value == nil {
-//			_taskTargetDateSubject.onNext(TaskDate(date: Date(), includeTime: true))
-//		}
-//	}
-//	
-//	private func createTask() -> [RxActionType] {
-//		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-//		                                         SynchronizationAction.addTask(Task(uuid: UniqueIdentifier(),
-//		                                                                            completed: false,
-//		                                                                            description: taskDescription.value,
-//		                                                                            notes: taskNotes.value,
-//		                                                                            targetDate: taskTargetDate.value))])
-//		
-//		return [action, RxCompositeAction.synchronizationAction]
-//	}
-//	
-//	private func update(task: Task) -> [RxActionType] {
-//		let newTask = Task(uuid: task.uuid, completed: false, description: taskDescription.value, notes: taskNotes.value, targetDate: taskTargetDate.value)
-//		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
-//		                                         SynchronizationAction.updateTask(newTask)])
-//		
-//		return [action, RxCompositeAction.synchronizationAction]
-//	}
-//	
-//	func save() {
-//		guard taskDescription.value.characters.count > 0 else { return }
-//		guard let task = task else {
-//			createTask().forEach { flowController.dispatch($0) }
-//			return
-//		}
-//		
-//		update(task: task).forEach { flowController.dispatch($0) }
-//	}
-//}

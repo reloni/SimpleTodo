@@ -39,8 +39,8 @@ final class SwitchView : UIView {
 	}
 	
 	func setup() {
-		clipsToBounds = true
-		
+		layoutMargins = .zero
+
 		addSubview(wrapper)
 		wrapper.addArrangedSubview(titleLabel)
 		wrapper.addArrangedSubview(switchControl)

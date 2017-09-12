@@ -63,10 +63,8 @@ fileprivate func updateConfiguration(currentState state: AppState) -> Observable
 		                                            repository: state.syncService.repository.withNew(realmConfiguration: Realm.Configuration()))
 		return .just( { $0.mutation.new(syncService: newSyncService) } )
 	}
-	
-	var newConfig = Realm.Configuration()
-	newConfig.fileURL = FileManager.default.realmsDirectory.appendingPathComponent("\(info.uid).realm")
-	newConfig.objectTypes = [RealmTask.self]
+
+	let newConfig = Realm.Configuration(withFileName: info.uid)
 	
 	let newSyncService = SynchronizationService(webService: state.syncService.webService,
 	                                            repository: state.syncService.repository.withNew(realmConfiguration: newConfig))
