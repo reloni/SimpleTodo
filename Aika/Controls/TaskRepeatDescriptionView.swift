@@ -10,11 +10,10 @@ import UIKit
 import SnapKit
 
 final class TaskRepeatDescriptionView: UIView {
-	private static let imageEdgeSize = 30
-	
 	let leftLabel: UILabel = {
 		let label = Theme.Controls.label(withStyle: .body)
 		label.setContentHuggingPriority(751, for: .horizontal)
+		label.setContentHuggingPriority(751, for: .vertical)
 		label.text = "Repeat"
 		return label
 	}()
@@ -23,6 +22,7 @@ final class TaskRepeatDescriptionView: UIView {
 		let label = Theme.Controls.label(withStyle: .body)
 		label.textColor = Theme.Colors.romanSilver
 		label.setContentHuggingPriority(1, for: .horizontal)
+		label.setContentHuggingPriority(1, for: .vertical)
 		label.textAlignment = .right
 		return label
 	}()
