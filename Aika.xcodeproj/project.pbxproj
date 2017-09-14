@@ -24,6 +24,7 @@
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
+		6E1888911F6AF4A900AEDB85 /* TableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1888901F6AF4A900AEDB85 /* TableSectionHeader.swift */; };
 		6E19E3A11F5C166D00FDE207 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A01F5C166D00FDE207 /* main.swift */; };
 		6E19E3A41F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */; };
 		6E2BAE911ECE28170030C2C0 /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */; };
@@ -165,6 +166,7 @@
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		6E16914B1E61F63A004EE586 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
+		6E1888901F6AF4A900AEDB85 /* TableSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSectionHeader.swift; sourceTree = "<group>"; };
 		6E19E3A01F5C166D00FDE207 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSchedulerSerializationTests.swift; sourceTree = "<group>"; };
 		6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemReducer.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				6E96B07E1EBC361A0096ACFE /* SnackView.swift */,
 				6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */,
 				6E0492281F5F0CD800E7C7D2 /* TaskRepeatDescriptionView.swift */,
+				6E1888901F6AF4A900AEDB85 /* TableSectionHeader.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				6E3B8A7C1EB4D42600EC932F /* SettingsReducer.swift in Sources */,
 				6EBD408D1E60ABF700661CA6 /* AuthenticationCoordinators.swift in Sources */,
 				6E8A9E8F1EE7B02500F2FA1F /* FrameworksViewModel.swift in Sources */,
+				6E1888911F6AF4A900AEDB85 /* TableSectionHeader.swift in Sources */,
 				6EA022C81E755A3600934BB7 /* RootReducer.swift in Sources */,
 				6EAF1B391EB5244C00C72BF5 /* InitialCoordinator.swift in Sources */,
 				6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */,
