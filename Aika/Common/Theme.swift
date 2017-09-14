@@ -82,6 +82,7 @@ final class Theme {
 		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.white)!
 		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.white)!
 		static let badge = UIImage(named: "Badge")!.tint(with: Theme.Colors.blueberry)!
+        static let empty = checked.tint(with: Theme.Colors.white)!
 	}
 	
 	final class Colors {

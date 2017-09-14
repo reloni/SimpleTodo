@@ -72,10 +72,12 @@ final class TaskRepeatModeController: UIViewController {
 			cell.textLabel?.text = item.text
 			if item.isSelected {
 				cell.imageView?.image = Theme.Images.checked.resize(toWidth: 22)
-			}
+            } else {
+                cell.imageView?.image = Theme.Images.empty.resize(toWidth: 22)
+            }
 			cell.preservesSuperviewLayoutMargins = false
-			cell.layoutMargins = .zero
-			cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//			cell.layoutMargins = .zero
+//			cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 			
 			cell.tapped = {
 				self?.viewModel.setNew(mode: item.mode)
