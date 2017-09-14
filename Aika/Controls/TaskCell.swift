@@ -30,6 +30,11 @@ final class TaskCell : UITableViewCell {
 		return text
 	}()
 	
+	let repeatImage: UIImageView = {
+		let image = UIImageView(image: Theme.Images.refresh)
+		return image
+	}()
+	
 	let completeActionView: TaskActonView = {
 		return TaskActonView(text: "", image: Theme.Images.checked, expandHeight: TaskCell.expandHeight)
 	}()
@@ -59,8 +64,7 @@ final class TaskCell : UITableViewCell {
 	
 	var heightConstraint: Constraint?
 	
-	var isExpanded: Bool = false
-		{
+	var isExpanded: Bool = false {
 		didSet
 		{
 			if !isExpanded {
@@ -88,6 +92,7 @@ final class TaskCell : UITableViewCell {
 		contentView.addSubview(taskDescription)
 		contentView.addSubview(actionsStack)
 		contentView.addSubview(targetDate)
+		contentView.addSubview(repeatImage)
 		
 		taskDescription.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.vertical)
 		taskDescription.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
@@ -111,6 +116,7 @@ final class TaskCell : UITableViewCell {
 		taskDescription.snp.makeConstraints(makeTaskDescriptionConstraints)
 		targetDate.snp.makeConstraints(makeTargetDateConstraints)
 		actionsStack.snp.makeConstraints(makeActionsStackConstraints)
+		repeatImage.snp.makeConstraints(makeRepeatImageConstraints(maker:))
 		
 		actionsStack.snp.makeConstraints {
 			heightConstraint = $0.height.equalTo(0).priority(999).constraint
@@ -126,7 +132,13 @@ final class TaskCell : UITableViewCell {
 	func makeTargetDateConstraints(maker: ConstraintMaker) {
 		maker.top.equalTo(taskDescription.snp.bottom).offset(10)
 		maker.leading.equalTo(contentView.snp.leadingMargin)
-		maker.trailing.equalTo(contentView.snp.trailingMargin)
+		maker.trailing.equalTo(repeatImage.snp.leading).offset(-10)
+	}
+	
+	func makeRepeatImageConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(targetDate.snp.top)
+		maker.bottom.equalTo(targetDate.snp.bottom)
+		maker.width.equalTo(repeatImage.snp.height)
 	}
 	
 	func makeActionsStackConstraints(maker: ConstraintMaker) {
@@ -142,5 +154,6 @@ final class TaskCell : UITableViewCell {
 		taskDescription.snp.updateConstraints(makeTaskDescriptionConstraints)
 		targetDate.snp.updateConstraints(makeTargetDateConstraints)
 		actionsStack.snp.updateConstraints(makeActionsStackConstraints)
+		repeatImage.snp.updateConstraints(makeRepeatImageConstraints(maker:))
 	}
 }

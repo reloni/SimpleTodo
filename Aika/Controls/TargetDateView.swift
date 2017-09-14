@@ -10,35 +10,27 @@ import UIKit
 import SnapKit
 import Material
 
-final class TargetDateView : UIView {
-	private static let imageEdgeSize = 30
-	
-	let wrapper: UIStackView = {
-		let stack = UIStackView()
-		
-		stack.axis = .horizontal
-		stack.distribution = .fill
-		stack.spacing = 10
-		
-		return stack
-	}()
-	
+final class TargetDateView : UIView {	
 	let textField: UITextField = {
 		let field = Theme.Controls.uiTextField(withStyle: .body)
 		field.placeholder = "Due date"
 		field.isEnabled = false
+		field.setContentHuggingPriority(751, for: .horizontal)
+		field.setContentHuggingPriority(751, for: .vertical)
 		return field
 	}()
 	
 	let clearButton: Button = {
 		let button = Button(image: Theme.Images.delete)
-		button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+		button.setContentHuggingPriority(999, for: .vertical)
+		button.setContentHuggingPriority(999, for: .horizontal)
 		return button
 	}()
 	
 	let calendarButton: Button = {
 		let button = Button(image: Theme.Images.calendar)
-		button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+		button.setContentHuggingPriority(999, for: .vertical)
+		button.setContentHuggingPriority(999, for: .horizontal)
 		return button
 	}()
 	
@@ -54,39 +46,34 @@ final class TargetDateView : UIView {
 	func setup() {
 		backgroundColor = Theme.Colors.white
 		
-		addSubview(wrapper)
-		wrapper.addArrangedSubview(textField)
-		wrapper.addArrangedSubview(clearButton)
-		wrapper.addArrangedSubview(calendarButton)
+		addSubview(textField)
+		addSubview(clearButton)
+		addSubview(calendarButton)
 		
-		textField.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.horizontal)
-		textField.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.vertical)
-		textField.setContentHuggingPriority(1, for: UILayoutConstraintAxis.horizontal)
-		textField.setContentHuggingPriority(1, for: UILayoutConstraintAxis.vertical)
-		
-		clearButton.setContentCompressionResistancePriority(700, for: UILayoutConstraintAxis.horizontal)
-		clearButton.setContentCompressionResistancePriority(700, for: UILayoutConstraintAxis.vertical)
-		clearButton.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.horizontal)
-		clearButton.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
-		
-		calendarButton.setContentCompressionResistancePriority(699, for: UILayoutConstraintAxis.horizontal)
-		calendarButton.setContentCompressionResistancePriority(699, for: UILayoutConstraintAxis.vertical)
-		calendarButton.setContentHuggingPriority(999, for: UILayoutConstraintAxis.horizontal)
-		calendarButton.setContentHuggingPriority(999, for: UILayoutConstraintAxis.vertical)
-		
-		wrapper.snp.makeConstraints(makeWrapperConstraints)
+		textField.snp.makeConstraints(makeTextFieldConstraints(maker:))
 		clearButton.snp.makeConstraints(makeClearButtonConstraints)
 		calendarButton.snp.makeConstraints(makeCalendarButtonConstraints)
 	}
 	
+	func makeTextFieldConstraints(maker: ConstraintMaker) {
+		maker.top.equalTo(snp.topMargin)
+		maker.bottom.equalTo(snp.bottomMargin)
+		maker.leading.equalTo(snp.leadingMargin)
+//		maker.trailing.equalTo(clearButton.snp.leading).offset(-10)
+	}
+	
 	func makeClearButtonConstraints(maker: ConstraintMaker) {
-		maker.width.equalTo(TargetDateView.imageEdgeSize)
-		maker.height.equalTo(TargetDateView.imageEdgeSize)
+		maker.top.equalTo(snp.topMargin)
+		maker.bottom.equalTo(snp.bottomMargin)
+		maker.width.equalTo(clearButton.snp.height)
+		maker.trailing.equalTo(calendarButton.snp.leading).offset(-10)
 	}
 	
 	func makeCalendarButtonConstraints(maker: ConstraintMaker) {
-		maker.width.equalTo(TargetDateView.imageEdgeSize)
-		maker.height.equalTo(TargetDateView.imageEdgeSize)
+		maker.top.equalTo(snp.topMargin)
+		maker.bottom.equalTo(snp.bottomMargin)
+		maker.width.equalTo(calendarButton.snp.height)
+		maker.trailing.equalTo(self.snp.trailingMargin)
 	}
 	
 	func makeWrapperConstraints(maker: ConstraintMaker) {
@@ -95,7 +82,7 @@ final class TargetDateView : UIView {
 	
 	override func updateConstraints() {
 		super.updateConstraints()
-		wrapper.snp.updateConstraints(makeWrapperConstraints)
+		textField.snp.updateConstraints(makeTextFieldConstraints(maker:))
 		clearButton.snp.updateConstraints(makeClearButtonConstraints)
 		calendarButton.snp.updateConstraints(makeCalendarButtonConstraints)
 	}
