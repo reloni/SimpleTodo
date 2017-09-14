@@ -17,12 +17,14 @@ final class SettingsController : UIViewController {
 	let bag = DisposeBag()
 	
 	let dataSource = RxTableViewSectionedReloadDataSource<SettingsSection>()
-	let tableViewDelegate = SettingsTableViewDelegate()
+	lazy var tableViewDelegate: SettingsTableViewDelegate = {
+		return SettingsTableViewDelegate(dataSource: self.dataSource)
+	}()
 	
 	let tableView: UITableView = {
 		let table = Theme.Controls.tableView()
 		
-		table.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+		table.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		
 		table.register(DefaultCell.self, forCellReuseIdentifier: "Default")
 		
@@ -127,11 +129,6 @@ final class SettingsController : UIViewController {
 				}
 				return cell
 			}
-		}
-		
-		dataSource.titleForHeaderInSection = { ds, index in
-			return ds.sectionModels[index].header
-			
 		}
 	}
 	
@@ -242,17 +239,20 @@ extension SettingsController: MFMailComposeViewControllerDelegate {
 }
 
 final class SettingsTableViewDelegate : NSObject, UITableViewDelegate {
+	let dataSource: RxTableViewSectionedReloadDataSource<SettingsSection>
+	
+	init(dataSource: RxTableViewSectionedReloadDataSource<SettingsSection>) {
+		self.dataSource = dataSource
+	}
+	
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 40
 	}
 	
-	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-		(view as? UITableViewHeaderFooterView)?.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
-	}
-	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let header = UITableViewHeaderFooterView()
-		header.preservesSuperviewLayoutMargins = false
+		let header = TableSectionHeader()
+		header.label.text = dataSource.sectionModels[section].header
+		header.layoutMargins = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
 		return header
 	}
 	

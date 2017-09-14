@@ -13,7 +13,7 @@ import RxDataSources
 final class TaskRepeatModeController: UIViewController {
 	let viewModel: TaskRepeatModeViewModel
 	let bag = DisposeBag()
-	let tableViewDelegate = SettingsTableViewDelegate()
+	let tableViewDelegate = TaskRepeatModeTableViewDelegate()
 	
 	let dataSource = RxTableViewSectionedReloadDataSource<TaskRepeatModeSection>()
 	
@@ -76,19 +76,12 @@ final class TaskRepeatModeController: UIViewController {
                 cell.imageView?.image = Theme.Images.empty.resize(toWidth: 22)
             }
 			cell.preservesSuperviewLayoutMargins = false
-//			cell.layoutMargins = .zero
-//			cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 			
 			cell.tapped = {
 				self?.viewModel.setNew(mode: item.mode)
 			}
 			
 			return cell
-		}
-		
-		dataSource.titleForHeaderInSection = { ds, index in
-			return ds.sectionModels[index].header
-			
 		}
 	}
 }
@@ -98,19 +91,13 @@ final class TaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegate {
 		return 40
 	}
 	
-	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-		(view as? UITableViewHeaderFooterView)?.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
-	}
-	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let header = UITableViewHeaderFooterView()
-		header.preservesSuperviewLayoutMargins = false
-		return header
+		return TableSectionHeader()
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
-		
+
 		cell.tapped?()
 	}
 }
