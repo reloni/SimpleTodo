@@ -130,6 +130,7 @@ final class TasksController : UIViewController {
 			cell.isExpanded = false
 			cell.taskDescription.text = "\(item.description)"
 			cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
+			cell.repeatImage.isHidden = item.prototype.repeatPattern == nil
 			cell.updateConstraints()
 			
 			cell.completeTapped = {

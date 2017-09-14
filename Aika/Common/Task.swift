@@ -89,6 +89,13 @@ extension TaskPrototype : WrapCustomizable {
 	}
 }
 
+extension TaskPrototype : Equatable {
+	static func == (lhs: TaskPrototype, rhs: TaskPrototype) -> Bool {
+		return lhs.uuid == rhs.uuid
+			&& lhs.repeatPattern == rhs.repeatPattern
+	}
+}
+
 extension TaskDate : Equatable {
 	public static func ==(lhs: TaskDate, rhs: TaskDate) -> Bool {
 		return lhs.date == rhs.date
@@ -105,6 +112,7 @@ extension Task : Equatable {
 			&& lhs.notes == rhs.notes
 			&& lhs.targetDate == rhs.targetDate
 			&& lhs.timestamp == rhs.timestamp
+			&& lhs.prototype == rhs.prototype
 	}
 }
 

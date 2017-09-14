@@ -64,7 +64,7 @@ final class Theme {
 		static let clock = UIImage(named: "Clock")!.tint(with: Theme.Colors.blueberry)!
 		static let delete = UIImage(named: "Delete")!.tint(with: Theme.Colors.blueberry)!
 		static let edit = UIImage(named: "Edit")!.tint(with: Theme.Colors.blueberry)!
-		static let refresh = UIImage(named: "Refresh")!.tint(with: Theme.Colors.blueberry)!
+		static let refresh = UIImage(named: "Refresh")!.tint(with: Theme.Colors.romanSilver)!
 		static let calendar = UIImage(named: "Calendar")!.tint(with: Theme.Colors.blueberry)!
 		static let pushNotification = UIImage(named: "Push notification")!.tint(with: Theme.Colors.blueberry)!
 		static let settings = UIImage(named: "Settings")!.tint(with: Theme.Colors.blueberry)!
