@@ -63,16 +63,16 @@ final class EditTaskViewModel: ViewModelType {
 	               clearTargetDate: Observable<Void>,
 	               saveChanges: Observable<Void>,
 	               editRepeatMode: Observable<Void>) -> [Disposable] {
-		let currentState = localStateSubject.asObservable().shareReplay(1)
+		let currentLocalState = localStateSubject.asObservable().shareReplay(1)
 		
 		return [
-			taskDescription.withLatestFrom(currentState) { return ($0.1, $0.0) }
+			taskDescription.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(description: $0.1.trimmingCharacters(in: .whitespacesAndNewlines))) })
 				.subscribe(),
-			taskNotes.withLatestFrom(currentState) { return ($0.1, $0.0) }
+			taskNotes.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(notes: $0.1)) })
 				.subscribe(),
-			taskTargetDate.withLatestFrom(currentState) { return ($0.1, $0.0) }
+			taskTargetDate.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in
 					if $0.1 == nil {
 						localStateSubject?.onNext($0.0.new(targetDate: $0.1, repeatPattern: Optional<TaskScheduler.Pattern?>.some(.none)))
@@ -81,7 +81,7 @@ final class EditTaskViewModel: ViewModelType {
 					}
 				})
 				.subscribe(),
-			datePickerExpanded.withLatestFrom(currentState) { return ($0.1, $0.0) }
+			datePickerExpanded.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in
 					if $0.1, $0.0.targetDate == nil {
 						localStateSubject?.onNext($0.0.new(targetDate: TaskDate(date: Date(), includeTime: true), datePickerExpanded: $0.1))
@@ -90,22 +90,25 @@ final class EditTaskViewModel: ViewModelType {
 					}
 				})
 				.subscribe(),
-			clearTargetDate.withLatestFrom(currentState) { return ($0.1, $0.0) }
+			clearTargetDate.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in
 					localStateSubject?.onNext($0.0.new(targetDate: Optional<TaskDate?>.some(Optional<TaskDate>.none), datePickerExpanded: false))
 				})
 				.subscribe(),
-			saveChanges.withLatestFrom(currentState) { return ($0.1, $0.0) }
+			saveChanges.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak self] in self?.save(state: $0.0) })
 				.subscribe(),
-			editRepeatMode.withLatestFrom(currentState) { return ($0.1, $0.0) }
+			editRepeatMode.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak self] in self?.editRepeatMode(currentMode: $0.0.repeatPattern) })
 				.subscribe(),
-			flowController.state.withLatestFrom(currentState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak localStateSubject] event in
-					guard case EditTaskAction.setRepeatMode(let mode) = event.1.setBy else { return }
-					localStateSubject?.onNext(event.0.new(repeatPattern: mode))
-				}).subscribe()
+			// super ugly solution to handle changed repeat mode on other controller :(
+			flowController.state.do(onNext: { [weak localStateSubject] state in
+				guard let subject = localStateSubject else { return }
+				if case EditTaskAction.setRepeatMode(let mode) = state.setBy {
+					guard let current = try? subject.value() else { return }
+					subject.onNext(current.new(repeatPattern: mode))
+				}
+			}).subscribe()
 		]
 	}
 	
