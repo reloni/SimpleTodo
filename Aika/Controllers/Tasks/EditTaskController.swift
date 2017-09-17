@@ -64,7 +64,7 @@ final class EditTaskController : UIViewController {
 		let view = TargetDateView()
 		view.borderColor = Theme.Colors.romanSilver
 		view.borderWidth = 0.5
-		view.layoutMargins = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+		view.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		return view
 	}()
 	
@@ -84,7 +84,7 @@ final class EditTaskController : UIViewController {
 		let view = TaskRepeatDescriptionView()
 		view.borderColor = Theme.Colors.romanSilver
 		view.borderWidth = 0.5
-		view.layoutMargins = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+		view.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		return view
 	}()
 	
@@ -190,9 +190,9 @@ final class EditTaskController : UIViewController {
 		
 		let editRepeatModeEvent = taskRepeatDescriptionView.rx.tapGesture().when(.recognized).flatMap { _ in Observable<Void>.just() }
 		
-		viewModel.subscribe(taskDescription: descriptionTextField.rx.didChange.map { [weak self] _ in return self?.descriptionTextField.text ?? "" }.distinctUntilChanged(),
-		                    taskNotes: notesTextField.rx.didChange.map { [weak self] _ in return self?.notesTextField.text }.distinctUntilChanged { $0.0 == $0.1 },
-		                    taskTargetDate: targetDatePickerView.currentDate.skip(1).distinctUntilChanged { $0.0 == $0.1 },
+		viewModel.subscribe(taskDescription: descriptionTextField.rx.didChange.map { [weak self] _ in return self?.descriptionTextField.text ?? "" }.distinctUntilChanged().skip(1),
+		                    taskNotes: notesTextField.rx.didChange.map { [weak self] _ in return self?.notesTextField.text }.distinctUntilChanged { $0.0 == $0.1 }.skip(1),
+		                    taskTargetDate: targetDatePickerView.currentDate.skip(1).distinctUntilChanged { $0.0 == $0.1 }.skip(1),
 		                    datePickerExpanded: datePickerExpanded,
 		                    clearTargetDate: targetDateView.clearButton.rx.tap.flatMap { Observable<Void>.just() },
 		                    saveChanges: saveSubject.asObservable(),
@@ -202,13 +202,13 @@ final class EditTaskController : UIViewController {
 		state.take(1).map { $0.description }.bind(to: descriptionTextField.rx.text).disposed(by: bag)
 		state.take(1).map { $0.notes }.bind(to: notesTextField.rx.text).disposed(by: bag)
 		state.map { $0.targetDate }.distinctUntilChanged({ $0.0 == $0.1 }).do(onNext: { [weak self] in self?.targetDatePickerView.date = $0 }).subscribe().disposed(by: bag)
-		state.map { $0.datePickerExpanded }.distinctUntilChanged().do(onNext: { [weak self] in self?.switchDatePickerExpandMode($0) }).subscribe().disposed(by: bag)
 		state.take(1).filter { $0.currentTask == nil }.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() }).subscribe().disposed(by: bag)
 		state.map { $0.description.characters.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
-		state.map { $0.targetDate != nil }.do(onNext: { [weak self] selected in self?.changeTaskRepeatDescriptionExpandMode(selected) }).subscribe().disposed(by: bag)
 		state.map { $0.repeatPattern?.description ?? "" }.bind(to: taskRepeatDescriptionView.rightLabel.rx.text).disposed(by: bag)
-		
 		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
+		
+		state.skip(1).map { $0.targetDate != nil }.distinctUntilChanged().do(onNext: { [weak self] selected in self?.changeTaskRepeatDescriptionExpandMode(selected) }).subscribe().disposed(by: bag)
+		state.skip(1).map { $0.datePickerExpanded }.distinctUntilChanged().do(onNext: { [weak self] in self?.switchDatePickerExpandMode($0) }).subscribe().disposed(by: bag)
 		
 		let recognizer = UITapGestureRecognizer(target: self, action: #selector(targetDateTextFieldTapped(_:)))
 		targetDateView.textField.superview?.addGestureRecognizer(recognizer)

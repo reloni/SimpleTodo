@@ -146,19 +146,21 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 					       password: password,
 					       connection: "Username-Password-Authentication",
 					       scope: "openid profile offline_access read:device_credentials",
-					       parameters: ["device": Keychain.deviceUuid])
+					       parameters: ["device": AppConstants.applicationDeviceInfo])
 					.start(callback)
 			case .google:
 				Auth0
 					.webAuth()
 					.scope("openid profile offline_access")
 					.connection("google-oauth2")
+					.parameters(["device": AppConstants.applicationDeviceInfo])
 					.start(callback)
 			case .facebook:
 				Auth0
 					.webAuth()
 					.scope("openid profile offline_access")
 					.connection("facebook")
+					.parameters(["device": AppConstants.applicationDeviceInfo])
 					.start(callback)
 			}
 			
