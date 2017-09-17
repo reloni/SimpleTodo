@@ -109,6 +109,11 @@ extension TextView {
 }
 
 extension Date {
+	enum DateFormats: String {
+		case full = "E d MMM yyyy HH:mm"
+		case time = "HH:mm"
+	}
+	
 	enum DateType {
 		case todayPast
 		case todayFuture
@@ -171,7 +176,7 @@ extension Date {
 	
 	static var dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
-		dateFormatter.locale = .current
+		dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 		return dateFormatter
 	}()
 	
@@ -200,29 +205,25 @@ extension Date {
 		return Date.serverDateFormatter.date(from: string)
 	}
 	
-	func toString(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style, withSpelling: Bool) -> String {
+	func toString(format: DateFormats, withSpelling: Bool) -> String {
 		let formatter = Date.dateFormatter
 		
+		formatter.dateFormat = format.rawValue
+		
 		if withSpelling, let spelled = toSpelledDateString() {
-			guard timeStyle != .none else { return spelled }
-			
-			formatter.dateStyle = .none
-			formatter.timeStyle = timeStyle
+			formatter.dateFormat = DateFormats.time.rawValue
 			return "\(spelled) \(formatter.string(from: self))"
 		}
-		
-		formatter.dateStyle = dateStyle
-		formatter.timeStyle = timeStyle
 		
 		return formatter.string(from: self)
 	}
 	
 	func toDateString(withSpelling: Bool) -> String {
-		return toString(dateStyle: .medium, timeStyle: .none, withSpelling: withSpelling)
+		return toString(format: .time, withSpelling: withSpelling)
 	}
 	
 	func toDateAndTimeString(withSpelling: Bool) -> String {
-		return toString(dateStyle: .medium, timeStyle: .short, withSpelling: withSpelling)
+		return toString(format: .full, withSpelling: withSpelling)
 	}
 }
 
