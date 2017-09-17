@@ -138,6 +138,15 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 				}
 			}
 			
+			let socialAuth: (String) -> Void = { provider in
+				Auth0
+					.webAuth()
+					.scope("openid profile offline_access")
+					.connection(provider)
+					.parameters(["device": AppConstants.applicationDeviceInfo])
+					.start(callback)
+			}
+			
 			switch type {
 			case .db(let email, let password):
 				Auth0
@@ -148,20 +157,8 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 					       scope: "openid profile offline_access read:device_credentials",
 					       parameters: ["device": AppConstants.applicationDeviceInfo])
 					.start(callback)
-			case .google:
-				Auth0
-					.webAuth()
-					.scope("openid profile offline_access")
-					.connection("google-oauth2")
-					.parameters(["device": AppConstants.applicationDeviceInfo])
-					.start(callback)
-			case .facebook:
-				Auth0
-					.webAuth()
-					.scope("openid profile offline_access")
-					.connection("facebook")
-					.parameters(["device": AppConstants.applicationDeviceInfo])
-					.start(callback)
+			case .google: socialAuth("google-oauth2")
+			case .facebook: socialAuth("facebook")
 			}
 			
 			return Disposables.create {

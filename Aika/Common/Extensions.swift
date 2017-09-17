@@ -68,8 +68,8 @@ extension TaskScheduler.Pattern {
 		case .monthly: return "Every month"
 		case .yearly: return "Every year"
 		case .byDay(let repeatEvery): return "Every \(repeatEvery) day(s)"
-		case let .byWeek(repeatEvery, weekDays): return "Every \(repeatEvery) week(s)"
-		case let .byMonthDays(repeatEvery, days): return "Every \(repeatEvery) month(s)"
+		case let .byWeek(repeatEvery, _): return "Every \(repeatEvery) week(s)"
+		case let .byMonthDays(repeatEvery, _): return "Every \(repeatEvery) month(s)"
 		}
 	}
 }
