@@ -173,7 +173,11 @@ final class EditTaskController : UIViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		viewModel.state.take(1).filter { $0.currentTask == nil }.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() }).subscribe().disposed(by: bag)
+		viewModel.state.take(1)
+			.filter { $0.currentTask == nil && $0.description.isEmpty }
+			.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() })
+			.subscribe()
+			.disposed(by: bag)
 	}
 	
 	func bind() {
