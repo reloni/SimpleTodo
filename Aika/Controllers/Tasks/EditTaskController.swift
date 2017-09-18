@@ -56,7 +56,6 @@ final class EditTaskController : UIViewController {
 		text.placeholderLabel.text = "Task description"
 		
 		text.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 15)
-		text.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		return text
 	}()
 	
@@ -172,6 +171,15 @@ final class EditTaskController : UIViewController {
 		bind()
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		viewModel.state.take(1)
+			.filter { $0.currentTask == nil && $0.description.isEmpty }
+			.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() })
+			.subscribe()
+			.disposed(by: bag)
+	}
+	
 	func bind() {
 		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow).observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] notification in
@@ -192,7 +200,7 @@ final class EditTaskController : UIViewController {
 		
 		viewModel.subscribe(taskDescription: descriptionTextField.rx.didChange.map { [weak self] _ in return self?.descriptionTextField.text ?? "" }.distinctUntilChanged(),
 		                    taskNotes: notesTextField.rx.didChange.map { [weak self] _ in return self?.notesTextField.text }.distinctUntilChanged { $0.0 == $0.1 },
-		                    taskTargetDate: targetDatePickerView.currentDate.distinctUntilChanged { $0.0 == $0.1 }.skip(1),
+		                    taskTargetDate: targetDatePickerView.currentDate.skip(1).distinctUntilChanged { $0.0 == $0.1 },
 		                    datePickerExpanded: datePickerExpanded,
 		                    clearTargetDate: targetDateView.clearButton.rx.tap.flatMap { Observable<Void>.just() },
 		                    saveChanges: saveSubject.asObservable(),
@@ -202,7 +210,7 @@ final class EditTaskController : UIViewController {
 		state.take(1).map { $0.description }.bind(to: descriptionTextField.rx.text).disposed(by: bag)
 		state.take(1).map { $0.notes }.bind(to: notesTextField.rx.text).disposed(by: bag)
 		state.map { $0.targetDate }.distinctUntilChanged({ $0.0 == $0.1 }).do(onNext: { [weak self] in self?.targetDatePickerView.date = $0 }).subscribe().disposed(by: bag)
-		state.take(1).filter { $0.currentTask == nil }.do(onNext: { [weak self] _ in self?.descriptionTextField.becomeFirstResponder() }).subscribe().disposed(by: bag)
+		
 		state.map { $0.description.characters.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
 		state.map { $0.repeatPattern?.description ?? "" }.bind(to: taskRepeatDescriptionView.rightLabel.rx.text).disposed(by: bag)
 		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
