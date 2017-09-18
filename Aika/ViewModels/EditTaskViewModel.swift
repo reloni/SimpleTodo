@@ -67,10 +67,14 @@ final class EditTaskViewModel: ViewModelType {
 		
 		return [
 			taskDescription.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(description: $0.1.trimmingCharacters(in: .whitespacesAndNewlines))) })
+				.do(onNext: { [weak localStateSubject] in
+					localStateSubject?.onNext($0.0.new(description: $0.1.trimmingCharacters(in: .whitespacesAndNewlines)))
+				})
 				.subscribe(),
 			taskNotes.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak localStateSubject] in localStateSubject?.onNext($0.0.new(notes: $0.1)) })
+				.do(onNext: { [weak localStateSubject] in
+					localStateSubject?.onNext($0.0.new(notes: $0.1))
+				})
 				.subscribe(),
 			taskTargetDate.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
 				.do(onNext: { [weak localStateSubject] in
@@ -96,10 +100,14 @@ final class EditTaskViewModel: ViewModelType {
 				})
 				.subscribe(),
 			saveChanges.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak self] in self?.save(state: $0.0) })
+				.do(onNext: { [weak self] in
+					self?.save(state: $0.0)
+				})
 				.subscribe(),
 			editRepeatMode.withLatestFrom(currentLocalState) { return ($0.1, $0.0) }
-				.do(onNext: { [weak self] in self?.editRepeatMode(currentMode: $0.0.repeatPattern) })
+				.do(onNext: { [weak self] in
+					self?.editRepeatMode(currentMode: $0.0.repeatPattern)
+				})
 				.subscribe(),
 			// super ugly solution to handle changed repeat mode on other controller :(
 			flowController.state.do(onNext: { [weak localStateSubject] state in
