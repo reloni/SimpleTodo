@@ -12,6 +12,9 @@ final class TasksTableBackground: UIView {
 	let titleLabel: UILabel = {
 		let lbl = Theme.Controls.label(withStyle: UIFontTextStyle.title1)
 		lbl.text = "No tasks"
+		lbl.adjustsFontSizeToFitWidth = true
+		lbl.minimumScaleFactor = 0.5
+		lbl.textAlignment = .center
 		return lbl
 	}()
 	
@@ -20,6 +23,7 @@ final class TasksTableBackground: UIView {
 		lbl.text = "Press \"+\" button to add new task"
 		lbl.adjustsFontSizeToFitWidth = true
 		lbl.minimumScaleFactor = 0.5
+		lbl.textAlignment = .center
 		return lbl
 	}()
 	
@@ -38,10 +42,12 @@ final class TasksTableBackground: UIView {
 		
 		titleLabel.snp.makeConstraints {
 			$0.center.equalTo(self.snp.center)
+			$0.leading.equalTo(snp.leadingMargin)
+			$0.trailing.equalTo(snp.trailingMargin)
 		}
 		
 		subtitleLabel.snp.makeConstraints {
-			$0.top.equalTo(titleLabel.snp.lastBaseline)
+			$0.top.equalTo(titleLabel.snp.lastBaseline).offset(10)
 			$0.leading.equalTo(snp.leadingMargin)
 			$0.trailing.equalTo(snp.trailingMargin)
 		}
