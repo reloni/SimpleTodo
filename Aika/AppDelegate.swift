@@ -31,9 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	lazy var flowController: RxDataFlowController<AppState> = {
-		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
-		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
-		
+//		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory),
+//		                            requestPlugin: NetworkActivityIndicatorPlugin(application: UIApplication.shared))
+
+		let httpClient = HttpClient(urlRequestCacheProvider: UrlRequestFileSystemCacheProvider(cacheDirectory: FileManager.default.documentsDirectory))
+
 		let authentication: Authentication = {
 			guard self.hasAuthenticationData else { return .none }
 			let authenticationInfo = AuthenticationInfo(uid: Keychain.userUuid, token: Keychain.token, expiresAt: nil, refreshToken: Keychain.refreshToken)

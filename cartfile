@@ -10,4 +10,4 @@ github "RxSwiftCommunity/RxGesture" == 1.0.1
 github "OneSignal/OneSignal-iOS-SDK" == 2.5.4
 github "auth0/Auth0.swift" == 1.7.0
 github "auth0/JWTDecode.swift" == 2.0.0
-github "realm/realm-cocoa" == 2.8.3
+github "realm/realm-cocoa" == 2.10.2
