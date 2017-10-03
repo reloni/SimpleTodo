@@ -29,7 +29,7 @@ final class FrameworksViewModel: ViewModelType {
 	let title = "Framoworks"
 	
 	lazy var sections: Observable<[FrameworksSection]> = {
-		let section = FrameworksSection(header: "", items: frameworks)
+		let section = FrameworksSection(header: "", items: FrameworksViewModel.frameworks)
 			return .just([section])
 	}()
 	

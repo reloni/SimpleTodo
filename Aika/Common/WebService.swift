@@ -60,7 +60,7 @@ final class WebSerivce: WebServiceType {
 				
 				return object.httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
 					.flatMap { _ -> Observable<Void> in
-						return .just()
+						return .just(())
 				}
 			}
 			.catchError(WebSerivce.catchError)
@@ -78,7 +78,7 @@ final class WebSerivce: WebServiceType {
 				
 				return object.httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
 					.flatMap { _ -> Observable<Void> in
-						return .just()
+						return .just(())
 				}
 			}
 			.catchError(WebSerivce.catchError)

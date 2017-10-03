@@ -12,7 +12,7 @@ import UIKit
 
 enum SystemAction: RxActionType {
 	var isSerial: Bool { return true }
-	var scheduler: ImmediateSchedulerType? { return nil }
+	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case clearKeychain
 	case updateIconBadge

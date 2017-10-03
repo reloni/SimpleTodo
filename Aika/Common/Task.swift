@@ -49,9 +49,9 @@ struct TaskDate {
 		let str = NSMutableAttributedString(string: toString(withSpelling: withSpelling))
 		
 		let range = NSRange(location: 0, length: str.length)
-		str.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
+		str.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
 		if let underlineColor = underlineColor {
-			str.addAttribute(NSUnderlineColorAttributeName, value: underlineColor, range: range)
+			str.addAttribute(NSAttributedStringKey.underlineColor, value: underlineColor, range: range)
 		}
 		
 		return str

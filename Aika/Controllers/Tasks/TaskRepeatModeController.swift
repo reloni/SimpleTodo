@@ -92,7 +92,10 @@ final class TaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		return TableSectionHeader()
+		let header = UITableViewHeaderFooterView()
+        header.backgroundView = UIView()
+        header.backgroundView?.backgroundColor = Theme.Colors.clear
+        return header
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

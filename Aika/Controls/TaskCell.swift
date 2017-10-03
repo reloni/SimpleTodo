@@ -94,24 +94,24 @@ final class TaskCell : UITableViewCell {
 		contentView.addSubview(targetDate)
 		contentView.addSubview(repeatImage)
 		
-		taskDescription.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.vertical)
-		taskDescription.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
+		taskDescription.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.vertical)
+		taskDescription.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.vertical)
 		
-		targetDate.setContentCompressionResistancePriority(999, for: UILayoutConstraintAxis.vertical)
-		targetDate.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
+		targetDate.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 999), for: UILayoutConstraintAxis.vertical)
+		targetDate.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.vertical)
 		
 		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.isabelline }
-		actionsStack.subviews.last?.setContentHuggingPriority(1, for: UILayoutConstraintAxis.horizontal)
+		actionsStack.subviews.last?.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: UILayoutConstraintAxis.horizontal)
 		
 		completeActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
 			self?.completeTapped?()
-		}).addDisposableTo(bag)
+		}).disposed(by: bag)
 		editActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
 			self?.editTapped?()
-		}).addDisposableTo(bag)
+		}).disposed(by: bag)
 		deleteActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
 			self?.deleteTapped?()
-		}).addDisposableTo(bag)
+		}).disposed(by: bag)
 		
 		taskDescription.snp.makeConstraints(makeTaskDescriptionConstraints)
 		targetDate.snp.makeConstraints(makeTargetDateConstraints)
