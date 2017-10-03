@@ -60,8 +60,8 @@ final class DatePickerView : UIView {
 		addSubview(datePicker)
 		addSubview(timeModeSwitcher)
 		
-		datePicker.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.vertical)
-		timeModeSwitcher.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.vertical)
+		datePicker.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.vertical)
+		timeModeSwitcher.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.vertical)
 		
 		datePicker.datePickerMode = .date
 		

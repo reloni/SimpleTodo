@@ -75,7 +75,7 @@ final class SettingsController : UIViewController {
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 	}
 	
-	func done() {
+	@objc func done() {
 		viewModel.done()
 	}
 	

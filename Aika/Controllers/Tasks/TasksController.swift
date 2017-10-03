@@ -81,13 +81,13 @@ final class TasksController : UIViewController {
 	}
 	
 	func bind() {
-		let sectionsObservable = viewModel.taskSections.shareReplay(1)
+		let sectionsObservable = viewModel.taskSections.share(replay: 1, scope: .forever)
 		
 		sectionsObservable
 			.observeOn(MainScheduler.instance)
 			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
 			.bind(to: tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(bag)
+			.disposed(by: bag)
 		
 		sectionsObservable
 			.observeOn(MainScheduler.instance)
@@ -99,15 +99,15 @@ final class TasksController : UIViewController {
 			.filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
 			.subscribe(onNext: { [weak self] in
 				self?.viewModel.synchronize()
-			}).addDisposableTo(bag)
+			}).disposed(by: bag)
 		
 		viewModel.errors
 			.observeOn(MainScheduler.instance)
 			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
 			.subscribe()
-			.addDisposableTo(bag)
+			.disposed(by: bag)
 		
-		tableView.rx.setDelegate(tableViewDelegate).addDisposableTo(bag)
+		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 		
 		addTaskButton.rx.tap.subscribe { [weak self] _ in self?.addNewTask() }.disposed(by: bag)
 	}
@@ -116,7 +116,7 @@ final class TasksController : UIViewController {
 		viewModel.newTask()
 	}
 	
-	func showSettings() {
+	@objc func showSettings() {
 		viewModel.showSettings()
 	}
 	
@@ -148,11 +148,11 @@ final class TasksController : UIViewController {
 			return cell
 		}
 		
-		dataSource.canEditRowAtIndexPath = { _ in
+		dataSource.canEditRowAtIndexPath = { _, _ in
 			return true
 		}
 		
-		dataSource.canMoveRowAtIndexPath = { _ in
+		dataSource.canMoveRowAtIndexPath = { _, _ in
 			return true
 		}
 	}

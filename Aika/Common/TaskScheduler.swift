@@ -65,7 +65,7 @@ struct TaskScheduler {
         case .yearly: return nextTime(for: time.adding(.year, value: 1).adding(.day, value: -1))
         case .byDay(let repeatEvery): return nextTime(for: time.adding(.day, value: Int(repeatEvery) - 1))
         case let .byWeek(repeatEvery, weekDays):
-			return nextTimeByWeek(for: time, repeatEvery: Int(repeatEvery), weekDays: weekDays.sorted(by: { $0.0.rawValue < $0.1.rawValue }))
+			return nextTimeByWeek(for: time, repeatEvery: Int(repeatEvery), weekDays: weekDays.sorted(by: { $0.rawValue < $1.rawValue }))
         case let .byMonthDays(repeatEvery, days):
             return nextTimeByMonthDays(for: time, repeatEvery: Int(repeatEvery), days: days.map { Int($0) }.sorted(by: <))
 		}
@@ -188,7 +188,7 @@ extension TaskScheduler.Pattern {
 			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
 			return .byWeek(repeatEvery: repeatEvery, weekDays: weekDays)
 		case let type where type == "byMonthDays":
-			guard let days = (dictionary["days"] as? [UInt])?.filter({ 0...31 ~= $0 }).distinct().sorted(), days.count > 0 else { return nil }
+			guard let days = (dictionary["days"] as? [Int])?.filter({ 0...31 ~= $0 }).distinct().map(UInt.init).sorted(), days.count > 0 else { return nil }
 			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
 			return .byMonthDays(repeatEvery: repeatEvery, days: days)
 		default: return nil
