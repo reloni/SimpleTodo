@@ -65,7 +65,7 @@ struct TaskScheduler {
         case .yearly: return nextTime(for: time.adding(.year, value: 1).adding(.day, value: -1))
         case .byDay(let repeatEvery): return nextTime(for: time.adding(.day, value: Int(repeatEvery) - 1))
         case let .byWeek(repeatEvery, weekDays):
-			return nextTimeByWeek(for: time, repeatEvery: Int(repeatEvery), weekDays: weekDays.sorted(by: { $0.0.rawValue < $0.1.rawValue }))
+			return nextTimeByWeek(for: time, repeatEvery: Int(repeatEvery), weekDays: weekDays.sorted(by: { $0.rawValue < $1.rawValue }))
         case let .byMonthDays(repeatEvery, days):
             return nextTimeByMonthDays(for: time, repeatEvery: Int(repeatEvery), days: days.map { Int($0) }.sorted(by: <))
 		}

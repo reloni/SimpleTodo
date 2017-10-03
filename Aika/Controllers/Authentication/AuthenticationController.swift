@@ -41,7 +41,7 @@ final class AuthenticationController : UIViewController {
 	
 	let topOffsetView: UIView = {
 		let view = UIView()
-		view.setContentHuggingPriority(1, for: .vertical)
+		view.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
 		return view
 	}()
 	
@@ -68,7 +68,7 @@ final class AuthenticationController : UIViewController {
 	
 	let bottomOffsetView: UIView = {
 		let view = UIView()
-		view.setContentHuggingPriority(1, for: .vertical)
+		view.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
 		return view
 	}()
 	
@@ -161,7 +161,7 @@ final class AuthenticationController : UIViewController {
 	let lostPasswordLabel: UILabel = {
 		let label = Theme.Controls.label(withStyle: UIFontTextStyle.caption2)
 		let attributedText = NSMutableAttributedString(string: "Lost password?")
-		attributedText.addAttribute(NSUnderlineStyleAttributeName , value: NSUnderlineStyle.styleSingle.rawValue, range: NSMakeRange(0, attributedText.string.characters.count))
+		attributedText.addAttribute(NSAttributedStringKey.underlineStyle , value: NSUnderlineStyle.styleSingle.rawValue, range: NSMakeRange(0, attributedText.string.characters.count))
 		label.attributedText = attributedText
 		label.textColor = Theme.Colors.blueberry
 		label.textAlignment = .center
@@ -304,7 +304,7 @@ final class AuthenticationController : UIViewController {
 	}
 	
 	
-	func changeServer() {
+	@objc func changeServer() {
 		let alert = createAlertContoller(withTitle: "Server host", message: "")
 		
 		alert.addTextField { textField in

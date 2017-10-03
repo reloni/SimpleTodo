@@ -196,20 +196,20 @@ final class EditTaskController : UIViewController {
 		let datePickerExpanded = targetDateView.calendarButton.rx.tap
 			.withLatestFrom(state.map { !$0.datePickerExpanded })
 		
-		let editRepeatModeEvent = taskRepeatDescriptionView.rx.tapGesture().when(.recognized).flatMap { _ in Observable<Void>.just() }
+		let editRepeatModeEvent = taskRepeatDescriptionView.rx.tapGesture().when(.recognized).flatMap { _ in Observable<Void>.just(()) }
 		
 		viewModel.subscribe(taskDescription: descriptionTextField.rx.didChange.map { [weak self] _ in return self?.descriptionTextField.text ?? "" }.distinctUntilChanged(),
-		                    taskNotes: notesTextField.rx.didChange.map { [weak self] _ in return self?.notesTextField.text }.distinctUntilChanged { $0.0 == $0.1 },
-		                    taskTargetDate: targetDatePickerView.currentDate.skip(1).distinctUntilChanged { $0.0 == $0.1 },
+		                    taskNotes: notesTextField.rx.didChange.map { [weak self] _ in return self?.notesTextField.text }.distinctUntilChanged { $0 == $1 },
+		                    taskTargetDate: targetDatePickerView.currentDate.skip(1).distinctUntilChanged { $0 == $1 },
 		                    datePickerExpanded: datePickerExpanded,
-		                    clearTargetDate: targetDateView.clearButton.rx.tap.flatMap { Observable<Void>.just() },
+		                    clearTargetDate: targetDateView.clearButton.rx.tap.flatMap { Observable<Void>.just(()) },
 		                    saveChanges: saveSubject.asObservable(),
 		                    editRepeatMode: editRepeatModeEvent)
 				.forEach { bag.insert($0) }
 		
 		state.take(1).map { $0.description }.bind(to: descriptionTextField.rx.text).disposed(by: bag)
 		state.take(1).map { $0.notes }.bind(to: notesTextField.rx.text).disposed(by: bag)
-		state.map { $0.targetDate }.distinctUntilChanged({ $0.0 == $0.1 }).do(onNext: { [weak self] in self?.targetDatePickerView.date = $0 }).subscribe().disposed(by: bag)
+		state.map { $0.targetDate }.distinctUntilChanged({ $0 == $1 }).do(onNext: { [weak self] in self?.targetDatePickerView.date = $0 }).subscribe().disposed(by: bag)
 		
 		state.map { $0.description.characters.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
 		state.map { $0.repeatPattern?.description ?? "" }.bind(to: taskRepeatDescriptionView.rightLabel.rx.text).disposed(by: bag)
@@ -222,7 +222,7 @@ final class EditTaskController : UIViewController {
 		targetDateView.textField.superview?.addGestureRecognizer(recognizer)
 	}
 	
-	func targetDateTextFieldTapped(_ gesture: UITapGestureRecognizer) {
+	@objc func targetDateTextFieldTapped(_ gesture: UITapGestureRecognizer) {
 		guard gesture.state == .ended else { return }
 		targetDateView.calendarButton.sendActions(for: .touchUpInside)
 	}
@@ -263,7 +263,7 @@ final class EditTaskController : UIViewController {
 		               completion: nil)
 	}
 	
-	func done() {
-		saveSubject.onNext()
+	@objc func done() {
+		saveSubject.onNext(())
 	}
 }

@@ -116,7 +116,7 @@ final class TasksController : UIViewController {
 		viewModel.newTask()
 	}
 	
-	func showSettings() {
+	@objc func showSettings() {
 		viewModel.showSettings()
 	}
 	
@@ -148,11 +148,11 @@ final class TasksController : UIViewController {
 			return cell
 		}
 		
-		dataSource.canEditRowAtIndexPath = { _ in
+		dataSource.canEditRowAtIndexPath = { _, _ in
 			return true
 		}
 		
-		dataSource.canMoveRowAtIndexPath = { _ in
+		dataSource.canMoveRowAtIndexPath = { _, _ in
 			return true
 		}
 	}

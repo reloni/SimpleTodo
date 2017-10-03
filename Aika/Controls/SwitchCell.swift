@@ -32,7 +32,7 @@ final class SwitchCell: DefaultCell {
 		accessoryView = switchView
 	}
 	
-	func switched(switchView: UISwitch) {
+	@objc func switched(switchView: UISwitch) {
 		switchChanged?(switchView.isOn)
 	}
 }

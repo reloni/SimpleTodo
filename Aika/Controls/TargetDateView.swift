@@ -15,22 +15,22 @@ final class TargetDateView : UIView {
 		let field = Theme.Controls.uiTextField(withStyle: .body)
 		field.placeholder = "Due date"
 		field.isEnabled = false
-		field.setContentHuggingPriority(751, for: .horizontal)
-		field.setContentHuggingPriority(751, for: .vertical)
+		field.setContentHuggingPriority(UILayoutPriority(rawValue: 751), for: .horizontal)
+		field.setContentHuggingPriority(UILayoutPriority(rawValue: 751), for: .vertical)
 		return field
 	}()
 	
 	let clearButton: Button = {
 		let button = Button(image: Theme.Images.delete)
-		button.setContentHuggingPriority(999, for: .vertical)
-		button.setContentHuggingPriority(999, for: .horizontal)
+		button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .vertical)
+		button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .horizontal)
 		return button
 	}()
 	
 	let calendarButton: Button = {
 		let button = Button(image: Theme.Images.calendar)
-		button.setContentHuggingPriority(999, for: .vertical)
-		button.setContentHuggingPriority(999, for: .horizontal)
+		button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .vertical)
+		button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .horizontal)
 		return button
 	}()
 	

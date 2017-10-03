@@ -17,8 +17,8 @@ enum ObjectSynchronizationStatus: String {
 }
 
 class RealmTaskPrototype: Object {
-	dynamic var uuid: String = ""
-	dynamic var repeatPattern: String? = nil
+	@objc dynamic var uuid: String = ""
+	@objc dynamic var repeatPattern: String? = nil
 	
 	convenience init(from prototype: TaskPrototype) {
 		self.init()
@@ -38,14 +38,14 @@ class RealmTaskPrototype: Object {
 }
 
 class RealmTask: Object {
-	dynamic var uuid: String = ""
-	dynamic var completed: Bool = false
-	dynamic var taskDescription: String = ""
-	dynamic var notes: String? = nil
-	dynamic var targetDate: Date? = nil
-	dynamic var targetDateIncludeTime: Bool = false
-	dynamic var _synchronizationStatus: String = ObjectSynchronizationStatus.created.rawValue
-	dynamic var prototype: RealmTaskPrototype!
+	@objc dynamic var uuid: String = ""
+	@objc dynamic var completed: Bool = false
+	@objc dynamic var taskDescription: String = ""
+	@objc dynamic var notes: String? = nil
+	@objc dynamic var targetDate: Date? = nil
+	@objc dynamic var targetDateIncludeTime: Bool = false
+	@objc dynamic var _synchronizationStatus: String = ObjectSynchronizationStatus.created.rawValue
+	@objc dynamic var prototype: RealmTaskPrototype!
 	
 	convenience init(from task: Task) {
 		self.init()

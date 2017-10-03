@@ -22,7 +22,7 @@ extension FileManager {
 		
 		try! createDirectory(at: realmsDirectory,
 		                     withIntermediateDirectories: false,
-		                     attributes: [FileAttributeKey.protectionKey.rawValue: FileProtectionType.completeUntilFirstUserAuthentication])
+		                     attributes: [FileAttributeKey(rawValue: FileAttributeKey.protectionKey.rawValue): FileProtectionType.completeUntilFirstUserAuthentication])
 	}
 }
 
