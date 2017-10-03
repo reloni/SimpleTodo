@@ -188,7 +188,7 @@ extension TaskScheduler.Pattern {
 			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
 			return .byWeek(repeatEvery: repeatEvery, weekDays: weekDays)
 		case let type where type == "byMonthDays":
-			guard let days = (dictionary["days"] as? [UInt])?.filter({ 0...31 ~= $0 }).distinct().sorted(), days.count > 0 else { return nil }
+			guard let days = (dictionary["days"] as? [Int])?.filter({ 0...31 ~= $0 }).distinct().map(UInt.init).sorted(), days.count > 0 else { return nil }
 			guard let repeatEvery = dictionary.toUint("repeatEvery") else { return nil }
 			return .byMonthDays(repeatEvery: repeatEvery, days: days)
 		default: return nil

@@ -105,13 +105,13 @@ final class TaskCell : UITableViewCell {
 		
 		completeActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
 			self?.completeTapped?()
-		}).addDisposableTo(bag)
+		}).disposed(by: bag)
 		editActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
 			self?.editTapped?()
-		}).addDisposableTo(bag)
+		}).disposed(by: bag)
 		deleteActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
 			self?.deleteTapped?()
-		}).addDisposableTo(bag)
+		}).disposed(by: bag)
 		
 		taskDescription.snp.makeConstraints(makeTaskDescriptionConstraints)
 		targetDate.snp.makeConstraints(makeTargetDateConstraints)

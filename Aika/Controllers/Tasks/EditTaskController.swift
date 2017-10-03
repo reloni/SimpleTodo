@@ -44,13 +44,11 @@ final class EditTaskController : UIViewController {
 	
 	let descriptionTextField: TextView  = {
 		let text = Theme.Controls.textView(withStyle: .body)
-	
-		text.placeholderActiveColor = Theme.Colors.blueberry
-		text.placeholderNormalColor = Theme.Colors.romanSilver
+
 		text.backgroundColor = Theme.Colors.white
 		text.placeholderLabel.textColor = Theme.Colors.romanSilver
 		text.borderColor = Theme.Colors.romanSilver
-		text.borderWidth = 0.5
+		text.layer.borderWidth = 0.5
 		text.isScrollEnabled = false
 		
 		text.placeholderLabel.text = "Task description"
@@ -62,7 +60,7 @@ final class EditTaskController : UIViewController {
 	lazy var targetDateView: TargetDateView = {
 		let view = TargetDateView()
 		view.borderColor = Theme.Colors.romanSilver
-		view.borderWidth = 0.5
+		view.layer.borderWidth = 0.5
 		view.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		return view
 	}()
@@ -72,7 +70,7 @@ final class EditTaskController : UIViewController {
 		
 		picker.alpha = 0
 		picker.borderColor = Theme.Colors.romanSilver
-		picker.borderWidth = 0.5
+		picker.layer.borderWidth = 0.5
 		picker.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		picker.date = nil
 		
@@ -82,7 +80,7 @@ final class EditTaskController : UIViewController {
 	let taskRepeatDescriptionView: TaskRepeatDescriptionView = {
 		let view = TaskRepeatDescriptionView()
 		view.borderColor = Theme.Colors.romanSilver
-		view.borderWidth = 0.5
+		view.layer.borderWidth = 0.5
 		view.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		return view
 	}()
@@ -100,7 +98,7 @@ final class EditTaskController : UIViewController {
 		view.backgroundColor = Theme.Colors.white
 		view.layoutEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		view.borderColor = Theme.Colors.romanSilver
-		view.borderWidth = 0.5
+		view.layer.borderWidth = 0.5
 		return view
 	}()
 	
@@ -191,7 +189,7 @@ final class EditTaskController : UIViewController {
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)
 		
-		let state = viewModel.state.shareReplay(1)
+		let state = viewModel.state.share(replay: 1, scope: .forever)
 		
 		let datePickerExpanded = targetDateView.calendarButton.rx.tap
 			.withLatestFrom(state.map { !$0.datePickerExpanded })

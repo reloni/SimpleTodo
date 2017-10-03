@@ -63,7 +63,7 @@ final class EditTaskViewModel: ViewModelType {
 	               clearTargetDate: Observable<Void>,
 	               saveChanges: Observable<Void>,
 	               editRepeatMode: Observable<Void>) -> [Disposable] {
-		let currentLocalState = localStateSubject.asObservable().shareReplay(1)
+		let currentLocalState = localStateSubject.asObservable().share(replay: 1, scope: .forever)
 		
 		return [
 			taskDescription.withLatestFrom(currentLocalState) { return ($1, $0) }
