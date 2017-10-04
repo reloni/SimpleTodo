@@ -4,8 +4,8 @@ github "CosmicMind/Material" == 2.10.3
 github "RxSwiftCommunity/RxHttpClient" "swift-4"
 github "Reloni/RxDataFlow" "swift-4"
 github "RxSwiftCommunity/RxDataSources" "3.0.0-beta.1"
-github "JohnSundell/Unbox" == 2.5.0
-github "JohnSundell/Wrap" == 2.1.1
+github "Reloni/Unbox" "disable-code-coverage"
+github "Reloni/Wrap" "disable-code-coverage"
 github "RxSwiftCommunity/RxGesture" == 1.1.1
 github "OneSignal/OneSignal-iOS-SDK" == 2.5.4
 github "auth0/Auth0.swift" == 1.8.0
