@@ -287,7 +287,7 @@ final class AuthenticationController : UIViewController {
 				if v { self?.passwordContainerHeightConstraint.deactivate() }
 				else { self?.passwordContainerHeightConstraint.activate() }
 				UIView.animate(withDuration: 0.3,
-				               animations: { [weak self] in self?.view.layoutIfNeeded(); /*self?.emailTextField.reload(); self?.passwordTextField.reload()*/ })
+				               animations: { [weak self] in self?.emailTextField.setNeedsLayout(); self?.passwordTextField.setNeedsLayout(); self?.view.layoutIfNeeded(); })
 		}).disposed(by: bag)
 		
 		viewModel.errors.subscribe().disposed(by: bag)

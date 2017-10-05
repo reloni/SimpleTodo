@@ -48,6 +48,8 @@ final class Theme {
 			control.adjustsFontForContentSizeCategory = true
 			control.dividerActiveColor = Theme.Colors.blueberry
 			control.placeholderActiveColor = Theme.Colors.blueberry
+			control.placeholderActiveScale = 0.85
+			control.placeholderVerticalOffset = 5
 			return control
 		}
 		
