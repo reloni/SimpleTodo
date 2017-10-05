@@ -48,7 +48,12 @@ enum UIAction : RxActionType {
 
 enum AuthenticationAction : RxActionType {
 	var isSerial: Bool { return true }
-	var scheduler: ImmediateSchedulerType? { return nil }
+	var scheduler: ImmediateSchedulerType? {
+		switch self {
+		case .logIn: return MainScheduler.instance
+		default: return nil
+		}
+	}
 
 	case resetPassword(String)
 	case refreshToken(force: Bool)
@@ -93,7 +98,7 @@ enum SynchronizationAction: RxActionType {
 
 enum PushNotificationsAction : RxActionType {
 	var isSerial: Bool { return true }
-	var scheduler: ImmediateSchedulerType? { return nil }
+	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
 	case promtForPushNotifications
 	case switchNotificationSubscription(subscribed: Bool)

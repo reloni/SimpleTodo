@@ -89,7 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func refreshInBackground(with completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 		// compose refreshing action
-		let actions = RxCompositeAction.refreshTokenAndSyncActions +
+		let actions = [SystemAction.updateIconBadge] +
+			RxCompositeAction.refreshTokenAndSyncActions +
 			[SystemAction.updateIconBadge, SystemAction.invoke(handler: { completionHandler(.newData) })]
 		let compositeAction = RxCompositeAction(actions: actions,
 		                                      fallbackAction: SystemAction.invoke(handler: { completionHandler(.failed) }),
