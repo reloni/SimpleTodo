@@ -86,10 +86,14 @@ final class AuthenticationViewModel: ViewModelType {
 	}
 	
 	private func authenticate(authType: AuthenticationType) {
-		flowController.dispatch(RxCompositeAction(actions: [AuthenticationAction.logIn(authType),
-		                                                    SynchronizationAction.updateConfiguration,
-		                                                    UIAction.showTasksListController,
-		                                                    PushNotificationsAction.promtForPushNotifications]))
+		let action = RxCompositeAction(actions: [AuthenticationAction.logIn(authType),
+		                            UIAction.showSpinner,
+		                            SynchronizationAction.updateConfiguration,
+		                            UIAction.showTasksListController,
+		                            UIAction.hideSpinner,
+		                            PushNotificationsAction.promtForPushNotifications],
+		                  fallbackAction: UIAction.hideSpinner)
+		flowController.dispatch(action)
 	}
 	
 	func performAction(email: String, password: String) {
