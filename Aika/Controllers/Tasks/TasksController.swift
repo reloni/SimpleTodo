@@ -14,11 +14,20 @@ import RxDataSources
 import Material
 import SnapKit
 
+//class TestDataSource<T: AnimatableSectionModelType>: RxTableViewSectionedAnimatedDataSource<T> {
+//	@available(iOS 11.0, *)
+//	func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//		let action = UIContextualAction(style: .normal, title: "Test 2", handler: { a, b, c in print("test 2"); c(true) })
+//		return UISwipeActionsConfiguration(actions: [action])
+//	}
+//}
+
 final class TasksController : UIViewController {
 	let bag = DisposeBag()
 	
 	let viewModel: TasksViewModel
 	let tableViewDelegate = TasksTableViewDelegate()
+	lazy var tableViewDataSource = { return TasksTableViewDataSource(rxDataSource: self.dataSource) }()
 	let dataSource = RxTableViewSectionedAnimatedDataSource<TaskSection>()
 	
 	let tableView: UITableView = {
@@ -76,7 +85,7 @@ final class TasksController : UIViewController {
 		
 		configureDataSource()
 		bind()
-		
+
 		viewModel.synchronize()
 	}
 	
@@ -108,9 +117,18 @@ final class TasksController : UIViewController {
 			.disposed(by: bag)
 		
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
+//		tableView.rx.setDataSource(tableViewDataSource).disposed(by: bag)
 		
 		addTaskButton.rx.tap.subscribe { [weak self] _ in self?.addNewTask() }.disposed(by: bag)
 	}
+	
+	
+	
+//	@available(iOS 11.0, *)
+//	func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//		let action = UIContextualAction(style: .normal, title: "Test 2", handler: { a, b, c in print("test 2"); c(true) })
+//		return UISwipeActionsConfiguration(actions: [action])
+//	}
 	
 	func addNewTask() {
 		viewModel.newTask()
@@ -122,11 +140,15 @@ final class TasksController : UIViewController {
 	
 	func configureDataSource() {
 		dataSource.configureCell = { [weak viewModel, weak self] ds, tv, ip, item in
+//			let c = UITableViewCell()
+//			c.textLabel?.text = "Sample \(ip.row)"
+//			return c
 			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
 			cell.preservesSuperviewLayoutMargins = false
 			cell.layoutMargins = .zero
 			cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-			cell.selectionStyle = .none
+//			cell.selectionStyle = .none
+			cell.isUserInteractionEnabled = true
 			cell.isExpanded = false
 			cell.taskDescription.text = "\(item.description)"
 			cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
@@ -151,7 +173,7 @@ final class TasksController : UIViewController {
 		dataSource.canEditRowAtIndexPath = { _, _ in
 			return true
 		}
-		
+
 		dataSource.canMoveRowAtIndexPath = { _, _ in
 			return true
 		}
@@ -187,27 +209,68 @@ final class TasksController : UIViewController {
 	}
 }
 
+class TasksTableViewDataSource: NSObject, UITableViewDataSource {	
+	let rxDataSource: RxTableViewSectionedAnimatedDataSource<TaskSection>
+	
+	init(rxDataSource: RxTableViewSectionedAnimatedDataSource<TaskSection>) {
+		self.rxDataSource = rxDataSource
+	}
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//		return rxDataSource.tableView(tableView, numberOfRowsInSection: section)
+		return 500
+	}
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = UITableViewCell()
+		cell.textLabel?.text = "Sample \(indexPath.row)"
+		return cell
+		return rxDataSource.tableView(tableView, cellForRowAt: indexPath)
+	}
+	
+//	@available(iOS 11.0, *)
+//	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//		let action = UIContextualAction(style: .normal, title: "Test 1", handler: { _, _, _ in print("test 1") })
+//		return UISwipeActionsConfiguration(actions: [action])
+//	}
+//
+//	func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//		let action = UIContextualAction(style: .normal, title: "Test 2", handler: { a, b, c in print("test 2"); c(true) })
+//		return UISwipeActionsConfiguration(actions: [action])
+//	}
+}
+
 final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
-	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-		return UITableViewCellEditingStyle.delete
-	}
+//	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//		return UITableViewCellEditingStyle.delete
+//	}
 	
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
-		
-		cell.isExpanded = !cell.isExpanded
-		animateCellExpansion(tableView: tableView)
-	}
-	
-	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
-		
-		cell.isExpanded = false
-	}
-	
+//	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
+//
+//		cell.isExpanded = !cell.isExpanded
+//		animateCellExpansion(tableView: tableView)
+//	}
+//
+//	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
+//
+//		cell.isExpanded = false
+//	}
+
 	func animateCellExpansion(tableView: UITableView) {
 		tableView.beginUpdates()
 		tableView.endUpdates()
 		tableView.scrollToNearestSelectedRow(at: .none, animated: true)
+	}
+	
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let action = UIContextualAction(style: .normal, title: "Test 1", handler: { _, _, _ in print("test 1") })
+		return UISwipeActionsConfiguration(actions: [action])
+	}
+	
+	func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let action = UIContextualAction(style: .normal, title: "Test 2", handler: { a, b, c in print("test 2"); c(true) })
+		return UISwipeActionsConfiguration(actions: [action])
 	}
 }
