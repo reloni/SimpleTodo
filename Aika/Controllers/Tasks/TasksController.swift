@@ -76,7 +76,7 @@ final class TasksController : UIViewController {
 		
 		configureDataSource()
 		bind()
-		
+
 		viewModel.synchronize()
 	}
 	
@@ -127,6 +127,7 @@ final class TasksController : UIViewController {
 			cell.layoutMargins = .zero
 			cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 			cell.selectionStyle = .none
+			cell.isUserInteractionEnabled = true
 			cell.isExpanded = false
 			cell.taskDescription.text = "\(item.description)"
 			cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
@@ -151,7 +152,7 @@ final class TasksController : UIViewController {
 		dataSource.canEditRowAtIndexPath = { _, _ in
 			return true
 		}
-		
+
 		dataSource.canMoveRowAtIndexPath = { _, _ in
 			return true
 		}
@@ -188,26 +189,58 @@ final class TasksController : UIViewController {
 }
 
 final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
-	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-		return UITableViewCellEditingStyle.delete
+	@available(iOS 11.0, *)
+	static func createAction(title: String, backgroundColor: UIColor, image: UIImage?, completionHandler: @escaping () -> Bool) -> UIContextualAction {
+		let action = UIContextualAction(style: .normal,
+		                                title: title,
+		                                handler: { _, _, completion in completion(completionHandler()) })
+		action.backgroundColor = backgroundColor
+		action.image = image
+		return action
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
-		
+
 		cell.isExpanded = !cell.isExpanded
 		animateCellExpansion(tableView: tableView)
 	}
-	
+
 	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
-		
+
 		cell.isExpanded = false
 	}
-	
+
 	func animateCellExpansion(tableView: UITableView) {
 		tableView.beginUpdates()
 		tableView.endUpdates()
 		tableView.scrollToNearestSelectedRow(at: .none, animated: true)
+	}
+	
+	@available(iOS 11.0, *)
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return nil }
+		
+		let deleteAction = TasksTableViewDelegate.createAction(title: "Delete",
+		                                                       backgroundColor: Theme.Colors.upsdelRed,
+		                                                       image: Theme.Images.delete.tint(with: .white)!.resize(toWidth: 22),
+		                                                       completionHandler: { [weak cell] in cell?.deleteTapped?(); return true })
+		let editAction = TasksTableViewDelegate.createAction(title: "Edit",
+		                                                       backgroundColor: Theme.Colors.blueberry,
+		                                                       image: Theme.Images.edit.tint(with: .white)!.resize(toWidth: 22),
+		                                                       completionHandler: { [weak cell] in cell?.editTapped?(); return true })
+		return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+	}
+	
+	@available(iOS 11.0, *)
+	func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return nil }
+		
+		let completeAction = TasksTableViewDelegate.createAction(title: "Complete",
+		                                                     backgroundColor: Theme.Colors.darkSpringGreen,
+		                                                     image: Theme.Images.checked.tint(with: .white)!.resize(toWidth: 22),
+		                                                     completionHandler: { [weak cell] in cell?.completeTapped?(); return true })
+		return UISwipeActionsConfiguration(actions: [completeAction])
 	}
 }

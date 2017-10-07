@@ -11,6 +11,7 @@ import RxSwift
 import RxDataSources
 
 final class TaskRepeatModeController: UIViewController {
+	
 	let viewModel: TaskRepeatModeViewModel
 	let bag = DisposeBag()
 	let tableViewDelegate = TaskRepeatModeTableViewDelegate()
