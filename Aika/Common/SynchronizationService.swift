@@ -69,11 +69,11 @@ final class SynchronizationService: SynchronizationServiceType {
 	}
 	
 	func deleteUser(authenticationInfo: AuthenticationInfo) -> Observable<Void> {
-		return webService.deleteUser(tokenHeader: .just(authenticationInfo.tokenHeader))
+		return webService.deleteUser(tokenHeader: authenticationInfo.tokenHeader)
 	}
 	
 	func logOut(authenticationInfo: AuthenticationInfo) -> Observable<Void> {
-		return webService.logOut(refreshToken: authenticationInfo.refreshToken, tokenHeader: .just(authenticationInfo.tokenHeader))
+		return webService.logOut(refreshToken: authenticationInfo.refreshToken, tokenHeader: authenticationInfo.tokenHeader)
 	}
 	
 	func synchronize(authenticationInfo: AuthenticationInfo) -> Observable<Void> {
@@ -90,7 +90,7 @@ final class SynchronizationService: SynchronizationServiceType {
 			}
 		}
 		
-		return webService.update(with: BatchUpdate(toCreate: toCreate, toUpdate: toUpdate, toDelete: toDelete), tokenHeader: .just(authenticationInfo.tokenHeader))
+		return webService.update(with: BatchUpdate(toCreate: toCreate, toUpdate: toUpdate, toDelete: toDelete), tokenHeader: authenticationInfo.tokenHeader)
 			.flatMapLatest { [weak self] result -> Observable<Void> in
 				try? self?.repository.removeAllTasks()
 				_ = try? self?.repository.import(tasks: result)

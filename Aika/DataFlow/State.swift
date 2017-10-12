@@ -25,13 +25,6 @@ enum Authentication {
 	case none
 	case authenticated(AuthenticationInfo, UserSettings)
 	
-	var tokenHeader: Observable<String> {
-		switch self {
-		case .none: return .error(AuthenticationError.notAuthorized)
-		case .authenticated(let data): return .just(data.0.tokenHeader)
-		}
-	}
-	
 	var settings: UserSettings? {
 		switch self {
 		case .authenticated(let data): return data.1

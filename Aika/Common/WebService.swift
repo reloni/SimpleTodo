@@ -14,9 +14,9 @@ import Unbox
 import Wrap
 
 protocol WebServiceType {
-	func update(with instruction: BatchUpdate, tokenHeader: Observable<String>) -> Observable<[Task]>
-	func deleteUser(tokenHeader: Observable<String>) -> Observable<Void>
-	func logOut(refreshToken: String, tokenHeader: Observable<String>) -> Observable<Void>
+	func update(with instruction: BatchUpdate, tokenHeader: String) -> Observable<[Task]>
+	func deleteUser(tokenHeader: String) -> Observable<Void>
+	func logOut(refreshToken: String, tokenHeader: String) -> Observable<Void>
 	func withNew(host: String) -> WebServiceType
 }
 
@@ -49,58 +49,42 @@ final class WebSerivce: WebServiceType {
 			"Host": host]
 	}
 	
-	func deleteUser(tokenHeader: Observable<String>) -> Observable<Void> {
-		return tokenHeader
-			.flatMapLatest { [weak self] token -> Observable<Void> in
-				guard let object = self else { return .empty() }
-				
-				let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/users")!,
-				                         method: .delete,
-				                         headers: object.headers(withToken: token))
-				
-				return object.httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
-					.flatMap { _ -> Observable<Void> in
-						return .just(())
-				}
+	func deleteUser(tokenHeader: String) -> Observable<Void> {
+		let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/users")!,
+		                         method: .delete,
+		                         headers: headers(withToken: tokenHeader))
+		
+		return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
+			.flatMap { _ -> Observable<Void> in
+				return .just(())
 			}
 			.catchError(WebSerivce.catchError)
 	}
 	
-	func logOut(refreshToken: String, tokenHeader: Observable<String>) -> Observable<Void> {
-		return tokenHeader
-			.flatMapLatest { [weak self] token -> Observable<Void> in
-				guard let object = self else { return .empty() }
-				
-				let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/users/LogOut")!,
-				                         method: .post,
-				                         jsonBody: ["RefreshToken": refreshToken],
-				                         headers: object.headers(withToken: token))!
-				
-				return object.httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
-					.flatMap { _ -> Observable<Void> in
-						return .just(())
-				}
+	func logOut(refreshToken: String, tokenHeader: String) -> Observable<Void> {
+		let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/users/LogOut")!,
+		                         method: .post,
+		                         jsonBody: ["RefreshToken": refreshToken],
+		                         headers: headers(withToken: tokenHeader))!
+		
+		return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
+			.flatMap { _ -> Observable<Void> in
+				return .just(())
 			}
 			.catchError(WebSerivce.catchError)
 	}
 	
-	func update(with instruction: BatchUpdate, tokenHeader: Observable<String>) -> Observable<[Task]> {
-		return tokenHeader.flatMapLatest { token -> Observable<(token: String, json: [String : Any])> in
-			return .just((token: token, json: try wrap(instruction)))
-		}
-		.flatMapLatest { [weak self] result -> Observable<[Task]> in
-			guard let object = self else { return .empty() }
-			
-			let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/tasks/BatchUpdate")!,
-			                         method: .post,
-			                         jsonBody: result.json,
-			                         options: [],
-			                         headers: object.headers(withToken: result.token))!
-
-			return object.httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
-							.flatMap { result -> Observable<[Task]> in return .just(try unbox(data: result)) }
-		}
-		.catchError(WebSerivce.catchError)
+	func update(with instruction: BatchUpdate, tokenHeader: String) -> Observable<[Task]> {
+		guard let json = try? wrap(instruction) else { return .empty() }
+		let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/tasks/BatchUpdate")!,
+		                         method: .post,
+		                         jsonBody: json,
+		                         options: [],
+		                         headers: headers(withToken: tokenHeader))!
+		
+		return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
+			.flatMap { result -> Observable<[Task]> in return .just(try unbox(data: result)) }
+			.catchError(WebSerivce.catchError)
 	}
 }
 
