@@ -11,12 +11,13 @@ import RxDataFlow
 import Auth0
 
 func authenticationReducer(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
-	switch action as? AuthenticationAction {
-	case .logIn(let authType)?: return logIn(currentState: currentState, authType: authType)
-	case .register(let email, let password)?: return register(currentState: currentState, email: email, password: password)
-	case .logOut?: return logOut(currentState: currentState)
-	case .resetPassword(let email)?: return resetPassword(currentState: currentState, email: email)
-	case .refreshToken(let force)?: return refreshToken(currentState: currentState, force: force)
+	switch (action, currentState.authentication) {
+	case (AuthenticationAction.logIn(let authType), _): return logIn(currentState: currentState, authType: authType)
+	case (AuthenticationAction.register(let email, let password), _): return register(currentState: currentState, email: email, password: password)
+	case (AuthenticationAction.logOut, _): return logOut(currentState: currentState)
+	case (AuthenticationAction.resetPassword(let email), _): return resetPassword(currentState: currentState, email: email)
+	case (AuthenticationAction.refreshToken(let force), _): return refreshToken(currentState: currentState, force: force)
+	case (AuthenticationAction.deleteUser, .authenticated): return deleteUser(currentState: currentState)
 	default: return .empty()
 	}
 }
@@ -25,6 +26,13 @@ fileprivate func resetPassword(currentState state: AppState, email: String)  -> 
 		.flatMapLatest { _ -> Observable<RxStateMutator<AppState>> in
 			return .just({ $0 })
 	}
+}
+
+fileprivate func deleteUser(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
+	guard let info = state.authentication.info else { return .empty() }
+	
+	return state.webService.deleteUser(tokenHeader: info.tokenHeader)
+		.flatMap { Observable.just( { $0 } ) }
 }
 
 fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMutator<AppState>> {

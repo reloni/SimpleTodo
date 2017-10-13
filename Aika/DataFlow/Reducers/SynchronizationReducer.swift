@@ -18,20 +18,12 @@ func synchronizationReducer(_ action: RxActionType, currentState: AppState) -> O
 	case (SynchronizationAction.updateTask(let task), .authenticated): return update(task: task, currentState: currentState)
 	case (SynchronizationAction.deleteTask(let uuid), .authenticated): return deleteTask(by: uuid, currentState: currentState)
 	case (SynchronizationAction.synchronize, .authenticated): return synchronize(currentState: currentState)
-	case (SynchronizationAction.deleteUser, .authenticated): return deleteUser(currentState: currentState)
 	case (SynchronizationAction.completeTask(let uuid), .authenticated): return updateTaskCompletionStatus(currentState: currentState, taskUuid: uuid)
 	case (SynchronizationAction.updateConfiguration, _): return updateConfiguration(currentState: currentState)
 	case (SynchronizationAction.deleteCache, .authenticated): return deleteCache(currentState: currentState)
 	case (SynchronizationAction.updateHost(let newHost), _): return updateHost(currentState: currentState, newHost: newHost)
 	default: return .empty()
 	}
-}
-
-fileprivate func deleteUser(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
-	guard let info = state.authentication.info else { return .empty() }
-	
-	return state.webService.deleteUser(tokenHeader: info.tokenHeader)
-		.flatMap { Observable.just( { $0 } ) }
 }
 
 fileprivate func deleteCache(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
@@ -50,6 +42,7 @@ fileprivate func deleteCache(currentState state: AppState) -> Observable<RxState
 	return .just( { $0 } )
 }
 fileprivate func updateHost(currentState state: AppState, newHost: String) -> Observable<RxStateMutator<AppState>> {
+
 	let newWebService = state.webService.withNew(host: newHost)
 	return .just( { $0.mutation.new(webService: newWebService) } )
 }

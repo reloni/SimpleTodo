@@ -37,7 +37,7 @@ extension RxCompositeAction {
 	}
 	
 	static var deleteUserActions: [RxActionType] {
-		return [SynchronizationAction.deleteUser,
+		return [AuthenticationAction.deleteUser,
 		        AuthenticationAction.logOut,
 		        PushNotificationsAction.switchNotificationSubscription(subscribed: false),
 		        SynchronizationAction.updateConfiguration,
