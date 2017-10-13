@@ -50,8 +50,7 @@ fileprivate func deleteCache(currentState state: AppState) -> Observable<RxState
 	return .just( { $0 } )
 }
 fileprivate func updateHost(currentState state: AppState, newHost: String) -> Observable<RxStateMutator<AppState>> {
-	let newSyncService = SynchronizationService(webService: state.syncService.webService.withNew(host: newHost),
-	                                            repository: state.syncService.repository)
+	let newSyncService = SynchronizationService(webService: state.syncService.webService.withNew(host: newHost))
 	
 	return .just( { $0.mutation.new(syncService: newSyncService) } )
 }
@@ -59,26 +58,23 @@ fileprivate func updateHost(currentState state: AppState, newHost: String) -> Ob
 
 fileprivate func updateConfiguration(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 	guard let info = state.authentication.info else {
-		let newSyncService = SynchronizationService(webService: state.syncService.webService,
-		                                            repository: state.syncService.repository.withNew(realmConfiguration: Realm.Configuration()))
-		return .just( { $0.mutation.new(syncService: newSyncService) } )
+		let newRepository = state.repository.withNew(realmConfiguration: Realm.Configuration())
+		return .just( { $0.mutation.new(repository: newRepository) } )
 	}
 
 	let newConfig = Realm.Configuration(withFileName: info.uid)
 	
-	let newSyncService = SynchronizationService(webService: state.syncService.webService,
-	                                            repository: state.syncService.repository.withNew(realmConfiguration: newConfig))
-	
-	return .just( { $0.mutation.new(syncService: newSyncService) } )
+	let newRepository = state.repository.withNew(realmConfiguration: newConfig)
+	return .just( { $0.mutation.new(repository: newRepository) } )
 }
 
 fileprivate func update(task: Task, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
-	state.syncService.addOrUpdate(task: task)
+	_ = try? state.repository.addOrUpdate(task: task)
 	return .just( { $0 } )
 }
 
 fileprivate func add(task: Task, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
-	state.syncService.addOrUpdate(task: task)
+	_ = try? state.repository.addOrUpdate(task: task)
 	return .just( { $0 } )
 }
 
@@ -88,7 +84,7 @@ fileprivate func synchronize(currentState state: AppState) -> Observable<RxState
 	return Observable.create { observer in
 		observer.onNext( { $0.mutation.new(syncStatus: .inProgress) })
 		
-		let subscription = state.syncService.synchronize(authenticationInfo: info)
+		let subscription = state.syncService.synchronize(authenticationInfo: info, repository: state.repository)
 			.do(onError: { error in
 				observer.onNext( { $0.mutation.new(syncStatus: .failed(error)) } )
 				if error.isNotConnectedToInternet() || error.isCannotConnectToHost() || error.isTimedOut() || error.isInvalidResponse() {
@@ -106,11 +102,11 @@ fileprivate func synchronize(currentState state: AppState) -> Observable<RxState
 }
 
 fileprivate func deleteTask(by uuid: UniqueIdentifier, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
-	state.syncService.delete(taskUuid: uuid.uuid)
+	_ = try? state.repository.markDeleted(taskUuid: uuid.uuid)
 	return .just( { $0 } )
 }
 
 fileprivate func updateTaskCompletionStatus(currentState state: AppState, taskUuid: UniqueIdentifier) -> Observable<RxStateMutator<AppState>> {
-	state.syncService.complete(taskUuid: taskUuid.uuid)
+	_ = try? state.repository.complete(taskUuid: taskUuid.uuid)
 	return .just({ $0 })
 }
