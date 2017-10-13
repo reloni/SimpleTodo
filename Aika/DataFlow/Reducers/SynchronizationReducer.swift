@@ -30,7 +30,7 @@ func synchronizationReducer(_ action: RxActionType, currentState: AppState) -> O
 fileprivate func deleteUser(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 	guard let info = state.authentication.info else { return .empty() }
 	
-	return state.syncService.deleteUser(authenticationInfo: info)
+	return state.webService.deleteUser(tokenHeader: info.tokenHeader)
 		.flatMap { Observable.just( { $0 } ) }
 }
 
@@ -50,9 +50,8 @@ fileprivate func deleteCache(currentState state: AppState) -> Observable<RxState
 	return .just( { $0 } )
 }
 fileprivate func updateHost(currentState state: AppState, newHost: String) -> Observable<RxStateMutator<AppState>> {
-	let newSyncService = SynchronizationService(webService: state.syncService.webService.withNew(host: newHost))
-	
-	return .just( { $0.mutation.new(syncService: newSyncService) } )
+	let newWebService = state.webService.withNew(host: newHost)
+	return .just( { $0.mutation.new(webService: newWebService) } )
 }
 
 
@@ -84,7 +83,7 @@ fileprivate func synchronize(currentState state: AppState) -> Observable<RxState
 	return Observable.create { observer in
 		observer.onNext( { $0.mutation.new(syncStatus: .inProgress) })
 		
-		let subscription = state.syncService.synchronize(authenticationInfo: info, repository: state.repository)
+		let subscription = synchronize(authenticationInfo: info, repository: state.repository, webService: state.webService)
 			.do(onError: { error in
 				observer.onNext( { $0.mutation.new(syncStatus: .failed(error)) } )
 				if error.isNotConnectedToInternet() || error.isCannotConnectToHost() || error.isTimedOut() || error.isInvalidResponse() {
@@ -100,6 +99,29 @@ fileprivate func synchronize(currentState state: AppState) -> Observable<RxState
 		}
 	}
 }
+
+fileprivate func synchronize(authenticationInfo: AuthenticationInfo, repository: RepositoryType, webService: WebServiceType) -> Observable<Void> {
+	var toCreate = [Task]()
+	var toUpdate = [Task]()
+	var toDelete = [UniqueIdentifier]()
+	
+	repository.modifiedTasks().forEach {
+		switch $0.synchronizationStatus {
+		case .created: toCreate.append($0.toStruct())
+		case .modified: toUpdate.append($0.toStruct())
+		case .deleted: toDelete.append(UniqueIdentifier(identifierString: $0.uuid)!)
+		default: break
+		}
+	}
+	
+	return webService.update(with: BatchUpdate(toCreate: toCreate, toUpdate: toUpdate, toDelete: toDelete), tokenHeader: authenticationInfo.tokenHeader)
+		.flatMapLatest { result -> Observable<Void> in
+			try? repository.removeAllTasks()
+			_ = try? repository.import(tasks: result)
+			return .empty()
+	}
+}
+
 
 fileprivate func deleteTask(by uuid: UniqueIdentifier, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 	_ = try? state.repository.markDeleted(taskUuid: uuid.uuid)

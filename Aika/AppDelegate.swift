@@ -40,12 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return Authentication.authenticated(authenticationInfo, UserSettings())
 		}()
 		
-		let syncService = SynchronizationService(webService: WebSerivce(httpClient: httpClient, host: UserDefaults.standard.serverHost))
 		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!, flowControllerInitializer: { self.flowController }),
 		                            authentication: authentication,
 		                            uiApplication: UIApplication.shared,
 		                            authenticationService: Auth0AuthenticationService(),
-		                            syncService: syncService,
+		                            webService: WebSerivce(httpClient: httpClient, host: UserDefaults.standard.serverHost),
 		                            repository: RealmRepository(),
 		                            syncStatus: .completed)
 		

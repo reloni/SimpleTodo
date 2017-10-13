@@ -32,7 +32,7 @@ fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMuta
 	
 	let returnMutator: RxStateMutator<AppState> = { $0.mutation.new(authentication: Authentication.none) }
 	
-	return state.syncService.logOut(authenticationInfo: info)
+	return state.webService.logOut(refreshToken: info.refreshToken, tokenHeader: info.tokenHeader)
 		.do(onDispose: {
 			if case let AuthenticationType.db(email, _)? = Keychain.authenticationType {
 				Keychain.authenticationType = AuthenticationType.db(email: email, password: "")
