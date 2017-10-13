@@ -43,7 +43,8 @@ struct AppState : RxStateType {
 	let authentication: Authentication
 	let uiApplication: UIApplication
 	let authenticationService: AuthenticationServiceType
-	let syncService: SynchronizationServiceType
+	let webService: WebServiceType
+	let repository: RepositoryType
 	let syncStatus: SynchronizationStatus
 	var badgeStyle: IconBadgeStyle { return UserDefaults.standard.iconBadgeStyle }
 }
@@ -60,12 +61,14 @@ extension AppStateMutation {
 	func new(coordinator: ApplicationCoordinatorType? = nil,
 	         authentication: Authentication? = nil,
 	         syncStatus: SynchronizationStatus? = nil,
-	         syncService: SynchronizationServiceType? = nil) -> AppState {
+	         webService: WebServiceType? = nil,
+	         repository: RepositoryType? = nil) -> AppState {
 		return AppState(coordinator: coordinator ?? state.coordinator,
 		                authentication: authentication ?? state.authentication,
 		                uiApplication: state.uiApplication,
 		                authenticationService: state.authenticationService,
-										syncService: syncService ?? state.syncService,
-										syncStatus: syncStatus ?? state.syncStatus)
+		                webService: webService ?? state.webService,
+		                repository: repository ?? state.repository,
+		                syncStatus: syncStatus ?? state.syncStatus)
 	}
 }

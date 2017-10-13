@@ -31,9 +31,9 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> Observable
 
 func updateBadge(state: AppState) {
 	switch state.badgeStyle {
-	case .all: state.uiApplication.applicationIconBadgeNumber = state.syncService.allTasksCount()
-	case .overdue: state.uiApplication.applicationIconBadgeNumber = state.syncService.overdueTasksCount()
-	case .today: state.uiApplication.applicationIconBadgeNumber = state.syncService.todayTasksCount()
+	case .all: state.uiApplication.applicationIconBadgeNumber = state.repository.allTasksCount()
+	case .overdue: state.uiApplication.applicationIconBadgeNumber = state.repository.overdueTasksCount()
+	case .today: state.uiApplication.applicationIconBadgeNumber = state.repository.todayTasksCount()
 	}
 }
 

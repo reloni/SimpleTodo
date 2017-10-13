@@ -28,9 +28,9 @@ final class TasksViewModel: ViewModelType {
 			}
 			}
 			.flatMap { newState ->  Observable<[TaskSection]> in
-				return Observable.just([TaskSection(header: "Tasks", items: newState.state.syncService.tasks().map { $0.toStruct() })])
+				return Observable.just([TaskSection(header: "Tasks", items: newState.state.repository.tasks().map { $0.toStruct() })])
 		}
-			.startWith([TaskSection(header: "Tasks", items: self.flowController.currentState.state.syncService.tasks().map { $0.toStruct() })])
+			.startWith([TaskSection(header: "Tasks", items: self.flowController.currentState.state.repository.tasks().map { $0.toStruct() })])
 			.subscribeOn(SerialDispatchQueueScheduler(qos: .utility))
 	}()
 	
@@ -48,7 +48,7 @@ final class TasksViewModel: ViewModelType {
 	}
 	
 	func editTask(uuid: UniqueIdentifier) {
-		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.syncService.task(for: uuid.uuid).toStruct()))
+		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.repository.task(for: uuid.uuid)!.toStruct()))
 	}
 
 	func deleteTask(forUuid uuid: UniqueIdentifier) {
