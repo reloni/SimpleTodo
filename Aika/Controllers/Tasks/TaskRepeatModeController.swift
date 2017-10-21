@@ -16,7 +16,25 @@ final class TaskRepeatModeController: UIViewController {
 	let bag = DisposeBag()
 	let tableViewDelegate = TaskRepeatModeTableViewDelegate()
 	
-	let dataSource = RxTableViewSectionedReloadDataSource<TaskRepeatModeSection>()
+	lazy var dataSource: RxTableViewSectionedReloadDataSource<TaskRepeatModeSection> = {
+		return RxTableViewSectionedReloadDataSource<TaskRepeatModeSection>(configureCell: { [weak self] ds, tv, ip, item in
+			let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
+			
+			cell.textLabel?.text = item.text
+			if item.isSelected {
+				cell.imageView?.image = Theme.Images.checked.resize(toWidth: 22)
+			} else {
+				cell.imageView?.image = Theme.Images.empty.resize(toWidth: 22)
+			}
+			cell.preservesSuperviewLayoutMargins = false
+			
+			cell.tapped = {
+				self?.viewModel.setNew(mode: item.mode)
+			}
+			
+			return cell
+		})
+	}()
 	
 	let tableView: UITableView = {
 		let table = Theme.Controls.tableView()

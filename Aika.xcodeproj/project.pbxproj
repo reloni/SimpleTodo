@@ -101,6 +101,7 @@
 		6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */; };
 		6ED3F4471E7DA3D50003C1CC /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */; };
 		6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4451E7DA3D50003C1CC /* TasksController.swift */; };
+		6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDC4E051F9BDE180003BE92 /* Motion.framework */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
 		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
@@ -251,6 +252,7 @@
 		6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskController.swift; sourceTree = "<group>"; };
 		6ED3F4451E7DA3D50003C1CC /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
+		6EDC4E051F9BDE180003BE92 /* Motion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Motion.framework; path = Carthage/Build/iOS/Motion.framework; sourceTree = "<group>"; };
 		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
 		6EE247D81DF21291001A6F39 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		6EE247D91DF21291001A6F39 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */,
 				6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */,
 				6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */,
 				6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */,
@@ -395,6 +398,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6EDC4E051F9BDE180003BE92 /* Motion.framework */,
 				6E7B21321F83CE6100BF36AC /* Differentiator.framework */,
 				6E97DD1E1EF674F600542768 /* MessageUI.framework */,
 				6E5BA8A91EEEF40F00B61645 /* Crashlytics.framework */,
@@ -783,6 +787,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SimpleKeychain.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Motion.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (

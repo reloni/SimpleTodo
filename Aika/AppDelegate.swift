@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		                            repository: RealmRepository(),
 		                            syncStatus: .completed)
 		
-		return RxDataFlowController(reducer: rootReducer, initialState: initialState, maxHistoryItems: 1)
+		return RxDataFlowController(reducer: rootReducer, initialState: initialState)
 	}()
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
