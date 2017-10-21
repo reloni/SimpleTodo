@@ -16,7 +16,10 @@ final class SettingsController : UIViewController {
 	let viewModel: SettingsViewModel
 	let bag = DisposeBag()
 	
-	let dataSource = RxTableViewSectionedReloadDataSource<SettingsSection>()
+	lazy var dataSource: RxTableViewSectionedReloadDataSource<SettingsSection> = {
+		return RxTableViewSectionedReloadDataSource<SettingsSection>(configureCell: self.configureCell)
+	}()
+	
 	lazy var tableViewDelegate: SettingsTableViewDelegate = {
 		return SettingsTableViewDelegate(dataSource: self.dataSource)
 	}()
@@ -58,7 +61,6 @@ final class SettingsController : UIViewController {
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
 		
-		configureDataSource()
 		bind()
 		
 		viewModel.reloadSections()
@@ -79,9 +81,8 @@ final class SettingsController : UIViewController {
 		viewModel.done()
 	}
 	
-	func configureDataSource() {
-		dataSource.configureCell = { [weak self] ds, tv, ip, item in
-			
+	func configureCell(dataSource ds: TableViewSectionedDataSource<SettingsSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: SettingsSectonItem) -> UITableViewCell {
+		return { [weak self] () -> UITableViewCell in
 			switch item {
 			case .frameworks(let data):
 				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
@@ -129,7 +130,7 @@ final class SettingsController : UIViewController {
 				}
 				return cell
 			}
-		}
+		}()
 	}
 	
 	static func composeEmail(in controller: SettingsController) {

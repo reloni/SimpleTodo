@@ -40,15 +40,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return Authentication.authenticated(authenticationInfo, UserSettings())
 		}()
 		
-		let syncService = SynchronizationService(webService: WebSerivce(httpClient: httpClient, host: UserDefaults.standard.serverHost), repository: RealmRepository())
 		let initialState = AppState(coordinator: InitialCoordinator(window: self.window!, flowControllerInitializer: { self.flowController }),
 		                            authentication: authentication,
 		                            uiApplication: UIApplication.shared,
 		                            authenticationService: Auth0AuthenticationService(),
-		                            syncService: syncService,
+		                            webService: WebSerivce(httpClient: httpClient, host: UserDefaults.standard.serverHost),
+		                            repository: RealmRepository(),
 		                            syncStatus: .completed)
 		
-		return RxDataFlowController(reducer: rootReducer, initialState: initialState, maxHistoryItems: 1)
+		return RxDataFlowController(reducer: rootReducer, initialState: initialState)
 	}()
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -120,6 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+		flowController.dispatch(SynchronizationAction.reload)
 		flowController.dispatch(RxCompositeAction.synchronizationAction)
 	}
 	

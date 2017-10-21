@@ -15,7 +15,9 @@ final class FrameworksController : UIViewController {
 	let viewModel: FrameworksViewModel
 	let bag = DisposeBag()
 	
-	let dataSource = RxTableViewSectionedReloadDataSource<FrameworksSection>()
+	lazy var dataSource: RxTableViewSectionedReloadDataSource<FrameworksSection> = {
+		return RxTableViewSectionedReloadDataSource<FrameworksSection>(configureCell: self.configureCell)
+	}()
 	let tableViewDelegate = FrameworksTableViewDelegate()
 	
 	let tableView: UITableView = {
@@ -51,7 +53,6 @@ final class FrameworksController : UIViewController {
 			$0.bottom.equalTo(view.snp.bottomMargin)
 		}
 		
-		configureDataSource()
 		bind()
 	}
 	
@@ -64,22 +65,20 @@ final class FrameworksController : UIViewController {
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 	}
 	
-	func configureDataSource() {
-		dataSource.configureCell = { ds, tv, ip, item in
-			let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
-			cell.textLabel?.text = item.name
-			cell.accessoryType = .disclosureIndicator
-			cell.preservesSuperviewLayoutMargins = false
-			cell.layoutMargins = .zero
-			cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-			cell.selectionStyle = .none
-			
-			cell.tapped = {
-				UIApplication.shared.open(item.url)
-			}
-			
-			return cell
+	func configureCell(dataSource ds: TableViewSectionedDataSource<FrameworksSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: FrameworkSectionItem) -> UITableViewCell {
+		let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
+		cell.textLabel?.text = item.name
+		cell.accessoryType = .disclosureIndicator
+		cell.preservesSuperviewLayoutMargins = false
+		cell.layoutMargins = .zero
+		cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		cell.selectionStyle = .none
+		
+		cell.tapped = {
+			UIApplication.shared.open(item.url)
 		}
+		
+		return cell
 	}
 	
 	override func updateViewConstraints() {

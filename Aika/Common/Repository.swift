@@ -157,7 +157,11 @@ final class RealmRepository: RepositoryType {
 	}
 	
 	func tasks() -> Results<RealmTask> {
-		return realm.objects(RealmTask.self).filter("completed == false").filter("_synchronizationStatus != %@", ObjectSynchronizationStatus.deleted.rawValue)
+		return realm
+			.objects(RealmTask.self)
+			.filter("completed == false")
+			.filter("_synchronizationStatus != %@", ObjectSynchronizationStatus.deleted.rawValue)
+			.sorted(byKeyPath: "targetDate", ascending: true)
 	}
 	
 	func modifiedTasks() -> Results<RealmTask> {

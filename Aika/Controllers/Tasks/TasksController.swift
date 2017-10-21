@@ -19,7 +19,11 @@ final class TasksController : UIViewController {
 	
 	let viewModel: TasksViewModel
 	let tableViewDelegate = TasksTableViewDelegate()
-	let dataSource = RxTableViewSectionedAnimatedDataSource<TaskSection>()
+	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<TaskSection> = {
+		return RxTableViewSectionedAnimatedDataSource<TaskSection>(animationConfiguration: AnimationConfiguration(insertAnimation: .left, reloadAnimation: .fade, deleteAnimation: .right),
+		                                                    configureCell: self.configureCell,
+		                                                    canEditRowAtIndexPath: { _, _ in return true })
+	}()
 	
 	let tableView: UITableView = {
 		let table = Theme.Controls.tableView()
@@ -74,7 +78,6 @@ final class TasksController : UIViewController {
 		tableView.snp.makeConstraints(tableViewConstraints)
 		addTaskButton.snp.makeConstraints(addTaskButtonConstraints)
 		
-		configureDataSource()
 		bind()
 
 		viewModel.synchronize()
@@ -120,8 +123,8 @@ final class TasksController : UIViewController {
 		viewModel.showSettings()
 	}
 	
-	func configureDataSource() {
-		dataSource.configureCell = { [weak viewModel, weak self] ds, tv, ip, item in
+	func configureCell(dataSource ds: TableViewSectionedDataSource<TaskSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: TaskSection.Item) -> UITableViewCell {
+		return { [weak viewModel, weak self] () -> UITableViewCell in
 			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
 			cell.preservesSuperviewLayoutMargins = false
 			cell.layoutMargins = .zero
@@ -147,15 +150,7 @@ final class TasksController : UIViewController {
 			}
 			
 			return cell
-		}
-		
-		dataSource.canEditRowAtIndexPath = { _, _ in
-			return true
-		}
-
-		dataSource.canMoveRowAtIndexPath = { _, _ in
-			return true
-		}
+		}()
 	}
 	
 	func showDeleteTaskAlert(sourceView: UIView, taskUuid: UniqueIdentifier) {

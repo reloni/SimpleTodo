@@ -58,6 +58,7 @@ enum AuthenticationAction : RxActionType {
 	case resetPassword(String)
 	case refreshToken(force: Bool)
 	case logOut
+	case deleteUser
 	case logIn(AuthenticationType)
 	case register(String, String)
 }
@@ -88,8 +89,7 @@ enum SynchronizationAction: RxActionType {
 	case updateTask(Task)
 	case deleteTask(UniqueIdentifier)
 	case completeTask(UniqueIdentifier)
-	
-	case deleteUser
+	case reload
 	
 	case deleteCache
 	case updateConfiguration
