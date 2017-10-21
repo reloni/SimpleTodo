@@ -71,8 +71,6 @@ final class TaskRepeatModeController: UIViewController {
 		}
 		
 		bind()
-		
-		configureDataSource()
 	}
 	
 	func bind() {
@@ -82,26 +80,6 @@ final class TaskRepeatModeController: UIViewController {
 			.disposed(by: bag)
 		
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
-	}
-	
-	func configureDataSource() {
-		dataSource.configureCell = { [weak self] ds, tv, ip, item in
-			let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
-			
-			cell.textLabel?.text = item.text
-			if item.isSelected {
-				cell.imageView?.image = Theme.Images.checked.resize(toWidth: 22)
-            } else {
-                cell.imageView?.image = Theme.Images.empty.resize(toWidth: 22)
-            }
-			cell.preservesSuperviewLayoutMargins = false
-			
-			cell.tapped = {
-				self?.viewModel.setNew(mode: item.mode)
-			}
-			
-			return cell
-		}
 	}
 }
 
