@@ -67,6 +67,29 @@ struct TaskPrototype {
 	let repeatPattern: TaskScheduler.Pattern?
 }
 
+struct TaskPrototype2: Codable {
+	enum Keys: String, CodingKey {
+		case uuid
+		case repeatPattern = "cronExpression"
+	}
+	
+	let uuid: UUID
+	let repeatPattern: TaskScheduler.Pattern?
+}
+
+extension TaskPrototype2 {
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: Keys.self)
+		let uuid = try container.decode(UUID.self, forKey: .uuid)
+		let expression = try container.decodeIfPresent(String.self, forKey: .repeatPattern)
+		self.init(uuid: uuid, repeatPattern: TaskScheduler.Pattern.parse(fromJson: expression ?? ""))
+	}
+	
+	func encode(to encoder: Encoder) throws {
+		
+	}
+}
+
 extension TaskPrototype: Unboxable {
 	init(unboxer: Unboxer) throws {
 		self.uuid = try unboxer.unbox(key: "uuid")
