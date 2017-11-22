@@ -20,8 +20,11 @@ final class TasksController : UIViewController {
 	let viewModel: TasksViewModel
 	let tableViewDelegate = TasksTableViewDelegate()
 	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<TaskSection> = {
+		let configureCell = { [unowned self] ds, tv, ip, item in
+			TasksController.configureCell(dataSource: ds, tableView: tv, indexPath: ip, item: item, viewController: self)
+		}
 		return RxTableViewSectionedAnimatedDataSource<TaskSection>(animationConfiguration: AnimationConfiguration(insertAnimation: .left, reloadAnimation: .fade, deleteAnimation: .right),
-		                                                    configureCell: self.configureCell,
+		                                                    configureCell: configureCell,
 		                                                    canEditRowAtIndexPath: { _, _ in return true })
 	}()
 	
@@ -112,45 +115,43 @@ final class TasksController : UIViewController {
 		
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 		
-		addTaskButton.rx.tap.subscribe { [weak self] _ in self?.addNewTask() }.disposed(by: bag)
-	}
-	
-	func addNewTask() {
-		viewModel.newTask()
+		addTaskButton.rx.tap.subscribe { [weak self] _ in self?.viewModel.newTask() }.disposed(by: bag)
 	}
 	
 	@objc func showSettings() {
 		viewModel.showSettings()
 	}
 	
-	func configureCell(dataSource ds: TableViewSectionedDataSource<TaskSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: TaskSection.Item) -> UITableViewCell {
-		return { [weak viewModel, weak self] () -> UITableViewCell in
-			let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
-			cell.preservesSuperviewLayoutMargins = false
-			cell.layoutMargins = .zero
-			cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-			cell.selectionStyle = .none
-			cell.isUserInteractionEnabled = true
-			cell.isExpanded = false
-			cell.taskDescription.text = "\(item.description)"
-			cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
-			cell.repeatImage.isHidden = item.prototype.repeatPattern == nil
-			cell.updateConstraints()
-			
-			cell.completeTapped = {
-				viewModel?.completeTask(uuid: item.uuid)
-			}
-			
-			cell.editTapped = {
-				viewModel?.editTask(uuid: item.uuid)
-			}
-			
-			cell.deleteTapped = {
-				self?.showDeleteTaskAlert(sourceView: cell.deleteActionView, taskUuid: item.uuid)
-			}
-			
-			return cell
-		}()
+	static func configureCell(dataSource ds: TableViewSectionedDataSource<TaskSection>,
+							  tableView tv: UITableView,
+							  indexPath ip: IndexPath,
+							  item: TaskSection.Item,
+							  viewController controller: TasksController) -> UITableViewCell {
+		let cell = tv.dequeueReusableCell(withIdentifier: "TaskCell", for: ip) as! TaskCell
+		cell.preservesSuperviewLayoutMargins = false
+		cell.layoutMargins = .zero
+		cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		cell.selectionStyle = .none
+		cell.isUserInteractionEnabled = true
+		cell.isExpanded = false
+		cell.taskDescription.text = "\(item.description)"
+		cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
+		cell.repeatImage.isHidden = item.prototype.repeatPattern == nil
+		cell.updateConstraints()
+		
+		cell.completeTapped = { [weak controller] in
+			controller?.viewModel.completeTask(uuid: item.uuid)
+		}
+		
+		cell.editTapped = { [weak controller] in
+			controller?.viewModel.editTask(uuid: item.uuid)
+		}
+		
+		cell.deleteTapped = { [weak controller] in
+			controller?.showDeleteTaskAlert(sourceView: cell.deleteActionView, taskUuid: item.uuid)
+		}
+		
+		return cell
 	}
 	
 	func showDeleteTaskAlert(sourceView: UIView, taskUuid: UniqueIdentifier) {
