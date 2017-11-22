@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var hasAuthenticationData: Bool {
 		guard Keychain.authenticationType != nil,
-			Keychain.token.characters.count > 0,
-			Keychain.refreshToken.characters.count > 0,
-			Keychain.userUuid.characters.count > 0 else {
+			Keychain.token.count > 0,
+			Keychain.refreshToken.count > 0,
+			Keychain.userUuid.count > 0 else {
 				return false
 		}
 		

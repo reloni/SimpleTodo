@@ -1,5 +1,5 @@
 github "CosmicMind/Material" "2.12.3"
-github "CosmicMind/Motion" "1.2.2"
+github "CosmicMind/Motion" "1.2.5"
 github "OneSignal/OneSignal-iOS-SDK" "2.5.6"
 github "ReactiveX/RxSwift" "4.0.0"
 github "Reloni/RxDataFlow" "0.10.1"

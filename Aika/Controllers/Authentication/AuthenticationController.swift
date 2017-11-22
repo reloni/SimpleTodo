@@ -161,7 +161,7 @@ final class AuthenticationController : UIViewController {
 	let lostPasswordLabel: UILabel = {
 		let label = Theme.Controls.label(withStyle: UIFontTextStyle.caption2)
 		let attributedText = NSMutableAttributedString(string: "Lost password?")
-		attributedText.addAttribute(NSAttributedStringKey.underlineStyle , value: NSUnderlineStyle.styleSingle.rawValue, range: NSMakeRange(0, attributedText.string.characters.count))
+		attributedText.addAttribute(NSAttributedStringKey.underlineStyle , value: NSUnderlineStyle.styleSingle.rawValue, range: NSMakeRange(0, attributedText.string.count))
 		label.attributedText = attributedText
 		label.textColor = Theme.Colors.blueberry
 		label.textAlignment = .center
@@ -338,7 +338,7 @@ final class AuthenticationController : UIViewController {
 		}
 		
 		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert, weak viewModel] _ in
-			guard let email = alert?.textFields?.first?.text, email.characters.count > 0 else { return }
+			guard let email = alert?.textFields?.first?.text, email.count > 0 else { return }
 			viewModel?.resetPassword(email: email)
 		}))
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
