@@ -16,7 +16,7 @@ import SnapKit
 
 final class TasksController : UIViewController {
 	let bag = DisposeBag()
-	
+
 	let viewModel: TasksViewModel
 	let tableViewDelegate = TasksTableViewDelegate()
 	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<TaskSection> = {
@@ -133,7 +133,7 @@ final class TasksController : UIViewController {
 		cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		cell.selectionStyle = .none
 		cell.isUserInteractionEnabled = true
-		cell.isExpanded = false
+		cell.isExpanded = ip == controller.tableViewDelegate.currentExpandedIndexPath
 		cell.taskDescription.text = "\(item.description)"
 		cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
 		cell.repeatImage.isHidden = item.prototype.repeatPattern == nil
@@ -185,6 +185,7 @@ final class TasksController : UIViewController {
 }
 
 final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
+	var currentExpandedIndexPath: IndexPath? = nil
 	@available(iOS 11.0, *)
 	static func createAction(title: String, backgroundColor: UIColor, image: UIImage?, completionHandler: @escaping () -> Bool) -> UIContextualAction {
 		let action = UIContextualAction(style: .normal,
@@ -194,11 +195,18 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		action.image = image
 		return action
 	}
-	
+
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return }
 
+		if !cell.isExpanded {
+			currentExpandedIndexPath = indexPath
+		} else {
+			currentExpandedIndexPath = nil
+		}
+		
 		cell.isExpanded = !cell.isExpanded
+		
 		animateCellExpansion(tableView: tableView)
 	}
 
