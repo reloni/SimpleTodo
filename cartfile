@@ -1,13 +1,13 @@
 github "ReactiveX/RxSwift" == 4.0.0
 github "SnapKit/SnapKit" == 4.0.0
-github "CosmicMind/Material" == 2.12.16
+github "CosmicMind/Material" == 2.12.17
 github "RxSwiftCommunity/RxHttpClient" == 0.9.0
 github "Reloni/RxDataFlow" == 0.10.1
-github "RxSwiftCommunity/RxDataSources" == 3.0.0
+github "RxSwiftCommunity/RxDataSources" == 3.0.2
 github "Reloni/Unbox" "disable-code-coverage"
 github "Reloni/Wrap" "disable-code-coverage"
-github "RxSwiftCommunity/RxGesture" == 1.2.0
-github "OneSignal/OneSignal-iOS-SDK" == 2.5.6
-github "auth0/Auth0.swift" == 1.9.1
+github "RxSwiftCommunity/RxGesture" == 1.2.1
+github "OneSignal/OneSignal-iOS-SDK" == 2.5.7
+github "auth0/Auth0.swift" == 1.9.2
 github "auth0/JWTDecode.swift" == 2.1.1
-github "realm/realm-cocoa" == 3.0.0
+github "realm/realm-cocoa" == 3.0.2
