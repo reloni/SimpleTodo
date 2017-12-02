@@ -67,6 +67,7 @@
 		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
 		6EAACA291EB7591D004EB190 /* DefaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAACA281EB7591D004EB190 /* DefaultCell.swift */; };
 		6EAACA2D1EB75F99004EB190 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAACA2C1EB75F99004EB190 /* SwitchCell.swift */; };
+		6EAC86DC1FCAFCEF00728F59 /* RootControllerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAC86DB1FCAFCEF00728F59 /* RootControllerTransition.swift */; };
 		6EAF1B391EB5244C00C72BF5 /* InitialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAF1B381EB5244C00C72BF5 /* InitialCoordinator.swift */; };
 		6EAF1B3C1EB5297C00C72BF5 /* SlidePresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAF1B3B1EB5297C00C72BF5 /* SlidePresentAnimationController.swift */; };
 		6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB04F231EEE85F30023619A /* SimpleKeychain.framework */; };
@@ -237,6 +238,7 @@
 		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
 		6EAACA281EB7591D004EB190 /* DefaultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCell.swift; sourceTree = "<group>"; };
 		6EAACA2C1EB75F99004EB190 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
+		6EAC86DB1FCAFCEF00728F59 /* RootControllerTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootControllerTransition.swift; sourceTree = "<group>"; };
 		6EAF1B381EB5244C00C72BF5 /* InitialCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialCoordinator.swift; sourceTree = "<group>"; };
 		6EAF1B3B1EB5297C00C72BF5 /* SlidePresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidePresentAnimationController.swift; sourceTree = "<group>"; };
 		6EB04F231EEE85F30023619A /* SimpleKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleKeychain.framework; path = Carthage/Build/iOS/SimpleKeychain.framework; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 			isa = PBXGroup;
 			children = (
 				6EAF1B3B1EB5297C00C72BF5 /* SlidePresentAnimationController.swift */,
+				6EAC86DB1FCAFCEF00728F59 /* RootControllerTransition.swift */,
 			);
 			path = ControllerTransitions;
 			sourceTree = "<group>";
@@ -828,6 +831,7 @@
 				6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */,
 				6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */,
 				6E16914C1E61F63A004EE586 /* Actions.swift in Sources */,
+				6EAC86DC1FCAFCEF00728F59 /* RootControllerTransition.swift in Sources */,
 				6E0D5C101F6592FB002AF563 /* RealmMigrations.swift in Sources */,
 				6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */,
 				6EF799631EC73E6100C9DFF0 /* ViewModelType.swift in Sources */,

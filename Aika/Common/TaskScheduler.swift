@@ -75,8 +75,9 @@ struct TaskScheduler {
         let components = dateComponents(for: value)
 
         let matchingComponents = DateComponents(calendar: calendar, hour: components.hour, minute: components.minute, second: components.second)
+		let after = value < Date() ? Date() : value
 
-        return calendar.nextDate(after: value,
+        return calendar.nextDate(after: after,
                                  matching: matchingComponents,
                                  matchingPolicy: .nextTimePreservingSmallerComponents,
                                  repeatedTimePolicy: .first,

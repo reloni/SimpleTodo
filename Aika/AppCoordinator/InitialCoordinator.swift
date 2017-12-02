@@ -80,14 +80,13 @@ extension ApplicationCoordinatorType {
 	}
 	
 	func set(initialRootController controller: UIViewController) {
-		transition {
-			self.window.rootViewController = controller
-			self.window.makeKeyAndVisible()
-		}
+		let options = UIWindow.TransitionOptions(direction: .toTop, style: .easeInOut, duration: 0.35)
+		self.window.setRootViewController(controller, options: options)
 	}
 	
 	func transition(withDuration duration: TimeInterval = 0.5,
-	                options: UIViewAnimationOptions = [UIViewAnimationOptions.transitionCrossDissolve], animations: @escaping (() -> Void)) {
+	                options: UIViewAnimationOptions = [UIViewAnimationOptions.transitionCrossDissolve],
+					animations: @escaping (() -> Void)) {
 		UIView.transition(with: window,
 		                  duration: duration,
 		                  options: options,

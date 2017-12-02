@@ -140,14 +140,17 @@ final class TasksController : UIViewController {
 		cell.updateConstraints()
 		
 		cell.completeTapped = { [weak controller] in
+			controller?.tableViewDelegate.currentExpandedIndexPath = nil
 			controller?.viewModel.completeTask(uuid: item.uuid)
 		}
 		
 		cell.editTapped = { [weak controller] in
+			controller?.tableViewDelegate.currentExpandedIndexPath = nil
 			controller?.viewModel.editTask(uuid: item.uuid)
 		}
 		
 		cell.deleteTapped = { [weak controller] in
+			controller?.tableViewDelegate.currentExpandedIndexPath = nil
 			controller?.showDeleteTaskAlert(sourceView: cell.deleteActionView, taskUuid: item.uuid)
 		}
 		
