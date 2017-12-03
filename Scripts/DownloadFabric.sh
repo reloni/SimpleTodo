@@ -1,1 +1,1 @@
-curl -o ./fabric.zip https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.8.6/com.twitter.crashlytics.ios-manual.zip && unzip -o fabric.zip -d Carthage && rm -rf fabric.zip || return 1
+curl -o ./fabric.zip https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.9.3/com.crashlytics.ios-manual.zip && unzip -o fabric.zip -d Carthage && rm -rf fabric.zip || return 1

@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var hasAuthenticationData: Bool {
 		guard Keychain.authenticationType != nil,
-			Keychain.token.characters.count > 0,
-			Keychain.refreshToken.characters.count > 0,
-			Keychain.userUuid.characters.count > 0 else {
+			Keychain.token.count > 0,
+			Keychain.refreshToken.count > 0,
+			Keychain.userUuid.count > 0 else {
 				return false
 		}
 		
@@ -120,8 +120,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-		flowController.dispatch(SynchronizationAction.reload)
-		flowController.dispatch(RxCompositeAction.synchronizationAction)
+		DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + .milliseconds(100)) { self.flowController.dispatch(SynchronizationAction.reload) }
+		DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + .seconds(1)) { self.flowController.dispatch(RxCompositeAction.synchronizationAction) }
 	}
 	
 	func applicationDidBecomeActive(_ application: UIApplication) {

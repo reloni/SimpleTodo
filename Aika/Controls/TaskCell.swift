@@ -142,7 +142,7 @@ final class TaskCell : UITableViewCell {
 	}
 	
 	func makeActionsStackConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(targetDate.snp.bottom).offset((targetDate.text?.characters.count ?? 0) == 0 ? 0 : 10)
+		maker.top.equalTo(targetDate.snp.bottom).offset((targetDate.text?.count ?? 0) == 0 ? 0 : 10)
 		maker.leading.equalTo(contentView.snp.leading)
 		maker.trailing.equalTo(contentView.snp.trailing)
 		maker.bottom.equalTo(contentView.snp.bottom)

@@ -146,7 +146,7 @@ final class EditTaskViewModel: ViewModelType {
 	}
 	
 	private func save(state: State) {
-		guard state.description.characters.count > 0 else { return }
+		guard state.description.count > 0 else { return }
 		guard let task = state.currentTask else {
 			createTask(state: state).forEach { flowController.dispatch($0) }
 			return
