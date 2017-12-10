@@ -170,7 +170,7 @@ class TaskSchedulerTests: XCTestCase {
         let currentDate = Date()
         let taskDate = currentDate.adding(.month, value: 3)
         let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .byDay(repeatEvery: 55))!
-        XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: 55).adding(.month, value: 3)), formatter.string(from: result))
+        XCTAssertEqual(formatter.string(from: currentDate.adding(.month, value: 3).adding(.day, value: 55)), formatter.string(from: result))
     }
     
     func testByDay_inPast() {
