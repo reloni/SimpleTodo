@@ -89,6 +89,7 @@ enum SynchronizationAction: RxActionType {
 	case updateTask(Task)
 	case deleteTask(UniqueIdentifier)
 	case completeTask(UniqueIdentifier)
+	case reload
 	
 	case deleteCache
 	case updateConfiguration

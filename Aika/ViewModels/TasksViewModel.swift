@@ -18,6 +18,7 @@ final class TasksViewModel: ViewModelType {
 	lazy var taskSections: Observable<[TaskSection]> = {
 		return self.flowController.state.filter {
 			switch ($0.setBy, $0.state.syncStatus) {
+			case (SynchronizationAction.reload, _): fallthrough
 			case (SynchronizationAction.addTask, _): fallthrough
 			case (SynchronizationAction.deleteTask, _): fallthrough
 			case (SynchronizationAction.updateTask, _): fallthrough
