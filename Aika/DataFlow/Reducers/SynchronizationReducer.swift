@@ -22,7 +22,6 @@ func synchronizationReducer(_ action: RxActionType, currentState: AppState) -> O
 	case (SynchronizationAction.updateConfiguration, _): return updateConfiguration(currentState: currentState)
 	case (SynchronizationAction.deleteCache, .authenticated): return deleteCache(currentState: currentState)
 	case (SynchronizationAction.updateHost(let newHost), _): return updateHost(currentState: currentState, newHost: newHost)
-	case (SynchronizationAction.reload, _): return .just({ $0 })
 	default: return .empty()
 	}
 }
