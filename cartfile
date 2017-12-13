@@ -2,7 +2,7 @@ github "ReactiveX/RxSwift" == 4.0.0
 github "SnapKit/SnapKit" == 4.0.0
 github "CosmicMind/Material" == 2.12.17
 github "RxSwiftCommunity/RxHttpClient" == 0.9.0
-github "Reloni/RxDataFlow" == 0.9.0
+github "Reloni/RxDataFlow" == 0.10.2
 github "RxSwiftCommunity/RxDataSources" == 3.0.2
 github "Reloni/Unbox" "disable-code-coverage"
 github "Reloni/Wrap" "disable-code-coverage"
