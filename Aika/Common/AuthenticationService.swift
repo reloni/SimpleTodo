@@ -31,11 +31,10 @@ enum AuthenticationType {
 struct AuthenticationInfo {
 	let uid: String
 	let token: String
-	let expiresAt: Date?
+	let expiresAt: Date
 	let refreshToken: String
 	var tokenHeader: String { return "Bearer \(token)" }
 	var isTokenExpired: Bool {
-		guard let expiresAt = expiresAt else { return true }
 		return expiresAt < Date()
 	}
 }
@@ -53,7 +52,10 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 			.flatMapLatest { tokens -> Observable<AuthenticationInfo> in
 				return Auth0AuthenticationService.userProfile(token: tokens.accessToken)
 					.flatMapLatest { profile -> Observable<AuthenticationInfo> in
-						return .just(AuthenticationInfo(uid: profile.id, token: tokens.idToken, expiresAt: tokens.expiresAt, refreshToken: tokens.refreshToken))
+						return .just(AuthenticationInfo(uid: profile.id,
+														token: tokens.idToken,
+														expiresAt: tokens.expiresAt ?? Date(),
+														refreshToken: tokens.refreshToken))
 					}
 			}
 	}
@@ -106,7 +108,10 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 					case .success(let credentials):
 						guard let newToken = credentials["id_token"] as? String else { observer.onError(AuthenticationError.notAuthorized); break }
 						let jwt = try? decode(jwt: newToken)
-						observer.onNext(AuthenticationInfo(uid: info.uid, token: newToken, expiresAt: jwt?.expiresAt, refreshToken: info.refreshToken))
+						observer.onNext(AuthenticationInfo(uid: info.uid,
+														   token: newToken,
+														   expiresAt: jwt?.expiresAt ?? Date(),
+														   refreshToken: info.refreshToken))
 						observer.onCompleted()
 					case .failure(let e as NSError) where e.domain == "com.auth0.authentication" && e.code == 1:
                         observer.onError(AuthenticationError.tokenRevokedError(e))
