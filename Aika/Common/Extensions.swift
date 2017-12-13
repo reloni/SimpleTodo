@@ -378,6 +378,11 @@ extension Keychain {
 		set { keychain.setString(string: newValue, forAccount: "refreshToken") }
 	}
 	
+	static var tokenExpirationDate: Date {
+		get { return Date.fromServer(string: keychain.stringForAccount(account: "tokenExpirationDate") ?? "") ?? Date() }
+		set { keychain.setString(string: newValue.toServerDateString(), forAccount: "tokenExpirationDate") }
+	}
+	
 	static var userUuid: String {
 		get { return keychain.stringForAccount(account: "userUuid") ?? "" }
 		set { keychain.setString(string: newValue, forAccount: "userUuid") }

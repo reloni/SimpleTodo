@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		let authentication: Authentication = {
 			guard self.hasAuthenticationData else { return .none }
-			let authenticationInfo = AuthenticationInfo(uid: Keychain.userUuid, token: Keychain.token, expiresAt: nil, refreshToken: Keychain.refreshToken)
+			let authenticationInfo = AuthenticationInfo(uid: Keychain.userUuid, token: Keychain.token, expiresAt: Keychain.tokenExpirationDate, refreshToken: Keychain.refreshToken)
 			return Authentication.authenticated(authenticationInfo, UserSettings())
 		}()
 		

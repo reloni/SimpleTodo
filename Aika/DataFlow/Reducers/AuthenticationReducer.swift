@@ -50,6 +50,7 @@ fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMuta
 			Keychain.token = ""
 			Keychain.refreshToken = ""
 			Keychain.userUuid = ""
+			Keychain.tokenExpirationDate = Date()
 		})
 		.flatMap { Observable<RxStateMutator<AppState>>.just(returnMutator) }
 		.catchErrorJustReturn(returnMutator)
@@ -61,6 +62,7 @@ fileprivate func logIn(currentState state: AppState, authType: AuthenticationTyp
 			Keychain.authenticationType = authType
 			Keychain.token = result.token
 			Keychain.refreshToken = result.refreshToken
+			Keychain.tokenExpirationDate = result.expiresAt
 			Keychain.userUuid = result.uid
 			return .just( { $0.mutation.new(authentication: Authentication.authenticated(result, UserSettings())) } )
 	}
@@ -82,6 +84,9 @@ fileprivate func refreshToken(currentState state: AppState, force: Bool) -> Obse
 	
 	return state.authenticationService.refreshToken(info: info)
 		.flatMapLatest { result -> Observable<RxStateMutator<AppState>> in
+			Keychain.token = result.token
+			Keychain.refreshToken = result.refreshToken
+			Keychain.tokenExpirationDate = result.expiresAt
 			return .just( { $0.mutation.new(authentication: .authenticated(result, UserSettings())) } )
 		}
 		.catchError { error in

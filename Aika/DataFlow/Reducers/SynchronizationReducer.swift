@@ -80,9 +80,7 @@ fileprivate func synchronize(currentState state: AppState) -> Observable<RxState
 		let subscription = synchronize(authenticationInfo: info, repository: state.repository, webService: state.webService)
 			.do(onError: { error in
 				observer.onNext( { $0.mutation.new(syncStatus: .failed(error)) } )
-				if error.isNotConnectedToInternet() || error.isCannotConnectToHost() || error.isTimedOut() || error.isInvalidResponse() {
-					observer.onError(error)
-				}
+				observer.onError(error)
 			},
 			    onCompleted: {observer.onNext( { $0.mutation.new(syncStatus: .completed) }) },
 			    onDispose: { observer.onCompleted() })
