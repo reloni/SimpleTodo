@@ -202,3 +202,17 @@ extension TaskScheduler.Pattern: WrapCustomizable {
 		return toJson()
     }
 }
+
+extension TaskScheduler.Pattern: Codable {
+	init(from decoder: Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		guard let pattern = TaskScheduler.Pattern.parse(fromJson: try container.decode(String.self)) else {
+			throw DecodingError.dataCorruptedError(in: container, debugDescription: "Wrong pattern")
+		}
+		self = pattern
+	}
+	
+	func encode(to encoder: Encoder) throws {
+		
+	}
+}

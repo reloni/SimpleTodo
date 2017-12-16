@@ -14,13 +14,13 @@ class CodableTests: XCTestCase {
 		let data = """
 					{
 					 "uuid": "a4f52989-d7c6-4cc0-81ae-587e3dedf911",
-					 "cronExpression": "{\\"type\\":\\"daily\\"}"
+					 "cronExpression": "{\\"type\\":\\"biweekly\\"}"
 					}
 					""".data(using: .utf8)!
 		
 		let result = try! JSONDecoder().decode(TaskPrototype2.self, from: data)
 		XCTAssertEqual(result.uuid, UUID(uuidString: "a4f52989-d7c6-4cc0-81ae-587e3dedf911"))
-		XCTAssertEqual(result.repeatPattern, .daily)
+		XCTAssertEqual(result.repeatPattern, TaskScheduler.Pattern.biweekly)
 	}
 	
 	func testDecodeTaskPrototypeWithoutCronExpression_1() {

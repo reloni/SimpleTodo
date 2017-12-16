@@ -68,7 +68,7 @@ struct TaskPrototype {
 }
 
 struct TaskPrototype2: Codable {
-	enum Keys: String, CodingKey {
+	enum CodingKeys: String, CodingKey {
 		case uuid
 		case repeatPattern = "cronExpression"
 	}
@@ -79,15 +79,14 @@ struct TaskPrototype2: Codable {
 
 extension TaskPrototype2 {
 	init(from decoder: Decoder) throws {
-		let container = try decoder.container(keyedBy: Keys.self)
-		let uuid = try container.decode(UUID.self, forKey: .uuid)
-		let expression = try container.decodeIfPresent(String.self, forKey: .repeatPattern)
-		self.init(uuid: uuid, repeatPattern: TaskScheduler.Pattern.parse(fromJson: expression ?? ""))
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		uuid = try container.decode(UUID.self, forKey: .uuid)
+		repeatPattern = (try? container.decodeIfPresent(TaskScheduler.Pattern.self, forKey: .repeatPattern)) ?? nil
 	}
 	
-	func encode(to encoder: Encoder) throws {
-		
-	}
+//	func encode(to encoder: Encoder) throws {
+//
+//	}
 }
 
 extension TaskPrototype: Unboxable {
