@@ -24,10 +24,15 @@ struct Task {
 	fileprivate let timestamp = Date().beginningOfDay()
 }
 
-struct TaskDate {
+struct TaskDate: Codable {
 	let date: Date
 	let includeTime: Bool
 	let isFuture: Bool
+	
+	enum CodingKeys: String, CodingKey {
+		case targetDate
+		case targetDateIncludeTime
+	}
 	
 	init(date: Date, includeTime: Bool) {
 		self.includeTime = includeTime
@@ -35,31 +40,19 @@ struct TaskDate {
 		self.isFuture = self.date.isInFuture
 	}
 	
-	var underlineColor: UIColor? {
-		switch date.type {
-		case .todayPast: fallthrough
-		case .past: fallthrough
-		case .yesterday: return Theme.Colors.upsdelRed
-		case .tomorrow: return Theme.Colors.pumkinLight
-		default: return Theme.Colors.darkSpringGreen
-		}
-	}
-	
-	func toAttributedString(withSpelling: Bool) -> NSAttributedString {
-		let str = NSMutableAttributedString(string: toString(withSpelling: withSpelling))
-		
-		let range = NSRange(location: 0, length: str.length)
-		str.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
-		if let underlineColor = underlineColor {
-			str.addAttribute(NSAttributedStringKey.underlineColor, value: underlineColor, range: range)
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		guard let targetDate = Date.fromServer(string: try container.decode(String.self, forKey: .targetDate)),
+			let includeTime: Bool = try container.decode(Bool?.self, forKey: .targetDateIncludeTime) else {
+			throw DecodingError.dataCorrupted(DecodingError.Context.init(codingPath: [CodingKeys.targetDate, CodingKeys.targetDateIncludeTime], debugDescription: "Data not specified"))
 		}
 		
-		return str
+		self.init(date: targetDate, includeTime: includeTime)
 	}
 	
-	func toString(withSpelling: Bool) -> String {
-		return includeTime ? date.toDateAndTimeString(withSpelling: withSpelling) : date.toDateString(withSpelling: withSpelling)
-	}
+		func encode(to encoder: Encoder) throws {
+	
+		}
 }
 
 struct TaskPrototype {
@@ -84,9 +77,9 @@ extension TaskPrototype2 {
 		repeatPattern = (try? container.decodeIfPresent(TaskScheduler.Pattern.self, forKey: .repeatPattern)) ?? nil
 	}
 	
-//	func encode(to encoder: Encoder) throws {
-//
-//	}
+	func encode(to encoder: Encoder) throws {
+
+	}
 }
 
 extension TaskPrototype: Unboxable {
