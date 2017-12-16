@@ -24,6 +24,42 @@ struct Task {
 	fileprivate let timestamp = Date().beginningOfDay()
 }
 
+struct Task2: Codable {
+	let uuid: UUID
+	let completed: Bool
+	let description: String
+	let notes: String?
+	let targetDate: TaskDate?
+	let prototype: TaskPrototype2
+	
+	enum CodingKeys: String, CodingKey {
+		case uuid
+		case completed
+		case description
+		case notes
+		case prototype
+	}
+	
+	// this field here for checking equality and to force UITableView to refresh
+	// when app opens on next day (when relative dates like "today" should be changed)
+	fileprivate let timestamp = Date().beginningOfDay()
+	
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		uuid = try container.decode(UUID.self, forKey: .uuid)
+		completed = try container.decode(Bool.self, forKey: .completed)
+		description = try container.decode(String.self, forKey: .description)
+		notes = try container.decodeIfPresent(String.self, forKey: .notes)
+		targetDate = (try? decoder.singleValueContainer().decode(TaskDate.self)) ?? nil
+		prototype = try container.decode(TaskPrototype2.self, forKey: .prototype)
+	}
+	
+	func encode(to encoder: Encoder) throws {
+		
+	}
+}
+
 struct TaskDate: Codable {
 	let date: Date
 	let includeTime: Bool
@@ -50,9 +86,9 @@ struct TaskDate: Codable {
 		self.init(date: targetDate, includeTime: includeTime)
 	}
 	
-		func encode(to encoder: Encoder) throws {
-	
-		}
+	func encode(to encoder: Encoder) throws {
+		
+	}
 }
 
 struct TaskPrototype {
