@@ -6,10 +6,8 @@
 //  Copyright © 2016 Anton Efimenko. All rights reserved.
 //
 
-import Unbox
 import RxDataSources
 import RxSwift
-import Wrap
 import OneSignal
 import UserNotificationsUI
 import RealmSwift
@@ -54,14 +52,8 @@ enum AuthenticationError : Error {
 	case notAuthorized
 }
 
-struct ServerSideError {
+struct ServerSideError: Decodable {
 	let error: String
-}
-
-extension ServerSideError : Unboxable {
-	init(unboxer: Unboxer) throws {
-		self.error = try unboxer.unbox(key: "Error")
-	}
 }
 
 struct UserSettings {

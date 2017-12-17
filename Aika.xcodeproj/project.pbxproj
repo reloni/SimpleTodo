@@ -38,7 +38,6 @@
 		6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E494D891EBDD13100280F5F /* JWTDecode.framework */; };
 		6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752151E05AD06002AA9B4 /* Entities.swift */; };
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
-		6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
 		6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5BA8A91EEEF40F00B61645 /* Crashlytics.framework */; };
 		6E5BA8AC1EEEF40F00B61645 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5BA8AA1EEEF40F00B61645 /* Fabric.framework */; };
@@ -109,7 +108,6 @@
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
 		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
 		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
-		6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE91CAB1E1959430025A4BD /* Wrap.framework */; };
 		6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */; };
 		6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */; };
 		6EF799631EC73E6100C9DFF0 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF799621EC73E6100C9DFF0 /* ViewModelType.swift */; };
@@ -291,9 +289,7 @@
 				6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */,
 				6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */,
 				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
-				6EE91CAC1E1959430025A4BD /* Wrap.framework in Frameworks */,
 				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
-				6E57521B1E05AFC4002AA9B4 /* Unbox.framework in Frameworks */,
 				6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */,
 				6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */,
 				6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */,
@@ -785,9 +781,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxHttpClient.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Unbox.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Wrap.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OneSignal.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Auth0.framework",

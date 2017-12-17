@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Wrap
-import Unbox
 
 struct TaskScheduler {
 	enum Pattern {
@@ -195,12 +193,6 @@ extension TaskScheduler.Pattern {
 		default: return nil
 		}
 	}
-}
-
-extension TaskScheduler.Pattern: WrapCustomizable {
-    func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-		return toJson()
-    }
 }
 
 extension TaskScheduler.Pattern: Codable {

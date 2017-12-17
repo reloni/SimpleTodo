@@ -8,7 +8,6 @@
 
 import Foundation
 import RxHttpClient
-import Unbox
 import UIKit
 import RxSwift
 import Material
@@ -303,7 +302,7 @@ extension Error {
 				default: return "Internal server error"
 				}
 			}
-			return (try? unbox(data: data) as ServerSideError)?.error ?? "Internal server error"
+			return (try? JSONDecoder().decode(ServerSideError.self, from: data))?.error ?? "Internal server error"
 		case AuthenticationError.signInError(let error): return error.localizedDescription
 		case AuthenticationError.passwordResetError: return "Unable to send instructions to specified email adress"
 		case AuthenticationError.registerError(let error): return error.localizedDescription
