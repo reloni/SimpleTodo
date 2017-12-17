@@ -121,12 +121,12 @@ final class EditTaskViewModel: ViewModelType {
 	}
 	
 	func newTask(fromTask task: Task?, state: State) -> Task {
-		return Task(uuid: task?.uuid ?? UniqueIdentifier(),
+		return Task(uuid: task?.uuid ?? UUID(),
 		            completed: false,
 		            description: state.description,
 		            notes: state.notes,
 		            targetDate: state.targetDate,
-					prototype: TaskPrototype(uuid: task?.prototype.uuid ?? UniqueIdentifier(), repeatPattern: state.repeatPattern))
+					prototype: TaskPrototype(uuid: task?.prototype.uuid ?? UUID(), repeatPattern: state.repeatPattern))
 	}
 	
 	private func createTask(state: State) -> [RxActionType] {
