@@ -23,4 +23,20 @@ class EncodeTests: XCTestCase {
 		XCTAssertEqual(json["uuid"] as? String, uuid.uuidString)
 		XCTAssertEqual(json["cronExpression"] as? String, "{\"type\":\"biweekly\"}")
 	}
+	
+	func testEncodeTaskDate_1() {
+		let taskDate = Date.fromServer(string: "2017-09-18T17:47:00.000+00")!
+		let date = TaskDate(date: taskDate, includeTime: true)
+		let json = try! JSONSerialization.jsonObject(with: try! JSONEncoder().encode(date)) as! [String: Any]
+		XCTAssertEqual(json["targetDate"] as? String, taskDate.toServerDateString())
+		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, true)
+	}
+	
+	func testEncodeTaskDate_2() {
+		let taskDate = Date.fromServer(string: "2017-09-18T17:47:00.000+00")!
+		let date = TaskDate(date: taskDate, includeTime: false)
+		let json = try! JSONSerialization.jsonObject(with: try! JSONEncoder().encode(date)) as! [String: Any]
+		XCTAssertEqual(json["targetDate"] as? String, taskDate.beginningOfDay().toServerDateString())
+		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, false)
+	}
 }
