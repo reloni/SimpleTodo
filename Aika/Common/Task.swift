@@ -38,11 +38,22 @@ struct Task2: Codable {
 		case description
 		case notes
 		case prototype
+		case targetDate
+		case targetDateIncludeTime
 	}
 	
 	// this field here for checking equality and to force UITableView to refresh
 	// when app opens on next day (when relative dates like "today" should be changed)
 	fileprivate let timestamp = Date().beginningOfDay()
+	
+	init(uuid: UUID, completed: Bool, description: String, notes: String?, targetDate: TaskDate?, prototype: TaskPrototype2) {
+		self.uuid = uuid
+		self.completed = completed
+		self.description = description
+		self.notes = notes
+		self.targetDate = targetDate
+		self.prototype = prototype
+	}
 	
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -56,7 +67,15 @@ struct Task2: Codable {
 	}
 	
 	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
 		
+		try container.encode(uuid, forKey: .uuid)
+		try container.encode(completed, forKey: .completed)
+		try container.encode(description, forKey: .description)
+		try container.encode(notes, forKey: .notes)
+		try container.encode(targetDate?.date.toServerDateString(), forKey: .targetDate)
+		try container.encode(targetDate?.includeTime, forKey: .targetDateIncludeTime)
+		try container.encode(prototype, forKey: .prototype)
 	}
 }
 

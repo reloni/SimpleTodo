@@ -39,4 +39,52 @@ class EncodeTests: XCTestCase {
 		XCTAssertEqual(json["targetDate"] as? String, taskDate.beginningOfDay().toServerDateString())
 		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, false)
 	}
+	
+	func testEncodeTask_1() {
+		let task = Task2(uuid: UUID(), completed: false, description: "Task 1", notes: nil, targetDate: nil, prototype: TaskPrototype2(uuid: UUID(), repeatPattern: nil))
+		
+		let json = try! JSONSerialization.jsonObject(with: try! JSONEncoder().encode(task)) as! [String: Any]
+		XCTAssertEqual(json["uuid"] as? String, task.uuid.uuidString)
+		XCTAssertEqual(json["completed"] as? Bool, false)
+		XCTAssertEqual(json["description"] as? String, "Task 1")
+		XCTAssertEqual(json["notes"] as? String, nil)
+		XCTAssertEqual(json["targetDate"] as? String, nil)
+		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, nil)
+		XCTAssertEqual(json.dictionary("prototype").value("uuid"), task.prototype.uuid.uuidString)
+		XCTAssertEqual(json.dictionary("prototype").stringValue("cronExpression"), nil)
+	}
+	
+	func testEncodeTask_2() {
+		let task = Task2(uuid: UUID(), completed: true, description: "Task 1", notes: "A lot of notes",
+						 targetDate: TaskDate(date: Date.fromServer(string: "2017-09-18T17:47:00.000+00")!, includeTime: true),
+						 prototype: TaskPrototype2(uuid: UUID(), repeatPattern: TaskScheduler.Pattern.byDay(repeatEvery: 2)))
+		
+		let json = try! JSONSerialization.jsonObject(with: try! JSONEncoder().encode(task)) as! [String: Any]
+		XCTAssertEqual(json["uuid"] as? String, task.uuid.uuidString)
+		XCTAssertEqual(json["completed"] as? Bool, true)
+		XCTAssertEqual(json["description"] as? String, "Task 1")
+		XCTAssertEqual(json["notes"] as? String, "A lot of notes")
+		XCTAssertEqual(json["targetDate"] as? String, task.targetDate?.date.toServerDateString())
+		XCTAssertNotNil(json["targetDate"] as? String)
+		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, true)
+		XCTAssertEqual(json.dictionary("prototype").value("uuid"), task.prototype.uuid.uuidString)
+		XCTAssertEqual(json.dictionary("prototype").stringValue("cronExpression"), "{\"type\":\"byDay\",\"repeatEvery\":\"2\"}")
+	}
+	
+	func testEncodeTask_3() {
+		let task = Task2(uuid: UUID(), completed: true, description: "Task 1", notes: "A lot of notes",
+						 targetDate: TaskDate(date: Date.fromServer(string: "2017-09-18T17:47:00.000+00")!, includeTime: false),
+						 prototype: TaskPrototype2(uuid: UUID(), repeatPattern: TaskScheduler.Pattern.biweekly))
+		
+		let json = try! JSONSerialization.jsonObject(with: try! JSONEncoder().encode(task)) as! [String: Any]
+		XCTAssertEqual(json["uuid"] as? String, task.uuid.uuidString)
+		XCTAssertEqual(json["completed"] as? Bool, true)
+		XCTAssertEqual(json["description"] as? String, "Task 1")
+		XCTAssertEqual(json["notes"] as? String, "A lot of notes")
+		XCTAssertEqual(json["targetDate"] as? String, task.targetDate?.date.beginningOfDay().toServerDateString())
+		XCTAssertNotNil(json["targetDate"] as? String)
+		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, false)
+		XCTAssertEqual(json.dictionary("prototype").value("uuid"), task.prototype.uuid.uuidString)
+		XCTAssertEqual(json.dictionary("prototype").stringValue("cronExpression"), "{\"type\":\"biweekly\"}")
+	}
 }
