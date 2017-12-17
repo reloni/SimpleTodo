@@ -23,12 +23,12 @@ class RealmTaskPrototype: Object {
 	convenience init(from prototype: TaskPrototype) {
 		self.init()
 		
-		uuid = prototype.uuid.uuid.uuidString
+		uuid = prototype.uuid.uuidString
 		repeatPattern = (try? prototype.repeatPattern?.toJson().toJsonString()) ?? nil
 	}
 	
 	func toStruct() -> TaskPrototype {
-		return TaskPrototype(uuid: UniqueIdentifier(identifierString: uuid)!,
+		return TaskPrototype(uuid: UUID(uuidString: uuid)!,
 		                     repeatPattern: repeatPattern != nil ? TaskScheduler.Pattern.parse(fromJson: repeatPattern!) : nil)
 	}
 	
@@ -50,7 +50,7 @@ class RealmTask: Object {
 	convenience init(from task: Task) {
 		self.init()
 		
-		uuid = task.uuid.uuid.uuidString
+		uuid = task.uuid.uuidString
 		completed = task.completed
 		notes = task.notes
 		targetDate = task.targetDate?.date
@@ -89,7 +89,7 @@ class RealmTask: Object {
 	}
 	
 	func toStruct() -> Task {
-		return Task(uuid: UniqueIdentifier(identifierString: uuid)!,
+		return Task(uuid: UUID(uuidString: uuid)!,
 		                                   completed: completed,
 		                                   description: taskDescription,
 		                                   notes: notes,
@@ -208,7 +208,7 @@ final class RealmRepository: RepositoryType {
 	}
 	
 	func markDeleted(task: Task) throws {
-		guard let object = self.task(for: task.uuid.uuid) else { return }
+		guard let object = self.task(for: task.uuid) else { return }
 		try realm.write {
 			object.synchronizationStatus = .deleted
 		}
@@ -222,7 +222,7 @@ final class RealmRepository: RepositoryType {
 	}
 	
 	func delete(task: Task) throws {
-		guard let object = self.task(for: task.uuid.uuid) else { return }
+		guard let object = self.task(for: task.uuid) else { return }
 		try realm.write {
 			realm.delete(object)
 		}
@@ -258,7 +258,7 @@ final class RealmRepository: RepositoryType {
 	}
 
 	private func addOrUpdateWithoutTransaction(task: Task) -> RealmTask {
-		guard let existed = self.task(for: task.uuid.uuid) else {
+		guard let existed = self.task(for: task.uuid) else {
 			let new = RealmTask(from: task)
 			new.synchronizationStatus = .created
 			realm.add(new)

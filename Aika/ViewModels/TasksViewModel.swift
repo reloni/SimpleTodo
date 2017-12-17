@@ -43,16 +43,16 @@ final class TasksViewModel: ViewModelType {
 		self.flowController = flowController
 	}
 	
-	func completeTask(uuid: UniqueIdentifier) {
+	func completeTask(uuid: UUID) {
 		flowController.dispatch(SynchronizationAction.completeTask(uuid))
 		flowController.dispatch(RxCompositeAction.synchronizationAction)
 	}
 	
-	func editTask(uuid: UniqueIdentifier) {
-		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.repository.task(for: uuid.uuid)!.toStruct()))
+	func editTask(uuid: UUID) {
+		flowController.dispatch(UIAction.showEditTaskController(flowController.currentState.state.repository.task(for: uuid)!.toStruct()))
 	}
 
-	func deleteTask(forUuid uuid: UniqueIdentifier) {
+	func deleteTask(forUuid uuid: UUID) {
 		flowController.dispatch(SynchronizationAction.deleteTask(uuid))
 		flowController.dispatch(RxCompositeAction.synchronizationAction)
 	}

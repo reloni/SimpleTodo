@@ -83,7 +83,9 @@ final class WebSerivce: WebServiceType {
 		                         headers: headers(withToken: tokenHeader))!
 		
 		return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
-			.flatMap { result -> Observable<[Task]> in return .just(try unbox(data: result)) }
+			.flatMap { result -> Observable<[Task]> in
+				return .just(try JSONDecoder().decode([Task].self, from: result))
+			}
 			.catchError(WebSerivce.catchError)
 	}
 }

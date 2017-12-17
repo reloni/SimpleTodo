@@ -11,26 +11,13 @@ import RxDataSources
 import Unbox
 import Wrap
 
-struct Task {
-	let uuid: UniqueIdentifier
-	let completed: Bool
-	let description: String
-	let notes: String?
-	let targetDate: TaskDate?
-	let prototype: TaskPrototype
-	
-	// this field here for checking equality and to force UITableView to refresh
-	// when app opens on next day (when relative dates like "today" should be changed)
-	fileprivate let timestamp = Date().beginningOfDay()
-}
-
-struct Task2: Codable {
+struct Task: Codable {
 	let uuid: UUID
 	let completed: Bool
 	let description: String
 	let notes: String?
 	let targetDate: TaskDate?
-	let prototype: TaskPrototype2
+	let prototype: TaskPrototype
 	
 	enum CodingKeys: String, CodingKey {
 		case uuid
@@ -46,7 +33,7 @@ struct Task2: Codable {
 	// when app opens on next day (when relative dates like "today" should be changed)
 	fileprivate let timestamp = Date().beginningOfDay()
 	
-	init(uuid: UUID, completed: Bool, description: String, notes: String?, targetDate: TaskDate?, prototype: TaskPrototype2) {
+	init(uuid: UUID, completed: Bool, description: String, notes: String?, targetDate: TaskDate?, prototype: TaskPrototype) {
 		self.uuid = uuid
 		self.completed = completed
 		self.description = description
@@ -63,7 +50,7 @@ struct Task2: Codable {
 		description = try container.decode(String.self, forKey: .description)
 		notes = try container.decodeIfPresent(String.self, forKey: .notes)
 		targetDate = (try? decoder.singleValueContainer().decode(TaskDate.self)) ?? nil
-		prototype = try container.decode(TaskPrototype2.self, forKey: .prototype)
+		prototype = try container.decode(TaskPrototype.self, forKey: .prototype)
 	}
 	
 	func encode(to encoder: Encoder) throws {
@@ -112,12 +99,7 @@ struct TaskDate: Codable {
 	}
 }
 
-struct TaskPrototype {
-	let uuid: UniqueIdentifier
-	let repeatPattern: TaskScheduler.Pattern?
-}
-
-struct TaskPrototype2: Codable {
+struct TaskPrototype: Codable {
 	enum CodingKeys: String, CodingKey {
 		case uuid
 		case repeatPattern = "cronExpression"
@@ -141,28 +123,6 @@ struct TaskPrototype2: Codable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		try container.encode(uuid, forKey: .uuid)
 		try container.encode(repeatPattern?.toJson().toJsonString(), forKey: .repeatPattern)
-	}
-}
-
-extension TaskPrototype: Unboxable {
-	init(unboxer: Unboxer) throws {
-		self.uuid = try unboxer.unbox(key: "uuid")
-		if let cronExpression: String = unboxer.unbox(key: "cronExpression") {
-			self.repeatPattern = TaskScheduler.Pattern.parse(fromJson: cronExpression)
-		} else {
-			self.repeatPattern = nil
-		}
-	}
-}
-
-extension TaskPrototype: WrapCustomizable {
-	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-		var dict = [String: Any]()
-		
-		dict["uuid"] = uuid.uuid.uuidString
-		dict["cronExpression"] = (try? repeatPattern?.toJson().toJsonString() ?? "") ?? ""
-		
-		return dict
 	}
 }
 
@@ -194,37 +154,5 @@ extension Task: Equatable {
 }
 
 extension Task : IdentifiableType {
-	var identity: UniqueIdentifier { return uuid }
-}
-
-extension Task: Unboxable {
-	init(unboxer: Unboxer) throws {
-		self.uuid = try unboxer.unbox(key: "uuid")
-		self.completed = try unboxer.unbox(key: "completed")
-		self.description = try unboxer.unbox(key: "description")
-		self.notes = unboxer.unbox(key: "notes")
-		if let date = Date.fromServer(string: unboxer.unbox(key: "targetDate") ?? ""),
-			let includeTime: Bool = unboxer.unbox(key: "targetDateIncludeTime") {
-			targetDate = TaskDate(date: date, includeTime: includeTime)
-		} else {
-			targetDate = nil
-		}
-		self.prototype = try unboxer.unbox(key: "prototype")
-	}
-}
-
-extension Task : WrapCustomizable {
-	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-		var dict = [String: Any]()
-		
-		dict["uuid"] = uuid.uuid.uuidString
-		dict["completed"] = completed
-		dict["description"] = description
-		dict["notes"] = notes ?? ""
-		dict["targetDate"] = targetDate?.date.toServerDateString() ?? NSNull()
-		dict["targetDateIncludeTime"] = targetDate?.includeTime ?? NSNull()
-		dict["prototype"] = prototype.wrap(context: context, dateFormatter: dateFormatter)
-		
-		return dict
-	}
+	var identity: UUID { return uuid }
 }

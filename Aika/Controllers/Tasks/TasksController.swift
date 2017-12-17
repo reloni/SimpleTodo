@@ -157,7 +157,7 @@ final class TasksController : UIViewController {
 		return cell
 	}
 	
-	func showDeleteTaskAlert(sourceView: UIView, taskUuid: UniqueIdentifier) {
+	func showDeleteTaskAlert(sourceView: UIView, taskUuid: UUID) {
 		let deleteHandler: ((UIAlertAction) -> Void)? = { _ in self.viewModel.deleteTask(forUuid: taskUuid) }
 		let actions = [UIAlertAction(title: "Delete task", style: .destructive, handler: deleteHandler),
 		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]

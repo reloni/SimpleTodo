@@ -95,13 +95,13 @@ fileprivate func synchronize(currentState state: AppState) -> Observable<RxState
 fileprivate func synchronize(authenticationInfo: AuthenticationInfo, repository: RepositoryType, webService: WebServiceType) -> Observable<Void> {
 	var toCreate = [Task]()
 	var toUpdate = [Task]()
-	var toDelete = [UniqueIdentifier]()
+	var toDelete = [UUID]()
 	
 	repository.modifiedTasks().forEach {
 		switch $0.synchronizationStatus {
 		case .created: toCreate.append($0.toStruct())
 		case .modified: toUpdate.append($0.toStruct())
-		case .deleted: toDelete.append(UniqueIdentifier(identifierString: $0.uuid)!)
+		case .deleted: toDelete.append(UUID(uuidString: $0.uuid)!)
 		default: break
 		}
 	}
@@ -115,12 +115,12 @@ fileprivate func synchronize(authenticationInfo: AuthenticationInfo, repository:
 }
 
 
-fileprivate func deleteTask(by uuid: UniqueIdentifier, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
-	_ = try? state.repository.markDeleted(taskUuid: uuid.uuid)
+fileprivate func deleteTask(by uuid: UUID, currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
+	_ = try? state.repository.markDeleted(taskUuid: uuid)
 	return .just( { $0 } )
 }
 
-fileprivate func updateTaskCompletionStatus(currentState state: AppState, taskUuid: UniqueIdentifier) -> Observable<RxStateMutator<AppState>> {
-	_ = try? state.repository.complete(taskUuid: taskUuid.uuid)
+fileprivate func updateTaskCompletionStatus(currentState state: AppState, taskUuid: UUID) -> Observable<RxStateMutator<AppState>> {
+	_ = try? state.repository.complete(taskUuid: taskUuid)
 	return .just({ $0 })
 }

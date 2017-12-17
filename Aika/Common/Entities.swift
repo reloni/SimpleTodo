@@ -78,61 +78,23 @@ struct UserSettings {
 	var pushNotificationsEnabled: Bool { return OneSignal.getPermissionSubscriptionState().subscriptionStatus.subscribed }
 }
 
-struct UniqueIdentifier: UnboxableByTransform {
-	typealias UnboxRawValue = String
-	
-	let uuid: UUID
-	
-	init?(identifierString: String) {
-		if let id = UUID(uuidString: identifierString) {
-			self.uuid = id
-		} else {
-			return nil
-		}
-	}
-	
-	init() {
-		uuid = UUID()
-	}
-	
-	static func transform(unboxedValue: String) -> UniqueIdentifier? {
-		return UniqueIdentifier(identifierString: unboxedValue)
-	}
-}
-
-extension UniqueIdentifier : Equatable {
-	static func == (lhs: UniqueIdentifier, rhs: UniqueIdentifier) -> Bool {
-		return lhs.uuid.uuidString == rhs.uuid.uuidString
-	}
-}
-
-extension UniqueIdentifier : Hashable {
-	var hashValue: Int { return uuid.hashValue }
-}
-
-extension UniqueIdentifier : CustomStringConvertible {
-	var description: String { return uuid.uuidString }
-}
-
-extension UniqueIdentifier : WrapCustomizable {
-	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-		return uuid.uuidString
-	}
-}
-
 struct BatchUpdate {
 	let toCreate: [Task]
 	let toUpdate: [Task]
-	let toDelete: [UniqueIdentifier]
+	let toDelete: [UUID]
 }
 
 extension BatchUpdate: WrapCustomizable {
 	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
 		var dict = [String: Any]()
 		
-		dict["toCreate"] = toCreate.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
-		dict["toUpdate"] = toUpdate.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
-		dict["toDelete"] = toDelete.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
+//		dict["toCreate"] = toCreate.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
+//		dict["toUpdate"] = toUpdate.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
+//		dict["toDelete"] = toDelete.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
+		
+		dict["toCreate"] = [String]()
+		dict["toUpdate"] = [String]()
+		dict["toDelete"] = [String]()
 		
 		return dict
 	}
