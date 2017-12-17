@@ -18,7 +18,7 @@ class CodableTests: XCTestCase {
 					}
 					""".data(using: .utf8)!
 		
-		let result = try! JSONDecoder().decode(TaskPrototype2.self, from: data)
+		let result = try! JSONDecoder().decode(TaskPrototype.self, from: data)
 		XCTAssertEqual(result.uuid, UUID(uuidString: "a4f52989-d7c6-4cc0-81ae-587e3dedf911"))
 		XCTAssertEqual(result.repeatPattern, TaskScheduler.Pattern.biweekly)
 	}
@@ -30,7 +30,7 @@ class CodableTests: XCTestCase {
 					}
 					""".data(using: .utf8)!
 		
-		let result = try! JSONDecoder().decode(TaskPrototype2.self, from: data)
+		let result = try! JSONDecoder().decode(TaskPrototype.self, from: data)
 		XCTAssertEqual(result.uuid, UUID(uuidString: "a4f52989-d7c6-4cc0-81ae-587e3dedf911"))
 		XCTAssertNil(result.repeatPattern)
 	}
@@ -43,7 +43,7 @@ class CodableTests: XCTestCase {
 					}
 					""".data(using: .utf8)!
 		
-		let result = try! JSONDecoder().decode(TaskPrototype2.self, from: data)
+		let result = try! JSONDecoder().decode(TaskPrototype.self, from: data)
 		XCTAssertEqual(result.uuid, UUID(uuidString: "a4f52989-d7c6-4cc0-81ae-587e3dedf911"))
 		XCTAssertNil(result.repeatPattern)
 	}
@@ -56,7 +56,7 @@ class CodableTests: XCTestCase {
 					}
 					""".data(using: .utf8)!
 		
-		let result = try! JSONDecoder().decode(TaskPrototype2.self, from: data)
+		let result = try! JSONDecoder().decode(TaskPrototype.self, from: data)
 		XCTAssertEqual(result.uuid, UUID(uuidString: "a4f52989-d7c6-4cc0-81ae-587e3dedf911"))
 		XCTAssertNil(result.repeatPattern)
 	}
@@ -116,7 +116,7 @@ class CodableTests: XCTestCase {
 					}
 					""".data(using: .utf8)!
 		
-		let result = try? JSONDecoder().decode(Task2.self, from: data)
+		let result = try? JSONDecoder().decode(Task.self, from: data)
 		XCTAssertEqual(result?.uuid, UUID(uuidString: "a4f52989-d7c6-4cc0-81ae-587e3dedf911"))
 		XCTAssertEqual(result?.completed, false)
 		XCTAssertEqual(result?.description, "Test")
@@ -142,7 +142,7 @@ class CodableTests: XCTestCase {
 					}
 					""".data(using: .utf8)!
 		
-		let result = try? JSONDecoder().decode(Task2.self, from: data)
+		let result = try? JSONDecoder().decode(Task.self, from: data)
 		XCTAssertEqual(result?.uuid, UUID(uuidString: "a4f52989-d7c6-4cc0-81ae-587e3dedf911"))
 		XCTAssertEqual(result?.completed, true)
 		XCTAssertEqual(result?.description, "Test")
@@ -167,7 +167,7 @@ class CodableTests: XCTestCase {
 					}
 					""".data(using: .utf8)!
 		
-		let result = try? JSONDecoder().decode(Task2.self, from: data)
+		let result = try? JSONDecoder().decode(Task.self, from: data)
 		XCTAssertEqual(result?.uuid, UUID(uuidString: "a4f52989-d7c6-4cc0-81ae-587e3dedf911"))
 		XCTAssertEqual(result?.completed, true)
 		XCTAssertEqual(result?.description, "Test")
@@ -192,7 +192,7 @@ class CodableTests: XCTestCase {
 					}
 					""".data(using: .utf8)!
 		
-		let result = try? JSONDecoder().decode(Task2.self, from: data)
+		let result = try? JSONDecoder().decode(Task.self, from: data)
 		XCTAssertNil(result)
 	}
 }
