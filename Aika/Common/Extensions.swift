@@ -8,7 +8,6 @@
 
 import Foundation
 import RxHttpClient
-import Unbox
 import UIKit
 import RxSwift
 import Material
@@ -23,6 +22,34 @@ extension FileManager {
 		try! createDirectory(at: realmsDirectory,
 		                     withIntermediateDirectories: false,
 		                     attributes: [FileAttributeKey(rawValue: FileAttributeKey.protectionKey.rawValue): FileProtectionType.completeUntilFirstUserAuthentication])
+	}
+}
+
+extension TaskDate {
+	var underlineColor: UIColor? {
+		switch date.type {
+		case .todayPast: fallthrough
+		case .past: fallthrough
+		case .yesterday: return Theme.Colors.upsdelRed
+		case .tomorrow: return Theme.Colors.pumkinLight
+		default: return Theme.Colors.darkSpringGreen
+		}
+	}
+	
+	func toAttributedString(withSpelling: Bool) -> NSAttributedString {
+		let str = NSMutableAttributedString(string: toString(withSpelling: withSpelling))
+		
+		let range = NSRange(location: 0, length: str.length)
+		str.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
+		if let underlineColor = underlineColor {
+			str.addAttribute(NSAttributedStringKey.underlineColor, value: underlineColor, range: range)
+		}
+		
+		return str
+	}
+	
+	func toString(withSpelling: Bool) -> String {
+		return includeTime ? date.toDateAndTimeString(withSpelling: withSpelling) : date.toDateString(withSpelling: withSpelling)
 	}
 }
 
@@ -275,7 +302,7 @@ extension Error {
 				default: return "Internal server error"
 				}
 			}
-			return (try? unbox(data: data) as ServerSideError)?.error ?? "Internal server error"
+			return (try? JSONDecoder().decode(ServerSideError.self, from: data))?.error ?? "Internal server error"
 		case AuthenticationError.signInError(let error): return error.localizedDescription
 		case AuthenticationError.passwordResetError: return "Unable to send instructions to specified email adress"
 		case AuthenticationError.registerError(let error): return error.localizedDescription

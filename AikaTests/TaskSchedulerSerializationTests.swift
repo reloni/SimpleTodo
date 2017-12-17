@@ -8,30 +8,28 @@
 
 import XCTest
 @testable import Aika
-import Wrap
-
 class TaskSchedulerSerializationTests: XCTestCase {
     func testSerializePattern() {
-        XCTAssertEqual(try! wrap(TaskScheduler.Pattern.daily)["type"] as? String, "daily")
+        XCTAssertEqual(TaskScheduler.Pattern.daily.toJson()["type"] as? String, "daily")
         
-        XCTAssertEqual(try! wrap(TaskScheduler.Pattern.weekly)["type"] as? String, "weekly")
+        XCTAssertEqual(TaskScheduler.Pattern.weekly.toJson()["type"] as? String, "weekly")
         
-        XCTAssertEqual(try! wrap(TaskScheduler.Pattern.biweekly)["type"] as? String, "biweekly")
+        XCTAssertEqual(TaskScheduler.Pattern.biweekly.toJson()["type"] as? String, "biweekly")
         
-        XCTAssertEqual(try! wrap(TaskScheduler.Pattern.monthly)["type"] as? String, "monthly")
+        XCTAssertEqual(TaskScheduler.Pattern.monthly.toJson()["type"] as? String, "monthly")
         
-        XCTAssertEqual(try! wrap(TaskScheduler.Pattern.yearly)["type"] as? String, "yearly")
+        XCTAssertEqual(TaskScheduler.Pattern.yearly.toJson()["type"] as? String, "yearly")
         
-        let byDay: WrappedDictionary = try! wrap(TaskScheduler.Pattern.byDay(repeatEvery: 5))
+        let byDay = TaskScheduler.Pattern.byDay(repeatEvery: 5).toJson()
         XCTAssertEqual(byDay["type"] as? String, "byDay")
         XCTAssertEqual(byDay["repeatEvery"] as? String, "5")
         
-        let byWeek: WrappedDictionary = try! wrap(TaskScheduler.Pattern.byWeek(repeatEvery: 3, weekDays: [.monday, .tuesday, .friday]))
+        let byWeek = TaskScheduler.Pattern.byWeek(repeatEvery: 3, weekDays: [.monday, .tuesday, .friday]).toJson()
         XCTAssertEqual(byWeek["type"] as? String, "byWeek")
         XCTAssertEqual(byWeek["repeatEvery"] as? String, "3")
         XCTAssertEqual(byWeek["weekDays"] as! [Int], [2, 3, 6])
         
-        let byMonthDays: WrappedDictionary = try! wrap(TaskScheduler.Pattern.byMonthDays(repeatEvery: 8, days: [3, 6, 8, 22, 30]))
+        let byMonthDays = TaskScheduler.Pattern.byMonthDays(repeatEvery: 8, days: [3, 6, 8, 22, 30]).toJson()
         XCTAssertEqual(byMonthDays["type"] as? String, "byMonthDays")
         XCTAssertEqual(byMonthDays["repeatEvery"] as? String, "8")
         XCTAssertEqual(byMonthDays["days"] as! [UInt], [3, 6, 8, 22, 30])

@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Wrap
-import Unbox
 
 struct TaskScheduler {
 	enum Pattern {
@@ -197,8 +195,17 @@ extension TaskScheduler.Pattern {
 	}
 }
 
-extension TaskScheduler.Pattern: WrapCustomizable {
-    func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-		return toJson()
-    }
+extension TaskScheduler.Pattern: Codable {
+	init(from decoder: Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		guard let pattern = TaskScheduler.Pattern.parse(fromJson: try container.decode(String.self)) else {
+			throw DecodingError.dataCorruptedError(in: container, debugDescription: "Wrong pattern")
+		}
+		self = pattern
+	}
+	
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.singleValueContainer()
+		try container.encode(try toJson().toJsonString())
+	}
 }

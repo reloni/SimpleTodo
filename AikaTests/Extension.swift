@@ -24,3 +24,17 @@ extension Date {
         return Calendar.current.date(byAdding: component, value: value, to: self)!
     }
 }
+
+extension Dictionary where Key == String {
+	func dictionary(_ key: String) -> [Key: Value] {
+		return self[key] as? [Key: Value] ?? [:]
+	}
+	
+	func value<T>(_ key: String) -> T? {
+		return self[key] as? T
+	}
+	
+	func stringValue(_ key: String) -> String? {
+		return value(key)
+	}
+}
