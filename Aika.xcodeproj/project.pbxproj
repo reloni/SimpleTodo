@@ -92,8 +92,6 @@
 		6EBC6A7A1F59250C0041456A /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
 		6EBC6A7C1F59250C0041456A /* SimpleKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB04F231EEE85F30023619A /* SimpleKeychain.framework */; };
 		6EBC6A7D1F59250C0041456A /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
-		6EBC6A7E1F59250C0041456A /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752191E05AFC4002AA9B4 /* Unbox.framework */; };
-		6EBC6A7F1F59250C0041456A /* Wrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE91CAB1E1959430025A4BD /* Wrap.framework */; };
 		6EBD408D1E60ABF700661CA6 /* AuthenticationCoordinators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBD408C1E60ABF700661CA6 /* AuthenticationCoordinators.swift */; };
 		6EBD4A951F5A8B2300CCE0A1 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBD4A941F5A8B2300CCE0A1 /* Extension.swift */; };
 		6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */; };
@@ -316,8 +314,6 @@
 				6EBC6A7A1F59250C0041456A /* RxSwift.framework in Frameworks */,
 				6EBC6A7C1F59250C0041456A /* SimpleKeychain.framework in Frameworks */,
 				6EBC6A7D1F59250C0041456A /* SnapKit.framework in Frameworks */,
-				6EBC6A7E1F59250C0041456A /* Unbox.framework in Frameworks */,
-				6EBC6A7F1F59250C0041456A /* Wrap.framework in Frameworks */,
 				6EBC6A6C1F5924ED0041456A /* Fabric.framework in Frameworks */,
 				6EBC6A6D1F5924ED0041456A /* Crashlytics.framework in Frameworks */,
 				6EBC6A6B1F5924DF0041456A /* MessageUI.framework in Frameworks */,
@@ -751,9 +747,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxHttpClient.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Unbox.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Wrap.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OneSignal.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Auth0.framework",
