@@ -104,9 +104,12 @@ struct TaskPrototype2: Codable {
 	
 	let uuid: UUID
 	let repeatPattern: TaskScheduler.Pattern?
-}
-
-extension TaskPrototype2 {
+	
+	init(uuid: UUID, repeatPattern: TaskScheduler.Pattern?) {
+		self.uuid = uuid
+		self.repeatPattern = repeatPattern
+	}
+	
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		uuid = try container.decode(UUID.self, forKey: .uuid)
@@ -114,7 +117,9 @@ extension TaskPrototype2 {
 	}
 	
 	func encode(to encoder: Encoder) throws {
-
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		try container.encode(uuid, forKey: .uuid)
+		try container.encode(repeatPattern?.toJson().toJsonString(), forKey: .repeatPattern)
 	}
 }
 
@@ -129,7 +134,7 @@ extension TaskPrototype: Unboxable {
 	}
 }
 
-extension TaskPrototype : WrapCustomizable {
+extension TaskPrototype: WrapCustomizable {
 	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
 		var dict = [String: Any]()
 		
@@ -140,14 +145,14 @@ extension TaskPrototype : WrapCustomizable {
 	}
 }
 
-extension TaskPrototype : Equatable {
+extension TaskPrototype: Equatable {
 	static func == (lhs: TaskPrototype, rhs: TaskPrototype) -> Bool {
 		return lhs.uuid == rhs.uuid
 			&& lhs.repeatPattern == rhs.repeatPattern
 	}
 }
 
-extension TaskDate : Equatable {
+extension TaskDate: Equatable {
 	public static func ==(lhs: TaskDate, rhs: TaskDate) -> Bool {
 		return lhs.date == rhs.date
 			&& (lhs.includeTime == rhs.includeTime)
@@ -155,7 +160,7 @@ extension TaskDate : Equatable {
 	}
 }
 
-extension Task : Equatable {
+extension Task: Equatable {
 	static func == (lhs: Task, rhs: Task) -> Bool {
 		return lhs.uuid == rhs.uuid
 			&& lhs.completed == rhs.completed

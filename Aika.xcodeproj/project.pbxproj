@@ -104,6 +104,7 @@
 		6ED3F4471E7DA3D50003C1CC /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */; };
 		6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4451E7DA3D50003C1CC /* TasksController.swift */; };
 		6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDC4E051F9BDE180003BE92 /* Motion.framework */; };
+		6EE1C7E01FE6CC1900FFB34D /* EncodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
 		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
@@ -257,6 +258,7 @@
 		6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskController.swift; sourceTree = "<group>"; };
 		6ED3F4451E7DA3D50003C1CC /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
 		6EDC4E051F9BDE180003BE92 /* Motion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Motion.framework; path = Carthage/Build/iOS/Motion.framework; sourceTree = "<group>"; };
+		6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodeTests.swift; sourceTree = "<group>"; };
 		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
 		6EE247D81DF21291001A6F39 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		6EE247D91DF21291001A6F39 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				6EBC6A541F5920770041456A /* TaskSchedulerTests.swift */,
 				6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */,
 				6EA2C2F51F9CF9FF004A9820 /* DecodeTests.swift */,
+				6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */,
 			);
 			path = AikaTests;
 			sourceTree = "<group>";
@@ -875,6 +878,7 @@
 				6EBD4A951F5A8B2300CCE0A1 /* Extension.swift in Sources */,
 				6EA2C2F61F9CF9FF004A9820 /* DecodeTests.swift in Sources */,
 				6E19E3A41F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift in Sources */,
+				6EE1C7E01FE6CC1900FFB34D /* EncodeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
