@@ -75,12 +75,12 @@ final class WebSerivce: WebServiceType {
 	}
 	
 	func update(with instruction: BatchUpdate, tokenHeader: String) -> Observable<[Task]> {
-		guard let json = try? wrap(instruction) else { return .empty() }
+		guard let jsonData = try? JSONEncoder().encode(instruction) else { return .empty() }
+
 		let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/tasks/BatchUpdate")!,
-		                         method: .post,
-		                         jsonBody: json,
-		                         options: [],
-		                         headers: headers(withToken: tokenHeader))!
+				   method: .post,
+				   body: jsonData,
+				   headers: headers(withToken: tokenHeader))
 		
 		return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
 			.flatMap { result -> Observable<[Task]> in

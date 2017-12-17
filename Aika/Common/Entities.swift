@@ -78,24 +78,8 @@ struct UserSettings {
 	var pushNotificationsEnabled: Bool { return OneSignal.getPermissionSubscriptionState().subscriptionStatus.subscribed }
 }
 
-struct BatchUpdate {
+struct BatchUpdate: Encodable {
 	let toCreate: [Task]
 	let toUpdate: [Task]
 	let toDelete: [UUID]
-}
-
-extension BatchUpdate: WrapCustomizable {
-	func wrap(context: Any?, dateFormatter: DateFormatter?) -> Any? {
-		var dict = [String: Any]()
-		
-//		dict["toCreate"] = toCreate.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
-//		dict["toUpdate"] = toUpdate.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
-//		dict["toDelete"] = toDelete.map { $0.wrap(context: context, dateFormatter: dateFormatter) }
-		
-		dict["toCreate"] = [String]()
-		dict["toUpdate"] = [String]()
-		dict["toDelete"] = [String]()
-		
-		return dict
-	}
 }
