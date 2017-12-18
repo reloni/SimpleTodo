@@ -83,7 +83,7 @@ class CodableTests: XCTestCase {
 					""".data(using: .utf8)!
 		
 		let result = try? JSONDecoder().decode(TaskDate.self, from: data)
-		XCTAssertEqual(result?.date,  Date.fromServer(string: "2017-09-18T00:00:00.000+00")!.beginningOfDay())
+		XCTAssertEqual(result?.date,  Date.fromServer(string: "2017-09-18T17:47:00.000+00")!.beginningOfDay())
 		XCTAssertEqual(result?.includeTime,  false)
 	}
 	
