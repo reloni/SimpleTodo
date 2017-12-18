@@ -18,8 +18,6 @@ final class FrameworksViewModel: ViewModelType {
 	                         FrameworkSectionItem(name: "RxHttpClient", url: URL(string: "https://github.com/RxSwiftCommunity/RxHttpClient")!),
 	                         FrameworkSectionItem(name: "RxDataFlow", url: URL(string: "https://github.com/Reloni/RxDataFlow")!),
 	                         FrameworkSectionItem(name: "RxDataSources", url: URL(string: "https://github.com/RxSwiftCommunity/RxDataSources")!),
-	                         FrameworkSectionItem(name: "Unbox", url: URL(string: "https://github.com/JohnSundell/Unbox")!),
-	                         FrameworkSectionItem(name: "Wrap", url: URL(string: "https://github.com/JohnSundell/Wrap")!),
 	                         FrameworkSectionItem(name: "RxGesture", url: URL(string: "https://github.com/RxSwiftCommunity/RxGesture")!),
 	                         FrameworkSectionItem(name: "OneSignal-iOS-SDK", url: URL(string: "https://github.com/OneSignal/OneSignal-iOS-SDK")!),
 	                         FrameworkSectionItem(name: "Auth0.swift", url: URL(string: "https://github.com/auth0/Auth0.swift")!),
