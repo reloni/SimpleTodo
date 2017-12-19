@@ -8,13 +8,13 @@
 
 import Foundation
 
-public protocol Then { }
+public protocol Configure { }
 
-extension Then where Self: AnyObject {
+extension Configure where Self: AnyObject {
 	public func configure(_ block: (Self) -> Void) -> Self {
 		block(self)
 		return self
 	}
 }
 
-extension NSObject: Then { }
+extension NSObject: Configure { }

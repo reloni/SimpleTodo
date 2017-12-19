@@ -26,14 +26,7 @@ final class EditTaskController : UIViewController {
 	var datePickerHeightConstraint: Constraint?
 	var taskRepeatDescriptionViewHeightConstraint: Constraint?
 
-	let scrollView: UIScrollView = {
-		let scroll = UIScrollView()
-		scroll.bounces = true
-		scroll.alwaysBounceVertical = true
-		scroll.isUserInteractionEnabled = true
-		scroll.keyboardDismissMode = .onDrag
-		return scroll
-	}()
+	let scrollView = Theme.Controls.scrollView()
 	
 	let containerView: UIView = {
 		let view = UIView()

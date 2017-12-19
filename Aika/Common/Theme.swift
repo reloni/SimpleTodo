@@ -59,6 +59,15 @@ final class Theme {
 			control.adjustsFontForContentSizeCategory = true
 			return control
 		}
+		
+		static func scrollView() -> UIScrollView {
+			return UIScrollView().configure {
+				$0.bounces = true
+				$0.alwaysBounceVertical = true
+				$0.isUserInteractionEnabled = true
+				$0.keyboardDismissMode = .onDrag
+			}
+		}
 	}
 	
 	final class Images {

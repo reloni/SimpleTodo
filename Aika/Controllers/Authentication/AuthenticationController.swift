@@ -19,12 +19,7 @@ final class AuthenticationController : UIViewController {
 	var authenticationTypeContainerHeightConstraint: Constraint!
 	var passwordContainerHeightConstraint: Constraint!
 	
-	let scrollView = UIScrollView().configure {
-		$0.bounces = true
-		$0.alwaysBounceVertical = true
-		$0.isUserInteractionEnabled = true
-		$0.keyboardDismissMode = .onDrag
-	}
+	let scrollView = Theme.Controls.scrollView()
 	
 	lazy var topContainerView = UIView().configure {
 		$0.clipsToBounds = true
