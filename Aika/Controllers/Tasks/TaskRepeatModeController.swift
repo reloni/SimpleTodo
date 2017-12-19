@@ -36,15 +36,9 @@ final class TaskRepeatModeController: UIViewController {
 		})
 	}()
 	
-	let tableView: UITableView = {
-		let table = Theme.Controls.tableView()
-		
-		table.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		
-		table.register(DefaultCell.self, forCellReuseIdentifier: "Default")
-		
-		return table
-	}()
+	let tableView = Theme.Controls.tableView().configure {
+		$0.register(DefaultCell.self, forCellReuseIdentifier: "Default")
+	}
 	
 	init(viewModel: TaskRepeatModeViewModel) {
 		self.viewModel = viewModel
