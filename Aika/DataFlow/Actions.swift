@@ -100,6 +100,6 @@ enum PushNotificationsAction : RxActionType {
 	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
 	
-	case promtForPushNotifications
+	case promptForPushNotifications
 	case switchNotificationSubscription(subscribed: Bool)
 }

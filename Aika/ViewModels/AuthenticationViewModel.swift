@@ -91,7 +91,7 @@ final class AuthenticationViewModel: ViewModelType {
 		                            SynchronizationAction.updateConfiguration,
 		                            UIAction.showTasksListController,
 		                            UIAction.hideSpinner,
-		                            PushNotificationsAction.promtForPushNotifications],
+		                            PushNotificationsAction.promptForPushNotifications],
 		                  fallbackAction: UIAction.hideSpinner)
 		flowController.dispatch(action)
 	}

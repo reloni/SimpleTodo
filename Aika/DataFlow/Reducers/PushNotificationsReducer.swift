@@ -13,13 +13,13 @@ import RxDataFlow
 
 func pushNotificationsReducer(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
 	switch action {
-	case PushNotificationsAction.promtForPushNotifications: return promtForPushNotifications(currentState: currentState)
+	case PushNotificationsAction.promptForPushNotifications: return promptForPushNotifications(currentState: currentState)
 	case PushNotificationsAction.switchNotificationSubscription(let subscribed): return switchNotificationSubsctiption(currentState: currentState, subscribed: subscribed)
 	default: return .empty()
 	}
 }
 
-fileprivate func promtForPushNotifications(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
+fileprivate func promptForPushNotifications(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 	guard let info = state.authentication.info else { return .just({ $0 }) }
 	
 	OneSignal.promptForPushNotifications(userResponse: { accepted in
