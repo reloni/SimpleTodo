@@ -9,9 +9,17 @@
 import Foundation
 
 extension Date {
-	enum DateFormats: String {
-		case full = "E d MMM yyyy HH:mm"
-		case time = "HH:mm"
+	enum DateFormats {
+		case full
+		case time
+		case relative
+		
+		var rawValue: String {
+			switch self {
+			case .full, .relative: return "E d MMM yyyy HH:mm"
+			case .time: return "HH:mm"
+			}
+		}
 	}
 	
 	enum DateType {
@@ -111,24 +119,16 @@ extension Date {
 		return Date.serverDateFormatter.date(from: string)
 	}
 	
-	func toString(format: DateFormats, withSpelling: Bool) -> String {
+	func toString(format: DateFormats) -> String {
 		let formatter = Date.dateFormatter
 		
-		formatter.dateFormat = format.rawValue
-		
-		if withSpelling, let spelled = toRelativeDate() {
-			formatter.dateFormat = DateFormats.time.rawValue
+		if format == .relative, let spelled = toRelativeDate() {
+			formatter.dateFormat = Date.DateFormats.time.rawValue
 			return "\(spelled) \(formatter.string(from: self))"
 		}
 		
+		formatter.dateFormat = format.rawValue
+		
 		return formatter.string(from: self)
-	}
-	
-	func toDateString(withSpelling: Bool) -> String {
-		return toString(format: .time, withSpelling: withSpelling)
-	}
-	
-	func toDateAndTimeString(withSpelling: Bool) -> String {
-		return toString(format: .full, withSpelling: withSpelling)
 	}
 }

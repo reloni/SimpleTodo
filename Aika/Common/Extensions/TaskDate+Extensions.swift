@@ -19,8 +19,8 @@ extension TaskDate {
 		}
 	}
 	
-	func toAttributedString(withSpelling: Bool) -> NSAttributedString {
-		let str = NSMutableAttributedString(string: toString(withSpelling: withSpelling))
+	func toAttributedString(format: Date.DateFormats) -> NSAttributedString {
+		let str = NSMutableAttributedString(string: toString(format: format))
 		
 		let range = NSRange(location: 0, length: str.length)
 		str.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
@@ -31,7 +31,7 @@ extension TaskDate {
 		return str
 	}
 	
-	func toString(withSpelling: Bool) -> String {
-		return includeTime ? date.toDateAndTimeString(withSpelling: withSpelling) : date.toDateString(withSpelling: withSpelling)
+	func toString(format: Date.DateFormats) -> String {
+		return date.toString(format: format)
 	}
 }
