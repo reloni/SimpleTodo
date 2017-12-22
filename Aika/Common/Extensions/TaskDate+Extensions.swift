@@ -19,7 +19,7 @@ extension TaskDate {
 		}
 	}
 	
-	func toAttributedString(format: Date.DateFormats) -> NSAttributedString {
+	func toAttributedString(format: Date.DisplayDateType) -> NSAttributedString {
 		let str = NSMutableAttributedString(string: toString(format: format))
 		
 		let range = NSRange(location: 0, length: str.length)
@@ -31,7 +31,7 @@ extension TaskDate {
 		return str
 	}
 	
-	func toString(format: Date.DateFormats) -> String {
+	func toString(format: Date.DisplayDateType) -> String {
 		return date.toString(format: format)
 	}
 }

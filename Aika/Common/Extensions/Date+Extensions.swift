@@ -9,15 +9,21 @@
 import Foundation
 
 extension Date {
-	enum DateFormats {
-		case full
-		case time
-		case relative
+	enum DateFormat: String {
+		case dateFull = "E d MMM yyyy"
+		case dateWithoutYear = "E d MMM"
+		case time = "HH:mm"
+		case dayOfWeek = "EEEE"
+	}
+	
+	enum DisplayDateType {
+		case full(withTime: Bool)
+		case relative(withTime: Bool)
 		
-		var rawValue: String {
+		var withTime: Bool {
 			switch self {
-			case .full, .relative: return "E d MMM yyyy HH:mm"
-			case .time: return "HH:mm"
+			case .full(let withTime): return withTime
+			case .relative(let withTime): return withTime
 			}
 		}
 	}
@@ -71,6 +77,12 @@ extension Date {
 	var isToday: Bool { return Calendar.current.isDateInToday(self) }
 	var isTomorrow: Bool { return Calendar.current.isDateInTomorrow(self) }
 	var isYesterday: Bool { return Calendar.current.isDateInYesterday(self) }
+	var isWithinCurrentYear: Bool { return Calendar.current.component(.year, from: self) == Calendar.current.component(.year, from: Date()) }
+	var isWithinNext7Days: Bool {
+		let begin = Date().beginningOfDay()
+		let end = Date().adding(.day, value: 7).endingOfDay()
+		return self > begin && self < end
+	}
 	
 	var isBeforeYesterday: Bool {
 		let yesterday = Date().adding(.day, value: -1).beginningOfDay()
@@ -119,15 +131,24 @@ extension Date {
 		return Date.serverDateFormatter.date(from: string)
 	}
 	
-	func toString(format: DateFormats) -> String {
+	func toString(format: DisplayDateType) -> String {
 		let formatter = Date.dateFormatter
 		
-		if format == .relative, let spelled = toRelativeDate() {
-			formatter.dateFormat = Date.DateFormats.time.rawValue
+		if case .relative = format, let spelled = toRelativeDate() {
+			formatter.dateFormat = Date.DateFormat.time.rawValue
 			return "\(spelled) \(formatter.string(from: self))"
 		}
 		
-		formatter.dateFormat = format.rawValue
+		if isWithinNext7Days {
+			formatter.dateFormat = format.withTime ? "\(DateFormat.dayOfWeek.rawValue) \(DateFormat.time.rawValue)" : DateFormat.dayOfWeek.rawValue
+			return formatter.string(from: self)
+		}
+		
+		if isWithinCurrentYear {
+			formatter.dateFormat = format.withTime ? "\(DateFormat.dateWithoutYear.rawValue) \(DateFormat.time.rawValue)" : DateFormat.dateWithoutYear.rawValue
+		} else {
+			formatter.dateFormat = format.withTime ? "\(DateFormat.dateFull.rawValue) \(DateFormat.time.rawValue)" : DateFormat.dateFull.rawValue
+		}
 		
 		return formatter.string(from: self)
 	}
