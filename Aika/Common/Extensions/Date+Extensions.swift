@@ -68,6 +68,10 @@ extension Date {
 		return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
 	}
 	
+	func beginningOfYear() -> Date {
+		return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!.setting(.month, value: 1).setting(.day, value: 1)
+	}
+	
 	func endingOfDay() -> Date {
 		return Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: self)!
 	}
@@ -94,7 +98,7 @@ extension Date {
 		return self > tomorrow
 	}
 	
-	static var dateFormatter: DateFormatter = {
+	static let dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.locale = Locale.current
 		return dateFormatter
@@ -108,7 +112,7 @@ extension Date {
 		return formatter
 	}()
 	
-	static var serverDateFormatter: DateFormatter = {
+	static let serverDateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
 		//2017-01-05T21:55:57.001+00
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSxx"
@@ -119,10 +123,10 @@ extension Date {
 		return Date.serverDateFormatter.string(from: self)
 	}
 	
-	func toRelativeDate() -> String? {
+	func toRelativeDate(dateFormatter formatter: DateFormatter = Date.relativeDateFormatter) -> String? {
 		switch type {
 		case .todayFuture, .todayPast, .yesterday, .tomorrow:
-			return Date.relativeDateFormatter.string(from: self)
+			return formatter.string(from: self)
 		default: return nil
 		}
 	}
@@ -131,12 +135,10 @@ extension Date {
 		return Date.serverDateFormatter.date(from: string)
 	}
 	
-	func toString(format: DisplayDateType) -> String {
-		let formatter = Date.dateFormatter
-		
-		if case .relative = format, let spelled = toRelativeDate() {
+	func toString(format: DisplayDateType, dateFormatter formatter: DateFormatter = Date.dateFormatter, relativeDateFormatter: DateFormatter = Date.relativeDateFormatter) -> String {
+		if case .relative = format, let spelled = toRelativeDate(dateFormatter: relativeDateFormatter) {
 			formatter.dateFormat = Date.DateFormat.time.rawValue
-			return "\(spelled) \(formatter.string(from: self))"
+			return format.withTime ? "\(spelled) \(formatter.string(from: self))" : spelled
 		}
 		
 		if isWithinNext7Days {
