@@ -8,6 +8,13 @@
 
 import Foundation
 
+extension Calendar {
+	var lastWeekday: Int {
+		let tmp = 1 - firstWeekday
+		return tmp < 0 ? abs(tmp) : tmp + 7
+	}
+}
+
 extension Date {
 	enum DateFormat: String {
 		case dateFull = "E d MMM yyyy"
