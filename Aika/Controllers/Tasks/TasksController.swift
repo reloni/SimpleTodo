@@ -129,7 +129,7 @@ final class TasksController : UIViewController {
 		cell.isUserInteractionEnabled = true
 		cell.isExpanded = ip == controller.tableViewDelegate.currentExpandedIndexPath
 		cell.taskDescription.text = "\(item.description)"
-		cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
+		cell.targetDate.attributedText = item.targetDate?.toAttributedString(format: .relative(withTime: item.targetDate?.includeTime ?? false))
 		cell.repeatImage.isHidden = item.prototype.repeatPattern == nil
 		cell.updateConstraints()
 		
