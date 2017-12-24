@@ -66,6 +66,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		flowController.dispatch(SynchronizationAction.updateConfiguration)
 		flowController.dispatch(UIAction.showRootController)
+		
+		// if already authenticated prompt for push notifications
+		if case Authentication.authenticated = flowController.currentState.state.authentication {
+			flowController.dispatch(PushNotificationsAction.promptForPushNotifications)
+		}
 
 		return true
 	}

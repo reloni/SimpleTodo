@@ -12,52 +12,59 @@ import Material
 final class Theme {
 	final class Controls {
 		static func tableView() -> UITableView {
-			let table = UITableView()
-			
-			table.cellLayoutMarginsFollowReadableWidth = false
-			table.layoutMargins = .zero
-			table.preservesSuperviewLayoutMargins = false
-			table.separatorInset = .zero
-			table.contentInset = .zero
-			table.estimatedRowHeight = 50
-			table.rowHeight = UITableViewAutomaticDimension
-			table.tableFooterView = UIView()
-			table.backgroundColor = Theme.Colors.isabelline
-			
-			return table
+			return UITableView().configure {
+				$0.cellLayoutMarginsFollowReadableWidth = false
+				$0.layoutMargins = .zero
+				$0.preservesSuperviewLayoutMargins = false
+				$0.separatorInset = .zero
+				$0.contentInset = .zero
+				$0.estimatedRowHeight = 50
+				$0.rowHeight = UITableViewAutomaticDimension
+				$0.tableFooterView = UIView()
+				$0.backgroundColor = Theme.Colors.isabelline
+			}
 		}
 		
 		static func textView(withStyle style: UIFontTextStyle) -> TextView {
-			let control = TextView()
-			control.font = UIFont.preferredFont(forTextStyle: style)
-			control.placeholderLabel.font = UIFont.preferredFont(forTextStyle: style)
-			control.adjustsFontForContentSizeCategory = true
-			return control
+			return TextView().configure {
+				$0.font = UIFont.preferredFont(forTextStyle: style)
+				$0.placeholderLabel.font = UIFont.preferredFont(forTextStyle: style)
+				$0.adjustsFontForContentSizeCategory = true
+			}
 		}
 		
 		static func label(withStyle style: UIFontTextStyle) -> UILabel {
-			let control = UILabel()
-			control.font = UIFont.preferredFont(forTextStyle: style)
-			control.adjustsFontForContentSizeCategory = true
-			return control
+			return UILabel().configure {
+				$0.font = UIFont.preferredFont(forTextStyle: style)
+				$0.adjustsFontForContentSizeCategory = true
+			}
 		}
 		
 		static func textField(withStyle style: UIFontTextStyle) -> TextField {
-			let control = TextField()
-			control.font = UIFont.preferredFont(forTextStyle: style)
-			control.adjustsFontForContentSizeCategory = true
-			control.dividerActiveColor = Theme.Colors.blueberry
-			control.placeholderActiveColor = Theme.Colors.blueberry
-			control.placeholderActiveScale = 0.85
-			control.placeholderVerticalOffset = 5
-			return control
+			return TextField().configure {
+				$0.font = UIFont.preferredFont(forTextStyle: style)
+				$0.adjustsFontForContentSizeCategory = true
+				$0.dividerActiveColor = Theme.Colors.blueberry
+				$0.placeholderActiveColor = Theme.Colors.blueberry
+				$0.placeholderActiveScale = 0.85
+				$0.placeholderVerticalOffset = 5
+			}
 		}
 		
 		static func uiTextField(withStyle style: UIFontTextStyle) -> UITextField {
-			let control = UITextField()
-			control.font = UIFont.preferredFont(forTextStyle: style)
-			control.adjustsFontForContentSizeCategory = true
-			return control
+			return UITextField().configure {
+				$0.font = UIFont.preferredFont(forTextStyle: style)
+				$0.adjustsFontForContentSizeCategory = true
+			}
+		}
+		
+		static func scrollView() -> UIScrollView {
+			return UIScrollView().configure {
+				$0.bounces = true
+				$0.alwaysBounceVertical = true
+				$0.isUserInteractionEnabled = true
+				$0.keyboardDismissMode = .onDrag
+			}
 		}
 	}
 	

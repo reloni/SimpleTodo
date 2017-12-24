@@ -19,161 +19,116 @@ final class AuthenticationController : UIViewController {
 	var authenticationTypeContainerHeightConstraint: Constraint!
 	var passwordContainerHeightConstraint: Constraint!
 	
-	let scrollView: UIScrollView = {
-		let scroll = UIScrollView()
-		scroll.bounces = true
-		scroll.alwaysBounceVertical = true
-		scroll.isUserInteractionEnabled = true
-		scroll.keyboardDismissMode = .onDrag
-		return scroll
-	}()
+	let scrollView = Theme.Controls.scrollView()
 	
-	lazy var topContainerView: UIView = {
-		let view = UIView()
-		view.clipsToBounds = true
-		view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		view.addSubview(self.topOffsetView)
-		view.addSubview(self.authenticationTypeContainerView)
-		view.addSubview(self.passwordEnterContainerView)
-		view.addSubview(self.bottomOffsetView)
-		return view
-	}()
+	lazy var topContainerView = UIView().configure {
+		$0.clipsToBounds = true
+		$0.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		$0.addSubview(self.topOffsetView)
+		$0.addSubview(self.authenticationTypeContainerView)
+		$0.addSubview(self.passwordEnterContainerView)
+		$0.addSubview(self.bottomOffsetView)
+	}
 	
-	let topOffsetView: UIView = {
-		let view = UIView()
-		view.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
-		return view
-	}()
+	let topOffsetView = UIView().configure {
+		$0.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
+	}
 	
-	lazy var authenticationTypeContainerView: UIView = {
-		let view = UIView()
-		view.clipsToBounds = true
-		view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-		view.addSubview(self.googleLoginButton)
-		view.addSubview(self.facebookLoginButton)
-		view.addSubview(self.passwordLoginButton)
-		return view
-	}()
+	lazy var authenticationTypeContainerView = UIView().configure { [unowned self] in
+		$0.clipsToBounds = true
+		$0.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+		$0.addSubview(self.googleLoginButton)
+		$0.addSubview(self.facebookLoginButton)
+		$0.addSubview(self.passwordLoginButton)
+	}
 	
-	lazy var passwordEnterContainerView: UIView = {
-		let view = UIView()
-		view.clipsToBounds = true
-		view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-		view.addSubview(self.actionButton)
-		view.addSubview(self.emailTextField)
-		view.addSubview(self.passwordTextField)
-		view.addSubview(self.supplementalButton)
-		return view
-	}()
+	lazy var passwordEnterContainerView = UIView().configure { [unowned self] in
+		$0.clipsToBounds = true
+		$0.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+		$0.addSubview(self.actionButton)
+		$0.addSubview(self.emailTextField)
+		$0.addSubview(self.passwordTextField)
+		$0.addSubview(self.supplementalButton)
+	}
 	
-	let bottomOffsetView: UIView = {
-		let view = UIView()
-		view.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
-		return view
-	}()
+	let bottomOffsetView = UIView().configure {
+		$0.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
+	}
 	
-	let googleLoginButton: Button = {
-		let button = Button()
-		button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-		button.layer.cornerRadius = 3
-		button.contentHorizontalAlignment = .center
-		button.title = "Log in with Google"
-		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-		button.setImage(Theme.Images.google.resize(toWidth: 22), for: UIControlState.normal)
-		button.backgroundColor = Theme.Colors.clear
-		button.pulseColor = Theme.Colors.white
-		button.titleColor = Theme.Colors.white
-		return button
-	}()
+	let googleLoginButton = Button().configure {
+		_ = configureDefaultLoginButton($0)
+		$0.title = "Log in with Google"
+		$0.setImage(Theme.Images.google.resize(toWidth: 22), for: UIControlState.normal)
+	}
 	
-	let facebookLoginButton: Button = {
-		let button = Button()
-		button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-		button.layer.cornerRadius = 3
-		button.contentHorizontalAlignment = .center
-		button.title = "Log in with Facebook"
-		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-		button.setImage(Theme.Images.facebook.resize(toWidth: 22), for: UIControlState.normal)
-		button.backgroundColor = Theme.Colors.clear
-		button.pulseColor = Theme.Colors.white
-		button.titleColor = Theme.Colors.white
-		return button
-	}()
+	let facebookLoginButton = Button().configure {
+		_ = configureDefaultLoginButton($0)
+		$0.title = "Log in with Facebook"
+		$0.setImage(Theme.Images.facebook.resize(toWidth: 22), for: UIControlState.normal)
+	}
 	
-	let passwordLoginButton: Button = {
-		let button = Button()
-		button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-		button.layer.cornerRadius = 3
-		button.contentHorizontalAlignment = .center
-		button.title = "Log in with password"
-		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-		button.setImage(Theme.Images.password.resize(toWidth: 22), for: UIControlState.normal)
-		button.backgroundColor = Theme.Colors.clear
-		button.pulseColor = Theme.Colors.white
-		button.titleColor = Theme.Colors.white
-		return button
-	}()
+	let passwordLoginButton = Button().configure {
+		_ = configureDefaultLoginButton($0)
+		$0.title = "Log in with password"
+		$0.setImage(Theme.Images.password.resize(toWidth: 22), for: UIControlState.normal)
+	}
 	
-	let emailTextField: TextField = {
-		let field = Theme.Controls.textField(withStyle: .body)
-		field.placeholder = "Email"
-		field.detail = "Enter your email"
-		field.keyboardType = .emailAddress
-		field.autocapitalizationType = .none
-		field.returnKeyType = .next
-		field.isClearIconButtonEnabled = true
-		field.leftView = UIImageView(image: Theme.Images.email.resize(toWidth: 22))
-		field.leftViewOffset = 0
-		
-		return field
-	}()
+	let emailTextField = Theme.Controls.textField(withStyle: .body).configure {
+		$0.placeholder = "Email"
+		$0.detail = "Enter your email"
+		$0.keyboardType = .emailAddress
+		$0.autocapitalizationType = .none
+		$0.returnKeyType = .next
+		$0.isClearIconButtonEnabled = true
+		$0.leftView = UIImageView(image: Theme.Images.email.resize(toWidth: 22))
+		$0.leftViewOffset = 0
+	}
 	
-	let passwordTextField: TextField = {
-		let field = Theme.Controls.textField(withStyle: .body)
-		field.placeholder = "Password"
-		field.detail = "Enter your password"
-		field.isSecureTextEntry = true
-		field.keyboardType = .default
-		field.returnKeyType = .done
-		field.isClearIconButtonEnabled = true
-		field.leftView = UIImageView(image: Theme.Images.password.resize(toWidth: 22))
-		field.leftViewOffset = 0
-		
-		return field
-	}()
+	let passwordTextField = Theme.Controls.textField(withStyle: .body).configure {
+		$0.placeholder = "Password"
+		$0.detail = "Enter your password"
+		$0.isSecureTextEntry = true
+		$0.keyboardType = .default
+		$0.returnKeyType = .done
+		$0.isClearIconButtonEnabled = true
+		$0.leftView = UIImageView(image: Theme.Images.password.resize(toWidth: 22))
+		$0.leftViewOffset = 0
+	}
 	
-	let actionButton: Button = {
-		let button = Button()
-		button.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		button.pulseColor = Theme.Colors.white
-		button.titleColor = Theme.Colors.white
-		return button
-	}()
+	let actionButton = Button().configure {
+		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+		$0.pulseColor = Theme.Colors.white
+		$0.titleColor = Theme.Colors.white
+	}
 	
-	let supplementalButton: Button = {
-		let button = Button()
-		button.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		button.pulseColor = Theme.Colors.white
-		button.titleColor = Theme.Colors.blueberry
-		return button
-	}()
+	let supplementalButton = Button().configure {
+		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+		$0.pulseColor = Theme.Colors.white
+		$0.titleColor = Theme.Colors.blueberry
+	}
 	
-	let lostPasswordLabel: UILabel = {
-		let label = Theme.Controls.label(withStyle: UIFontTextStyle.caption2)
+	let lostPasswordLabel = Theme.Controls.label(withStyle: UIFontTextStyle.caption2).configure {
 		let attributedText = NSMutableAttributedString(string: "Lost password?")
 		attributedText.addAttribute(NSAttributedStringKey.underlineStyle , value: NSUnderlineStyle.styleSingle.rawValue, range: NSMakeRange(0, attributedText.string.count))
-		label.attributedText = attributedText
-		label.textColor = Theme.Colors.blueberry
-		label.textAlignment = .center
-		return label
-	}()
+		$0.attributedText = attributedText
+		$0.textColor = Theme.Colors.blueberry
+		$0.textAlignment = .center
+	}
 	
-	let gradientLayer: CAGradientLayer = {
-		let gradient = CAGradientLayer()
-		
-		gradient.colors = [Theme.Colors.pumkinLight.cgColor, Theme.Colors.pumkin.cgColor]
-		return gradient
-	}()
+	let gradientLayer = CAGradientLayer().configure {
+		$0.colors = [Theme.Colors.pumkinLight.cgColor, Theme.Colors.pumkin.cgColor]
+	}
+	
+	static func configureDefaultLoginButton(_ button: Button) -> Button {
+		button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+		button.layer.cornerRadius = 3
+		button.contentHorizontalAlignment = .center
+		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+		button.backgroundColor = Theme.Colors.clear
+		button.pulseColor = Theme.Colors.white
+		button.titleColor = Theme.Colors.white
+		return button
+	}
 	
 	init(viewModel: AuthenticationViewModel) {
 		self.viewModel = viewModel
@@ -348,98 +303,6 @@ final class AuthenticationController : UIViewController {
 	
 	func performAction() {
 		viewModel.performAction(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
-	}
-
-	func scrollViewConstraints(maker: ConstraintMaker) {
-		maker.edges.equalTo(view).inset(UIEdgeInsets.zero)
-	}
-	
-	func topContainerViewConstraints(maker: ConstraintMaker) {
-		maker.edges.equalTo(scrollView).inset(UIEdgeInsets.zero)
-		maker.width.equalTo(scrollView)
-		maker.height.greaterThanOrEqualTo(scrollView.snp.height)
-		
-	}
-	
-	func topOffsetViewConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(topContainerView.snp.topMargin)
-		maker.leading.equalTo(topContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(topContainerView.snp.trailingMargin)
-		maker.height.equalTo(bottomOffsetView.snp.height)
-	}
-	
-	func bottomOffsetViewConstraints(maker: ConstraintMaker) {
-		maker.leading.equalTo(topContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(topContainerView.snp.trailingMargin)
-		maker.bottom.equalTo(topContainerView.snp.bottomMargin)
-	}
-	
-	func authenticationContainerViewConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(topOffsetView.snp.bottom)
-		maker.leading.equalTo(topContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(topContainerView.snp.trailingMargin)
-		authenticationTypeContainerHeightConstraint = maker.height.equalTo(0).constraint
-	}
-	
-	func passwordEnterContainerViewConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(authenticationTypeContainerView.snp.bottom)
-		maker.leading.equalTo(topContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(topContainerView.snp.trailingMargin)
-		maker.bottom.equalTo(bottomOffsetView.snp.top).priority(999)
-		passwordContainerHeightConstraint = maker.height.equalTo(0).constraint
-	}
-	
-	func googleLoginButtonConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(authenticationTypeContainerView.snp.topMargin).priority(999)
-		maker.leading.equalTo(authenticationTypeContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(authenticationTypeContainerView.snp.trailingMargin)
-	}
-	
-	func facebookLoginButtonConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(googleLoginButton.snp.bottom).offset(10)
-		maker.leading.equalTo(authenticationTypeContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(authenticationTypeContainerView.snp.trailingMargin)
-	}
-	
-	func passwordLoginButtonConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(facebookLoginButton.snp.bottom).offset(10)
-		maker.leading.equalTo(authenticationTypeContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(authenticationTypeContainerView.snp.trailingMargin)
-		maker.bottom.equalTo(authenticationTypeContainerView.snp.bottomMargin)
-	}
-	
-	func emailTextFieldConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(passwordEnterContainerView.snp.topMargin)//.priority(999)
-		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
-	}
-	
-	func passwordTextFieldConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(emailTextField.snp.bottom).offset(50).priority(999)
-		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
-	}
-
-	func loginButtonConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(passwordTextField.snp.bottom).offset(50).priority(999)
-		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
-	}
-	
-	func registrationButtonConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(actionButton.snp.bottom).offset(10).priority(999)
-		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
-		if viewModel.mode == .registration {
-			maker.bottom.equalTo(passwordEnterContainerView.snp.bottomMargin).priority(999)
-		}
-	}
-	
-	func lostPasswordLabelConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(supplementalButton.snp.bottom).offset(10).priority(999)
-		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
-		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
-		maker.bottom.equalTo(passwordEnterContainerView.snp.bottomMargin)//.priority(999)
 	}
 }
 

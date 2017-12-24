@@ -28,22 +28,16 @@ final class TasksController : UIViewController {
 		                                                    canEditRowAtIndexPath: { _, _ in return true })
 	}()
 	
-	let tableView: UITableView = {
-		let table = Theme.Controls.tableView()
-		
-		table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
-		table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
-		
-		return table
-	}()
+	let tableView = Theme.Controls.tableView().configure {
+		$0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
+		$0.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
+	}
 	
-	let addTaskButton: FABButton = {
-		let button = FABButton(image: Theme.Images.add.resize(toWidth: 55))
-		button.contentEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
-		button.pulseColor = Theme.Colors.white
-		button.backgroundColor = Theme.Colors.white
-		return button
-	}()
+	let addTaskButton = FABButton(image: Theme.Images.add.resize(toWidth: 55)).configure {
+		$0.contentEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
+		$0.pulseColor = Theme.Colors.white
+		$0.backgroundColor = Theme.Colors.white
+	}
 
 	init(viewModel: TasksViewModel) {
 		self.viewModel = viewModel
@@ -135,7 +129,7 @@ final class TasksController : UIViewController {
 		cell.isUserInteractionEnabled = true
 		cell.isExpanded = ip == controller.tableViewDelegate.currentExpandedIndexPath
 		cell.taskDescription.text = "\(item.description)"
-		cell.targetDate.attributedText = item.targetDate?.toAttributedString(withSpelling: true)
+		cell.targetDate.attributedText = item.targetDate?.toAttributedString(format: .relative(withTime: item.targetDate?.includeTime ?? false))
 		cell.repeatImage.isHidden = item.prototype.repeatPattern == nil
 		cell.updateConstraints()
 		

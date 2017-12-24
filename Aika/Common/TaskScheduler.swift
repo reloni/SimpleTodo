@@ -28,6 +28,11 @@ struct TaskScheduler {
 		case thursday = 5
 		case friday = 6
 		case saturday = 7
+	
+		func numberInWeek(for calendar: Calendar) -> Int {
+			let tmp = (rawValue - calendar.firstWeekday) + 1
+			return tmp <= 0 ? tmp + 7 : tmp
+		}
 	}
 	
 	let currentDate: Date
@@ -63,7 +68,7 @@ struct TaskScheduler {
         case .yearly: return nextTime(for: time.adding(.year, value: 1).adding(.day, value: -1))
         case .byDay(let repeatEvery): return nextTime(for: time.adding(.day, value: Int(repeatEvery) - 1))
         case let .byWeek(repeatEvery, weekDays):
-			return nextTimeByWeek(for: time, repeatEvery: Int(repeatEvery), weekDays: weekDays.sorted(by: { $0.rawValue < $1.rawValue }))
+			return nextTimeByWeek(for: time, repeatEvery: Int(repeatEvery), weekDays: weekDays.sorted(by: { $0.numberInWeek(for: calendar) < $1.numberInWeek(for: calendar) }))
         case let .byMonthDays(repeatEvery, days):
             return nextTimeByMonthDays(for: time, repeatEvery: Int(repeatEvery), days: days.map { Int($0) }.sorted(by: <))
 		}
@@ -87,9 +92,12 @@ struct TaskScheduler {
 			return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1))
 		}
 		
-		guard let currentDayOfWeek = currentDayOfWeek else { return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1)) }
+		guard let currentDayOfWeekNumber = currentDayOfWeek,
+			let currentDayOfWeek = DayOfWeek(rawValue: currentDayOfWeekNumber) else {
+				return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1))
+		}
 		
-        let nextDayOfWeek = weekDays.first(where: { $0.rawValue > currentDayOfWeek })//.filter({ $0.rawValue > currentDayOfWeek }).first
+        let nextDayOfWeek = weekDays.first(where: { $0.numberInWeek(for: calendar) > currentDayOfWeek.numberInWeek(for: calendar) })//.filter({ $0.rawValue > currentDayOfWeek }).first
         
         let components = dateComponents(for: value)
 		

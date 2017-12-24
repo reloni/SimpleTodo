@@ -25,107 +25,71 @@ final class EditTaskController : UIViewController {
 	
 	var datePickerHeightConstraint: Constraint?
 	var taskRepeatDescriptionViewHeightConstraint: Constraint?
-	
-	let scrollView: UIScrollView = {
-		let scroll = UIScrollView()
-		scroll.bounces = true
-		scroll.alwaysBounceVertical = true
-		scroll.isUserInteractionEnabled = true
-		scroll.keyboardDismissMode = .onDrag
-		return scroll
-	}()
-	
-	let containerView: UIView = {
-		let view = UIView()
-		view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		view.backgroundColor = Theme.Colors.isabelline
-		return view
-	}()
-	
-	let descriptionTextField: TextView  = {
-		let text = Theme.Controls.textView(withStyle: .body)
 
-		text.backgroundColor = Theme.Colors.white
-		text.placeholderLabel.textColor = Theme.Colors.romanSilver
-		text.borderColor = Theme.Colors.romanSilver
-		text.layer.borderWidth = 0.5
-		text.isScrollEnabled = false
-		
-		text.placeholderLabel.text = "Task description"
-		
-		text.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 15)
-		return text
-	}()
+	let scrollView = Theme.Controls.scrollView()
 	
-	lazy var targetDateView: TargetDateView = {
-		let view = TargetDateView()
-		view.borderColor = Theme.Colors.romanSilver
-		view.layer.borderWidth = 0.5
-		view.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-		return view
-	}()
+	let containerView = UIView().configure {
+		$0.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		$0.backgroundColor = Theme.Colors.isabelline
+	}
 	
-	let targetDatePickerView: DatePickerView = {
-		let picker = DatePickerView()
-		
-		picker.alpha = 0
-		picker.borderColor = Theme.Colors.romanSilver
-		picker.layer.borderWidth = 0.5
-		picker.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-		picker.date = nil
-		
-		return picker
-	}()
+	let descriptionTextField = Theme.Controls.textView(withStyle: .body).configure {
+		$0.backgroundColor = Theme.Colors.white
+		$0.placeholderLabel.textColor = Theme.Colors.romanSilver
+		$0.borderColor = Theme.Colors.romanSilver
+		$0.layer.borderWidth = 0.5
+		$0.isScrollEnabled = false
+		$0.placeholderLabel.text = "Task description"
+		$0.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 15)
+	}
 	
-	let taskRepeatDescriptionView: TaskRepeatDescriptionView = {
-		let view = TaskRepeatDescriptionView()
-		view.borderColor = Theme.Colors.romanSilver
-		view.layer.borderWidth = 0.5
-		view.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-		return view
-	}()
+	let targetDateView = TargetDateView().configure {
+		$0.borderColor = Theme.Colors.romanSilver
+		$0.layer.borderWidth = 0.5
+		$0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+	}
 	
-	let notesLabel: UILabel = {
-		let text = Theme.Controls.label(withStyle: .body)
-		text.text = "Task notes"
-		text.numberOfLines = 0
-		
-		return text
-	}()
+	let targetDatePickerView = DatePickerView().configure {
+		$0.alpha = 0
+		$0.borderColor = Theme.Colors.romanSilver
+		$0.layer.borderWidth = 0.5
+		$0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		$0.date = nil
+	}
 	
-	let notesWrapper: UIView = {
-		let view = UIView()
-		view.backgroundColor = Theme.Colors.white
-		view.layoutEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-		view.borderColor = Theme.Colors.romanSilver
-		view.layer.borderWidth = 0.5
-		return view
-	}()
+	let taskRepeatDescriptionView = TaskRepeatDescriptionView().configure {
+		$0.borderColor = Theme.Colors.romanSilver
+		$0.layer.borderWidth = 0.5
+		$0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+	}
 	
-	lazy var notesStack: UIStackView = {
-		let stack = UIStackView()
-		
-		stack.axis = .vertical
-		stack.distribution = .fill
-		stack.spacing = 10
-		
-		stack.addArrangedSubview(self.notesLabel)
-		stack.addArrangedSubview(self.notesTextField)
-		
-		return stack
-	}()
+	let notesLabel = Theme.Controls.label(withStyle: .body).configure {
+		$0.text = "Task notes"
+		$0.numberOfLines = 0
+	}
 	
-	let notesTextField: TextView = {
-		let text = Theme.Controls.textView(withStyle: .callout)
-
-		text.layoutEdgeInsets = .zero
-		text.textContainerInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
-		text.textColor = Theme.Colors.romanSilver
-		text.backgroundColor = Theme.Colors.white
-		text.isScrollEnabled = false
-		
-		return text
-	}()
+	let notesWrapper = UIView().configure {
+		$0.backgroundColor = Theme.Colors.white
+		$0.layoutEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		$0.borderColor = Theme.Colors.romanSilver
+		$0.layer.borderWidth = 0.5
+	}
+	
+	lazy var notesStack = UIStackView().configure { [unowned self] in
+		$0.axis = .vertical
+		$0.distribution = .fill
+		$0.spacing = 10
+		$0.addArrangedSubview(self.notesLabel)
+		$0.addArrangedSubview(self.notesTextField)
+	}
+	
+	let notesTextField = Theme.Controls.textView(withStyle: .callout).configure {
+		$0.layoutEdgeInsets = .zero
+		$0.textContainerInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
+		$0.textColor = Theme.Colors.romanSilver
+		$0.backgroundColor = Theme.Colors.white
+		$0.isScrollEnabled = false
+	}
 	
 	let saveSubject = PublishSubject<Void>()
 	
@@ -211,7 +175,10 @@ final class EditTaskController : UIViewController {
 		
 		state.map { $0.description.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
 		state.map { $0.repeatPattern?.description ?? "" }.bind(to: taskRepeatDescriptionView.rightLabel.rx.text).disposed(by: bag)
-		targetDatePickerView.currentDate.map { $0?.toString(withSpelling: false) ?? "" }.bind(to: targetDateView.textField.rx.text).disposed(by: bag)
+		targetDatePickerView.currentDate
+			.map { $0?.toString(format: .full(withTime: $0?.includeTime ?? false)) ?? "" }
+			.bind(to: targetDateView.textField.rx.text)
+			.disposed(by: bag)
 		
 		state.skip(1).map { $0.targetDate != nil }.distinctUntilChanged().do(onNext: { [weak self] selected in self?.changeTaskRepeatDescriptionExpandMode(selected) }).subscribe().disposed(by: bag)
 		state.skip(1).map { $0.datePickerExpanded }.distinctUntilChanged().do(onNext: { [weak self] in self?.switchDatePickerExpandMode($0) }).subscribe().disposed(by: bag)

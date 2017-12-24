@@ -36,6 +36,9 @@
 		6E40B9CC1EC60CE200411F69 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6E40B9D11EC60DA200411F69 /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
 		6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E494D891EBDD13100280F5F /* JWTDecode.framework */; };
+		6E4F11211FEE68D60093C6B9 /* DateToStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4F11201FEE68D60093C6B9 /* DateToStringTests.swift */; };
+		6E53A1EB1FED859A000F48D5 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E53A1EA1FED859A000F48D5 /* Date+Extensions.swift */; };
+		6E53A1ED1FED8633000F48D5 /* TaskDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E53A1EC1FED8633000F48D5 /* TaskDate+Extensions.swift */; };
 		6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752151E05AD06002AA9B4 /* Entities.swift */; };
 		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
@@ -108,6 +111,8 @@
 		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
 		6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */; };
 		6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */; };
+		6EF1D16D1FE99006002EC506 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF1D16C1FE99006002EC506 /* Configure.swift */; };
+		6EF1D16F1FE99676002EC506 /* AuthenticationController+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF1D16E1FE99676002EC506 /* AuthenticationController+Constraints.swift */; };
 		6EF799631EC73E6100C9DFF0 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF799621EC73E6100C9DFF0 /* ViewModelType.swift */; };
 /* End PBXBuildFile section */
 
@@ -179,6 +184,9 @@
 		6E40B9C71EC60CE100411F69 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		6E40B9C91EC60CE100411F69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E494D891EBDD13100280F5F /* JWTDecode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JWTDecode.framework; path = Carthage/Build/iOS/JWTDecode.framework; sourceTree = "<group>"; };
+		6E4F11201FEE68D60093C6B9 /* DateToStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToStringTests.swift; sourceTree = "<group>"; };
+		6E53A1EA1FED859A000F48D5 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		6E53A1EC1FED8633000F48D5 /* TaskDate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskDate+Extensions.swift"; sourceTree = "<group>"; };
 		6E5752151E05AD06002AA9B4 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		6E5752191E05AFC4002AA9B4 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
@@ -266,6 +274,8 @@
 		6EE91CAB1E1959430025A4BD /* Wrap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wrap.framework; path = Carthage/Build/iOS/Wrap.framework; sourceTree = "<group>"; };
 		6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 		6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		6EF1D16C1FE99006002EC506 /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
+		6EF1D16E1FE99676002EC506 /* AuthenticationController+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationController+Constraints.swift"; sourceTree = "<group>"; };
 		6EF799621EC73E6100C9DFF0 /* ViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -383,6 +393,7 @@
 				6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */,
 				6EA2C2F51F9CF9FF004A9820 /* DecodeTests.swift */,
 				6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */,
+				6E4F11201FEE68D60093C6B9 /* DateToStringTests.swift */,
 			);
 			path = AikaTests;
 			sourceTree = "<group>";
@@ -463,12 +474,22 @@
 			path = NotificationServiceExtension;
 			sourceTree = "<group>";
 		};
+		6E53A1E91FED8584000F48D5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6E57521C1E05B24A002AA9B4 /* Extensions.swift */,
+				6E53A1EA1FED859A000F48D5 /* Date+Extensions.swift */,
+				6E53A1EC1FED8633000F48D5 /* TaskDate+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		6E5752141E05ACD9002AA9B4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6E53A1E91FED8584000F48D5 /* Extensions */,
 				6EB66DFB1F64567F00C3DF76 /* Task.swift */,
 				6E5752151E05AD06002AA9B4 /* Entities.swift */,
-				6E57521C1E05B24A002AA9B4 /* Extensions.swift */,
 				6E6422D91E180E1B00FAFFFB /* TableSections.swift */,
 				6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */,
 				6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */,
@@ -477,6 +498,7 @@
 				6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */,
 				6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */,
 				6E0D5C0F1F6592FB002AF563 /* RealmMigrations.swift */,
+				6EF1D16C1FE99006002EC506 /* Configure.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -562,6 +584,7 @@
 			isa = PBXGroup;
 			children = (
 				6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */,
+				6EF1D16E1FE99676002EC506 /* AuthenticationController+Constraints.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -811,15 +834,18 @@
 				6EAACA2D1EB75F99004EB190 /* SwitchCell.swift in Sources */,
 				6EAACA291EB7591D004EB190 /* DefaultCell.swift in Sources */,
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
+				6EF1D16F1FE99676002EC506 /* AuthenticationController+Constraints.swift in Sources */,
 				6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */,
 				6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */,
 				6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */,
+				6E53A1ED1FED8633000F48D5 /* TaskDate+Extensions.swift in Sources */,
 				6EBC6A501F59104C0041456A /* TaskScheduler.swift in Sources */,
 				6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */,
 				6E0492291F5F0CD800E7C7D2 /* TaskRepeatDescriptionView.swift in Sources */,
 				6E8A9E8D1EE7AD5800F2FA1F /* FrameworksController.swift in Sources */,
 				6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */,
 				6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */,
+				6EF1D16D1FE99006002EC506 /* Configure.swift in Sources */,
 				6E04922F1F5F269800E7C7D2 /* EditTaskController+Constraints.swift in Sources */,
 				6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */,
 				6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */,
@@ -851,6 +877,7 @@
 				6E04922D1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift in Sources */,
 				6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */,
 				6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */,
+				6E53A1EB1FED859A000F48D5 /* Date+Extensions.swift in Sources */,
 				6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */,
 				6E0645581E990D1500A8AA59 /* TextViewCell.swift in Sources */,
 				6E04922B1F5F18E100E7C7D2 /* TaskRepeatModeController.swift in Sources */,
@@ -865,6 +892,7 @@
 				6EBC6A551F5920770041456A /* TaskSchedulerTests.swift in Sources */,
 				6EBD4A951F5A8B2300CCE0A1 /* Extension.swift in Sources */,
 				6EA2C2F61F9CF9FF004A9820 /* DecodeTests.swift in Sources */,
+				6E4F11211FEE68D60093C6B9 /* DateToStringTests.swift in Sources */,
 				6E19E3A41F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift in Sources */,
 				6EE1C7E01FE6CC1900FFB34D /* EncodeTests.swift in Sources */,
 			);
