@@ -79,6 +79,10 @@ final class TasksController : UIViewController {
 
 		viewModel.synchronize()
 	}
+
+	deinit {
+		print("tasks deinit")
+	}
 	
 	func bind() {
 		let sectionsObservable = viewModel.taskSections.share(replay: 1, scope: .forever)
@@ -94,21 +98,21 @@ final class TasksController : UIViewController {
 			.map { $0.first?.items.count == 0 ? TasksTableBackground() : nil }
 			.subscribe(onNext: { [weak self] background in self?.tableView.backgroundView = background })
 			.disposed(by: bag)
-		
+
 		tableView.refreshControl?.rx.controlEvent(.valueChanged)
 			.filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
 			.subscribe(onNext: { [weak self] in
 				self?.viewModel.synchronize()
 			}).disposed(by: bag)
-		
+
 		viewModel.errors
 			.observeOn(MainScheduler.instance)
 			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
 			.subscribe()
 			.disposed(by: bag)
-		
+
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
-		
+
 		addTaskButton.rx.tap.subscribe { [weak self] _ in self?.viewModel.newTask() }.disposed(by: bag)
 	}
 	

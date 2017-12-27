@@ -41,7 +41,7 @@ enum UIAction : RxActionType {
 	
 	case showSnackView(error: Error, hideAfter: Double?)
 	case showErrorMessage(Error)
-	case showActionSheet(inController: UIViewController, title: String?, message: String?, actions: [UIAlertAction], sourceView: UIView?)
+	case showActionSheet(inController: WeakBox<UIViewController>, title: String?, message: String?, actions: [UIAlertAction], sourceView: UIView?)
 	
 	case returnToRootController
 }

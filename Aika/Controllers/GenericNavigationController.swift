@@ -28,4 +28,8 @@ final class GenericNavigationController : UINavigationController {
 //			$0.trailing.equalTo(view.snp.trailing)
 //		}
 	}
+	
+	deinit {
+		print("GenericNavigationController deinit")
+	}
 }
