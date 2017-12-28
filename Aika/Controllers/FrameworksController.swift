@@ -11,18 +11,20 @@ import SnapKit
 import RxSwift
 import RxDataSources
 
-final class FrameworksController : UIViewController {
+final class FrameworksController: UIViewController {
 	let viewModel: FrameworksViewModel
 	let bag = DisposeBag()
 	
-	lazy var dataSource: RxTableViewSectionedReloadDataSource<FrameworksSection> = {
-		return RxTableViewSectionedReloadDataSource<FrameworksSection>(configureCell: self.configureCell)
-	}()
+	let dataSource = RxTableViewSectionedReloadDataSource<FrameworksSection>(configureCell: FrameworksController.configureCell)
 	let tableViewDelegate = FrameworksTableViewDelegate()
 	
 	let tableView = Theme.Controls.tableView().configure {
 		$0.register(DefaultCell.self, forCellReuseIdentifier: "Default")
 	}
+    
+    deinit {
+        print("FrameworksController deinit")
+    }
 	
 	init(viewModel: FrameworksViewModel) {
 		self.viewModel = viewModel
@@ -61,7 +63,7 @@ final class FrameworksController : UIViewController {
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 	}
 	
-	func configureCell(dataSource ds: TableViewSectionedDataSource<FrameworksSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: FrameworkSectionItem) -> UITableViewCell {
+	static func configureCell(dataSource ds: TableViewSectionedDataSource<FrameworksSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: FrameworkSectionItem) -> UITableViewCell {
 		let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
 		cell.textLabel?.text = item.name
 		cell.accessoryType = .disclosureIndicator
