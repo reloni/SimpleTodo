@@ -19,14 +19,17 @@ final class TasksController : UIViewController {
 
 	let viewModel: TasksViewModel
 	let tableViewDelegate = TasksTableViewDelegate()
-	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<TaskSection> = {
-		let configureCell = { [unowned self] ds, tv, ip, item in
-			TasksController.configureCell(dataSource: ds, tableView: tv, indexPath: ip, item: item, viewController: self)
-		}
-		return RxTableViewSectionedAnimatedDataSource<TaskSection>(animationConfiguration: AnimationConfiguration(insertAnimation: .left, reloadAnimation: .fade, deleteAnimation: .right),
-		                                                    configureCell: configureCell,
-		                                                    canEditRowAtIndexPath: { _, _ in return true })
-	}()
+    lazy var dataSource: RxTableViewSectionedAnimatedDataSource<TaskSection> = {
+        let configureCell: TasksControllerConfigureCell = { [weak self] ds, tv, ip, item -> UITableViewCell in
+            guard let controller = self else { return UITableViewCell() }
+            return TasksController.configureCell(dataSource: ds, tableView: tv, indexPath: ip, item: item, viewController: controller)
+        }
+        let animationConfiguration = AnimationConfiguration(insertAnimation: .left, reloadAnimation: .fade, deleteAnimation: .right)
+
+        return RxTableViewSectionedAnimatedDataSource<TaskSection>(animationConfiguration: animationConfiguration,
+                                                                   configureCell: configureCell,
+                                                                   canEditRowAtIndexPath: { _, _ in return true })
+    }()
 	
 	let tableView = Theme.Controls.tableView().configure {
 		$0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)

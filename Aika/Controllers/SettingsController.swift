@@ -16,12 +16,12 @@ final class SettingsController : UIViewController {
 	let viewModel: SettingsViewModel
 	let bag = DisposeBag()
 	
-	lazy var dataSource: RxTableViewSectionedReloadDataSource<SettingsSection> = {
-		let configureCell = { [unowned self] ds, tv, ip, item -> UITableViewCell in
-			return SettingsController.configureCell(dataSource: ds, tableView: tv, indexPath: ip, item: item, viewController: self)
-		}
-		return RxTableViewSectionedReloadDataSource<SettingsSection>(configureCell: configureCell)
-	}()
+    lazy var dataSource: RxTableViewSectionedReloadDataSource<SettingsSection> = {
+        return RxTableViewSectionedReloadDataSource<SettingsSection>(configureCell: { [weak self] ds, tv, ip, item in
+            guard let controller = self else { return UITableViewCell() }
+            return SettingsController.configureCell(dataSource: ds, tableView: tv, indexPath: ip, item: item, viewController: controller)
+        })
+    }()
 	
 	lazy var tableViewDelegate: SettingsTableViewDelegate = {
 		return SettingsTableViewDelegate(dataSource: self.dataSource)
