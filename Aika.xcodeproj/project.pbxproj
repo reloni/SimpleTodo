@@ -65,6 +65,7 @@
 		6EA0B47F1EC1C9F4005BA709 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */; };
 		6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA0B4801EC1D25E005BA709 /* Repository.swift */; };
 		6EA2C2F61F9CF9FF004A9820 /* DecodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA2C2F51F9CF9FF004A9820 /* DecodeTests.swift */; };
+		6EA312F31FF42A8A00EAB2DB /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA312F21FF42A8A00EAB2DB /* WeakBox.swift */; };
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
 		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
 		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
@@ -240,6 +241,7 @@
 		6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		6EA0B4801EC1D25E005BA709 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		6EA2C2F51F9CF9FF004A9820 /* DecodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeTests.swift; sourceTree = "<group>"; };
+		6EA312F21FF42A8A00EAB2DB /* WeakBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakBox.swift; sourceTree = "<group>"; };
 		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = State.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 				6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */,
 				6E0D5C0F1F6592FB002AF563 /* RealmMigrations.swift */,
 				6EF1D16C1FE99006002EC506 /* Configure.swift */,
+				6EA312F21FF42A8A00EAB2DB /* WeakBox.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -828,6 +831,7 @@
 				6E8A9E8F1EE7B02500F2FA1F /* FrameworksViewModel.swift in Sources */,
 				6E1888911F6AF4A900AEDB85 /* TableSectionHeader.swift in Sources */,
 				6EA022C81E755A3600934BB7 /* RootReducer.swift in Sources */,
+				6EA312F31FF42A8A00EAB2DB /* WeakBox.swift in Sources */,
 				6EAF1B391EB5244C00C72BF5 /* InitialCoordinator.swift in Sources */,
 				6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */,
 				6ED0A20A1E79835E00B59B52 /* EditTaskViewModel.swift in Sources */,
