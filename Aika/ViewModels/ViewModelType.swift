@@ -28,6 +28,6 @@ extension ViewModelType {
 	}
 	
 	func showWarning(in controller: UIViewController, title: String?, message: String?, actions: [UIAlertAction], sourceView: UIView?) {
-		flowController.dispatch(UIAction.showActionSheet(inController: WeakBox(controller), title: title, message: message, actions: actions, sourceView: sourceView))
+		flowController.dispatch(UIAction.showActionSheet(inController: controller, title: title, message: message, actions: actions, sourceView: sourceView))
 	}
 }

@@ -19,17 +19,14 @@ final class TasksController : UIViewController {
 
 	let viewModel: TasksViewModel
 	let tableViewDelegate = TasksTableViewDelegate()
-    lazy var dataSource: RxTableViewSectionedAnimatedDataSource<TaskSection> = {
-        let configureCell: TasksControllerConfigureCell = { [weak self] ds, tv, ip, item -> UITableViewCell in
-            guard let controller = self else { return UITableViewCell() }
-            return TasksController.configureCell(dataSource: ds, tableView: tv, indexPath: ip, item: item, viewController: controller)
-        }
-        let animationConfiguration = AnimationConfiguration(insertAnimation: .left, reloadAnimation: .fade, deleteAnimation: .right)
-
-        return RxTableViewSectionedAnimatedDataSource<TaskSection>(animationConfiguration: animationConfiguration,
-                                                                   configureCell: configureCell,
-                                                                   canEditRowAtIndexPath: { _, _ in return true })
-    }()
+	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<TaskSection> = {
+		let configureCell = { [unowned self] ds, tv, ip, item in
+			TasksController.configureCell(dataSource: ds, tableView: tv, indexPath: ip, item: item, viewController: self)
+		}
+		return RxTableViewSectionedAnimatedDataSource<TaskSection>(animationConfiguration: AnimationConfiguration(insertAnimation: .left, reloadAnimation: .fade, deleteAnimation: .right),
+		                                                    configureCell: configureCell,
+		                                                    canEditRowAtIndexPath: { _, _ in return true })
+	}()
 	
 	let tableView = Theme.Controls.tableView().configure {
 		$0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
@@ -97,21 +94,21 @@ final class TasksController : UIViewController {
 			.map { $0.first?.items.count == 0 ? TasksTableBackground() : nil }
 			.subscribe(onNext: { [weak self] background in self?.tableView.backgroundView = background })
 			.disposed(by: bag)
-
+		
 		tableView.refreshControl?.rx.controlEvent(.valueChanged)
 			.filter { [weak self] in self?.tableView.refreshControl?.isRefreshing ?? false }
 			.subscribe(onNext: { [weak self] in
 				self?.viewModel.synchronize()
 			}).disposed(by: bag)
-
+		
 		viewModel.errors
 			.observeOn(MainScheduler.instance)
 			.do(onNext: { [weak self] _ in self?.tableView.refreshControl?.endRefreshing() })
 			.subscribe()
 			.disposed(by: bag)
-
+		
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
-
+		
 		addTaskButton.rx.tap.subscribe { [weak self] _ in self?.viewModel.newTask() }.disposed(by: bag)
 	}
 	
@@ -146,8 +143,7 @@ final class TasksController : UIViewController {
 			controller?.viewModel.editTask(uuid: item.uuid)
 		}
 		
-		cell.deleteTapped = { [weak controller, weak cell] in
-			guard let cell = cell else { return }
+		cell.deleteTapped = { [weak controller] in
 			controller?.tableViewDelegate.currentExpandedIndexPath = nil
 			controller?.showDeleteTaskAlert(sourceView: cell.deleteActionView, taskUuid: item.uuid)
 		}
