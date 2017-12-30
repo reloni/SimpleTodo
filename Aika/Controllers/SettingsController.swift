@@ -27,10 +27,6 @@ final class SettingsController : UIViewController {
 		return SettingsTableViewDelegate(dataSource: self.dataSource)
 	}()
 	
-	deinit {
-		print("SettingsController deinit")
-	}
-	
 	let tableView: UITableView = {
 		let table = Theme.Controls.tableView()
 		

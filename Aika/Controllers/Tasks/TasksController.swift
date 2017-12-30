@@ -82,10 +82,6 @@ final class TasksController : UIViewController {
 
 		viewModel.synchronize()
 	}
-
-	deinit {
-		print("tasks deinit")
-	}
 	
 	func bind() {
 		let sectionsObservable = viewModel.taskSections.share(replay: 1, scope: .forever)

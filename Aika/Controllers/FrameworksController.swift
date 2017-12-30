@@ -22,10 +22,6 @@ final class FrameworksController: UIViewController {
 		$0.register(DefaultCell.self, forCellReuseIdentifier: "Default")
 	}
     
-    deinit {
-        print("FrameworksController deinit")
-    }
-	
 	init(viewModel: FrameworksViewModel) {
 		self.viewModel = viewModel
 		
