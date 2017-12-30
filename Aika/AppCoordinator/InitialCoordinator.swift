@@ -37,8 +37,7 @@ extension ApplicationCoordinatorType {
 			hideSpinner()
 			return .just({ $0 })
 		case UIAction.showActionSheet(let data):
-			guard let controller = data.inController.value else { return .just({ $0 }) }
-			showActionSheet(in: controller, withTitle: data.title, message: data.message, actions: data.actions, sourceView: data.sourceView)
+			showActionSheet(in: data.inController, withTitle: data.title, message: data.message, actions: data.actions, sourceView: data.sourceView)
 			return .just({ $0 })
 		default: return nil
 		}
@@ -69,7 +68,6 @@ extension ApplicationCoordinatorType {
 			alertController.popoverPresentationController?.sourceView = sourceView
 			alertController.popoverPresentationController?.sourceRect = sourceView?.bounds ?? .zero
 		}
-		
 		controller.present(alertController, animated: true, completion: nil)
 	}
 	

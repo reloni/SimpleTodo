@@ -16,12 +16,9 @@ final class SettingsController : UIViewController {
 	let viewModel: SettingsViewModel
 	let bag = DisposeBag()
 	
-    lazy var dataSource: RxTableViewSectionedReloadDataSource<SettingsSection> = {
-        return RxTableViewSectionedReloadDataSource<SettingsSection>(configureCell: { [weak self] ds, tv, ip, item in
-            guard let controller = self else { return UITableViewCell() }
-            return SettingsController.configureCell(dataSource: ds, tableView: tv, indexPath: ip, item: item, viewController: controller)
-        })
-    }()
+	lazy var dataSource: RxTableViewSectionedReloadDataSource<SettingsSection> = {
+		return RxTableViewSectionedReloadDataSource<SettingsSection>(configureCell: self.configureCell)
+	}()
 	
 	lazy var tableViewDelegate: SettingsTableViewDelegate = {
 		return SettingsTableViewDelegate(dataSource: self.dataSource)
@@ -74,7 +71,7 @@ final class SettingsController : UIViewController {
 			.observeOn(MainScheduler.instance)
 			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: bag)
-
+		
 		viewModel.errors.subscribe().disposed(by: bag)
 		
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
@@ -84,69 +81,56 @@ final class SettingsController : UIViewController {
 		viewModel.done()
 	}
 	
-	static func configureCell(dataSource ds: TableViewSectionedDataSource<SettingsSection>,
-							  tableView tv: UITableView,
-							  indexPath ip: IndexPath,
-							  item: SettingsSection.Item,
-							  viewController controller: SettingsController) -> UITableViewCell {
-		weak var ctrl = controller
-		switch item {
-		case .frameworks(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { [weak controller] in controller?.viewModel.showFramwrorks() }
-			return cell
-		case .deleteAccount(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { [weak controller, weak cell] in
-				guard let cell = cell else { return }
-				controller?.showDeleteUserAlert(sourceView: cell)
+	func configureCell(dataSource ds: TableViewSectionedDataSource<SettingsSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: SettingsSectonItem) -> UITableViewCell {
+		return { [weak self] () -> UITableViewCell in
+			switch item {
+			case .frameworks(let data):
+				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+				cell.tapped = { self?.viewModel.showFramwrorks() }
+				return cell
+			case .deleteAccount(let data):
+				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+				cell.tapped = { self?.showDeleteUserAlert(sourceView: cell) }
+				return cell
+			case .exit(let data):
+				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+				cell.tapped = { self?.showLogOffAlert(sourceView: cell) }
+				return cell
+			case .deleteLocalCache(let data):
+				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+				cell.tapped = { self?.showDeleteCacheAlert(sourceView: cell) }
+				return cell
+			case .sourceCode(let data):
+				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+				cell.tapped = { UIApplication.shared.open(URL(string: "https://github.com/reloni/SimpleTodo")!) }
+				return cell
+			case .text(let data):
+				let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
+				SettingsController.configure(cell: cell)
+				SettingsController.configureTextCell(cell, with: data)
+				return cell
+			case .pushNotificationsSwitch(let data):
+				let cell = SwitchCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Switch")
+				self?.configure(pushNotificationCell: cell, data: data)
+				return cell
+			case .email(let data):
+				let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+				cell.tapped = { [weak self] in
+					guard let object = self else { return }
+					SettingsController.composeEmail(in: object)
+				}
+				return cell
+			case .iconBadgeStyle(let data):
+				let cell = DefaultCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
+				SettingsController.configure(cell: cell)
+				SettingsController.configureTextCell(cell, with: data)
+				cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
+				cell.tapped = { [weak self] in
+					self?.showBadgeAlert(sourceView: cell)
+				}
+				return cell
 			}
-			return cell
-		case .exit(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { [weak controller, weak cell] in
-				guard let cell = cell else { return }
-				controller?.showLogOffAlert(sourceView: cell)
-			}
-			return cell
-		case .deleteLocalCache(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { [weak controller, weak cell] in
-				guard let cell = cell else { return }
-				controller?.showDeleteCacheAlert(sourceView: cell)
-			}
-			return cell
-		case .sourceCode(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { UIApplication.shared.open(URL(string: "https://github.com/reloni/SimpleTodo")!) }
-			return cell
-		case .text(let data):
-			let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
-			SettingsController.configure(cell: cell)
-			SettingsController.configureTextCell(cell, with: data)
-			return cell
-		case .pushNotificationsSwitch(let data):
-			let cell = SwitchCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Switch")
-			ctrl?.configure(pushNotificationCell: cell, data: data)
-			return cell
-		case .email(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { [weak controller] in
-				guard let object = controller else { return }
-				SettingsController.composeEmail(in: object)
-			}
-			return cell
-		case .iconBadgeStyle(let data):
-			let cell = DefaultCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
-			SettingsController.configure(cell: cell)
-			SettingsController.configureTextCell(cell, with: data)
-			cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
-			cell.tapped = { [weak controller, weak cell] in
-				guard let cell = cell else { return }
-				controller?.showBadgeAlert(sourceView: cell)
-			}
-			return cell
-		}
+		}()
 	}
 	
 	static func composeEmail(in controller: SettingsController) {
@@ -208,7 +192,7 @@ final class SettingsController : UIViewController {
 		let logOffHandler: ((UIAlertAction) -> Void)? = { _ in self.viewModel.logOff() }
 		let actions = [UIAlertAction(title: "Log off", style: .destructive, handler: logOffHandler),
 		               UIAlertAction(title: "Cancel", style: .cancel, handler: nil)]
-
+		
 		viewModel.showWarning(in: self, title: nil, message: nil, actions: actions, sourceView: sourceView)
 	}
 	
