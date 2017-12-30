@@ -150,7 +150,8 @@ final class TasksController : UIViewController {
 			controller?.viewModel.editTask(uuid: item.uuid)
 		}
 		
-		cell.deleteTapped = { [weak controller] in
+		cell.deleteTapped = { [weak controller, weak cell] in
+			guard let cell = cell else { return }
 			controller?.tableViewDelegate.currentExpandedIndexPath = nil
 			controller?.showDeleteTaskAlert(sourceView: cell.deleteActionView, taskUuid: item.uuid)
 		}

@@ -101,15 +101,24 @@ final class SettingsController : UIViewController {
 			return cell
 		case .deleteAccount(let data):
 			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { [weak controller] in controller?.showDeleteUserAlert(sourceView: cell) }
+			cell.tapped = { [weak controller, weak cell] in
+				guard let cell = cell else { return }
+				controller?.showDeleteUserAlert(sourceView: cell)
+			}
 			return cell
 		case .exit(let data):
 			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { [weak controller] in controller?.showLogOffAlert(sourceView: cell) }
+			cell.tapped = { [weak controller, weak cell] in
+				guard let cell = cell else { return }
+				controller?.showLogOffAlert(sourceView: cell)
+			}
 			return cell
 		case .deleteLocalCache(let data):
 			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { [weak controller] in controller?.showDeleteCacheAlert(sourceView: cell) }
+			cell.tapped = { [weak controller, weak cell] in
+				guard let cell = cell else { return }
+				controller?.showDeleteCacheAlert(sourceView: cell)
+			}
 			return cell
 		case .sourceCode(let data):
 			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
@@ -136,7 +145,10 @@ final class SettingsController : UIViewController {
 			SettingsController.configure(cell: cell)
 			SettingsController.configureTextCell(cell, with: data)
 			cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
-			cell.tapped = { [weak controller] in controller?.showBadgeAlert(sourceView: cell) }
+			cell.tapped = { [weak controller, weak cell] in
+				guard let cell = cell else { return }
+				controller?.showBadgeAlert(sourceView: cell)
+			}
 			return cell
 		}
 	}
