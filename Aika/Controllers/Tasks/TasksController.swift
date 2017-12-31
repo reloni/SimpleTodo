@@ -62,7 +62,7 @@ final class TasksController : UIViewController {
 		view.addSubview(tableView)
 		view.addSubview(addTaskButton)
 		
-		view.backgroundColor = UIColor.white
+		view.backgroundColor = Theme.Colors.isabelline
 		view.layoutEdgeInsets = .zero
 		
 		title = viewModel.title

@@ -9,7 +9,7 @@
 import UIKit
 
 class SnackView: UIView {
-	static let height: CGFloat = 44
+	static let height: CGFloat = AppConstants.isIPhoneX ? 66 : 44
 	let hideByTouch: Bool
 	
 	init(hideByTouch: Bool = true) {
