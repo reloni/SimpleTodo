@@ -53,7 +53,7 @@ final class SettingsController : UIViewController {
 		view.addSubview(tableView)
 		
 		title = viewModel.title
-		view.backgroundColor = Theme.Colors.white
+		view.backgroundColor = Theme.Colors.isabelline
 		
 		tableView.snp.makeConstraints {
 			$0.top.equalTo(view.snp.topMargin)
