@@ -141,7 +141,7 @@ public extension UIWindow {
 		}
 		
 		// Make animation
-		self.layer.add(options.animation, forKey: kCATransition)		
+		self.layer.add(options.animation, forKey: kCATransition)
 		self.rootViewController = controller
 		self.makeKeyAndVisible()
 		
