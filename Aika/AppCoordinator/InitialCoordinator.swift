@@ -82,8 +82,8 @@ extension ApplicationCoordinatorType {
 	}
 	
 	func set(initialRootController controller: UIViewController) {
-		let options = UIWindow.TransitionOptions(direction: .toTop, style: .easeInOut, duration: 0.35)
-		self.window.setRootViewController(controller, options: options)
+		let options = UIWindow.SpringTransitionOptions(direction: .toTop, damping: 11, mass: 1, stiffness: 50, initialVelocity: 0.5)
+		self.window.setRootViewController(controller, withSpringOptions: options)
 	}
 	
 	func transition(withDuration duration: TimeInterval = 0.5,

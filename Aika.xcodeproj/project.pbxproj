@@ -66,6 +66,7 @@
 		6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA0B4801EC1D25E005BA709 /* Repository.swift */; };
 		6EA2C2F61F9CF9FF004A9820 /* DecodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA2C2F51F9CF9FF004A9820 /* DecodeTests.swift */; };
 		6EA312F31FF42A8A00EAB2DB /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA312F21FF42A8A00EAB2DB /* WeakBox.swift */; };
+		6EA5ACBD2006986C00C11172 /* RootControllerSpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA5ACBC2006986C00C11172 /* RootControllerSpringTransition.swift */; };
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
 		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
 		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
@@ -242,6 +243,7 @@
 		6EA0B4801EC1D25E005BA709 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		6EA2C2F51F9CF9FF004A9820 /* DecodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeTests.swift; sourceTree = "<group>"; };
 		6EA312F21FF42A8A00EAB2DB /* WeakBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakBox.swift; sourceTree = "<group>"; };
+		6EA5ACBC2006986C00C11172 /* RootControllerSpringTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootControllerSpringTransition.swift; sourceTree = "<group>"; };
 		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = State.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 			children = (
 				6EAF1B3B1EB5297C00C72BF5 /* SlidePresentAnimationController.swift */,
 				6EAC86DB1FCAFCEF00728F59 /* RootControllerTransition.swift */,
+				6EA5ACBC2006986C00C11172 /* RootControllerSpringTransition.swift */,
 			);
 			path = ControllerTransitions;
 			sourceTree = "<group>";
@@ -826,6 +829,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EA5ACBD2006986C00C11172 /* RootControllerSpringTransition.swift in Sources */,
 				6E3B8A7C1EB4D42600EC932F /* SettingsReducer.swift in Sources */,
 				6EBD408D1E60ABF700661CA6 /* AuthenticationCoordinators.swift in Sources */,
 				6E8A9E8F1EE7B02500F2FA1F /* FrameworksViewModel.swift in Sources */,

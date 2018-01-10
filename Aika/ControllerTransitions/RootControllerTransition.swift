@@ -141,17 +141,7 @@ public extension UIWindow {
 		}
 		
 		// Make animation
-//		self.layer.add(options.animation, forKey: kCATransition)
-		let customAnimation = CASpringAnimation(keyPath: "position.y")
-		customAnimation.damping = 15
-		customAnimation.mass = 1
-		customAnimation.stiffness = 100
-		customAnimation.initialVelocity = 0
-		
-		customAnimation.duration = customAnimation.settlingDuration
-		customAnimation.fromValue = controller.view.bounds.size.height*2
-		customAnimation.toValue = controller.view.bounds.size.height/2
-		self.layer.add(customAnimation, forKey: nil)
+		self.layer.add(options.animation, forKey: kCATransition)
 		self.rootViewController = controller
 		self.makeKeyAndVisible()
 		
