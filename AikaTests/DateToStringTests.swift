@@ -35,7 +35,7 @@ class DateToStringTests: XCTestCase {
 	}()
 	
 	func testFullWithinCurrentYear() {
-		var date = Date().adding(.day, value: -14)
+		var date = Date().adding(.day, value: -2)
 		localFormatter.dateFormat = "\(Date.DateFormat.dateWithoutYear.rawValue) \(Date.DateFormat.time.rawValue)"
 		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: true), dateFormatter: injectFormatter))
 		
