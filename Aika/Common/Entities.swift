@@ -35,6 +35,10 @@ struct AppConstants {
 	static var applicationDeviceInfo: String {
 		return "\(applicationType) \(applicationVersion)"
 	}
+	
+	static var isIPhoneX: Bool {
+		return UIScreen.main.fixedCoordinateSpace.bounds.size.height == 812
+	}
 }
 
 enum IconBadgeStyle: String {
