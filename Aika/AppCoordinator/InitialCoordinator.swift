@@ -86,8 +86,7 @@ extension ApplicationCoordinatorType {
 													   damping: 11,
 													   mass: 1,
 													   stiffness: 50,
-													   initialVelocity: 0.5,
-													   backgroundView: UIView().configure { $0.backgroundColor = .white })
+													   initialVelocity: 0.5)
         self.window.setRootViewController(controller, withSpringOptions: options)
 	}
 	

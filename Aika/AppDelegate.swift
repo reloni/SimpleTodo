@@ -71,10 +71,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if case Authentication.authenticated = flowController.currentState.state.authentication {
 			flowController.dispatch(PushNotificationsAction.promptForPushNotifications)
 		}
-        
-        window!.rootViewController = UIViewController()
-        window!.rootViewController!.view.backgroundColor = UIColor.white
-        window!.makeKeyAndVisible()
+		
+		// workaround over asynchronous flowController action dispatch
+        window?.rootViewController = UIStoryboard.launchScreen.instantiateInitialViewController()!
+        window?.makeKeyAndVisible()
 
 		return true
 	}

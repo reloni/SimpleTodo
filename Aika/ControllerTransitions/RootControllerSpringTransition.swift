@@ -33,15 +33,13 @@ extension UIWindow {
 		let stiffness: CGFloat
 		let initialVelocity: CGFloat
 		let direction: Direction
-		let backgroundView: UIView?
-		
-		init(direction: Direction = .toTop, damping: CGFloat = 10, mass: CGFloat = 1, stiffness: CGFloat = 100, initialVelocity: CGFloat = 0, backgroundView: UIView? = nil) {
+
+		init(direction: Direction = .toTop, damping: CGFloat = 10, mass: CGFloat = 1, stiffness: CGFloat = 100, initialVelocity: CGFloat = 0) {
 			self.direction = direction
 			self.damping = damping
 			self.mass = mass
 			self.stiffness = stiffness
 			self.initialVelocity = initialVelocity
-			self.backgroundView = backgroundView
 		}
 		
 		func animation(for controller: UIViewController) -> CASpringAnimation {
@@ -78,22 +76,19 @@ extension UIWindow {
 	}
 	
 	func setRootViewController(_ controller: UIViewController, withSpringOptions options: SpringTransitionOptions) {
-		let transitionWindow: UIWindow? = {
-			guard let backgroundView = options.backgroundView else { return nil }
-			
-			let window = UIWindow(frame: UIScreen.main.bounds)
-			backgroundView.frame = window.bounds
-			window.rootViewController = UIViewController().configure { $0.view = backgroundView }
-			window.makeKeyAndVisible()
-			
-			return window
-		}()
+		let transitionWindow = UIWindow(frame: UIScreen.main.bounds).configure {
+			$0.rootViewController = controller
+			$0.backgroundColor = .clear
+		}
 		
 		let animation = options.animation(for: controller)
-		let delegate = SpringTransitionOptions.CATransitionEndDelegate { transitionWindow?.removeFromSuperview() }
+		let delegate = SpringTransitionOptions.CATransitionEndDelegate {
+			transitionWindow.rootViewController = nil
+			self.rootViewController = controller
+			transitionWindow.removeFromSuperview()
+		}
 		animation.delegate = delegate
-		self.layer.add(animation, forKey: nil)
-		self.rootViewController = controller
-		self.makeKeyAndVisible()
+		transitionWindow.layer.add(animation, forKey: nil)
+		transitionWindow.makeKeyAndVisible()
 	}
 }
