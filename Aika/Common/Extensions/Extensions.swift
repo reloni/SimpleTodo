@@ -13,6 +13,10 @@ import RxSwift
 import Material
 import RxDataFlow
 
+extension UIStoryboard {
+	static let launchScreen = UIStoryboard(name: "LaunchScreen", bundle: nil)
+}
+
 extension FileManager {
 	var realmsDirectory: URL { return urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Realms") }
 	
