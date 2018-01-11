@@ -11,6 +11,16 @@ import UIKit
 
 extension UIWindow {
 	struct SpringTransitionOptions {
+		class CATransitionEndDelegate: NSObject, CAAnimationDelegate {
+			let didStop: (() -> Void)
+			init(_ didStop: @escaping () -> Void) {
+				self.didStop = didStop
+			}
+			func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+				didStop()
+			}
+		}
+		
 		enum Direction {
 			case toLeft
 			case toRight
@@ -23,13 +33,15 @@ extension UIWindow {
 		let stiffness: CGFloat
 		let initialVelocity: CGFloat
 		let direction: Direction
+		let backgroundView: UIView?
 		
-		init(direction: Direction = .toTop, damping: CGFloat = 10, mass: CGFloat = 1, stiffness: CGFloat = 100, initialVelocity: CGFloat = 0) {
+		init(direction: Direction = .toTop, damping: CGFloat = 10, mass: CGFloat = 1, stiffness: CGFloat = 100, initialVelocity: CGFloat = 0, backgroundView: UIView? = nil) {
 			self.direction = direction
 			self.damping = damping
 			self.mass = mass
 			self.stiffness = stiffness
 			self.initialVelocity = initialVelocity
+			self.backgroundView = backgroundView
 		}
 		
 		func animation(for controller: UIViewController) -> CASpringAnimation {
@@ -66,7 +78,21 @@ extension UIWindow {
 	}
 	
 	func setRootViewController(_ controller: UIViewController, withSpringOptions options: SpringTransitionOptions) {
-		self.layer.add(options.animation(for: controller), forKey: nil)
+		let transitionWindow: UIWindow? = {
+			guard let backgroundView = options.backgroundView else { return nil }
+			
+			let window = UIWindow(frame: UIScreen.main.bounds)
+			backgroundView.frame = window.bounds
+			window.rootViewController = UIViewController().configure { $0.view = backgroundView }
+			window.makeKeyAndVisible()
+			
+			return window
+		}()
+		
+		let animation = options.animation(for: controller)
+		let delegate = SpringTransitionOptions.CATransitionEndDelegate { transitionWindow?.removeFromSuperview() }
+		animation.delegate = delegate
+		self.layer.add(animation, forKey: nil)
 		self.rootViewController = controller
 		self.makeKeyAndVisible()
 	}

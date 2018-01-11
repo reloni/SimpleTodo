@@ -82,13 +82,13 @@ extension ApplicationCoordinatorType {
 	}
 	
 	func set(initialRootController controller: UIViewController) {
-		let options = UIWindow.SpringTransitionOptions(direction: .toTop, damping: 11, mass: 1, stiffness: 50, initialVelocity: 0.5)
-        var opt = UIWindow.TransitionOptions(direction: .toTop, style: .easeInOut, duration: 1)
-        let view = UIView()
-        view.backgroundColor = .white
-        opt.background = UIWindow.TransitionOptions.Background.customView(view)
-//        self.window.setRootViewController(controller, withSpringOptions: options)
-        self.window.setRootViewController(controller, options: opt)
+		let options = UIWindow.SpringTransitionOptions(direction: .toTop,
+													   damping: 11,
+													   mass: 1,
+													   stiffness: 50,
+													   initialVelocity: 0.5,
+													   backgroundView: UIView().configure { $0.backgroundColor = .white })
+        self.window.setRootViewController(controller, withSpringOptions: options)
 	}
 	
 	func transition(withDuration duration: TimeInterval = 0.5,
