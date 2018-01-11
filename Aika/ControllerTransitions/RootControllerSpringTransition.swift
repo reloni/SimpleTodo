@@ -11,6 +11,16 @@ import UIKit
 
 extension UIWindow {
 	struct SpringTransitionOptions {
+		class CATransitionEndDelegate: NSObject, CAAnimationDelegate {
+			let didStop: (() -> Void)
+			init(_ didStop: @escaping () -> Void) {
+				self.didStop = didStop
+			}
+			func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+				didStop()
+			}
+		}
+		
 		enum Direction {
 			case toLeft
 			case toRight
@@ -23,7 +33,7 @@ extension UIWindow {
 		let stiffness: CGFloat
 		let initialVelocity: CGFloat
 		let direction: Direction
-		
+
 		init(direction: Direction = .toTop, damping: CGFloat = 10, mass: CGFloat = 1, stiffness: CGFloat = 100, initialVelocity: CGFloat = 0) {
 			self.direction = direction
 			self.damping = damping
@@ -66,8 +76,19 @@ extension UIWindow {
 	}
 	
 	func setRootViewController(_ controller: UIViewController, withSpringOptions options: SpringTransitionOptions) {
-		self.layer.add(options.animation(for: controller), forKey: nil)
-		self.rootViewController = controller
-		self.makeKeyAndVisible()
+		let transitionWindow = UIWindow(frame: UIScreen.main.bounds).configure {
+			$0.rootViewController = controller
+			$0.backgroundColor = .clear
+		}
+		
+		let animation = options.animation(for: controller)
+		let delegate = SpringTransitionOptions.CATransitionEndDelegate {
+			transitionWindow.rootViewController = nil
+			self.rootViewController = controller
+			transitionWindow.removeFromSuperview()
+		}
+		animation.delegate = delegate
+		transitionWindow.layer.add(animation, forKey: nil)
+		transitionWindow.makeKeyAndVisible()
 	}
 }

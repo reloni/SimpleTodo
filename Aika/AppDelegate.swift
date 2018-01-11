@@ -65,12 +65,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIApplication.shared.setMinimumBackgroundFetchInterval(60 * 60 * 6)
 		
 		flowController.dispatch(SynchronizationAction.updateConfiguration)
-		flowController.dispatch(UIAction.showRootController)
+        flowController.dispatch(UIAction.showRootController)
 		
 		// if already authenticated prompt for push notifications
 		if case Authentication.authenticated = flowController.currentState.state.authentication {
 			flowController.dispatch(PushNotificationsAction.promptForPushNotifications)
 		}
+		
+		// workaround over asynchronous flowController action dispatch
+        window?.rootViewController = UIStoryboard.launchScreen.instantiateInitialViewController()!
+        window?.makeKeyAndVisible()
 
 		return true
 	}
