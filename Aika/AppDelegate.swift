@@ -55,9 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		#if !DEBUG
 			Fabric.with([Answers.self, Crashlytics.self])
 		#endif
-		
-		// TODO: Remove
-		Fabric.with([Answers.self, Crashlytics.self])
 
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
