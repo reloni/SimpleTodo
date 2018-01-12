@@ -111,6 +111,9 @@
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
 		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
 		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
+		6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EEC0D4B200908D5000EBDB2 /* Answers.framework */; };
+		6EEC0D4E20090B74000EBDB2 /* AnalyticalReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEC0D4D20090B74000EBDB2 /* AnalyticalReducer.swift */; };
+		6EEC0D5020090CE7000EBDB2 /* AnswersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEC0D4F20090CE7000EBDB2 /* AnswersService.swift */; };
 		6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */; };
 		6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */; };
 		6EF1D16D1FE99006002EC506 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF1D16C1FE99006002EC506 /* Configure.swift */; };
@@ -276,6 +279,9 @@
 		6EE247DD1DF21291001A6F39 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		6EE247DE1DF21291001A6F39 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		6EE91CAB1E1959430025A4BD /* Wrap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wrap.framework; path = Carthage/Build/iOS/Wrap.framework; sourceTree = "<group>"; };
+		6EEC0D4B200908D5000EBDB2 /* Answers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Answers.framework; path = Carthage/Answers.framework; sourceTree = "<group>"; };
+		6EEC0D4D20090B74000EBDB2 /* AnalyticalReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticalReducer.swift; sourceTree = "<group>"; };
+		6EEC0D4F20090CE7000EBDB2 /* AnswersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersService.swift; sourceTree = "<group>"; };
 		6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 		6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		6EF1D16C1FE99006002EC506 /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
@@ -288,6 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */,
 				6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */,
 				6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */,
 				6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */,
@@ -413,6 +420,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6EEC0D4B200908D5000EBDB2 /* Answers.framework */,
 				6EDC4E051F9BDE180003BE92 /* Motion.framework */,
 				6E7B21321F83CE6100BF36AC /* Differentiator.framework */,
 				6E97DD1E1EF674F600542768 /* MessageUI.framework */,
@@ -504,6 +512,7 @@
 				6E0D5C0F1F6592FB002AF563 /* RealmMigrations.swift */,
 				6EF1D16C1FE99006002EC506 /* Configure.swift */,
 				6EA312F21FF42A8A00EAB2DB /* WeakBox.swift */,
+				6EEC0D4F20090CE7000EBDB2 /* AnswersService.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -551,6 +560,7 @@
 				6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */,
 				6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */,
 				6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */,
+				6EEC0D4D20090B74000EBDB2 /* AnalyticalReducer.swift */,
 			);
 			path = Reducers;
 			sourceTree = "<group>";
@@ -849,6 +859,7 @@
 				6E53A1ED1FED8633000F48D5 /* TaskDate+Extensions.swift in Sources */,
 				6EBC6A501F59104C0041456A /* TaskScheduler.swift in Sources */,
 				6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */,
+				6EEC0D4E20090B74000EBDB2 /* AnalyticalReducer.swift in Sources */,
 				6E0492291F5F0CD800E7C7D2 /* TaskRepeatDescriptionView.swift in Sources */,
 				6E8A9E8D1EE7AD5800F2FA1F /* FrameworksController.swift in Sources */,
 				6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */,
@@ -872,6 +883,7 @@
 				6EB66DFC1F64567F00C3DF76 /* Task.swift in Sources */,
 				6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */,
 				6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */,
+				6EEC0D5020090CE7000EBDB2 /* AnswersService.swift in Sources */,
 				6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */,
 				6E86F4FC1EE3028500102AC3 /* TasksTableBackground.swift in Sources */,
 				6ED3F4471E7DA3D50003C1CC /* EditTaskController.swift in Sources */,

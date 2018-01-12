@@ -118,7 +118,10 @@ final class SettingsController : UIViewController {
 			return cell
 		case .sourceCode(let data):
 			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
-			cell.tapped = { UIApplication.shared.open(URL(string: "https://github.com/reloni/SimpleTodo")!) }
+			cell.tapped = { [weak controller] in
+				UIApplication.shared.open(URL(string: "https://github.com/reloni/SimpleTodo")!)
+				controller?.viewModel.flowController.dispatch(AnalyticalAction.viewSourceCode)
+			}
 			return cell
 		case .text(let data):
 			let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
