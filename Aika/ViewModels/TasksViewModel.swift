@@ -55,6 +55,7 @@ final class TasksViewModel: ViewModelType {
 	func deleteTask(forUuid uuid: UUID) {
 		flowController.dispatch(SynchronizationAction.deleteTask(uuid))
 		flowController.dispatch(RxCompositeAction.synchronizationAction)
+		flowController.dispatch(AnalyticalAction.deleteTask)
 	}
 	
 	func synchronize() {

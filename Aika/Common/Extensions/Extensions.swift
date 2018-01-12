@@ -36,6 +36,7 @@ extension RxCompositeAction {
 		        UIAction.returnToRootController,
 		        PushNotificationsAction.switchNotificationSubscription(subscribed: false),
 		        SynchronizationAction.updateConfiguration,
+				AnalyticalAction.logOff,
 		        UIAction.hideSpinner]
 	}
 	
@@ -45,6 +46,7 @@ extension RxCompositeAction {
 		        PushNotificationsAction.switchNotificationSubscription(subscribed: false),
 		        SynchronizationAction.updateConfiguration,
 		        SystemAction.clearKeychain,
+				AnalyticalAction.deleteUser,
 		        UIAction.returnToRootController]
 	}
 	

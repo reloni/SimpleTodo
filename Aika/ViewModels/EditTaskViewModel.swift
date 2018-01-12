@@ -134,7 +134,7 @@ final class EditTaskViewModel: ViewModelType {
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
 		                                         SynchronizationAction.addTask(new)])
 		
-		return [action, RxCompositeAction.synchronizationAction]
+		return [action, RxCompositeAction.synchronizationAction, AnalyticalAction.addTask]
 	}
 	
 	private func update(task: Task, state: State) -> [RxActionType] {
@@ -142,7 +142,7 @@ final class EditTaskViewModel: ViewModelType {
 		let action = RxCompositeAction(actions: [UIAction.dismisEditTaskController,
 		                                         SynchronizationAction.updateTask(new)])
 		
-		return [action, RxCompositeAction.synchronizationAction]
+		return [action, RxCompositeAction.synchronizationAction, AnalyticalAction.editTask]
 	}
 	
 	private func save(state: State) {
