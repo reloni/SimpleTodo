@@ -71,6 +71,7 @@ final class SettingsViewModel: ViewModelType {
 	
 	func updateBadgeStyle(_ style: IconBadgeStyle) {
 		flowController.dispatch(SystemAction.setBadgeStyle(style))
+		flowController.dispatch(AnalyticalAction.setBadgeStyle(style))
 	}
 	
 	func logOff() {
@@ -78,13 +79,30 @@ final class SettingsViewModel: ViewModelType {
 	}
 	
 	func done() {
-		flowController.dispatch(RxCompositeAction(actions: [PushNotificationsAction.switchNotificationSubscription(subscribed: isPushNotificationsEnabled),
-		                                                    UIAction.dismissSettingsController]))
+		let actions: [RxActionType?] = [PushNotificationsAction.switchNotificationSubscription(subscribed: isPushNotificationsEnabled),
+									   UIAction.dismissSettingsController,
+									   pushNotificationSwitchAnalyticalAction()]
+		flowController.dispatch(RxCompositeAction(actions: actions.flatMap { $0 }))
+	}
+	
+	func pushNotificationSwitchAnalyticalAction() -> AnalyticalAction? {
+		guard let current = flowController.currentState.state.authentication.settings?.pushNotificationsEnabled else {
+			return nil
+		}
+		
+		guard current != isPushNotificationsEnabled else { return nil }
+		
+		if isPushNotificationsEnabled {
+			return AnalyticalAction.enablePushNotifications
+		} else {
+			return AnalyticalAction.disablePushNotifications
+		}
 	}
 	
 	func deleteCache() {
 		flowController.dispatch(SynchronizationAction.deleteCache)
 		flowController.dispatch(RxCompositeAction(actions: RxCompositeAction.refreshTokenAndSyncActions))
+		flowController.dispatch(AnalyticalAction.deleteCache)
 	}
 	
 	func deleteUser() {

@@ -20,6 +20,28 @@ enum SystemAction: RxActionType {
 	case setBadgeStyle(IconBadgeStyle)
 }
 
+enum AnalyticalAction: RxActionType {
+	var isSerial: Bool { return false }
+	var scheduler: ImmediateSchedulerType? { return nil }
+	
+	enum LoginProvider: String {
+		case password = "Login/password"
+		case google = "Google"
+		case facebook = "Facebook"
+	}
+	case logIn(LoginProvider)
+	case logOff
+	case deleteUser
+	case deleteCache
+	case addTask
+	case editTask
+	case deleteTask
+	case disablePushNotifications
+	case enablePushNotifications
+	case viewSourceCode
+	case setBadgeStyle(IconBadgeStyle)
+}
+
 enum UIAction : RxActionType {
 	var isSerial: Bool { return true }
 	var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }

@@ -91,7 +91,8 @@ final class AuthenticationViewModel: ViewModelType {
 		                            SynchronizationAction.updateConfiguration,
 		                            UIAction.showTasksListController,
 		                            UIAction.hideSpinner,
-		                            PushNotificationsAction.promptForPushNotifications],
+		                            PushNotificationsAction.promptForPushNotifications,
+									authType.analyticalLogInAction()],
 		                  fallbackAction: UIAction.hideSpinner)
 		flowController.dispatch(action)
 	}
@@ -120,5 +121,15 @@ final class AuthenticationViewModel: ViewModelType {
 	
 	func resetPassword(email: String) {
 		flowController.dispatch(AuthenticationAction.resetPassword(email))
+	}
+}
+
+extension AuthenticationType {
+	func analyticalLogInAction() -> AnalyticalAction {
+		switch self {
+		case .db: return AnalyticalAction.logIn(.password)
+		case .facebook: return AnalyticalAction.logIn(.facebook)
+		case .google: return AnalyticalAction.logIn(.google)
+		}
 	}
 }
