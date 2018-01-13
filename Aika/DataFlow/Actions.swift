@@ -53,11 +53,13 @@ enum UIAction : RxActionType {
 	case showFirebaseRegistrationController
 	case showTasksListController
 	case showTaskRepeatModeController(currentMode: TaskScheduler.Pattern?)
+	case showTaskCustomRepeatModeController(currentMode: TaskScheduler.Pattern?)
 	
 	case dismissFirebaseRegistrationController
 	case dismissSettingsController
 	case dismisEditTaskController
 	case dismissTaskRepeatModeController
+	case dismissTaskCustomRepeatModeController
 	
 	case showSpinner
 	case hideSpinner

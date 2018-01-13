@@ -95,4 +95,5 @@ struct TaskRepeatModeSectionItem {
 	let text: String
 	let isSelected: Bool
 	let mode: TaskScheduler.Pattern?
+	let isCustom: Bool
 }

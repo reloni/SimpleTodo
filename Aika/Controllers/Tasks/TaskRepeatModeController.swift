@@ -11,7 +11,6 @@ import RxSwift
 import RxDataSources
 
 final class TaskRepeatModeController: UIViewController {
-	
 	let viewModel: TaskRepeatModeViewModel
 	let bag = DisposeBag()
 	let tableViewDelegate = TaskRepeatModeTableViewDelegate()
@@ -28,8 +27,14 @@ final class TaskRepeatModeController: UIViewController {
 			}
 			cell.preservesSuperviewLayoutMargins = false
 			
+			cell.selectionStyle = .none
+			
 			cell.tapped = {
-				self?.viewModel.setNew(mode: item.mode)
+				if item.isCustom {
+					self?.viewModel.setCustomMode()
+				} else {
+					self?.viewModel.setNew(mode: item.mode)
+				}
 			}
 			
 			return cell
