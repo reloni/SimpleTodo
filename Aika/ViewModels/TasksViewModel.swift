@@ -46,6 +46,7 @@ final class TasksViewModel: ViewModelType {
 	func completeTask(uuid: UUID) {
 		flowController.dispatch(SynchronizationAction.completeTask(uuid))
 		flowController.dispatch(RxCompositeAction.synchronizationAction)
+		flowController.dispatch(AnalyticalAction.completeTask)
 	}
 	
 	func editTask(uuid: UUID) {
