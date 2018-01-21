@@ -79,11 +79,4 @@ final class TargetDateView : UIView {
 	func makeWrapperConstraints(maker: ConstraintMaker) {
 		maker.edges.equalTo(self.snp.margins)
 	}
-	
-	override func updateConstraints() {
-		super.updateConstraints()
-		textField.snp.updateConstraints(makeTextFieldConstraints(maker:))
-		clearButton.snp.updateConstraints(makeClearButtonConstraints)
-		calendarButton.snp.updateConstraints(makeCalendarButtonConstraints)
-	}
 }

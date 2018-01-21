@@ -86,7 +86,7 @@ class TaskSchedulerTests: XCTestCase {
         let currentDate = Date()
         let taskDate = currentDate.adding(.month, value: 3)
         let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .biweekly)!
-        XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: 14).adding(.month, value: 3)), formatter.string(from: result))
+        XCTAssertEqual(formatter.string(from: currentDate.adding(.month, value: 3).adding(.day, value: 14)), formatter.string(from: result))
     }
     
     func testBiWeekly_inPast() {

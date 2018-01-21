@@ -57,14 +57,6 @@ final class TaskRepeatDescriptionView: UIView {
 		arrowImage.snp.makeConstraints(makeArrowImageConstraints(maker:))
 	}
 	
-	override func updateConstraints() {
-		super.updateConstraints()
-		
-		leftLabel.snp.updateConstraints(makeLeftLabelConstraints(maker:))
-		rightLabel.snp.updateConstraints(makeRightLabelConstraints(maker:))
-		arrowImage.snp.updateConstraints(makeArrowImageConstraints(maker:))
-	}
-	
 	func makeLeftLabelConstraints(maker: ConstraintMaker) {
 		maker.top.equalTo(snp.topMargin).priority(999)
 		maker.leading.equalTo(snp.leadingMargin)
