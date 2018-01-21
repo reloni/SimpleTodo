@@ -54,9 +54,4 @@ final class SwitchView : UIView {
 	func makeWrapperConstraints(maker: ConstraintMaker) {
 		maker.edges.equalTo(self.snp.margins)
 	}
-	
-	override func updateConstraints() {
-		super.updateConstraints()
-		wrapper.snp.updateConstraints(makeWrapperConstraints)
-	}
 }

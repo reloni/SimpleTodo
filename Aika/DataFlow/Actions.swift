@@ -36,6 +36,7 @@ enum AnalyticalAction: RxActionType {
 	case addTask
 	case editTask
 	case deleteTask
+	case completeTask
 	case disablePushNotifications
 	case enablePushNotifications
 	case viewSourceCode

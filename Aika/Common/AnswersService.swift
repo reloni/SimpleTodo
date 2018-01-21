@@ -23,6 +23,7 @@ struct AnswersService {
 		case .setBadgeStyle(let style): Answers.logCustomEvent(withName: "Set badge style", customAttributes: ["Style": style.description])
 		case .viewSourceCode: Answers.logCustomEvent(withName: "View source code", customAttributes: nil)
 		case .deleteUser: Answers.logCustomEvent(withName: "Delete user", customAttributes: nil)
+		case .completeTask: Answers.logCustomEvent(withName: "Complete task", customAttributes: nil)
 		}
 	}
 }

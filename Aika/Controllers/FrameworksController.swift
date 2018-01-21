@@ -74,17 +74,6 @@ final class FrameworksController: UIViewController {
 		
 		return cell
 	}
-	
-	override func updateViewConstraints() {
-		super.updateViewConstraints()
-		
-		tableView.snp.updateConstraints {
-			$0.top.equalTo(view.snp.topMargin)
-			$0.leading.equalTo(view.snp.leading)
-			$0.trailing.equalTo(view.snp.trailing)
-			$0.bottom.equalTo(view.snp.bottomMargin)
-		}
-	}
 }
 
 final class FrameworksTableViewDelegate : NSObject, UITableViewDelegate {

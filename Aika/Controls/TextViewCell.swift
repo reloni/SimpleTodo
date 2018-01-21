@@ -31,8 +31,4 @@ final class TextViewCell : UITableViewCell {
 	func makeTextViewConstraints(maker: ConstraintMaker) {
 		maker.edges.equalTo(contentView)
 	}
-	
-	override func updateConstraints() {
-		super.updateConstraints()
-	}
 }

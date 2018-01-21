@@ -239,17 +239,6 @@ final class SettingsController : UIViewController {
 		
 		viewModel.showWarning(in: self, title: "Warning", message: "Account and all data will be deleted", actions: actions, sourceView: sourceView)
 	}
-	
-	override func updateViewConstraints() {
-		super.updateViewConstraints()
-		
-		tableView.snp.updateConstraints {
-			$0.top.equalTo(view.snp.topMargin)
-			$0.leading.equalTo(view.snp.leading)
-			$0.trailing.equalTo(view.snp.trailing)
-			$0.bottom.equalTo(view.snp.bottomMargin)
-		}
-	}
 }
 
 extension SettingsController: MFMailComposeViewControllerDelegate {
