@@ -134,7 +134,7 @@ final class TasksController : UIViewController {
 		cell.taskDescription.text = "\(item.description)"
 		cell.targetDate.attributedText = item.targetDate?.toAttributedString(format: .relative(withTime: item.targetDate?.includeTime ?? false))
 		cell.repeatImage.isHidden = item.prototype.repeatPattern == nil
-		cell.updateConstraints()
+		cell.setNeedsUpdateConstraints()
 		
 		cell.completeTapped = { [weak controller] in
 			controller?.tableViewDelegate.currentExpandedIndexPath = nil
@@ -175,13 +175,6 @@ final class TasksController : UIViewController {
 		maker.bottom.equalTo(view.snp.bottomMargin).offset(-20)
 		maker.height.equalTo(45)
 		maker.width.equalTo(45)
-	}
-	
-	override func updateViewConstraints() {
-		super.updateViewConstraints()
-		
-		tableView.snp.updateConstraints(tableViewConstraints)
-		addTaskButton.snp.updateConstraints(addTaskButtonConstraints)
 	}
 }
 

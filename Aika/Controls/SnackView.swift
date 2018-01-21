@@ -78,12 +78,4 @@ class MessageSnackView: SnackView {
 			$0.edges.equalTo(snp.edges)
 		}
 	}
-	
-	override func updateConstraints() {
-		super.updateConstraints()
-		
-		messageLabel.snp.updateConstraints {
-			$0.edges.equalTo(snp.edges)
-		}
-	}
 }

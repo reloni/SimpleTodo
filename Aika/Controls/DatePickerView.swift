@@ -100,11 +100,4 @@ final class DatePickerView : UIView {
 		maker.trailing.equalTo(snp.trailingMargin)
 		maker.bottom.equalTo(snp.bottomMargin)
 	}
-	
-	override func updateConstraints() {
-		super.updateConstraints()
-		
-		datePicker.snp.updateConstraints(makeDatePickerConstraints)
-		timeModeSwitcher.snp.updateConstraints(makeTimeModeSwitcherConstraints)
-	}
 }

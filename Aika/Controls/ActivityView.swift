@@ -57,24 +57,6 @@ final class ActivityView: UIView {
 		}
 	}
 	
-	override func updateConstraints() {
-		super.updateConstraints()
-		
-		spinnerContainer.snp.updateConstraints {
-			$0.center.equalTo(snp.center)
-			$0.height.equalTo(80)
-			$0.width.equalTo(80)
-		}
-		
-		spinner.snp.updateConstraints {
-			$0.center.equalTo(spinnerContainer.snp.center)
-		}
-		
-		blurView.snp.updateConstraints {
-			$0.edges.equalTo(snp.edges)
-		}
-	}
-	
 	static func show(in window: UIWindow) {
 		let av = ActivityView()
 		av.frame = window.frame

@@ -68,12 +68,4 @@ final class TaskActonView : UIView {
 		maker.width.equalTo(imageView.snp.height)
 		maker.height.equalTo(expandHeight * 0.7)
 	}
-	
-	override func updateConstraints() {
-		super.updateConstraints()
-		
-		wrapper.snp.updateConstraints { makeWrapperConstraints(maker: $0) }
-		imageView.snp.updateConstraints { makeActionImageConstraints(maker: $0) }
-		actionLabel.snp.updateConstraints { makeActionLabelConstraints(maker: $0) }
-	}
 }
