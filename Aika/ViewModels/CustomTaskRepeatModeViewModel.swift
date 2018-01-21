@@ -12,6 +12,14 @@ import RxSwift
 
 final class CustomTaskRepeatModeViewModel: ViewModelType {
 	let flowController: RxDataFlowController<AppState>
+	
+	let title = "Setup"
+	
+	lazy var sections: Observable<[CustomTaskRepeatModeSection]> = {
+		let section = CustomTaskRepeatModeSection(header: "Test", items: [CustomTaskRepeatModeSectionItem.patternType(.day),
+																	   CustomTaskRepeatModeSectionItem.repeatEvery(1)])
+		return .just([section])
+	}()
 
 	init(flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController

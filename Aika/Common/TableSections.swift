@@ -97,3 +97,42 @@ struct TaskRepeatModeSectionItem {
 	let mode: TaskScheduler.Pattern?
 	let isCustom: Bool
 }
+
+struct CustomTaskRepeatModeSection {
+	let header: String
+	var items: [Item]
+}
+
+extension CustomTaskRepeatModeSection: SectionModelType {
+	typealias Item = CustomTaskRepeatModeSectionItem
+	
+	init(original: CustomTaskRepeatModeSection, items: [CustomTaskRepeatModeSectionItem]) {
+		self = original
+		self.items = items
+	}
+}
+
+enum CustomTaskRepeatModeSectionItem {
+	enum PatternType: String {
+		case day = "Daily"
+		case week = "Weekly"
+		case month = "Monthly"
+		case year = "Yearly"
+	}
+	case patternType(PatternType)
+	case repeatEvery(Int)
+	
+	var mainText: String {
+		switch self {
+		case .patternType: return "Frequency"
+		case .repeatEvery: return "Every"
+		}
+	}
+	
+	var detailText: String {
+		switch self {
+		case .patternType(let p): return p.rawValue
+		case .repeatEvery(let v): return "\(v)"
+		}
+	}
+}
