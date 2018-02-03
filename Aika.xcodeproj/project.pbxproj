@@ -28,6 +28,8 @@
 		6E19E3A11F5C166D00FDE207 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A01F5C166D00FDE207 /* main.swift */; };
 		6E19E3A41F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */; };
 		6E2BAE911ECE28170030C2C0 /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */; };
+		6E2E83692025EB41004E585D /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2E83682025EB41004E585D /* RxHttpClient.framework */; };
+		6E2E836A2025EB41004E585D /* RxHttpClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2E83682025EB41004E585D /* RxHttpClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A751EB4CD9500EC932F /* SettingsController.swift */; };
 		6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */; };
 		6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */; };
@@ -109,7 +111,6 @@
 		6EE1C7E01FE6CC1900FFB34D /* EncodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
-		6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
 		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
 		6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EEC0D4B200908D5000EBDB2 /* Answers.framework */; };
 		6EEC0D4E20090B74000EBDB2 /* AnalyticalReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEC0D4D20090B74000EBDB2 /* AnalyticalReducer.swift */; };
@@ -139,6 +140,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6E2E836B2025EB41004E585D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6E2E836A2025EB41004E585D /* RxHttpClient.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6E40B9D01EC60CE200411F69 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -181,6 +193,7 @@
 		6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSchedulerSerializationTests.swift; sourceTree = "<group>"; };
 		6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemReducer.swift; sourceTree = "<group>"; };
 		6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
+		6E2E83682025EB41004E585D /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxHttpClient.framework; path = "static/Release-iphoneos/RxHttpClient.framework"; sourceTree = "<group>"; };
 		6E3B8A751EB4CD9500EC932F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -215,6 +228,7 @@
 		6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksCoordinator.swift; sourceTree = "<group>"; };
 		6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
+		6E6AC8652025E23100ED207B /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxHttpClient.framework; path = "static/Release-iphonesimulator/RxHttpClient.framework"; sourceTree = "<group>"; };
 		6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericNavigationController.swift; sourceTree = "<group>"; };
 		6E7B21321F83CE6100BF36AC /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
 		6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableBackground.swift; sourceTree = "<group>"; };
@@ -301,6 +315,7 @@
 				6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */,
 				6E5BA8AC1EEEF40F00B61645 /* Fabric.framework in Frameworks */,
 				6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */,
+				6E2E83692025EB41004E585D /* RxHttpClient.framework in Frameworks */,
 				6EA0B47E1EC1C9F4005BA709 /* Realm.framework in Frameworks */,
 				6EA0B47F1EC1C9F4005BA709 /* RealmSwift.framework in Frameworks */,
 				6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */,
@@ -311,7 +326,6 @@
 				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
 				6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */,
 				6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */,
-				6EE247E31DF21291001A6F39 /* RxHttpClient.framework in Frameworks */,
 				6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */,
 				6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */,
 			);
@@ -355,6 +369,7 @@
 		6E15D00F1DF0A45900B4CCA7 = {
 			isa = PBXGroup;
 			children = (
+				6E2E83682025EB41004E585D /* RxHttpClient.framework */,
 				6E14E5E51EE321A90021DE02 /* Aika.entitlements */,
 				6E15D01A1DF0A45A00B4CCA7 /* Aika */,
 				6E15D02F1DF0A45A00B4CCA7 /* AikaTests */,
@@ -420,6 +435,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E6AC8652025E23100ED207B /* RxHttpClient.framework */,
 				6EEC0D4B200908D5000EBDB2 /* Answers.framework */,
 				6EDC4E051F9BDE180003BE92 /* Motion.framework */,
 				6E7B21321F83CE6100BF36AC /* Differentiator.framework */,
@@ -640,6 +656,7 @@
 				6E15D0161DF0A45900B4CCA7 /* Resources */,
 				6EE247D61DF21216001A6F39 /* Copy carthage frameworks */,
 				6E40B9D01EC60CE200411F69 /* Embed App Extensions */,
+				6E2E836B2025EB41004E585D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -811,7 +828,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataFlow.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxHttpClient.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
@@ -1076,6 +1092,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
+					"$(PROJECT_DIR)/static/Release-iphoneos",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1107,6 +1124,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
+					"$(PROJECT_DIR)/static/Release-iphoneos",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
