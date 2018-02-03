@@ -28,8 +28,6 @@
 		6E19E3A11F5C166D00FDE207 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A01F5C166D00FDE207 /* main.swift */; };
 		6E19E3A41F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */; };
 		6E2BAE911ECE28170030C2C0 /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */; };
-		6E2E83692025EB41004E585D /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2E83682025EB41004E585D /* RxHttpClient.framework */; };
-		6E2E836A2025EB41004E585D /* RxHttpClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2E83682025EB41004E585D /* RxHttpClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A751EB4CD9500EC932F /* SettingsController.swift */; };
 		6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */; };
 		6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */; };
@@ -107,6 +105,7 @@
 		6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */; };
 		6ED3F4471E7DA3D50003C1CC /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */; };
 		6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4451E7DA3D50003C1CC /* TasksController.swift */; };
+		6ED934D72025F309005FAABD /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED934D62025F2E9005FAABD /* RxHttpClient.framework */; };
 		6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDC4E051F9BDE180003BE92 /* Motion.framework */; };
 		6EE1C7E01FE6CC1900FFB34D /* EncodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
@@ -140,17 +139,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6E2E836B2025EB41004E585D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6E2E836A2025EB41004E585D /* RxHttpClient.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6E40B9D01EC60CE200411F69 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -193,7 +181,6 @@
 		6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSchedulerSerializationTests.swift; sourceTree = "<group>"; };
 		6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemReducer.swift; sourceTree = "<group>"; };
 		6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
-		6E2E83682025EB41004E585D /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxHttpClient.framework; path = "static/Release-iphoneos/RxHttpClient.framework"; sourceTree = "<group>"; };
 		6E3B8A751EB4CD9500EC932F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -282,6 +269,8 @@
 		6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskController.swift; sourceTree = "<group>"; };
 		6ED3F4451E7DA3D50003C1CC /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
+		6ED934D22025F1BD005FAABD /* SimpleToDo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SimpleToDo; sourceTree = "<group>"; };
+		6ED934D62025F2E9005FAABD /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = RxHttpClient.framework; path = static/RxHttpClient.framework; sourceTree = "<group>"; };
 		6EDC4E051F9BDE180003BE92 /* Motion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Motion.framework; path = Carthage/Build/iOS/Motion.framework; sourceTree = "<group>"; };
 		6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodeTests.swift; sourceTree = "<group>"; };
 		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
@@ -308,6 +297,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ED934D72025F309005FAABD /* RxHttpClient.framework in Frameworks */,
 				6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */,
 				6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */,
 				6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */,
@@ -315,7 +305,6 @@
 				6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */,
 				6E5BA8AC1EEEF40F00B61645 /* Fabric.framework in Frameworks */,
 				6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */,
-				6E2E83692025EB41004E585D /* RxHttpClient.framework in Frameworks */,
 				6EA0B47E1EC1C9F4005BA709 /* Realm.framework in Frameworks */,
 				6EA0B47F1EC1C9F4005BA709 /* RealmSwift.framework in Frameworks */,
 				6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */,
@@ -369,7 +358,7 @@
 		6E15D00F1DF0A45900B4CCA7 = {
 			isa = PBXGroup;
 			children = (
-				6E2E83682025EB41004E585D /* RxHttpClient.framework */,
+				6ED934D62025F2E9005FAABD /* RxHttpClient.framework */,
 				6E14E5E51EE321A90021DE02 /* Aika.entitlements */,
 				6E15D01A1DF0A45A00B4CCA7 /* Aika */,
 				6E15D02F1DF0A45A00B4CCA7 /* AikaTests */,
@@ -435,6 +424,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6ED934D22025F1BD005FAABD /* SimpleToDo */,
 				6E6AC8652025E23100ED207B /* RxHttpClient.framework */,
 				6EEC0D4B200908D5000EBDB2 /* Answers.framework */,
 				6EDC4E051F9BDE180003BE92 /* Motion.framework */,
@@ -656,7 +646,6 @@
 				6E15D0161DF0A45900B4CCA7 /* Resources */,
 				6EE247D61DF21216001A6F39 /* Copy carthage frameworks */,
 				6E40B9D01EC60CE200411F69 /* Embed App Extensions */,
-				6E2E836B2025EB41004E585D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1091,12 +1080,16 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/static",
 					"$(PROJECT_DIR)/Carthage",
-					"$(PROJECT_DIR)/static/Release-iphoneos",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/static",
+				);
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1123,12 +1116,16 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/static",
 					"$(PROJECT_DIR)/Carthage",
-					"$(PROJECT_DIR)/static/Release-iphoneos",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/static",
+				);
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
