@@ -23,12 +23,15 @@
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
+		6E163D4F20263EBA000DB98B /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
 		6E1888911F6AF4A900AEDB85 /* TableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1888901F6AF4A900AEDB85 /* TableSectionHeader.swift */; };
-		6E19D3DC20262C6D00CD1931 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E19D3D420262A6100CD1931 /* RxHttpClient.framework */; };
 		6E19E3A11F5C166D00FDE207 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A01F5C166D00FDE207 /* main.swift */; };
 		6E19E3A41F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */; };
 		6E2BAE911ECE28170030C2C0 /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */; };
+		6E379EB3202645CC0058A129 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E163D5220264252000DB98B /* RxDataFlow.framework */; };
+		6E379EB5202647050058A129 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E379EB4202647050058A129 /* RxDataFlow.framework */; };
+		6E379EB6202647050058A129 /* RxDataFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E379EB4202647050058A129 /* RxDataFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A751EB4CD9500EC932F /* SettingsController.swift */; };
 		6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */; };
 		6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */; };
@@ -56,7 +59,6 @@
 		6E8A9E8F1EE7B02500F2FA1F /* FrameworksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A9E8E1EE7B02500F2FA1F /* FrameworksViewModel.swift */; };
 		6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
 		6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */; };
-		6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
 		6E96B07B1EBAE69B0096ACFE /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */; };
 		6E96B07F1EBC361A0096ACFE /* SnackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07E1EBC361A0096ACFE /* SnackView.swift */; };
 		6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E97DD1E1EF674F600542768 /* MessageUI.framework */; };
@@ -139,6 +141,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6E379EB7202647050058A129 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6E379EB6202647050058A129 /* RxDataFlow.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6E40B9D01EC60CE200411F69 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,16 +188,20 @@
 		6E15D0321DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D03D1DF0A45A00B4CCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		6E163D5220264252000DB98B /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = "static/temp/Release-iphonesimulator/RxDataFlow.framework"; sourceTree = "<group>"; };
 		6E16914B1E61F63A004EE586 /* Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		6E1888901F6AF4A900AEDB85 /* TableSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSectionHeader.swift; sourceTree = "<group>"; };
 		6E19D3C820261CCA00CD1931 /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = RxHttpClient.framework; path = static/RxHttpClient.framework; sourceTree = "<group>"; };
 		6E19D3CE20261F0F00CD1931 /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxHttpClient.framework; path = "static/temp/Release-iphonesimulator/RxHttpClient.framework"; sourceTree = "<group>"; };
 		6E19D3D420262A6100CD1931 /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxHttpClient.framework; path = "static/Release-universal/RxHttpClient.framework"; sourceTree = "<group>"; };
 		6E19D3DA20262C5400CD1931 /* Release-universal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Release-universal"; path = "static/Release-universal"; sourceTree = "<group>"; };
+		6E19D3DE2026361800CD1931 /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxHttpClient.framework; path = static/universal/RxHttpClient.framework; sourceTree = "<group>"; };
 		6E19E3A01F5C166D00FDE207 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSchedulerSerializationTests.swift; sourceTree = "<group>"; };
 		6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemReducer.swift; sourceTree = "<group>"; };
 		6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
+		6E379EB1202644820058A129 /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = "static/temp/Release-iphoneos/RxDataFlow.framework"; sourceTree = "<group>"; };
+		6E379EB4202647050058A129 /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = "static/temp/Release-iphonesimulator/RxDataFlow.framework"; sourceTree = "<group>"; };
 		6E3B8A751EB4CD9500EC932F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -229,6 +246,7 @@
 		6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OneSignal.framework; path = Carthage/Build/iOS/OneSignal.framework; sourceTree = "<group>"; };
 		6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationsReducer.swift; sourceTree = "<group>"; };
 		6E8B0F421E60280900E2C265 /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = Carthage/Build/iOS/RxDataFlow.framework; sourceTree = "<group>"; };
+		6E8DB39420263AE600964522 /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = static/universal/RxDataFlow.framework; sourceTree = "<group>"; };
 		6E9026E01E5AA47F00851B4D /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = Carthage/googlesignin/GoogleSignIn.framework; sourceTree = "<group>"; };
 		6E9026E21E5AA55700851B4D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		6E9026E41E5AA56400851B4D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -300,11 +318,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E19D3DC20262C6D00CD1931 /* RxHttpClient.framework in Frameworks */,
+				6E379EB3202645CC0058A129 /* RxDataFlow.framework in Frameworks */,
+				6E163D4F20263EBA000DB98B /* RxHttpClient.framework in Frameworks */,
 				6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */,
 				6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */,
 				6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */,
 				6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */,
+				6E379EB5202647050058A129 /* RxDataFlow.framework in Frameworks */,
 				6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */,
 				6E5BA8AC1EEEF40F00B61645 /* Fabric.framework in Frameworks */,
 				6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */,
@@ -313,7 +333,6 @@
 				6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */,
 				6E07B8931EBDB4D900ADA5A8 /* Auth0.framework in Frameworks */,
 				6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */,
-				6E8B0F431E60280900E2C265 /* RxDataFlow.framework in Frameworks */,
 				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
 				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
 				6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */,
@@ -361,6 +380,7 @@
 		6E15D00F1DF0A45900B4CCA7 = {
 			isa = PBXGroup;
 			children = (
+				6E379EB4202647050058A129 /* RxDataFlow.framework */,
 				6E14E5E51EE321A90021DE02 /* Aika.entitlements */,
 				6E15D01A1DF0A45A00B4CCA7 /* Aika */,
 				6E15D02F1DF0A45A00B4CCA7 /* AikaTests */,
@@ -426,6 +446,10 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E8DB39420263AE600964522 /* RxDataFlow.framework */,
+				6E163D5220264252000DB98B /* RxDataFlow.framework */,
+				6E379EB1202644820058A129 /* RxDataFlow.framework */,
+				6E19D3DE2026361800CD1931 /* RxHttpClient.framework */,
 				6E19D3DA20262C5400CD1931 /* Release-universal */,
 				6E19D3C820261CCA00CD1931 /* RxHttpClient.framework */,
 				6E19D3CE20261F0F00CD1931 /* RxHttpClient.framework */,
@@ -652,6 +676,7 @@
 				6E15D0161DF0A45900B4CCA7 /* Resources */,
 				6EE247D61DF21216001A6F39 /* Copy carthage frameworks */,
 				6E40B9D01EC60CE200411F69 /* Embed App Extensions */,
+				6E379EB7202647050058A129 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -822,7 +847,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxDataFlow.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
@@ -1086,13 +1110,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/static",
 					"$(PROJECT_DIR)/Carthage",
-					"$(PROJECT_DIR)/static/Release-universal",
+					"$(PROJECT_DIR)/static/temp/Release-iphonesimulator",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/static/temp/Release-iphonesimulator";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1119,13 +1143,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/static",
 					"$(PROJECT_DIR)/Carthage",
-					"$(PROJECT_DIR)/static/Release-universal",
+					"$(PROJECT_DIR)/static/temp/Release-iphonesimulator",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/static/temp/Release-iphonesimulator";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
