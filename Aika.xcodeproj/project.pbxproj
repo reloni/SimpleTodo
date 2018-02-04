@@ -19,6 +19,7 @@
 		6E07B8971EBDBC9800ADA5A8 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */; };
 		6E07ED2C1EC3636A00154DF4 /* SynchronizationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */; };
 		6E0D5C101F6592FB002AF563 /* RealmMigrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0D5C0F1F6592FB002AF563 /* RealmMigrations.swift */; };
+		6E1181DB2027162A0034B562 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8DB39420263AE600964522 /* RxDataFlow.framework */; };
 		6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */; };
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
@@ -48,7 +49,6 @@
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
 		6E6CAEAD2027126300C58A73 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E19D3DE2026361800CD1931 /* RxHttpClient.framework */; };
-		6E6CAEB12027127900C58A73 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
 		6E7AAA501EB4DB8800F2ACC3 /* GenericNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */; };
 		6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7B21321F83CE6100BF36AC /* Differentiator.framework */; };
 		6E86F4FC1EE3028500102AC3 /* TasksTableBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */; };
@@ -315,7 +315,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E6CAEB12027127900C58A73 /* RxDataFlow.framework in Frameworks */,
+				6E1181DB2027162A0034B562 /* RxDataFlow.framework in Frameworks */,
 				6E6CAEAD2027126300C58A73 /* RxHttpClient.framework in Frameworks */,
 				6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */,
 				6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */,
@@ -866,7 +866,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SimpleKeychain.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Motion.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxDataFlow.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (
@@ -1119,13 +1118,12 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
-					"$(PROJECT_DIR)/static/temp/Release-iphonesimulator",
 					"$(PROJECT_DIR)/static/universal",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/static/temp/Release-iphonesimulator";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1153,13 +1151,12 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
-					"$(PROJECT_DIR)/static/temp/Release-iphonesimulator",
 					"$(PROJECT_DIR)/static/universal",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/static/temp/Release-iphonesimulator";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";

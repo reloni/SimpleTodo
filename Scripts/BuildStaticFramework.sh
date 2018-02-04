@@ -17,7 +17,7 @@ cp -RL $SYMROOT/temp/Release-iphoneos/ $SYMROOT/universal
 cp -RL $SYMROOT/temp/Release-iphonesimulator/$FRAMEWORK_PATH/Modules/$FRAMEWORK.swiftmodule/* $SYMROOT/universal/$FRAMEWORK_PATH/Modules/$FRAMEWORK.swiftmodule
 lipo -create $SYMROOT/temp/Release-iphoneos/$FRAMEWORK_PATH/$FRAMEWORK $SYMROOT/temp/Release-iphonesimulator/$FRAMEWORK_PATH/$FRAMEWORK -output $SYMROOT/universal/$FRAMEWORK_PATH/$FRAMEWORK
 #cp -rf $SYMROOT/universal/$FRAMEWORK_PATH $SYMROOT
-#rm -rf $SYMROOT/temp
+rm -rf $SYMROOT/temp
 #rm -rf $SYMROOT/universal
 
 echo "complete build $FRAMEWORK"
