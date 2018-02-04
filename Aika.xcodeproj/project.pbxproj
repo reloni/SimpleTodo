@@ -19,7 +19,6 @@
 		6E07B8971EBDBC9800ADA5A8 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */; };
 		6E07ED2C1EC3636A00154DF4 /* SynchronizationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */; };
 		6E0D5C101F6592FB002AF563 /* RealmMigrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0D5C0F1F6592FB002AF563 /* RealmMigrations.swift */; };
-		6E1181DB2027162A0034B562 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8DB39420263AE600964522 /* RxDataFlow.framework */; };
 		6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */; };
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
@@ -35,7 +34,6 @@
 		6E3B8A7C1EB4D42600EC932F /* SettingsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */; };
 		6E40B9C81EC60CE100411F69 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40B9C71EC60CE100411F69 /* NotificationService.swift */; };
 		6E40B9CC1EC60CE200411F69 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		6E40B9D11EC60DA200411F69 /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
 		6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E494D891EBDD13100280F5F /* JWTDecode.framework */; };
 		6E4F11211FEE68D60093C6B9 /* DateToStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4F11201FEE68D60093C6B9 /* DateToStringTests.swift */; };
 		6E53A1EB1FED859A000F48D5 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E53A1EA1FED859A000F48D5 /* Date+Extensions.swift */; };
@@ -48,7 +46,6 @@
 		6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */; };
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
-		6E6CAEAD2027126300C58A73 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E19D3DE2026361800CD1931 /* RxHttpClient.framework */; };
 		6E7AAA501EB4DB8800F2ACC3 /* GenericNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */; };
 		6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7B21321F83CE6100BF36AC /* Differentiator.framework */; };
 		6E86F4FC1EE3028500102AC3 /* TasksTableBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */; };
@@ -60,6 +57,10 @@
 		6E96B07B1EBAE69B0096ACFE /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */; };
 		6E96B07F1EBC361A0096ACFE /* SnackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07E1EBC361A0096ACFE /* SnackView.swift */; };
 		6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E97DD1E1EF674F600542768 /* MessageUI.framework */; };
+		6E9B88A320276B8D007F3DEB /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
+		6E9B88A420276B8D007F3DEB /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
+		6E9B88A52027700B007F3DEB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E41E5AA56400851B4D /* SystemConfiguration.framework */; };
+		6E9B88A720277012007F3DEB /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9B88A620277012007F3DEB /* UserNotifications.framework */; };
 		6EA022C81E755A3600934BB7 /* RootReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022C71E755A3600934BB7 /* RootReducer.swift */; };
 		6EA022CA1E755A5700934BB7 /* AuthenticationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022C91E755A5700934BB7 /* AuthenticationReducer.swift */; };
 		6EA0B47E1EC1C9F4005BA709 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47C1EC1C9F4005BA709 /* Realm.framework */; };
@@ -259,6 +260,7 @@
 		6E9AA3EC1E540D9100BA8283 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = Carthage/Firebase/Analytics/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
 		6E9AA3F11E540DA100BA8283 /* FirebaseAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAuth.framework; path = Carthage/Firebase/Auth/FirebaseAuth.framework; sourceTree = "<group>"; };
 		6E9AA3F21E540DA100BA8283 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GTMSessionFetcher.framework; path = Carthage/Firebase/Auth/GTMSessionFetcher.framework; sourceTree = "<group>"; };
+		6E9B88A620277012007F3DEB /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		6EA022C71E755A3600934BB7 /* RootReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootReducer.swift; sourceTree = "<group>"; };
 		6EA022C91E755A5700934BB7 /* AuthenticationReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationReducer.swift; sourceTree = "<group>"; };
 		6EA0B47C1EC1C9F4005BA709 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -315,8 +317,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E1181DB2027162A0034B562 /* RxDataFlow.framework in Frameworks */,
-				6E6CAEAD2027126300C58A73 /* RxHttpClient.framework in Frameworks */,
+				6E9B88A720277012007F3DEB /* UserNotifications.framework in Frameworks */,
+				6E9B88A52027700B007F3DEB /* SystemConfiguration.framework in Frameworks */,
+				6E9B88A320276B8D007F3DEB /* RxDataFlow.framework in Frameworks */,
+				6E9B88A420276B8D007F3DEB /* RxHttpClient.framework in Frameworks */,
 				6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */,
 				6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */,
 				6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */,
@@ -366,7 +370,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E40B9D11EC60DA200411F69 /* OneSignal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +444,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E9B88A620277012007F3DEB /* UserNotifications.framework */,
 				6E6CAEAE2027126A00C58A73 /* Aika.xcodeproj */,
 				6E8DB39420263AE600964522 /* RxDataFlow.framework */,
 				6E163D5220264252000DB98B /* RxDataFlow.framework */,
@@ -852,20 +856,8 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/OneSignal.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Auth0.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/JWTDecode.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SimpleKeychain.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Motion.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (
@@ -1118,12 +1110,12 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
-					"$(PROJECT_DIR)/static/universal",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "-fembed-bitcode";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1151,12 +1143,12 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
-					"$(PROJECT_DIR)/static/universal",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "-fembed-bitcode";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1229,6 +1221,7 @@
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1250,6 +1243,7 @@
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

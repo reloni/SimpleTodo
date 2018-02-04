@@ -6,11 +6,11 @@ CARTHAGE_PATH="$1"
 FRAMEWORK="$2"
 FRAMEWORK_PATH="$2.framework"
 SCHEME="$3"
-EXPORT_PATH_SUFFIX="$4"
+MACH_O_TYPE="$4"
+EXPORT_PATH_SUFFIX="$5"
+
 
 eval SYMROOT="$(pwd)/Carthage/Build"
-
-MACH_O_TYPE=staticlib
 (cd Carthage/Checkouts/$CARTHAGE_PATH && xcodebuild -scheme "$SCHEME" -sdk "iphoneos" -configuration Release ONLY_ACTIVE_ARCH=NO MACH_O_TYPE=$MACH_O_TYPE SYMROOT="$SYMROOT/temp" build)
 (cd Carthage/Checkouts/$CARTHAGE_PATH && xcodebuild -scheme "$SCHEME" -sdk "iphonesimulator" -configuration Release ONLY_ACTIVE_ARCH=NO MACH_O_TYPE=$MACH_O_TYPE SYMROOT="$SYMROOT/temp" build)
 
