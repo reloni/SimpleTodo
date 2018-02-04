@@ -23,15 +23,11 @@
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
 		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
-		6E163D4F20263EBA000DB98B /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
 		6E1888911F6AF4A900AEDB85 /* TableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1888901F6AF4A900AEDB85 /* TableSectionHeader.swift */; };
 		6E19E3A11F5C166D00FDE207 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A01F5C166D00FDE207 /* main.swift */; };
 		6E19E3A41F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A31F5D08DE00FDE207 /* TaskSchedulerSerializationTests.swift */; };
 		6E2BAE911ECE28170030C2C0 /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */; };
-		6E379EB3202645CC0058A129 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E163D5220264252000DB98B /* RxDataFlow.framework */; };
-		6E379EB5202647050058A129 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E379EB4202647050058A129 /* RxDataFlow.framework */; };
-		6E379EB6202647050058A129 /* RxDataFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E379EB4202647050058A129 /* RxDataFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A751EB4CD9500EC932F /* SettingsController.swift */; };
 		6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */; };
 		6E3B8A7A1EB4CE1600EC932F /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */; };
@@ -51,6 +47,8 @@
 		6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */; };
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
+		6E6CAEAD2027126300C58A73 /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E19D3DE2026361800CD1931 /* RxHttpClient.framework */; };
+		6E6CAEB12027127900C58A73 /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
 		6E7AAA501EB4DB8800F2ACC3 /* GenericNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */; };
 		6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7B21321F83CE6100BF36AC /* Differentiator.framework */; };
 		6E86F4FC1EE3028500102AC3 /* TasksTableBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */; };
@@ -147,7 +145,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6E379EB6202647050058A129 /* RxDataFlow.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,7 +198,6 @@
 		6E2BAE901ECE28170030C2C0 /* SystemReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemReducer.swift; sourceTree = "<group>"; };
 		6E2E11DA1E2EA8BA00DF4A26 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
 		6E379EB1202644820058A129 /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = "static/temp/Release-iphoneos/RxDataFlow.framework"; sourceTree = "<group>"; };
-		6E379EB4202647050058A129 /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = "static/temp/Release-iphonesimulator/RxDataFlow.framework"; sourceTree = "<group>"; };
 		6E3B8A751EB4CD9500EC932F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		6E3B8A771EB4CDC500EC932F /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		6E3B8A791EB4CE1600EC932F /* SettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -237,6 +233,7 @@
 		6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		6E6422D91E180E1B00FAFFFB /* TableSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSections.swift; sourceTree = "<group>"; };
 		6E6AC8652025E23100ED207B /* RxHttpClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxHttpClient.framework; path = "static/Release-iphonesimulator/RxHttpClient.framework"; sourceTree = "<group>"; };
+		6E6CAEAE2027126A00C58A73 /* Aika.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Aika.xcodeproj; sourceTree = "<group>"; };
 		6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericNavigationController.swift; sourceTree = "<group>"; };
 		6E7B21321F83CE6100BF36AC /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
 		6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableBackground.swift; sourceTree = "<group>"; };
@@ -318,13 +315,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E379EB3202645CC0058A129 /* RxDataFlow.framework in Frameworks */,
-				6E163D4F20263EBA000DB98B /* RxHttpClient.framework in Frameworks */,
+				6E6CAEB12027127900C58A73 /* RxDataFlow.framework in Frameworks */,
+				6E6CAEAD2027126300C58A73 /* RxHttpClient.framework in Frameworks */,
 				6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */,
 				6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */,
 				6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */,
 				6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */,
-				6E379EB5202647050058A129 /* RxDataFlow.framework in Frameworks */,
 				6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */,
 				6E5BA8AC1EEEF40F00B61645 /* Fabric.framework in Frameworks */,
 				6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */,
@@ -380,7 +376,6 @@
 		6E15D00F1DF0A45900B4CCA7 = {
 			isa = PBXGroup;
 			children = (
-				6E379EB4202647050058A129 /* RxDataFlow.framework */,
 				6E14E5E51EE321A90021DE02 /* Aika.entitlements */,
 				6E15D01A1DF0A45A00B4CCA7 /* Aika */,
 				6E15D02F1DF0A45A00B4CCA7 /* AikaTests */,
@@ -446,6 +441,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E6CAEAE2027126A00C58A73 /* Aika.xcodeproj */,
 				6E8DB39420263AE600964522 /* RxDataFlow.framework */,
 				6E163D5220264252000DB98B /* RxDataFlow.framework */,
 				6E379EB1202644820058A129 /* RxDataFlow.framework */,
@@ -585,6 +581,11 @@
 				6E04922C1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		6E6CAEAF2027126A00C58A73 /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		6EA022C61E7559E900934BB7 /* Reducers */ = {
@@ -774,6 +775,12 @@
 			mainGroup = 6E15D00F1DF0A45900B4CCA7;
 			productRefGroup = 6E15D0191DF0A45A00B4CCA7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 6E6CAEAF2027126A00C58A73 /* Products */;
+					ProjectRef = 6E6CAEAE2027126A00C58A73 /* Aika.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6E15D0171DF0A45900B4CCA7 /* Aika */,
@@ -859,6 +866,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SimpleKeychain.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Motion.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataFlow.framework",
 			);
 			name = "Copy carthage frameworks";
 			outputPaths = (
@@ -1112,6 +1120,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
 					"$(PROJECT_DIR)/static/temp/Release-iphonesimulator",
+					"$(PROJECT_DIR)/static/universal",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1145,6 +1154,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
 					"$(PROJECT_DIR)/static/temp/Release-iphonesimulator",
+					"$(PROJECT_DIR)/static/universal",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
