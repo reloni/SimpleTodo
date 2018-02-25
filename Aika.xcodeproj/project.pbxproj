@@ -80,23 +80,6 @@
 		6EB66DFC1F64567F00C3DF76 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB66DFB1F64567F00C3DF76 /* Task.swift */; };
 		6EBC6A501F59104C0041456A /* TaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */; };
 		6EBC6A551F5920770041456A /* TaskSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBC6A541F5920770041456A /* TaskSchedulerTests.swift */; };
-		6EBC6A6B1F5924DF0041456A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E97DD1E1EF674F600542768 /* MessageUI.framework */; };
-		6EBC6A6C1F5924ED0041456A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5BA8AA1EEEF40F00B61645 /* Fabric.framework */; };
-		6EBC6A6D1F5924ED0041456A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5BA8A91EEEF40F00B61645 /* Crashlytics.framework */; };
-		6EBC6A6E1F59250C0041456A /* Auth0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E07B8921EBDB4D900ADA5A8 /* Auth0.framework */; };
-		6EBC6A6F1F59250C0041456A /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E494D891EBDD13100280F5F /* JWTDecode.framework */; };
-		6EBC6A701F59250C0041456A /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
-		6EBC6A711F59250C0041456A /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
-		6EBC6A721F59250C0041456A /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47C1EC1C9F4005BA709 /* Realm.framework */; };
-		6EBC6A731F59250C0041456A /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */; };
-		6EBC6A751F59250C0041456A /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
-		6EBC6A761F59250C0041456A /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
-		6EBC6A771F59250C0041456A /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
-		6EBC6A781F59250C0041456A /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
-		6EBC6A791F59250C0041456A /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
-		6EBC6A7A1F59250C0041456A /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
-		6EBC6A7C1F59250C0041456A /* SimpleKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB04F231EEE85F30023619A /* SimpleKeychain.framework */; };
-		6EBC6A7D1F59250C0041456A /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 		6EBD408D1E60ABF700661CA6 /* AuthenticationCoordinators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBD408C1E60ABF700661CA6 /* AuthenticationCoordinators.swift */; };
 		6EBD4A951F5A8B2300CCE0A1 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBD4A941F5A8B2300CCE0A1 /* Extension.swift */; };
 		6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */; };
@@ -321,23 +304,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EBC6A6E1F59250C0041456A /* Auth0.framework in Frameworks */,
-				6EBC6A6F1F59250C0041456A /* JWTDecode.framework in Frameworks */,
-				6EBC6A701F59250C0041456A /* Material.framework in Frameworks */,
-				6EBC6A711F59250C0041456A /* OneSignal.framework in Frameworks */,
-				6EBC6A721F59250C0041456A /* Realm.framework in Frameworks */,
-				6EBC6A731F59250C0041456A /* RealmSwift.framework in Frameworks */,
-				6EBC6A751F59250C0041456A /* RxCocoa.framework in Frameworks */,
-				6EBC6A761F59250C0041456A /* RxDataFlow.framework in Frameworks */,
-				6EBC6A771F59250C0041456A /* RxDataSources.framework in Frameworks */,
-				6EBC6A781F59250C0041456A /* RxGesture.framework in Frameworks */,
-				6EBC6A791F59250C0041456A /* RxHttpClient.framework in Frameworks */,
-				6EBC6A7A1F59250C0041456A /* RxSwift.framework in Frameworks */,
-				6EBC6A7C1F59250C0041456A /* SimpleKeychain.framework in Frameworks */,
-				6EBC6A7D1F59250C0041456A /* SnapKit.framework in Frameworks */,
-				6EBC6A6C1F5924ED0041456A /* Fabric.framework in Frameworks */,
-				6EBC6A6D1F5924ED0041456A /* Crashlytics.framework in Frameworks */,
-				6EBC6A6B1F5924DF0041456A /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,7 +624,6 @@
 				6E15D0281DF0A45A00B4CCA7 /* Sources */,
 				6E15D0291DF0A45A00B4CCA7 /* Frameworks */,
 				6E15D02A1DF0A45A00B4CCA7 /* Resources */,
-				6EBC6A801F5926FA0041456A /* Copy Carthage frameworks */,
 			);
 			buildRules = (
 			);
@@ -774,34 +739,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6EBC6A801F5926FA0041456A /* Copy Carthage frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxDataFlow.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxHttpClient.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Material.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxGesture.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/OneSignal.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Auth0.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/JWTDecode.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SimpleKeychain.framework",
-			);
-			name = "Copy Carthage frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
 		6EE247D61DF21216001A6F39 /* Copy carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
