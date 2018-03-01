@@ -76,19 +76,8 @@ extension UIWindow {
 	}
 	
 	func setRootViewController(_ controller: UIViewController, withSpringOptions options: SpringTransitionOptions) {
-		let transitionWindow = UIWindow(frame: UIScreen.main.bounds).configure {
-			$0.rootViewController = controller
-			$0.backgroundColor = .clear
-		}
-		
 		let animation = options.animation(for: controller)
-		let delegate = SpringTransitionOptions.CATransitionEndDelegate {
-			transitionWindow.rootViewController = nil
-			self.rootViewController = controller
-			transitionWindow.removeFromSuperview()
-		}
-		animation.delegate = delegate
-		transitionWindow.layer.add(animation, forKey: nil)
-		transitionWindow.makeKeyAndVisible()
+		controller.view.layer.add(animation, forKey: nil)
+		rootViewController = controller
 	}
 }

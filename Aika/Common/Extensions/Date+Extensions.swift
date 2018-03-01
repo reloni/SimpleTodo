@@ -8,6 +8,20 @@
 
 import Foundation
 
+extension Locale {
+    var is24HourFormat: Bool {
+        return !(DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: self)?.contains("a") ?? false)
+    }
+    
+    var timeFormat: Date.DateFormat {
+        if is24HourFormat {
+            return .time24
+        } else {
+            return .time12
+        }
+    }
+}
+
 extension Calendar {
 	var lastWeekday: Int {
 		let tmp = 1 - firstWeekday
@@ -19,7 +33,8 @@ extension Date {
 	enum DateFormat: String {
 		case dateFull = "E d MMM yyyy"
 		case dateWithoutYear = "E d MMM"
-		case time = "HH:mm"
+		case time24 = "HH:mm"
+        case time12 = "h:mm a"
 		case dayOfWeek = "EEEE"
 	}
 	
@@ -123,6 +138,7 @@ extension Date {
 		let formatter = DateFormatter()
 		//2017-01-05T21:55:57.001+00
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSxx"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
 		return formatter
 	}()
 	
@@ -144,19 +160,19 @@ extension Date {
 	
 	func toString(format: DisplayDateType, dateFormatter formatter: DateFormatter = Date.dateFormatter, relativeDateFormatter: DateFormatter = Date.relativeDateFormatter) -> String {
 		if case .relative = format, let spelled = toRelativeDate(dateFormatter: relativeDateFormatter) {
-			formatter.dateFormat = Date.DateFormat.time.rawValue
+			formatter.dateFormat = formatter.locale.timeFormat.rawValue
 			return format.withTime ? "\(spelled) \(formatter.string(from: self))" : spelled
 		}
 		
 		if isWithinNext7Days {
-			formatter.dateFormat = format.withTime ? "\(DateFormat.dayOfWeek.rawValue) \(DateFormat.time.rawValue)" : DateFormat.dayOfWeek.rawValue
+			formatter.dateFormat = format.withTime ? "\(DateFormat.dayOfWeek.rawValue) \(formatter.locale.timeFormat.rawValue)" : DateFormat.dayOfWeek.rawValue
 			return formatter.string(from: self)
 		}
 		
 		if isWithinCurrentYear {
-			formatter.dateFormat = format.withTime ? "\(DateFormat.dateWithoutYear.rawValue) \(DateFormat.time.rawValue)" : DateFormat.dateWithoutYear.rawValue
+			formatter.dateFormat = format.withTime ? "\(DateFormat.dateWithoutYear.rawValue) \(formatter.locale.timeFormat.rawValue)" : DateFormat.dateWithoutYear.rawValue
 		} else {
-			formatter.dateFormat = format.withTime ? "\(DateFormat.dateFull.rawValue) \(DateFormat.time.rawValue)" : DateFormat.dateFull.rawValue
+			formatter.dateFormat = format.withTime ? "\(DateFormat.dateFull.rawValue) \(formatter.locale.timeFormat.rawValue)" : DateFormat.dateFull.rawValue
 		}
 		
 		return formatter.string(from: self)
