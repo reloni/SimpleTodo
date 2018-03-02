@@ -2,7 +2,7 @@
 
 set -e
 
-#carthage update --no-build --no-use-binaries
+carthage update --no-build --no-use-binaries
 mkdir -p Carthage/Build/iOS
 
 sh ./Scripts/BuildStaticFramework.sh RxSwift RxSwift RxSwift-iOS staticlib
@@ -38,3 +38,5 @@ sh ./Scripts/BuildStaticFramework.sh JWTDecode.swift JWTDecode "JWTDecode-iOS" s
 
 ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/Auth0.swift/Carthage"
 sh ./Scripts/BuildStaticFramework.sh Auth0.swift Auth0 "Auth0.iOS" staticlib
+
+sh ./Scripts/BuildStaticFramework.sh realm-cocoa Realm "Realm" mh_dylib

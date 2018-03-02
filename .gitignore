@@ -66,3 +66,4 @@ fastlane/screenshots
 /FirebaseCrashReportKey.json
 /fastlane/README.md
 /static
+/.DS_Store
