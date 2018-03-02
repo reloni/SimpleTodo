@@ -22,7 +22,7 @@ fi
 
 lipo -create $SYMROOT/temp/Release-iphoneos$EXPORT_PATH_SUFFIX/$FRAMEWORK_PATH/$FRAMEWORK $SYMROOT/temp/Release-iphonesimulator$EXPORT_PATH_SUFFIX/$FRAMEWORK_PATH/$FRAMEWORK -output $SYMROOT/universal/$FRAMEWORK_PATH/$FRAMEWORK
 
-
+rm -rf $SYMROOT/iOS/$FRAMEWORK_PATH
 mv -f $SYMROOT/universal/$FRAMEWORK_PATH $SYMROOT/iOS/$FRAMEWORK_PATH
 rm -rf $SYMROOT/temp
 rm -rf $SYMROOT/universal

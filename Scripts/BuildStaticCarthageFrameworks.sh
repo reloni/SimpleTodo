@@ -23,8 +23,6 @@ ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/RxDataSources/Carthage
 sh ./Scripts/BuildStaticFramework.sh RxDataSources Differentiator Differentiator staticlib
 sh ./Scripts/BuildStaticFramework.sh RxDataSources RxDataSources RxDataSources staticlib
 
-sh ./Scripts/BuildStaticFramework.sh OneSignal-iOS-SDK/iOS_SDK OneSignal OneSignal-Dynamic staticlib
-
 sh ./Scripts/BuildStaticFramework.sh Motion Motion "Motion iOS" staticlib
 
 ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/Material/Carthage"
@@ -35,8 +33,10 @@ sh ./Scripts/BuildStaticFramework.sh JWTDecode.swift JWTDecode "JWTDecode-iOS" s
 ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/Auth0.swift/Carthage"
 sh ./Scripts/BuildStaticFramework.sh Auth0.swift Auth0 "Auth0.iOS" staticlib
 
-# build realm dynamic framework
+# build dynamic frameworks
 carthage update realm-cocoa --platform ios --cache-builds
+sh ./Scripts/BuildStaticFramework.sh OneSignal-iOS-SDK/iOS_SDK OneSignal OneSignal-Dynamic mh_dylib
+
 #ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/realm-cocoa/Carthage"
 #sh ./Scripts/BuildStaticFramework.sh realm-cocoa Realm "Realm iOS static" staticlib -static
 #sh ./Scripts/BuildStaticFramework.sh realm-cocoa RealmSwift RealmSwift mh_dylib
