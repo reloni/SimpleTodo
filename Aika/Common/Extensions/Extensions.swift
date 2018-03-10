@@ -13,6 +13,16 @@ import RxSwift
 import Material
 import RxDataFlow
 
+extension RxDataFlowController {
+    public func dispatchAfter(_ interval: DispatchTimeInterval, action: RxActionType) {
+        DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + interval) {
+            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + interval) {
+                self.dispatch(action)
+            }
+        }
+    }
+}
+
 extension UIStoryboard {
 	static let launchScreen = UIStoryboard(name: "LaunchScreen", bundle: nil)
 }

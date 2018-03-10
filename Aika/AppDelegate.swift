@@ -73,7 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		// workaround over asynchronous flowController action dispatch
-        window?.rootViewController = UIStoryboard.launchScreen.instantiateInitialViewController()!
+        window?.rootViewController = UIViewController()
+		window?.backgroundColor = Theme.Colors.white
         window?.makeKeyAndVisible()
 
 		return true
@@ -129,8 +130,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-		DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + .milliseconds(100)) { self.flowController.dispatch(SynchronizationAction.reload) }
-		DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + .seconds(1)) { self.flowController.dispatch(RxCompositeAction.synchronizationAction) }
+        flowController.dispatchAfter(.milliseconds(100), action: SynchronizationAction.reload)
+        flowController.dispatchAfter(.milliseconds(200), action: RxCompositeAction.synchronizationAction)
 	}
 	
 	func applicationDidBecomeActive(_ application: UIApplication) {
