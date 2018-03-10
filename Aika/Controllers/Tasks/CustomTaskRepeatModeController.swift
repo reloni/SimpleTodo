@@ -13,15 +13,23 @@ import RxDataSources
 final class CustomTaskRepeatModeController: UIViewController {
 	let bag = DisposeBag()
 	let viewModel: CustomTaskRepeatModeViewModel
+    lazy var tableViewDelegate: CustomTaskRepeatModeTableViewDelegate = {
+       return CustomTaskRepeatModeTableViewDelegate(viewModel: self.viewModel)
+    }()
 	
-	lazy var dataSource: RxTableViewSectionedReloadDataSource<CustomTaskRepeatModeSection> = {
-		return RxTableViewSectionedReloadDataSource<CustomTaskRepeatModeSection>(configureCell: { [weak self] ds, tv, ip, item in
-			let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
-			cell.textLabel?.text = item.mainText
-			cell.detailTextLabel?.text = item.detailText
-			cell.selectionStyle = .none
-			return cell
-		})
+	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection> = {
+        let animationConfiguration = AnimationConfiguration(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .bottom)
+        
+        return RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection>(
+            animationConfiguration: animationConfiguration,
+            configureCell: { [weak self] ds, tv, ip, item in
+                let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+                cell.textLabel?.text = item.mainText
+                cell.detailTextLabel?.text = item.detailText
+                cell.selectionStyle = .none
+                return cell
+            },
+            canEditRowAtIndexPath: { _, _ in return false })
 	}()
 	
 	let tableView = Theme.Controls.tableView().configure {
@@ -61,6 +69,23 @@ final class CustomTaskRepeatModeController: UIViewController {
 			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: bag)
 		
-//		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
+        tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 	}
+}
+
+
+final class CustomTaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegate {
+    let viewModel: CustomTaskRepeatModeViewModel
+    
+    init(viewModel: CustomTaskRepeatModeViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
+//
+//        cell.tapped?()
+        print("tapped")
+        viewModel.updateSections()
+    }
 }

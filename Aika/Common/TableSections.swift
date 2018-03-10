@@ -103,8 +103,12 @@ struct CustomTaskRepeatModeSection {
 	var items: [Item]
 }
 
-extension CustomTaskRepeatModeSection: SectionModelType {
+extension CustomTaskRepeatModeSection: AnimatableSectionModelType {
 	typealias Item = CustomTaskRepeatModeSectionItem
+    
+    var identity: String {
+        return header
+    }
 	
 	init(original: CustomTaskRepeatModeSection, items: [CustomTaskRepeatModeSectionItem]) {
 		self = original
@@ -135,4 +139,17 @@ enum CustomTaskRepeatModeSectionItem {
 		case .repeatEvery(let v): return "\(v)"
 		}
 	}
+}
+
+extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
+    static func ==(lhs: CustomTaskRepeatModeSectionItem, rhs: CustomTaskRepeatModeSectionItem) -> Bool {
+        return lhs.identity == rhs.identity
+    }
+    
+    var identity: String {
+        switch self {
+        case .patternType(let v): return v.rawValue
+        case .repeatEvery(let v): return "\(v)"
+        }
+    }
 }
