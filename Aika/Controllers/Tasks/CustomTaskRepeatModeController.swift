@@ -18,7 +18,7 @@ final class CustomTaskRepeatModeController: UIViewController {
     }()
 	
 	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection> = {
-        let animationConfiguration = AnimationConfiguration(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .bottom)
+        let animationConfiguration = AnimationConfiguration(insertAnimation: .middle, reloadAnimation: .fade, deleteAnimation: .middle)
         
         return RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection>(
             animationConfiguration: animationConfiguration,
@@ -82,10 +82,10 @@ final class CustomTaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
-//
-//        cell.tapped?()
-        print("tapped")
-        viewModel.updateSections()
+        if indexPath.row == 0 {
+            viewModel.updateSections_1()
+        } else if indexPath.row == 1 {
+            viewModel.updateSections_2()
+        }
     }
 }

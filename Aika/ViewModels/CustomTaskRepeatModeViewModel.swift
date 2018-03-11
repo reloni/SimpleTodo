@@ -16,8 +16,8 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
 	let title = "Setup"
     
     let sectionsSubject: BehaviorSubject<[CustomTaskRepeatModeSection]> = {
-        let section = CustomTaskRepeatModeSection(header: "Test", items: [CustomTaskRepeatModeSectionItem.patternType(.day),
-                                                                          CustomTaskRepeatModeSectionItem.repeatEvery(1)])
+        let section = CustomTaskRepeatModeSection(header: "Test", items: [CustomTaskRepeatModeSectionItem.patternType(id: "pattern", pattern: .day),
+                                                                          CustomTaskRepeatModeSectionItem.repeatEvery(id: "repeat", value: 1)])
        return BehaviorSubject<[CustomTaskRepeatModeSection]>(value: [section])
     }()
     
@@ -33,10 +33,16 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
 		self.flowController = flowController
 	}
     
-    func updateSections() {
-        let section = CustomTaskRepeatModeSection(header: "Test", items: [CustomTaskRepeatModeSectionItem.patternType(.day),
-                                                                          CustomTaskRepeatModeSectionItem.repeatEvery(1),
-                                                                          CustomTaskRepeatModeSectionItem.repeatEvery(2)])
+    func updateSections_1() {
+        let section = CustomTaskRepeatModeSection(header: "Test", items: [CustomTaskRepeatModeSectionItem.patternType(id: "pattern", pattern: .week),
+                                                                          CustomTaskRepeatModeSectionItem.repeatEvery(id: "repeat", value: 1),
+                                                                          CustomTaskRepeatModeSectionItem.repeatEvery(id: "new", value: 2)])
+        sectionsSubject.onNext([section])
+    }
+    
+    func updateSections_2() {
+        let section = CustomTaskRepeatModeSection(header: "Test", items: [CustomTaskRepeatModeSectionItem.patternType(id: "pattern", pattern: .year),
+                                                                          CustomTaskRepeatModeSectionItem.repeatEvery(id: "repeat", value: 5)])
         sectionsSubject.onNext([section])
     }
 }

@@ -123,8 +123,8 @@ enum CustomTaskRepeatModeSectionItem {
 		case month = "Monthly"
 		case year = "Yearly"
 	}
-	case patternType(PatternType)
-	case repeatEvery(Int)
+    case patternType(id: String, pattern: PatternType)
+    case repeatEvery(id: String, value: Int)
 	
 	var mainText: String {
 		switch self {
@@ -135,21 +135,25 @@ enum CustomTaskRepeatModeSectionItem {
 	
 	var detailText: String {
 		switch self {
-		case .patternType(let p): return p.rawValue
-		case .repeatEvery(let v): return "\(v)"
+		case .patternType(let p): return p.pattern.rawValue
+		case .repeatEvery(let v): return "\(v.value)"
 		}
 	}
 }
 
 extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
     static func ==(lhs: CustomTaskRepeatModeSectionItem, rhs: CustomTaskRepeatModeSectionItem) -> Bool {
-        return lhs.identity == rhs.identity
+        switch(lhs, rhs) {
+        case (.patternType(let l), .patternType(let r)): return l.pattern.rawValue == r.pattern.rawValue
+        case (.repeatEvery(let l), .repeatEvery(let r)): return l.value == r.value
+        default: return false
+        }
     }
     
     var identity: String {
         switch self {
-        case .patternType(let v): return v.rawValue
-        case .repeatEvery(let v): return "\(v)"
+        case .patternType(let v): return v.id
+        case .repeatEvery(let v): return v.id
         }
     }
 }
