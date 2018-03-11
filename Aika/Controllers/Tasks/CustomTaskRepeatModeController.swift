@@ -18,22 +18,29 @@ final class CustomTaskRepeatModeController: UIViewController {
     }()
 	
 	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection> = {
-        let animationConfiguration = AnimationConfiguration(insertAnimation: .middle, reloadAnimation: .fade, deleteAnimation: .middle)
+        let animationConfiguration = AnimationConfiguration(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .top)
         
         return RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection>(
             animationConfiguration: animationConfiguration,
             configureCell: { [weak self] ds, tv, ip, item in
-                let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
-                cell.textLabel?.text = item.mainText
-                cell.detailTextLabel?.text = item.detailText
-                cell.selectionStyle = .none
-                return cell
+                if case .placeholder = item {
+                    let cell = PlaceholderCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                    cell.contentView.backgroundColor = Theme.Colors.isabelline
+                    cell.selectionStyle = .none
+                    return cell
+                } else {
+                    let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+                    cell.textLabel?.text = item.mainText
+                    cell.detailTextLabel?.text = item.detailText
+                    cell.selectionStyle = .none
+                    return cell
+                }
             },
             canEditRowAtIndexPath: { _, _ in return false })
 	}()
 	
 	let tableView = Theme.Controls.tableView().configure {
-		$0.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 40, right: 0)
+		$0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
 	}
 	
 	init(viewModel: CustomTaskRepeatModeViewModel) {

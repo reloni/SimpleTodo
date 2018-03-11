@@ -123,6 +123,7 @@ enum CustomTaskRepeatModeSectionItem {
 		case month = "Monthly"
 		case year = "Yearly"
 	}
+    case placeholder(id: String)
     case patternType(id: String, pattern: PatternType)
     case repeatEvery(id: String, value: Int)
 	
@@ -130,6 +131,7 @@ enum CustomTaskRepeatModeSectionItem {
 		switch self {
 		case .patternType: return "Frequency"
 		case .repeatEvery: return "Every"
+        default: return ""
 		}
 	}
 	
@@ -137,6 +139,7 @@ enum CustomTaskRepeatModeSectionItem {
 		switch self {
 		case .patternType(let p): return p.pattern.rawValue
 		case .repeatEvery(let v): return "\(v.value)"
+        default: return ""
 		}
 	}
 }
@@ -146,6 +149,7 @@ extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
         switch(lhs, rhs) {
         case (.patternType(let l), .patternType(let r)): return l.pattern.rawValue == r.pattern.rawValue
         case (.repeatEvery(let l), .repeatEvery(let r)): return l.value == r.value
+        case (.placeholder(let l), .placeholder(let r)): return l == r
         default: return false
         }
     }
@@ -154,6 +158,7 @@ extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
         switch self {
         case .patternType(let v): return v.id
         case .repeatEvery(let v): return v.id
+        case .placeholder(let id): return id
         }
     }
 }
