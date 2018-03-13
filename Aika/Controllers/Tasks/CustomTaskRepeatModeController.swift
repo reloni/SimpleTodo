@@ -18,28 +18,46 @@ final class CustomTaskRepeatModeController: UIViewController {
     }()
 	
 	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection> = {
-        let animationConfiguration = AnimationConfiguration(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .top)
+        let animationConfiguration = AnimationConfiguration(insertAnimation: .middle, reloadAnimation: .fade, deleteAnimation: .middle)
+        
         
         return RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection>(
             animationConfiguration: animationConfiguration,
             configureCell: { [weak self] ds, tv, ip, item in
-                if case .placeholder = item {
+                switch item {
+                case .placeholder:
                     let cell = PlaceholderCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
                     cell.contentView.backgroundColor = Theme.Colors.isabelline
                     cell.selectionStyle = .none
                     return cell
-                } else {
+                case .picker:
+                    let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                    return cell
+                default:
                     let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
                     cell.textLabel?.text = item.mainText
                     cell.detailTextLabel?.text = item.detailText
                     cell.selectionStyle = .none
                     return cell
                 }
+//                if case .placeholder = item {
+//                    let cell = PlaceholderCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+//                    cell.contentView.backgroundColor = Theme.Colors.isabelline
+//                    cell.selectionStyle = .none
+//                    return cell
+//                } else {
+//                    let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+//                    cell.textLabel?.text = item.mainText
+//                    cell.detailTextLabel?.text = item.detailText
+//                    cell.selectionStyle = .none
+//                    return cell
+//                }
             },
             canEditRowAtIndexPath: { _, _ in return false })
 	}()
 	
 	let tableView = Theme.Controls.tableView().configure {
+        $0.estimatedRowHeight = 150
 		$0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
 	}
 	
@@ -89,9 +107,9 @@ final class CustomTaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        if indexPath.row == 1 {
             viewModel.updateSections_1()
-        } else if indexPath.row == 1 {
+        } else if indexPath.row == 3 {
             viewModel.updateSections_2()
         }
     }

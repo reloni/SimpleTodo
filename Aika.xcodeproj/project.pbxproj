@@ -70,6 +70,7 @@
 		6EA0B47E1EC1C9F4005BA709 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47C1EC1C9F4005BA709 /* Realm.framework */; };
 		6EA0B47F1EC1C9F4005BA709 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */; };
 		6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA0B4801EC1D25E005BA709 /* Repository.swift */; };
+		6EA12B94205844DC00EE1E4B /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA12B93205844DC00EE1E4B /* PickerCell.swift */; };
 		6EA2C2F61F9CF9FF004A9820 /* DecodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA2C2F51F9CF9FF004A9820 /* DecodeTests.swift */; };
 		6EA312F31FF42A8A00EAB2DB /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA312F21FF42A8A00EAB2DB /* WeakBox.swift */; };
 		6EA5ACBD2006986C00C11172 /* RootControllerSpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA5ACBC2006986C00C11172 /* RootControllerSpringTransition.swift */; };
@@ -223,6 +224,7 @@
 		6EA0B47C1EC1C9F4005BA709 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		6EA0B4801EC1D25E005BA709 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		6EA12B93205844DC00EE1E4B /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		6EA2C2F51F9CF9FF004A9820 /* DecodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeTests.swift; sourceTree = "<group>"; };
 		6EA312F21FF42A8A00EAB2DB /* WeakBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakBox.swift; sourceTree = "<group>"; };
 		6EA5ACBC2006986C00C11172 /* RootControllerSpringTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootControllerSpringTransition.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 				6E0492281F5F0CD800E7C7D2 /* TaskRepeatDescriptionView.swift */,
 				6E1888901F6AF4A900AEDB85 /* TableSectionHeader.swift */,
 				6E2563192055A7F700F3297C /* PlaceholderCell.swift */,
+				6EA12B93205844DC00EE1E4B /* PickerCell.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				6EAF1B3C1EB5297C00C72BF5 /* SlidePresentAnimationController.swift in Sources */,
 				6E3B8A781EB4CDC500EC932F /* SettingsViewModel.swift in Sources */,
 				6EB66DFC1F64567F00C3DF76 /* Task.swift in Sources */,
+				6EA12B94205844DC00EE1E4B /* PickerCell.swift in Sources */,
 				6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */,
 				6EC7AC371E9A37EF005CDF5F /* DatePickerView.swift in Sources */,
 				6EEC0D5020090CE7000EBDB2 /* AnswersService.swift in Sources */,

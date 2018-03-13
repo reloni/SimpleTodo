@@ -126,6 +126,7 @@ enum CustomTaskRepeatModeSectionItem {
     case placeholder(id: String)
     case patternType(id: String, pattern: PatternType)
     case repeatEvery(id: String, value: Int)
+    case picker(id: String)
 	
 	var mainText: String {
 		switch self {
@@ -159,6 +160,7 @@ extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
         case .patternType(let v): return v.id
         case .repeatEvery(let v): return v.id
         case .placeholder(let id): return id
+        case .picker(let id): return id
         }
     }
 }
