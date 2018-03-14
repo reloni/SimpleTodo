@@ -12,9 +12,9 @@ import RxDataFlow
 import RxHttpClient
 
 protocol WebServiceType {
-	func update(with instruction: BatchUpdate, tokenHeader: String) -> Observable<[Task]>
-	func deleteUser(tokenHeader: String) -> Observable<Void>
-	func logOut(refreshToken: String, tokenHeader: String) -> Observable<Void>
+	func update(with instruction: BatchUpdate, tokenHeader: String) -> Single<[Task]>
+	func deleteUser(tokenHeader: String) -> Completable
+	func logOut(refreshToken: String, tokenHeader: String) -> Completable
 	func withNew(host: String) -> WebServiceType
 }
 
@@ -47,33 +47,29 @@ final class WebSerivce: WebServiceType {
 			"Host": host]
 	}
 	
-	func deleteUser(tokenHeader: String) -> Observable<Void> {
+	func deleteUser(tokenHeader: String) -> Completable {
 		let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/users")!,
 		                         method: .delete,
 		                         headers: headers(withToken: tokenHeader))
 		
 		return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
-			.flatMap { _ -> Observable<Void> in
-				return .just(())
-			}
-			.catchError(WebSerivce.catchError)
+            .catchError(WebSerivce.catchError)
+            .ignoreElements()
 	}
 	
-	func logOut(refreshToken: String, tokenHeader: String) -> Observable<Void> {
+	func logOut(refreshToken: String, tokenHeader: String) -> Completable {
 		let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/users/LogOut")!,
 		                         method: .post,
 		                         jsonBody: ["RefreshToken": refreshToken],
 		                         headers: headers(withToken: tokenHeader))!
 		
 		return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
-			.flatMap { _ -> Observable<Void> in
-				return .just(())
-			}
 			.catchError(WebSerivce.catchError)
+            .ignoreElements()
 	}
 	
-	func update(with instruction: BatchUpdate, tokenHeader: String) -> Observable<[Task]> {
-		guard let jsonData = try? JSONEncoder().encode(instruction) else { return .empty() }
+	func update(with instruction: BatchUpdate, tokenHeader: String) -> Single<[Task]> {
+		guard let jsonData = try? JSONEncoder().encode(instruction) else { return .just([]) }
 
 		let request = URLRequest(url: URL(string: "\(AppConstants.baseUrl)/tasks/BatchUpdate")!,
 				   method: .post,
@@ -85,6 +81,7 @@ final class WebSerivce: WebServiceType {
 				return .just(try JSONDecoder().decode([Task].self, from: result))
 			}
 			.catchError(WebSerivce.catchError)
+            .asSingle()
 	}
 }
 

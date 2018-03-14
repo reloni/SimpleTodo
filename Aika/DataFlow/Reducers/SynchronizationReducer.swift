@@ -107,6 +107,7 @@ fileprivate func synchronize(authenticationInfo: AuthenticationInfo, repository:
 	}
 	
 	return webService.update(with: BatchUpdate(toCreate: toCreate, toUpdate: toUpdate, toDelete: toDelete), tokenHeader: authenticationInfo.tokenHeader)
+        .asObservable()
 		.flatMapLatest { result -> Observable<Void> in
 			try? repository.removeAllTasks()
 			_ = try? repository.import(tasks: result)

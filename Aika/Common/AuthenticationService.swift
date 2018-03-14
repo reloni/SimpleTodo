@@ -40,18 +40,18 @@ struct AuthenticationInfo {
 }
 
 protocol AuthenticationServiceType {
-	func logIn(authType: AuthenticationType) -> Observable<AuthenticationInfo>
-	func resetPassword(email: String) -> Observable<Void>
-	func createUser(email: String, password: String) -> Observable<Void>
-	func refreshToken(info: AuthenticationInfo) -> Observable<AuthenticationInfo>
+	func logIn(authType: AuthenticationType) -> Single<AuthenticationInfo>
+	func resetPassword(email: String) -> Completable
+	func createUser(email: String, password: String) -> Completable
+	func refreshToken(info: AuthenticationInfo) -> Single<AuthenticationInfo>
 }
 
 struct Auth0AuthenticationService: AuthenticationServiceType {
-	func logIn(authType: AuthenticationType) -> Observable<AuthenticationInfo> {
+	func logIn(authType: AuthenticationType) -> Single<AuthenticationInfo> {
 		return Auth0AuthenticationService.authenticate(authType: authType)
-			.flatMapLatest { tokens -> Observable<AuthenticationInfo> in
+			.flatMap { tokens -> Single<AuthenticationInfo> in
 				return Auth0AuthenticationService.userProfile(token: tokens.accessToken)
-					.flatMapLatest { profile -> Observable<AuthenticationInfo> in
+					.flatMap { profile -> Single<AuthenticationInfo> in
 						return .just(AuthenticationInfo(uid: profile.id,
 														token: tokens.idToken,
 														expiresAt: tokens.expiresAt ?? Date(),
@@ -60,44 +60,40 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 			}
 	}
 	
-	func createUser(email: String, password: String) -> Observable<Void> {
-		return Observable.create { observer in
+	func createUser(email: String, password: String) -> Completable {
+		return Completable.create { completable in
 			Auth0
 				.authentication()
 				.createUser(email: email, username: nil, password: password, connection: "Username-Password-Authentication")
 				.start { result in
 					switch result {
-					case .success: observer.onCompleted()
-					case .failure(error: let error): observer.onError(AuthenticationError.registerError(error))
+					case .success: completable(.completed)
+					case .failure(error: let error): completable(.error(AuthenticationError.registerError(error)))
 					}
 			}
 			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+			return Disposables.create()
 		}
 	}
 	
-	func resetPassword(email: String) -> Observable<Void> {
-		return Observable.create { observer in
+	func resetPassword(email: String) -> Completable {
+		return Completable.create { completable in
 			Auth0
 				.authentication()
 				.resetPassword(email: email, connection: "Username-Password-Authentication")
 				.start { result in
 					switch result {
-					case .success: observer.onCompleted()
-					case .failure(error: let error): observer.onError(AuthenticationError.passwordResetError(error))
+					case .success: completable(.completed)
+					case .failure(error: let error): completable(.error(AuthenticationError.passwordResetError(error)))
 					}
 			}
 			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+			return Disposables.create()
 		}
 	}
 	
-	func refreshToken(info: AuthenticationInfo) -> Observable<AuthenticationInfo> {
-		return Observable.create { observer in
+	func refreshToken(info: AuthenticationInfo) -> Single<AuthenticationInfo> {
+		return Single.create { single in
 			Auth0
 				.authentication()
 				.delegation(withParameters: ["refresh_token": info.refreshToken,
@@ -106,40 +102,35 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 				.start { result in
 					switch result {
 					case .success(let credentials):
-						guard let newToken = credentials["id_token"] as? String else { observer.onError(AuthenticationError.notAuthorized); break }
+						guard let newToken = credentials["id_token"] as? String else { single(.error(AuthenticationError.notAuthorized)); break }
 						let jwt = try? decode(jwt: newToken)
-						observer.onNext(AuthenticationInfo(uid: info.uid,
-														   token: newToken,
-														   expiresAt: jwt?.expiresAt ?? Date(),
-														   refreshToken: info.refreshToken))
-						observer.onCompleted()
+                        single(.success(AuthenticationInfo(uid: info.uid,
+                                                           token: newToken,
+                                                           expiresAt: jwt?.expiresAt ?? Date(),
+                                                           refreshToken: info.refreshToken)))
 					case .failure(let e as NSError) where e.domain == "com.auth0.authentication" && e.code == 1:
-                        observer.onError(AuthenticationError.tokenRevokedError(e))
+                        single(.error(AuthenticationError.tokenRevokedError(e)))
                     case .failure(let e):
-                        observer.onError(e)
+                        single(.error(e))
 					}
 			}
 			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+			return Disposables.create()
 		}
 	}
 	
-	static func authenticate(authType type: AuthenticationType) -> Observable<(idToken: String, refreshToken: String, accessToken: String, expiresAt: Date?)> {
-		return Observable.create { observer in
-			
+	static func authenticate(authType type: AuthenticationType) -> Single<(idToken: String, refreshToken: String, accessToken: String, expiresAt: Date?)> {
+		return Single.create { single in
 			let callback: (Auth0.Result<Auth0.Credentials>) -> () = { result in
 				switch result {
 				case .success(let credentials):
 					let jwt = try? decode(jwt: credentials.idToken!)
-					observer.onNext((idToken: credentials.idToken!,
-					                 refreshToken: credentials.refreshToken!, 
-					                 accessToken: credentials.accessToken!, 
-					                 expiresAt: jwt?.expiresAt))
-					observer.onCompleted()
+                    single(SingleEvent.success((idToken: credentials.idToken!,
+                                                refreshToken: credentials.refreshToken!,
+                                                accessToken: credentials.accessToken!,
+                                                expiresAt: jwt?.expiresAt)))
 				case .failure(let error):
-					observer.onError(AuthenticationError.signInError(error))
+                    single(SingleEvent.error(AuthenticationError.signInError(error)))
 				}
 			}
 			
@@ -166,14 +157,12 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 			case .facebook: socialAuth("facebook")
 			}
 			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+			return Disposables.create()
 		}
 	}
 	
-	static func userProfile(token: String) -> Observable<Profile> {
-		return Observable.create { observer in
+	static func userProfile(token: String) -> Single<Profile> {
+		return Single.create { single in
 			
 			Auth0
 				.authentication()
@@ -182,16 +171,13 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 					
 					switch(result) {
 					case .success(let profile):
-						observer.onNext(profile)
-						observer.onCompleted()
+                        single(.success(profile))
 					case .failure(let error):
-						observer.onError(error)
+                        single(.error(error))
 					}
 			}
 			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+			return Disposables.create()
 		}
 	}
 }
