@@ -22,10 +22,7 @@ func authenticationReducer(_ action: RxActionType, currentState: AppState) -> Ob
 	}
 }
 fileprivate func resetPassword(currentState state: AppState, email: String)  -> Observable<RxStateMutator<AppState>> {
-	return state.authenticationService.resetPassword(email: email)
-		.flatMapLatest { _ -> Observable<RxStateMutator<AppState>> in
-			return .just({ $0 })
-	}
+	return state.authenticationService.resetPassword(email: email).andThen(.empty())
 }
 
 fileprivate func deleteUser(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
@@ -69,10 +66,7 @@ fileprivate func logIn(currentState state: AppState, authType: AuthenticationTyp
 }
 
 fileprivate func register(currentState state: AppState, email: String, password: String) -> Observable<RxStateMutator<AppState>> {
-	return state.authenticationService.createUser(email: email, password: password)
-		.flatMapLatest { _ -> Observable<RxStateMutator<AppState>> in
-			return .just( { $0 } )
-	}
+	return state.authenticationService.createUser(email: email, password: password).andThen(Observable.empty())
 }
 
 fileprivate func refreshToken(currentState state: AppState, force: Bool) -> Observable<RxStateMutator<AppState>> {

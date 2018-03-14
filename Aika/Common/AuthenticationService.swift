@@ -41,8 +41,8 @@ struct AuthenticationInfo {
 
 protocol AuthenticationServiceType {
 	func logIn(authType: AuthenticationType) -> Observable<AuthenticationInfo>
-	func resetPassword(email: String) -> Observable<Void>
-	func createUser(email: String, password: String) -> Observable<Void>
+	func resetPassword(email: String) -> Completable
+	func createUser(email: String, password: String) -> Completable
 	func refreshToken(info: AuthenticationInfo) -> Observable<AuthenticationInfo>
 }
 
@@ -60,39 +60,35 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 			}
 	}
 	
-	func createUser(email: String, password: String) -> Observable<Void> {
-		return Observable.create { observer in
+	func createUser(email: String, password: String) -> Completable {
+		return Completable.create { completable in
 			Auth0
 				.authentication()
 				.createUser(email: email, username: nil, password: password, connection: "Username-Password-Authentication")
 				.start { result in
 					switch result {
-					case .success: observer.onCompleted()
-					case .failure(error: let error): observer.onError(AuthenticationError.registerError(error))
+					case .success: completable(.completed)
+					case .failure(error: let error): completable(.error(AuthenticationError.registerError(error)))
 					}
 			}
 			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+			return Disposables.create()
 		}
 	}
 	
-	func resetPassword(email: String) -> Observable<Void> {
-		return Observable.create { observer in
+	func resetPassword(email: String) -> Completable {
+		return Completable.create { completable in
 			Auth0
 				.authentication()
 				.resetPassword(email: email, connection: "Username-Password-Authentication")
 				.start { result in
 					switch result {
-					case .success: observer.onCompleted()
-					case .failure(error: let error): observer.onError(AuthenticationError.passwordResetError(error))
+					case .success: completable(.completed)
+					case .failure(error: let error): completable(.error(AuthenticationError.passwordResetError(error)))
 					}
 			}
 			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+			return Disposables.create()
 		}
 	}
 	
