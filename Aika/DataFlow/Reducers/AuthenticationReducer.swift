@@ -55,6 +55,7 @@ fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMuta
 
 fileprivate func logIn(currentState state: AppState, authType: AuthenticationType) -> Observable<RxStateMutator<AppState>> {
 	return state.authenticationService.logIn(authType: authType)
+        .asObservable()
 		.flatMapLatest { result -> Observable<RxStateMutator<AppState>> in
 			Keychain.authenticationType = authType
 			Keychain.token = result.token
