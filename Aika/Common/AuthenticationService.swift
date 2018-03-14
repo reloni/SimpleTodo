@@ -43,7 +43,7 @@ protocol AuthenticationServiceType {
 	func logIn(authType: AuthenticationType) -> Single<AuthenticationInfo>
 	func resetPassword(email: String) -> Completable
 	func createUser(email: String, password: String) -> Completable
-	func refreshToken(info: AuthenticationInfo) -> Observable<AuthenticationInfo>
+	func refreshToken(info: AuthenticationInfo) -> Single<AuthenticationInfo>
 }
 
 struct Auth0AuthenticationService: AuthenticationServiceType {
@@ -92,8 +92,8 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 		}
 	}
 	
-	func refreshToken(info: AuthenticationInfo) -> Observable<AuthenticationInfo> {
-		return Observable.create { observer in
+	func refreshToken(info: AuthenticationInfo) -> Single<AuthenticationInfo> {
+		return Single.create { single in
 			Auth0
 				.authentication()
 				.delegation(withParameters: ["refresh_token": info.refreshToken,
@@ -102,23 +102,20 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 				.start { result in
 					switch result {
 					case .success(let credentials):
-						guard let newToken = credentials["id_token"] as? String else { observer.onError(AuthenticationError.notAuthorized); break }
+						guard let newToken = credentials["id_token"] as? String else { single(.error(AuthenticationError.notAuthorized)); break }
 						let jwt = try? decode(jwt: newToken)
-						observer.onNext(AuthenticationInfo(uid: info.uid,
-														   token: newToken,
-														   expiresAt: jwt?.expiresAt ?? Date(),
-														   refreshToken: info.refreshToken))
-						observer.onCompleted()
+                        single(.success(AuthenticationInfo(uid: info.uid,
+                                                           token: newToken,
+                                                           expiresAt: jwt?.expiresAt ?? Date(),
+                                                           refreshToken: info.refreshToken)))
 					case .failure(let e as NSError) where e.domain == "com.auth0.authentication" && e.code == 1:
-                        observer.onError(AuthenticationError.tokenRevokedError(e))
+                        single(.error(AuthenticationError.tokenRevokedError(e)))
                     case .failure(let e):
-                        observer.onError(e)
+                        single(.error(e))
 					}
 			}
 			
-			return Disposables.create {
-				observer.onCompleted()
-			}
+			return Disposables.create()
 		}
 	}
 	

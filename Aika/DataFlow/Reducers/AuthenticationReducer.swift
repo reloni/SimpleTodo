@@ -73,11 +73,12 @@ fileprivate func register(currentState state: AppState, email: String, password:
 fileprivate func refreshToken(currentState state: AppState, force: Bool) -> Observable<RxStateMutator<AppState>> {
 	guard let info = state.authentication.info else { return .empty() }
 	
-	guard info.isTokenExpired || force else {
-		return .just( { $0 })
-	}
+    guard info.isTokenExpired || force else {
+        return .just( { $0 })
+    }
 	
 	return state.authenticationService.refreshToken(info: info)
+        .asObservable()
 		.flatMapLatest { result -> Observable<RxStateMutator<AppState>> in
 			Keychain.token = result.token
 			Keychain.refreshToken = result.refreshToken
