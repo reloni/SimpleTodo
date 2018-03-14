@@ -28,8 +28,7 @@ fileprivate func resetPassword(currentState state: AppState, email: String)  -> 
 fileprivate func deleteUser(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 	guard let info = state.authentication.info else { return .empty() }
 	
-	return state.webService.deleteUser(tokenHeader: info.tokenHeader)
-		.flatMap { Observable.just( { $0 } ) }
+	return state.webService.deleteUser(tokenHeader: info.tokenHeader).andThen(.empty())
 }
 
 fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMutator<AppState>> {
@@ -49,8 +48,8 @@ fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMuta
 			Keychain.userUuid = ""
 			Keychain.tokenExpirationDate = Date()
 		})
-		.flatMap { Observable<RxStateMutator<AppState>>.just(returnMutator) }
-		.catchErrorJustReturn(returnMutator)
+        .andThen(Observable<RxStateMutator<AppState>>.just(returnMutator))
+        .catchErrorJustReturn(returnMutator)
 }
 
 fileprivate func logIn(currentState state: AppState, authType: AuthenticationType) -> Observable<RxStateMutator<AppState>> {
