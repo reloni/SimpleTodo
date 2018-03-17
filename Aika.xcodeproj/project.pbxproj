@@ -77,7 +77,7 @@
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
 		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
 		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
-		6EAACA291EB7591D004EB190 /* DefaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAACA281EB7591D004EB190 /* DefaultCell.swift */; };
+		6EAACA291EB7591D004EB190 /* TappableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAACA281EB7591D004EB190 /* TappableCell.swift */; };
 		6EAACA2D1EB75F99004EB190 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAACA2C1EB75F99004EB190 /* SwitchCell.swift */; };
 		6EAC86DC1FCAFCEF00728F59 /* RootControllerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAC86DB1FCAFCEF00728F59 /* RootControllerTransition.swift */; };
 		6EAF1B391EB5244C00C72BF5 /* InitialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAF1B381EB5244C00C72BF5 /* InitialCoordinator.swift */; };
@@ -231,7 +231,7 @@
 		6EA7B4201E06A3940043BAA1 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = State.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
-		6EAACA281EB7591D004EB190 /* DefaultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCell.swift; sourceTree = "<group>"; };
+		6EAACA281EB7591D004EB190 /* TappableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TappableCell.swift; sourceTree = "<group>"; };
 		6EAACA2C1EB75F99004EB190 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		6EAC86DB1FCAFCEF00728F59 /* RootControllerTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootControllerTransition.swift; sourceTree = "<group>"; };
 		6EAF1B381EB5244C00C72BF5 /* InitialCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialCoordinator.swift; sourceTree = "<group>"; };
@@ -460,7 +460,7 @@
 				6E0645591E993EB600A8AA59 /* SwitchView.swift */,
 				6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */,
 				6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */,
-				6EAACA281EB7591D004EB190 /* DefaultCell.swift */,
+				6EAACA281EB7591D004EB190 /* TappableCell.swift */,
 				6EAACA2C1EB75F99004EB190 /* SwitchCell.swift */,
 				6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */,
 				6E96B07E1EBC361A0096ACFE /* SnackView.swift */,
@@ -761,7 +761,7 @@
 				6ED0A20A1E79835E00B59B52 /* EditTaskViewModel.swift in Sources */,
 				6E30C8FF200A731D00038A8F /* CustomTaskRepeatModeViewModel.swift in Sources */,
 				6EAACA2D1EB75F99004EB190 /* SwitchCell.swift in Sources */,
-				6EAACA291EB7591D004EB190 /* DefaultCell.swift in Sources */,
+				6EAACA291EB7591D004EB190 /* TappableCell.swift in Sources */,
 				6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */,
 				6EF1D16F1FE99676002EC506 /* AuthenticationController+Constraints.swift in Sources */,
 				6E3B8A761EB4CD9500EC932F /* SettingsController.swift in Sources */,

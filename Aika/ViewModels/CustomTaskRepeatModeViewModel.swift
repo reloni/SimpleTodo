@@ -10,53 +10,79 @@ import Foundation
 import RxDataFlow
 import RxSwift
 
+protocol CustomTaskRepeatModeViewModelInputs {
+    var patternType: PublishSubject<CustomRepeatPatternType> { get }
+    var patternTypeSelected: PublishSubject<Bool> { get }
+}
+
 final class CustomTaskRepeatModeViewModel: ViewModelType {
+    struct State {
+        let pattern: CustomRepeatPatternType
+        let patternExpanded: Bool
+        let repeatEvery: Int
+        let repeatEveryExpanded: Bool
+        
+        var sections: [CustomTaskRepeatModeSection] {
+            let basicSectionItems = [
+                CustomTaskRepeatModeSectionItem.placeholder(id: "placeholder"),
+                CustomTaskRepeatModeSectionItem.patternType(pattern: pattern),
+                patternExpanded ? CustomTaskRepeatModeSectionItem.patternTypePicker : nil,
+                CustomTaskRepeatModeSectionItem.repeatEvery(value: repeatEvery),
+                repeatEveryExpanded ? CustomTaskRepeatModeSectionItem.repeatEveryPicker : nil
+                ].flatMap { $0 }
+            let basicSection = CustomTaskRepeatModeSection(header: "Basic setup", items: basicSectionItems)
+            return [basicSection]
+        }
+        
+        func new(pattern: CustomRepeatPatternType? = nil, patternExpanded: Bool? = nil) -> State {
+            return State(pattern: pattern ?? self.pattern,
+                         patternExpanded: patternExpanded ?? self.patternExpanded,
+                         repeatEvery: self.repeatEvery,
+                         repeatEveryExpanded: self.repeatEveryExpanded)
+        }
+    }
+    
 	let flowController: RxDataFlowController<AppState>
+    let bag = DisposeBag()
+
+    // MARK: Inputs
+    let patternType = PublishSubject<CustomRepeatPatternType>()
+    let patternTypeSelected = PublishSubject<Bool>()
 	
 	let title = "Setup"
     
-    let sectionsSubject: BehaviorSubject<[CustomTaskRepeatModeSection]> = {
-        let section = CustomTaskRepeatModeSection(header: "Test 1", items: [
-            CustomTaskRepeatModeSectionItem.placeholder(id: "placeholder"),
-            CustomTaskRepeatModeSectionItem.patternType(id: "pattern", pattern: .day),
-            CustomTaskRepeatModeSectionItem.repeatEvery(id: "repeat", value: 1)])
-       return BehaviorSubject<[CustomTaskRepeatModeSection]>(value: [section])
-    }()
+    private let stateSubject: BehaviorSubject<State>
+    var state: Observable<State> { return stateSubject.asObservable() }
     
-    var sections: Observable<[CustomTaskRepeatModeSection]> { return sectionsSubject.asObservable().share(replay: 1, scope: SubjectLifetimeScope.whileConnected) }
-	
-//    lazy var sections: Observable<[CustomTaskRepeatModeSection]> = {
-//        let section = CustomTaskRepeatModeSection(header: "Test", items: [CustomTaskRepeatModeSectionItem.patternType(.day),
-//                                                                       CustomTaskRepeatModeSectionItem.repeatEvery(1)])
-//        return .just([section])
-//    }()
-
+    var sections: Observable<[CustomTaskRepeatModeSection]> {
+        return stateSubject
+            .asObservable()
+            .share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+            .map { $0.sections }
+    }
+    
 	init(flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController
+        stateSubject = BehaviorSubject(value: State(pattern: .day, patternExpanded: false, repeatEvery: 1, repeatEveryExpanded: false))
+        
+        setupRx()
 	}
     
-    func updateSections_1() {
-        let section1 = CustomTaskRepeatModeSection(header: "Test 1", items: [
-            CustomTaskRepeatModeSectionItem.placeholder(id: "placeholder"),
-            CustomTaskRepeatModeSectionItem.patternType(id: "pattern", pattern: .day),
-            CustomTaskRepeatModeSectionItem.picker(id: "picker 1"),
-            CustomTaskRepeatModeSectionItem.repeatEvery(id: "repeat", value: 1)])
-
-//        let section2 = CustomTaskRepeatModeSection(header: "Test 2", items: [
-//            CustomTaskRepeatModeSectionItem.placeholder(id: "placeholder 1"),
-//            CustomTaskRepeatModeSectionItem.patternType(id: "pattern 1", pattern: .week),
-//            CustomTaskRepeatModeSectionItem.repeatEvery(id: "repeat 1", value: 1),
-//            CustomTaskRepeatModeSectionItem.repeatEvery(id: "new 1", value: 2)])
+    private func setupRx() {
+        patternType
+            .withLatestFrom(stateSubject) { return ($1, $0) }
+            .map { $0.0.new(pattern: $0.1) }
+            .bind(to: stateSubject)
+            .disposed(by: bag)
         
-        sectionsSubject.onNext([section1])
+        patternTypeSelected
+            .withLatestFrom(stateSubject) { return ($1, $0) }
+            .map { $0.0.new(patternExpanded: $0.1) }
+            .bind(to: stateSubject)
+            .disposed(by: bag)
     }
-    
-    func updateSections_2() {
-        let section = CustomTaskRepeatModeSection(header: "Test 1", items: [
-            CustomTaskRepeatModeSectionItem.placeholder(id: "placeholder"),
-            CustomTaskRepeatModeSectionItem.patternType(id: "pattern", pattern: .day),
-            CustomTaskRepeatModeSectionItem.repeatEvery(id: "repeat", value: 1),
-            CustomTaskRepeatModeSectionItem.picker(id: "picker 2")])
-        sectionsSubject.onNext([section])
-    }
+}
+
+extension CustomTaskRepeatModeViewModel: CustomTaskRepeatModeViewModelInputs {
+    var inputs: CustomTaskRepeatModeViewModelInputs { return self }
 }

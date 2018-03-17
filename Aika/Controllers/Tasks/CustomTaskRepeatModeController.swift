@@ -30,34 +30,36 @@ final class CustomTaskRepeatModeController: UIViewController {
                     cell.contentView.backgroundColor = Theme.Colors.isabelline
                     cell.selectionStyle = .none
                     return cell
-                case .picker:
+                case .repeatEveryPicker, .patternTypePicker:
                     let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
                     return cell
-                default:
-                    let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+                case .patternType:
+                    let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
                     cell.textLabel?.text = item.mainText
                     cell.detailTextLabel?.text = item.detailText
                     cell.selectionStyle = .none
+                    cell.tapped = { [weak self] in
+                        self?.patternTypeSelectionToggledSubject.onNext(())
+                    }
+                    return cell
+                case .repeatEvery:
+                    let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+                    cell.textLabel?.text = item.mainText
+                    cell.detailTextLabel?.text = item.detailText
+                    cell.selectionStyle = .none
+                    cell.tapped = { [weak self] in
+
+                    }
                     return cell
                 }
-//                if case .placeholder = item {
-//                    let cell = PlaceholderCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
-//                    cell.contentView.backgroundColor = Theme.Colors.isabelline
-//                    cell.selectionStyle = .none
-//                    return cell
-//                } else {
-//                    let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
-//                    cell.textLabel?.text = item.mainText
-//                    cell.detailTextLabel?.text = item.detailText
-//                    cell.selectionStyle = .none
-//                    return cell
-//                }
             },
             canEditRowAtIndexPath: { _, _ in return false })
 	}()
+    
+    let patternTypeSelectionToggledSubject = PublishSubject<Void>()
 	
 	let tableView = Theme.Controls.tableView().configure {
-        $0.estimatedRowHeight = 150
+        $0.estimatedRowHeight = 50
 		$0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
 	}
 	
@@ -93,6 +95,10 @@ final class CustomTaskRepeatModeController: UIViewController {
 			.observeOn(MainScheduler.instance)
 			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: bag)
+        
+        patternTypeSelectionToggledSubject.withLatestFrom(viewModel.state) { !$1.patternExpanded }
+            .bind(to: viewModel.inputs.patternTypeSelected)
+            .disposed(by: bag)
 		
         tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 	}
@@ -107,10 +113,8 @@ final class CustomTaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 1 {
-            viewModel.updateSections_1()
-        } else if indexPath.row == 3 {
-            viewModel.updateSections_2()
-        }
+        guard let cell = tableView.cellForRow(at: indexPath) as? TappableCell else { return }
+        
+        cell.tapped?()
     }
 }

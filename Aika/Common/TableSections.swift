@@ -117,16 +117,11 @@ extension CustomTaskRepeatModeSection: AnimatableSectionModelType {
 }
 
 enum CustomTaskRepeatModeSectionItem {
-	enum PatternType: String {
-		case day = "Daily"
-		case week = "Weekly"
-		case month = "Monthly"
-		case year = "Yearly"
-	}
     case placeholder(id: String)
-    case patternType(id: String, pattern: PatternType)
-    case repeatEvery(id: String, value: Int)
-    case picker(id: String)
+    case patternType(pattern: CustomRepeatPatternType)
+    case patternTypePicker
+    case repeatEvery(value: Int)
+    case repeatEveryPicker
 	
 	var mainText: String {
 		switch self {
@@ -138,8 +133,8 @@ enum CustomTaskRepeatModeSectionItem {
 	
 	var detailText: String {
 		switch self {
-		case .patternType(let p): return p.pattern.rawValue
-		case .repeatEvery(let v): return "\(v.value)"
+		case .patternType(let p): return p.rawValue
+		case .repeatEvery(let v): return "\(v)"
         default: return ""
 		}
 	}
@@ -148,19 +143,22 @@ enum CustomTaskRepeatModeSectionItem {
 extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
     static func ==(lhs: CustomTaskRepeatModeSectionItem, rhs: CustomTaskRepeatModeSectionItem) -> Bool {
         switch(lhs, rhs) {
-        case (.patternType(let l), .patternType(let r)): return l.pattern.rawValue == r.pattern.rawValue
-        case (.repeatEvery(let l), .repeatEvery(let r)): return l.value == r.value
+        case (.patternType(let l), .patternType(let r)): return l.rawValue == r.rawValue
+        case (.repeatEvery(let l), .repeatEvery(let r)): return l == r
         case (.placeholder(let l), .placeholder(let r)): return l == r
+        case (patternTypePicker, patternTypePicker): return true
+        case (repeatEveryPicker, repeatEveryPicker): return true
         default: return false
         }
     }
     
     var identity: String {
         switch self {
-        case .patternType(let v): return v.id
-        case .repeatEvery(let v): return v.id
+        case .patternType: return "patternType"
+        case .repeatEvery: return "repeatEvery"
         case .placeholder(let id): return id
-        case .picker(let id): return id
+        case .patternTypePicker: return "patternTypePicker"
+        case .repeatEveryPicker: return "repeatEveryPicker"
         }
     }
 }

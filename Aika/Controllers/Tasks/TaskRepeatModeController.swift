@@ -17,8 +17,8 @@ final class TaskRepeatModeController: UIViewController {
 	
 	lazy var dataSource: RxTableViewSectionedReloadDataSource<TaskRepeatModeSection> = {
 		return RxTableViewSectionedReloadDataSource<TaskRepeatModeSection>(configureCell: { [weak self] ds, tv, ip, item in
-			let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
-			
+			let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! TappableCell
+
 			cell.textLabel?.text = item.text
 			if item.isSelected {
 				cell.imageView?.image = Theme.Images.checked.resize(toWidth: 22)
@@ -42,7 +42,7 @@ final class TaskRepeatModeController: UIViewController {
 	}()
 	
 	let tableView = Theme.Controls.tableView().configure {
-		$0.register(DefaultCell.self, forCellReuseIdentifier: "Default")
+		$0.register(TappableCell.self, forCellReuseIdentifier: "Default")
 	}
 	
 	init(viewModel: TaskRepeatModeViewModel) {
@@ -95,7 +95,7 @@ final class TaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
+		guard let cell = tableView.cellForRow(at: indexPath) as? TappableCell else { return }
 
 		cell.tapped?()
 	}

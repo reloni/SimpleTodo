@@ -47,6 +47,13 @@ enum IconBadgeStyle: String {
 	case all
 }
 
+enum CustomRepeatPatternType: String {
+    case day = "Daily"
+    case week = "Weekly"
+    case month = "Monthly"
+    case year = "Yearly"
+}
+
 enum AuthenticationError : Error {
 	case signInError(Error)
 	case registerError(Error)
