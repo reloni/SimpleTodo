@@ -38,18 +38,14 @@ final class CustomTaskRepeatModeController: UIViewController {
                     cell.textLabel?.text = item.mainText
                     cell.detailTextLabel?.text = item.detailText
                     cell.selectionStyle = .none
-                    cell.tapped = { [weak self] in
-                        self?.patternTypeSelectionToggledSubject.onNext(())
-                    }
+                    cell.tapped = { [weak self] in self?.patternTypeSelectionToggledSubject.onNext(()) }
                     return cell
                 case .repeatEvery:
                     let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
                     cell.textLabel?.text = item.mainText
                     cell.detailTextLabel?.text = item.detailText
                     cell.selectionStyle = .none
-                    cell.tapped = { [weak self] in
-
-                    }
+                    cell.tapped = { [weak self] in self?.repeatEverySelectionToggledSubject.onNext(()) }
                     return cell
                 }
             },
@@ -57,6 +53,7 @@ final class CustomTaskRepeatModeController: UIViewController {
 	}()
     
     let patternTypeSelectionToggledSubject = PublishSubject<Void>()
+    let repeatEverySelectionToggledSubject = PublishSubject<Void>()
 	
 	let tableView = Theme.Controls.tableView().configure {
         $0.estimatedRowHeight = 50
@@ -98,6 +95,10 @@ final class CustomTaskRepeatModeController: UIViewController {
         
         patternTypeSelectionToggledSubject.withLatestFrom(viewModel.state) { !$1.patternExpanded }
             .bind(to: viewModel.inputs.patternTypeSelected)
+            .disposed(by: bag)
+        
+        repeatEverySelectionToggledSubject.withLatestFrom(viewModel.state) { !$1.repeatEveryExpanded }
+            .bind(to: viewModel.inputs.repeatEverySelected)
             .disposed(by: bag)
 		
         tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)

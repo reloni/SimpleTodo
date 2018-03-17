@@ -13,6 +13,8 @@ import RxSwift
 protocol CustomTaskRepeatModeViewModelInputs {
     var patternType: PublishSubject<CustomRepeatPatternType> { get }
     var patternTypeSelected: PublishSubject<Bool> { get }
+    var repeatEvery: PublishSubject<Int> { get }
+    var repeatEverySelected: PublishSubject<Bool> { get }
 }
 
 final class CustomTaskRepeatModeViewModel: ViewModelType {
@@ -34,11 +36,21 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
             return [basicSection]
         }
         
-        func new(pattern: CustomRepeatPatternType? = nil, patternExpanded: Bool? = nil) -> State {
+        func new(pattern: CustomRepeatPatternType? = nil, patternExpanded: Bool? = nil, repeatEvery: Int? = nil, repeatEveryExpanded: Bool? = nil) -> State {
+            let newPatternExpanded: Bool = {
+                guard let value = repeatEveryExpanded, value == true else { return patternExpanded ?? self.patternExpanded }
+                return !value
+            }()
+            
+            let newRepeatEveryExpanded: Bool = {
+                guard let value = patternExpanded, value == true else { return repeatEveryExpanded ?? self.repeatEveryExpanded }
+                return !value
+            }()
+            
             return State(pattern: pattern ?? self.pattern,
-                         patternExpanded: patternExpanded ?? self.patternExpanded,
-                         repeatEvery: self.repeatEvery,
-                         repeatEveryExpanded: self.repeatEveryExpanded)
+                         patternExpanded: newPatternExpanded,
+                         repeatEvery: repeatEvery ?? self.repeatEvery,
+                         repeatEveryExpanded: newRepeatEveryExpanded)
         }
     }
     
@@ -48,6 +60,8 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
     // MARK: Inputs
     let patternType = PublishSubject<CustomRepeatPatternType>()
     let patternTypeSelected = PublishSubject<Bool>()
+    let repeatEvery = PublishSubject<Int>()
+    let repeatEverySelected = PublishSubject<Bool>()
 	
 	let title = "Setup"
     
@@ -78,6 +92,16 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         patternTypeSelected
             .withLatestFrom(stateSubject) { return ($1, $0) }
             .map { $0.0.new(patternExpanded: $0.1) }
+            .bind(to: stateSubject)
+            .disposed(by: bag)
+        
+        repeatEvery
+            .withLatestFrom(stateSubject) { return $1.new(repeatEvery: $0) }
+            .bind(to: stateSubject)
+            .disposed(by: bag)
+        
+        repeatEverySelected
+            .withLatestFrom(stateSubject) { return $1.new(repeatEveryExpanded: $0) }
             .bind(to: stateSubject)
             .disposed(by: bag)
     }
