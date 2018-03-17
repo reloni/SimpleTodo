@@ -22,17 +22,13 @@ func authenticationReducer(_ action: RxActionType, currentState: AppState) -> Ob
 	}
 }
 fileprivate func resetPassword(currentState state: AppState, email: String)  -> Observable<RxStateMutator<AppState>> {
-	return state.authenticationService.resetPassword(email: email)
-		.flatMapLatest { _ -> Observable<RxStateMutator<AppState>> in
-			return .just({ $0 })
-	}
+	return state.authenticationService.resetPassword(email: email).andThen(.empty())
 }
 
 fileprivate func deleteUser(currentState state: AppState) -> Observable<RxStateMutator<AppState>> {
 	guard let info = state.authentication.info else { return .empty() }
 	
-	return state.webService.deleteUser(tokenHeader: info.tokenHeader)
-		.flatMap { Observable.just( { $0 } ) }
+	return state.webService.deleteUser(tokenHeader: info.tokenHeader).andThen(.empty())
 }
 
 fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMutator<AppState>> {
@@ -52,12 +48,13 @@ fileprivate func logOut(currentState state: AppState)  -> Observable<RxStateMuta
 			Keychain.userUuid = ""
 			Keychain.tokenExpirationDate = Date()
 		})
-		.flatMap { Observable<RxStateMutator<AppState>>.just(returnMutator) }
-		.catchErrorJustReturn(returnMutator)
+        .andThen(Observable<RxStateMutator<AppState>>.just(returnMutator))
+        .catchErrorJustReturn(returnMutator)
 }
 
 fileprivate func logIn(currentState state: AppState, authType: AuthenticationType) -> Observable<RxStateMutator<AppState>> {
 	return state.authenticationService.logIn(authType: authType)
+        .asObservable()
 		.flatMapLatest { result -> Observable<RxStateMutator<AppState>> in
 			Keychain.authenticationType = authType
 			Keychain.token = result.token
@@ -69,20 +66,18 @@ fileprivate func logIn(currentState state: AppState, authType: AuthenticationTyp
 }
 
 fileprivate func register(currentState state: AppState, email: String, password: String) -> Observable<RxStateMutator<AppState>> {
-	return state.authenticationService.createUser(email: email, password: password)
-		.flatMapLatest { _ -> Observable<RxStateMutator<AppState>> in
-			return .just( { $0 } )
-	}
+	return state.authenticationService.createUser(email: email, password: password).andThen(Observable.empty())
 }
 
 fileprivate func refreshToken(currentState state: AppState, force: Bool) -> Observable<RxStateMutator<AppState>> {
 	guard let info = state.authentication.info else { return .empty() }
 	
-	guard info.isTokenExpired || force else {
-		return .just( { $0 })
-	}
+    guard info.isTokenExpired || force else {
+        return .just( { $0 })
+    }
 	
 	return state.authenticationService.refreshToken(info: info)
+        .asObservable()
 		.flatMapLatest { result -> Observable<RxStateMutator<AppState>> in
 			Keychain.token = result.token
 			Keychain.refreshToken = result.refreshToken
