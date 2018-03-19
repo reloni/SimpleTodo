@@ -55,11 +55,9 @@ final class CustomTaskRepeatModeController: UIViewController {
                             .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
                             .disposed(by: controller.bag)
                         
-                        cell.picker.rx.modelSelected(Any.self)
-                            .subscribe(onNext: { models in
-                                print(models)
-                            })
-                            .disposed(by: controller.bag)
+                        cell.picker.rx.itemSelected.subscribe(onNext: { row, component in
+                            print("row: \(row) component: \(component)")
+                        }).disposed(by: controller.bag)
                     }
                     
                     return cell
@@ -101,7 +99,7 @@ final class CustomTaskRepeatModeController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		view.addSubview(tableView)
 		
 		title = viewModel.title
@@ -151,8 +149,8 @@ final class CustomTaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegat
 }
 
 private final class CustomTaskRepeatModePickerViewViewAdapter: NSObject, UIPickerViewDataSource, UIPickerViewDelegate, RxPickerViewDataSourceType, SectionedViewDataSourceType {
-    typealias Element = [[CustomTaskRepeatModeListItem]]
-    private var items: [[CustomTaskRepeatModeListItem]] = []
+    typealias Element = [[CustomStringConvertible]]
+    private var items: [[CustomStringConvertible]] = []
     
     func model(at indexPath: IndexPath) throws -> Any {
         return items[indexPath.section][indexPath.row]
@@ -168,7 +166,7 @@ private final class CustomTaskRepeatModePickerViewViewAdapter: NSObject, UIPicke
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         return Theme.Controls.label(withStyle: .headline).configure {
-            $0.text = items[component][row].displayValue
+            $0.text = items[component][row].description
             $0.textAlignment = .center
         }
     }

@@ -18,20 +18,12 @@ protocol CustomTaskRepeatModeViewModelInputs {
 }
 
 protocol CustomTaskRepeatModeViewModelOutputs {
-    var patternTypetems: Observable<[[CustomTaskRepeatModeListItem]]> { get }
-    var repeatEveryItems: Observable<[[CustomTaskRepeatModeListItem]]> { get }
+    var patternTypetems: Observable<[[CustomStringConvertible]]> { get }
+    var repeatEveryItems: Observable<[[CustomStringConvertible]]> { get }
 }
 
-protocol CustomTaskRepeatModeListItem {
-    var displayValue: String { get }
-}
-
-extension Int: CustomTaskRepeatModeListItem {
-    var displayValue: String { return "\(self)" }
-}
-
-extension CustomRepeatPatternType: CustomTaskRepeatModeListItem {
-    var displayValue: String {
+private extension CustomRepeatPatternType {
+    var repeatEveryDisplayValue: String {
         switch self {
         case .day: return "Day(s)"
         case .month: return "Month(s)"
@@ -138,12 +130,14 @@ extension CustomTaskRepeatModeViewModel: CustomTaskRepeatModeViewModelInputs {
 extension CustomTaskRepeatModeViewModel: CustomTaskRepeatModeViewModelOutputs {
     var outputs: CustomTaskRepeatModeViewModelOutputs { return self }
    
-    var repeatEveryItems: Observable<[[CustomTaskRepeatModeListItem]]> {
+    var repeatEveryItems: Observable<[[CustomStringConvertible]]> {
         return state.asObservable().map { state in
-            return [[Int](1...999), [state.pattern]]
+            return [[Int](1...999), [state.pattern.repeatEveryDisplayValue]]
         }
     }
-    var patternTypetems: Observable<[[CustomTaskRepeatModeListItem]]> {
-        return Observable.just([[CustomRepeatPatternType.day, CustomRepeatPatternType.month, CustomRepeatPatternType.week]])
+    var patternTypetems: Observable<[[CustomStringConvertible]]> {
+        return Observable.just([[CustomRepeatPatternType.day.rawValue,
+                                 CustomRepeatPatternType.month.rawValue,
+                                 CustomRepeatPatternType.week.rawValue]])
     }
 }
