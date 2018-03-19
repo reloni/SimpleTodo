@@ -17,6 +17,30 @@ protocol CustomTaskRepeatModeViewModelInputs {
     var repeatEverySelected: PublishSubject<Bool> { get }
 }
 
+protocol CustomTaskRepeatModeViewModelOutputs {
+    var patternTypetems: Observable<[[CustomTaskRepeatModeListItem]]> { get }
+    var repeatEveryItems: Observable<[[CustomTaskRepeatModeListItem]]> { get }
+}
+
+protocol CustomTaskRepeatModeListItem {
+    var displayValue: String { get }
+}
+
+extension Int: CustomTaskRepeatModeListItem {
+    var displayValue: String { return "\(self)" }
+}
+
+extension CustomRepeatPatternType: CustomTaskRepeatModeListItem {
+    var displayValue: String {
+        switch self {
+        case .day: return "Day(s)"
+        case .month: return "Month(s)"
+        case .week: return "Week(s)"
+        case .year: return "Year(s)"
+        }
+    }
+}
+
 final class CustomTaskRepeatModeViewModel: ViewModelType {
     struct State {
         let pattern: CustomRepeatPatternType
@@ -109,4 +133,17 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
 
 extension CustomTaskRepeatModeViewModel: CustomTaskRepeatModeViewModelInputs {
     var inputs: CustomTaskRepeatModeViewModelInputs { return self }
+}
+
+extension CustomTaskRepeatModeViewModel: CustomTaskRepeatModeViewModelOutputs {
+    var outputs: CustomTaskRepeatModeViewModelOutputs { return self }
+   
+    var repeatEveryItems: Observable<[[CustomTaskRepeatModeListItem]]> {
+        return state.asObservable().map { state in
+            return [[Int](1...999), [state.pattern]]
+        }
+    }
+    var patternTypetems: Observable<[[CustomTaskRepeatModeListItem]]> {
+        return Observable.just([[CustomRepeatPatternType.day, CustomRepeatPatternType.month, CustomRepeatPatternType.week]])
+    }
 }

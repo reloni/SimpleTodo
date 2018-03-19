@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import RxDataSources
 
 final class CustomTaskRepeatModeController: UIViewController {
@@ -30,8 +31,37 @@ final class CustomTaskRepeatModeController: UIViewController {
                     cell.contentView.backgroundColor = Theme.Colors.isabelline
                     cell.selectionStyle = .none
                     return cell
-                case .repeatEveryPicker, .patternTypePicker:
+                case .patternTypePicker:
                     let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                    
+                    if let controller = self {
+                        controller.viewModel.outputs.patternTypetems
+                            .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
+                            .disposed(by: controller.bag)
+                        
+                        cell.picker.rx.modelSelected(Any.self)
+                            .subscribe(onNext: { models in
+                                print(models)
+                            })
+                            .disposed(by: controller.bag)
+                    }
+                    
+                    return cell
+                case .repeatEveryPicker:
+                    let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                    
+                    if let controller = self {
+                        controller.viewModel.outputs.repeatEveryItems
+                            .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
+                            .disposed(by: controller.bag)
+                        
+                        cell.picker.rx.modelSelected(Any.self)
+                            .subscribe(onNext: { models in
+                                print(models)
+                            })
+                            .disposed(by: controller.bag)
+                    }
+                    
                     return cell
                 case .patternType:
                     let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
@@ -117,5 +147,36 @@ final class CustomTaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegat
         guard let cell = tableView.cellForRow(at: indexPath) as? TappableCell else { return }
         
         cell.tapped?()
+    }
+}
+
+private final class CustomTaskRepeatModePickerViewViewAdapter: NSObject, UIPickerViewDataSource, UIPickerViewDelegate, RxPickerViewDataSourceType, SectionedViewDataSourceType {
+    typealias Element = [[CustomTaskRepeatModeListItem]]
+    private var items: [[CustomTaskRepeatModeListItem]] = []
+    
+    func model(at indexPath: IndexPath) throws -> Any {
+        return items[indexPath.section][indexPath.row]
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return items.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return items[component].count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        return Theme.Controls.label(withStyle: .headline).configure {
+            $0.text = items[component][row].displayValue
+            $0.textAlignment = .center
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, observedEvent: Event<Element>) {
+        Binder(self) { (adapter, items) in
+            adapter.items = items
+            pickerView.reloadAllComponents()
+            }.on(observedEvent)
     }
 }
