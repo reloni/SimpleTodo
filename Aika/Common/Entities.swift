@@ -47,11 +47,13 @@ enum IconBadgeStyle: String {
 	case all
 }
 
-enum CustomRepeatPatternType: String {
+enum CustomRepeatPatternType: String, CustomStringConvertible {
     case day = "Daily"
     case week = "Weekly"
     case month = "Monthly"
     case year = "Yearly"
+    
+    var description: String { return rawValue }
 }
 
 enum AuthenticationError : Error {

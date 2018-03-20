@@ -24,62 +24,17 @@ final class CustomTaskRepeatModeController: UIViewController {
         
         return RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection>(
             animationConfiguration: animationConfiguration,
-            configureCell: { [weak self] ds, tv, ip, item in
+            configureCell: { [unowned self] ds, tv, ip, item in
                 switch item {
                 case .placeholder:
                     let cell = PlaceholderCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
                     cell.contentView.backgroundColor = Theme.Colors.isabelline
                     cell.selectionStyle = .none
                     return cell
-                case .patternTypePicker:
-                    let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
-                    
-                    if let controller = self {
-                        controller.viewModel.outputs.patternTypetems
-                            .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
-                            .disposed(by: cell.bag)
-                        
-                        cell.picker.rx.modelSelected(Any.self)
-                            .subscribe(onNext: { models in
-                                print(models)
-                            })
-                            .disposed(by: cell.bag)
-                    }
-                    
-                    return cell
-                case .repeatEveryPicker:
-                    let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
-                    
-                    if let controller = self {
-                        controller.viewModel.outputs.repeatEveryItems
-                            .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
-                            .disposed(by: cell.bag)
-
-                        cell.picker.rx.itemSelected
-                            .map { $0.row + 1 }
-                            .bind(to: controller.viewModel.inputs.repeatEvery)
-                            .disposed(by: cell.bag)
-                        
-                        controller.viewModel.state.map { $0.repeatEvery }.take(1).subscribe(onNext: { [weak cell] repeatEvery in
-                            cell?.picker.selectRow(repeatEvery - 1, inComponent: 0, animated: true)
-                        }).disposed(by: cell.bag)
-                    }
-                    
-                    return cell
-                case .patternType:
-                    let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
-                    cell.textLabel?.text = item.mainText
-                    cell.detailTextLabel?.text = item.detailText
-                    cell.selectionStyle = .none
-                    cell.tapped = { [weak self] in self?.patternTypeSelectionToggledSubject.onNext(()) }
-                    return cell
-                case .repeatEvery:
-                    let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
-                    cell.textLabel?.text = item.mainText
-                    cell.detailTextLabel?.text = item.detailText
-                    cell.selectionStyle = .none
-                    cell.tapped = { [weak self] in self?.repeatEverySelectionToggledSubject.onNext(()) }
-                    return cell
+                case .patternTypePicker: return self.patternTypePickerCell()
+                case .repeatEveryPicker: return self.repeatEveryPickerCell()
+                case .patternType: return self.tappableCell(for: item, tapped: { [weak self] in self?.patternTypeSelectionToggledSubject.onNext(()) })
+                case .repeatEvery: return self.tappableCell(for: item, tapped: { [weak self] in self?.repeatEverySelectionToggledSubject.onNext(()) })
                 }
             },
             canEditRowAtIndexPath: { _, _ in return false })
@@ -110,12 +65,12 @@ final class CustomTaskRepeatModeController: UIViewController {
 		title = viewModel.title
 		view.backgroundColor = Theme.Colors.isabelline
 		
-		tableView.snp.makeConstraints {
-			$0.top.equalTo(view.snp.topMargin)
-			$0.leading.equalTo(view.snp.leading)
-			$0.trailing.equalTo(view.snp.trailing)
-			$0.bottom.equalTo(view.snp.bottomMargin)
-		}
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(view.snp.topMargin)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
+            $0.bottom.equalTo(view.snp.bottomMargin)
+        }
 		
 		bind()
 	}
@@ -136,6 +91,56 @@ final class CustomTaskRepeatModeController: UIViewController {
 		
         tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 	}
+    
+    func tappableCell(for item: CustomTaskRepeatModeSectionItem, tapped: @escaping () -> Void) -> TappableCell {
+        let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        cell.textLabel?.text = item.mainText
+        cell.detailTextLabel?.text = item.detailText
+        cell.selectionStyle = .none
+        cell.tapped = tapped
+        return cell
+    }
+    
+    func repeatEveryPickerCell() -> PickerCell {
+        let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+        
+        viewModel.outputs.repeatEveryItems
+            .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
+            .disposed(by: cell.bag)
+        
+        cell.picker.rx.itemSelected
+            .map { $0.row + 1 }
+            .bind(to: viewModel.inputs.repeatEvery)
+            .disposed(by: cell.bag)
+        
+        viewModel.state.take(1).map { $0.repeatEvery }.subscribe(onNext: { [weak cell] repeatEvery in
+            cell?.picker.selectRow(repeatEvery - 1, inComponent: 0, animated: true)
+        }).disposed(by: cell.bag)
+        
+        return cell
+    }
+    
+    func patternTypePickerCell() -> PickerCell {
+        let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+        
+        viewModel.outputs.patternTypetems
+            .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
+            .disposed(by: cell.bag)
+        
+        cell.picker.rx
+            .modelSelected(CustomRepeatPatternType.self)
+            .map { $0.first! }
+            .bind(to: viewModel.inputs.patternType)
+            .disposed(by: cell.bag)
+        
+        viewModel.state.take(1).map { $0.pattern }.withLatestFrom(viewModel.outputs.patternTypetems) { ($0, $1) }.subscribe(onNext: { [weak cell] data in
+            if let index = data.1[0].enumerated().first(where: { $0.element.description == data.0.description })?.offset {
+                cell?.picker.selectRow(index, inComponent: 0, animated: true)
+            }
+        }).disposed(by: cell.bag)
+        
+        return cell
+    }
 }
 
 

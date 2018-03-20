@@ -93,7 +93,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
     
 	init(flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController
-        stateSubject = BehaviorSubject(value: State(pattern: .day, patternExpanded: false, repeatEvery: 1, repeatEveryExpanded: false))
+        stateSubject = BehaviorSubject(value: State(pattern: .week, patternExpanded: false, repeatEvery: 1, repeatEveryExpanded: false))
         
         setupRx()
 	}
@@ -136,8 +136,8 @@ extension CustomTaskRepeatModeViewModel: CustomTaskRepeatModeViewModelOutputs {
         }
     }
     var patternTypetems: Observable<[[CustomStringConvertible]]> {
-        return Observable.just([[CustomRepeatPatternType.day.rawValue,
-                                 CustomRepeatPatternType.month.rawValue,
-                                 CustomRepeatPatternType.week.rawValue]])
+        return Observable.just([[CustomRepeatPatternType.day,
+                                 CustomRepeatPatternType.week,
+                                 CustomRepeatPatternType.month]])
     }
 }
