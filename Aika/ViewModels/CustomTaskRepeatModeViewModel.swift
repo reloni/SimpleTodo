@@ -40,6 +40,26 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         let repeatEvery: Int
         let repeatEveryExpanded: Bool
         
+        init(pattern: TaskScheduler.Pattern?) {
+            switch pattern {
+            case .byDay(let repeatEvery)?:
+                self.init(pattern: .day, patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
+            case .byWeek(let repeatEvery, let weekDays)?:
+                self.init(pattern: .week, patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
+            case .byMonthDays(let repeatEvery, let days)?:
+                self.init(pattern: .month, patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
+            default:
+                self.init(pattern: .day, patternExpanded: false, repeatEvery: 1, repeatEveryExpanded: false)
+            }
+        }
+        
+        init(pattern: CustomRepeatPatternType, patternExpanded: Bool, repeatEvery: Int, repeatEveryExpanded: Bool) {
+            self.pattern = pattern
+            self.patternExpanded = patternExpanded
+            self.repeatEvery = repeatEvery
+            self.repeatEveryExpanded = repeatEveryExpanded
+        }
+        
         var sections: [CustomTaskRepeatModeSection] {
             let basicSectionItems = [
                 CustomTaskRepeatModeSectionItem.placeholder(id: "placeholder"),
@@ -91,9 +111,9 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
             .map { $0.sections }
     }
     
-	init(flowController: RxDataFlowController<AppState>) {
+    init(flowController: RxDataFlowController<AppState>, currentMode: TaskScheduler.Pattern?) {
 		self.flowController = flowController
-        stateSubject = BehaviorSubject(value: State(pattern: .week, patternExpanded: false, repeatEvery: 1, repeatEveryExpanded: false))
+        stateSubject = BehaviorSubject(value: State(pattern: currentMode))
         
         setupRx()
 	}
