@@ -37,13 +37,13 @@ final class CustomTaskRepeatModeController: UIViewController {
                     if let controller = self {
                         controller.viewModel.outputs.patternTypetems
                             .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
-                            .disposed(by: controller.bag)
+                            .disposed(by: cell.bag)
                         
                         cell.picker.rx.modelSelected(Any.self)
                             .subscribe(onNext: { models in
                                 print(models)
                             })
-                            .disposed(by: controller.bag)
+                            .disposed(by: cell.bag)
                     }
                     
                     return cell
@@ -53,11 +53,16 @@ final class CustomTaskRepeatModeController: UIViewController {
                     if let controller = self {
                         controller.viewModel.outputs.repeatEveryItems
                             .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
-                            .disposed(by: controller.bag)
+                            .disposed(by: cell.bag)
+
+                        cell.picker.rx.itemSelected
+                            .map { $0.row + 1 }
+                            .bind(to: controller.viewModel.inputs.repeatEvery)
+                            .disposed(by: cell.bag)
                         
-                        cell.picker.rx.itemSelected.subscribe(onNext: { row, component in
-                            print("row: \(row) component: \(component)")
-                        }).disposed(by: controller.bag)
+                        controller.viewModel.state.map { $0.repeatEvery }.take(1).subscribe(onNext: { [weak cell] repeatEvery in
+                            cell?.picker.selectRow(repeatEvery - 1, inComponent: 0, animated: true)
+                        }).disposed(by: cell.bag)
                     }
                     
                     return cell

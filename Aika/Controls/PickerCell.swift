@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import RxSwift
 
 final class PickerCell: UITableViewCell {
+    private (set) var bag = DisposeBag()
     let picker = UIPickerView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -29,5 +31,9 @@ final class PickerCell: UITableViewCell {
         }
 
         contentView.clipsToBounds = true
+    }
+    
+    override func prepareForReuse() {
+        bag = DisposeBag()
     }
 }
