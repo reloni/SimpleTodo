@@ -42,6 +42,7 @@ final class CustomTaskRepeatModeController: UIViewController {
     
     let patternTypeSelectionToggledSubject = PublishSubject<Void>()
     let repeatEverySelectionToggledSubject = PublishSubject<Void>()
+    let saveSubject = PublishSubject<Void>()
 	
 	let tableView = Theme.Controls.tableView().configure {
         $0.estimatedRowHeight = 50
@@ -74,6 +75,13 @@ final class CustomTaskRepeatModeController: UIViewController {
 		
 		bind()
 	}
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isMovingFromParentViewController {
+            saveSubject.onNext(())
+        }
+    }
 	
 	func bind() {
 		viewModel.sections
@@ -88,6 +96,8 @@ final class CustomTaskRepeatModeController: UIViewController {
         repeatEverySelectionToggledSubject.withLatestFrom(viewModel.state) { !$1.repeatEveryExpanded }
             .bind(to: viewModel.inputs.repeatEverySelected)
             .disposed(by: bag)
+        
+        saveSubject.bind(to: viewModel.inputs.save).disposed(by: bag)
 		
         tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 	}

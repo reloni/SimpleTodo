@@ -101,6 +101,7 @@ enum EditTaskAction: RxActionType {
 	var scheduler: ImmediateSchedulerType? { return nil }
 	
 	case setRepeatMode(TaskScheduler.Pattern?)
+    case setCustomRepeatMode(TaskScheduler.Pattern)
 }
 
 enum SynchronizationAction: RxActionType {

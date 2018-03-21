@@ -15,6 +15,7 @@ protocol CustomTaskRepeatModeViewModelInputs {
     var patternTypeSelected: PublishSubject<Bool> { get }
     var repeatEvery: PublishSubject<Int> { get }
     var repeatEverySelected: PublishSubject<Bool> { get }
+    var save: PublishSubject<Void> { get }
 }
 
 protocol CustomTaskRepeatModeViewModelOutputs {
@@ -39,6 +40,15 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         let patternExpanded: Bool
         let repeatEvery: Int
         let repeatEveryExpanded: Bool
+        
+        var taskSchedulerPattern: TaskScheduler.Pattern {
+            switch pattern {
+            case .day: return .byDay(repeatEvery: UInt(repeatEvery))
+            case .week: return .byWeek(repeatEvery: UInt(repeatEvery), weekDays: [])
+            case .month: return .byMonthDays(repeatEvery: UInt(repeatEvery), days: [])
+            case .year: fatalError("Not implemented")
+            }
+        }
         
         init(pattern: TaskScheduler.Pattern?) {
             switch pattern {
@@ -98,6 +108,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
     let patternTypeSelected = PublishSubject<Bool>()
     let repeatEvery = PublishSubject<Int>()
     let repeatEverySelected = PublishSubject<Bool>()
+    let save = PublishSubject<Void>()
 	
 	let title = "Setup"
     
@@ -139,6 +150,12 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         repeatEverySelected
             .withLatestFrom(stateSubject) { return $1.new(repeatEveryExpanded: $0) }
             .bind(to: stateSubject)
+            .disposed(by: bag)
+        
+        save.withLatestFrom(state) { $1.taskSchedulerPattern }
+            .withLatestFrom(Observable.just(flowController)) { ($0, $1) }
+            .do(onNext: { $0.1.dispatch(EditTaskAction.setCustomRepeatMode($0.0)) })
+            .subscribe()
             .disposed(by: bag)
     }
 }
