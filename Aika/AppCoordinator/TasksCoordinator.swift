@@ -45,8 +45,8 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 			                                      navigationController: controller, flowController: flowController)
 			navigationController.present(coordinator.navigationController, animated: true, completion: nil)
 			return .just({ $0.mutation.new(coordinator: coordinator) })
-		case UIAction.showTaskRepeatModeController(let currentMode):
-			let viewModel = TaskRepeatModeViewModel(flowController: flowController, currentMode: currentMode)
+		case UIAction.showTaskRepeatModeController(let currentPattern):
+			let viewModel = TaskRepeatModeViewModel(flowController: flowController, currentPattern: currentPattern)
 			navigationController.pushViewController(TaskRepeatModeController(viewModel: viewModel), animated: true)
 			return .just({ $0 })
 		case UIAction.showTaskCustomRepeatModeController(let currentMode):
