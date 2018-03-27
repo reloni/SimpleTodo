@@ -12,13 +12,11 @@ import RxSwift
 final class TaskRepeatModeViewModel: ViewModelType {
     private let bag = DisposeBag()
 	let flowController: RxDataFlowController<AppState>
-	var currentPattern: TaskScheduler.Pattern?
+    let currentPatternSubject: BehaviorSubject<TaskScheduler.Pattern?>
 	
 	let title = "Repeat"
     
-    private lazy var sectionsSubject: BehaviorSubject<[TaskRepeatModeSection]> = {
-        return BehaviorSubject(value: self.createSections())
-    }()
+    let sectionsSubject: BehaviorSubject<[TaskRepeatModeSection]>
     
     var sections: Observable<[TaskRepeatModeSection]> {
         return sectionsSubject.asObservable()
@@ -26,33 +24,24 @@ final class TaskRepeatModeViewModel: ViewModelType {
 	
 	init(flowController: RxDataFlowController<AppState>, currentPattern: TaskScheduler.Pattern?) {
 		self.flowController = flowController
-		self.currentPattern = currentPattern
+        self.currentPatternSubject = BehaviorSubject(value: currentPattern)
+        self.sectionsSubject = BehaviorSubject(value: TaskRepeatModeViewModel.createSections(pattern: currentPattern))
         setupRx()
 	}
     
     func setupRx() {
+        currentPatternSubject
+            .skip(1)
+            .map { TaskRepeatModeViewModel.createSections(pattern: $0) }
+            .bind(to: sectionsSubject)
+            .disposed(by: bag)
+        
+
         flowController.state.do(onNext: { [weak self] state in
             guard let object = self else { return }
-            if case EditTaskAction.setCustomRepeatMode(let pattern) = state.setBy {
-                if case TaskScheduler.Pattern.byDay(let repeatEvery) = pattern, repeatEvery == 1 {
-                    object.currentPattern = .daily
-                    object.sectionsSubject.onNext(object.createSections())
-                }
-                
-            }
+            guard case EditTaskAction.setCustomRepeatMode(let pattern) = state.setBy else { return }
+            object.currentPatternSubject.onNext(pattern)
         }).subscribe().disposed(by: bag)
-    }
-    
-    private func createSections() -> [TaskRepeatModeSection] {
-        let items = [TaskRepeatModeSectionItem(text: "Never", isSelected: self.currentPattern == nil, mode: nil, isCustom: false),
-                     TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.daily.description, isSelected: self.currentPattern == .daily, mode: .daily, isCustom: false),
-                     TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.weekly.description, isSelected: self.currentPattern == .weekly, mode: .weekly, isCustom: false),
-                     TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.monthly.description, isSelected: self.currentPattern == .monthly, mode: .monthly, isCustom: false),
-                     TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.yearly.description, isSelected: self.currentPattern == .yearly, mode: .yearly, isCustom: false)]
-        let standardSection = TaskRepeatModeSection(header: "Header", items: items)
-        let customSection = TaskRepeatModeSection(header: "Header",
-                                                  items: [TaskRepeatModeSectionItem(text: "Custom", isSelected: false, mode: nil, isCustom: true)])
-        return [standardSection, customSection]
     }
 	
 	func setNew(mode: TaskScheduler.Pattern?) {
@@ -61,7 +50,25 @@ final class TaskRepeatModeViewModel: ViewModelType {
 	}
 	
 	func setCustomMode() {
-		flowController.dispatch(UIAction.showTaskCustomRepeatModeController(currentMode: nil))
+        currentPatternSubject
+            .take(1)
+            .withLatestFrom(Observable.just(flowController)) { ($0, $1) }
+            .do(onNext: { $0.1.dispatch(UIAction.showTaskCustomRepeatModeController(currentMode: $0.0)) })
+            .subscribe()
+            .dispose()
 	}
+    
+    private static func createSections(pattern: TaskScheduler.Pattern?) -> [TaskRepeatModeSection] {
+        let items = [TaskRepeatModeSectionItem(text: "Never", isSelected: pattern == nil, mode: nil, isCustom: false),
+                     TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.daily.description, isSelected: pattern == .daily, mode: .daily, isCustom: false),
+                     TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.weekly.description, isSelected: pattern == .weekly, mode: .weekly, isCustom: false),
+                     TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.biweekly.description, isSelected: pattern == .biweekly, mode: .biweekly, isCustom: false),
+                     TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.monthly.description, isSelected: pattern == .monthly, mode: .monthly, isCustom: false),
+                     TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.yearly.description, isSelected: pattern == .yearly, mode: .yearly, isCustom: false)]
+        let standardSection = TaskRepeatModeSection(header: "Header", items: items)
+        let customSection = TaskRepeatModeSection(header: "Header",
+                                                  items: [TaskRepeatModeSectionItem(text: "Custom", isSelected: false, mode: nil, isCustom: true)])
+        return [standardSection, customSection]
+    }
 }
 

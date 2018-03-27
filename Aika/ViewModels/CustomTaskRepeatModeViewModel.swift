@@ -154,9 +154,18 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         
         save.withLatestFrom(state) { $1.taskSchedulerPattern }
             .withLatestFrom(Observable.just(flowController)) { ($0, $1) }
-            .do(onNext: { $0.1.dispatch(EditTaskAction.setCustomRepeatMode($0.0)) })
+            .do(onNext: { $0.1.dispatch(EditTaskAction.setCustomRepeatMode(CustomTaskRepeatModeViewModel.convertPattern($0.0))) })
             .subscribe()
             .disposed(by: bag)
+    }
+    
+    static func convertPattern(_ value: TaskScheduler.Pattern) -> TaskScheduler.Pattern {
+        switch value {
+        case TaskScheduler.Pattern.byDay(let repeatEvery) where repeatEvery == 1: return TaskScheduler.Pattern.daily
+        case TaskScheduler.Pattern.byDay(let repeatEvery) where repeatEvery == 7: return TaskScheduler.Pattern.weekly
+        case TaskScheduler.Pattern.byDay(let repeatEvery) where repeatEvery == 14: return TaskScheduler.Pattern.biweekly
+        default: return value
+        }
     }
 }
 
