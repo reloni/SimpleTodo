@@ -37,68 +37,68 @@ class DateToStringTests: XCTestCase {
 	func testFullWithinCurrentYear() {
 		var date = Date().adding(.day, value: -2)
 		localFormatter.dateFormat = "\(Date.DateFormat.dateWithoutYear.rawValue) \(Date.DateFormat.time12.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: true), dateFormatter: injectFormatter))
+        XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: true), in: Calendar.current, dateFormatter: injectFormatter))
 		
 		localFormatter.dateFormat = "\(Date.DateFormat.dateWithoutYear.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: false), dateFormatter: injectFormatter))
+		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: false), in: Calendar.current, dateFormatter: injectFormatter))
 		
 		date = Date()
 		localFormatter.dateFormat = "\(Date.DateFormat.dayOfWeek.rawValue) \(Date.DateFormat.time12.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: true), dateFormatter: injectFormatter))
+		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: true), in: Calendar.current, dateFormatter: injectFormatter))
 		
 		localFormatter.dateFormat = "\(Date.DateFormat.dayOfWeek.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: false), dateFormatter: injectFormatter))
+		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: false), in: Calendar.current, dateFormatter: injectFormatter))
 	}
 	
 	func testFullInPreviousYear() {
 		var date = Date().adding(.year, value: -1).adding(.day, value: -14)
 		localFormatter.dateFormat = "\(Date.DateFormat.dateFull.rawValue) \(Date.DateFormat.time12.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: true), dateFormatter: injectFormatter))
+		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: true), in: Calendar.current, dateFormatter: injectFormatter))
 		
 		localFormatter.dateFormat = "\(Date.DateFormat.dateFull.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: false), dateFormatter: injectFormatter))
+		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: false), in: Calendar.current, dateFormatter: injectFormatter))
 		
 		date = Date().adding(.year, value: -1)
 		localFormatter.dateFormat = "\(Date.DateFormat.dateFull.rawValue) \(Date.DateFormat.time12.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: true), dateFormatter: injectFormatter))
+		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: true), in: Calendar.current, dateFormatter: injectFormatter))
 		
 		localFormatter.dateFormat = "\(Date.DateFormat.dateFull.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: false), dateFormatter: injectFormatter))
+		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .full(withTime: false), in: Calendar.current, dateFormatter: injectFormatter))
 	}
 	
 	func testRelativeWithinCurrentYear() {
 		var date = Date().adding(.day, value: 7)
 		localFormatter.dateFormat = "\(Date.DateFormat.dayOfWeek.rawValue) \(Date.DateFormat.time12.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .relative(withTime: true), dateFormatter: injectFormatter))
+		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .relative(withTime: true), in: Calendar.current, dateFormatter: injectFormatter))
 		
 		localFormatter.dateFormat = "\(Date.DateFormat.dayOfWeek.rawValue)"
-		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .relative(withTime: false), dateFormatter: injectFormatter))
+		XCTAssertEqual(localFormatter.string(from: date), date.toString(format: .relative(withTime: false), in: Calendar.current, dateFormatter: injectFormatter))
 		
 		date = Date()
 		localFormatter.dateFormat = "\(Date.DateFormat.time12.rawValue)"
 		XCTAssertEqual("Today \(localFormatter.string(from: date))",
-			date.toString(format: .relative(withTime: true), dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
+            date.toString(format: .relative(withTime: true), in: Calendar.current, dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
 		
 		localFormatter.dateFormat = "\(Date.DateFormat.dayOfWeek.rawValue)"
 		XCTAssertEqual("Today",
-					   date.toString(format: .relative(withTime: false), dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
+					   date.toString(format: .relative(withTime: false), in: Calendar.current, dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
 		
 		date = Date().adding(.day, value: 1)
 		localFormatter.dateFormat = "\(Date.DateFormat.time12.rawValue)"
 		XCTAssertEqual("Tomorrow \(localFormatter.string(from: date))",
-			date.toString(format: .relative(withTime: true), dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
+			date.toString(format: .relative(withTime: true), in: Calendar.current, dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
 		
 		localFormatter.dateFormat = "\(Date.DateFormat.dayOfWeek.rawValue)"
 		XCTAssertEqual("Tomorrow",
-					   date.toString(format: .relative(withTime: false), dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
+					   date.toString(format: .relative(withTime: false), in: Calendar.current, dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
 		
 		date = Date().adding(.day, value: -1)
 		localFormatter.dateFormat = "\(Date.DateFormat.time12.rawValue)"
 		XCTAssertEqual("Yesterday \(localFormatter.string(from: date))",
-			date.toString(format: .relative(withTime: true), dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
+			date.toString(format: .relative(withTime: true), in: Calendar.current, dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
 		
 		localFormatter.dateFormat = "\(Date.DateFormat.dayOfWeek.rawValue)"
 		XCTAssertEqual("Yesterday",
-					   date.toString(format: .relative(withTime: false), dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
+					   date.toString(format: .relative(withTime: false), in: Calendar.current, dateFormatter: injectFormatter, relativeDateFormatter: injectRelativeDateFormatter))
 	}
 }

@@ -152,7 +152,7 @@ final class RealmRepository: RepositoryType {
 	
 	func todayTasksCount() -> Int {
 		return realm.objects(RealmTask.self)
-			.filter("targetDate >= %@ && targetDate <= %@", Date().beginningOfDay(), Date().endingOfDay())
+            .filter("targetDate >= %@ && targetDate <= %@", Date().beginningOfDay(in: Calendar.current), Date().endingOfDay(in: Calendar.current))
 			.count
 	}
 	

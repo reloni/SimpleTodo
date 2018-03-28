@@ -10,7 +10,7 @@ import UIKit
 
 extension TaskDate {
 	var underlineColor: UIColor? {
-		switch date.type {
+		switch date.type(in: Calendar.current) {
 		case .todayPast: fallthrough
 		case .past: fallthrough
 		case .yesterday: return Theme.Colors.upsdelRed
@@ -31,7 +31,7 @@ extension TaskDate {
 		return str
 	}
 	
-	func toString(format: Date.DisplayDateType) -> String {
-		return date.toString(format: format)
+    func toString(format: Date.DisplayDateType) -> String {
+        return date.toString(format: format, in: Calendar.current)
 	}
 }

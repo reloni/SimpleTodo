@@ -36,7 +36,7 @@ class EncodeTests: XCTestCase {
 		let taskDate = Date.fromServer(string: "2017-09-18T17:47:00.000+00")!
 		let date = TaskDate(date: taskDate, includeTime: false)
 		let json = try! JSONSerialization.jsonObject(with: try! JSONEncoder().encode(date)) as! [String: Any]
-		XCTAssertEqual(json["targetDate"] as? String, taskDate.beginningOfDay().toServerDateString())
+		XCTAssertEqual(json["targetDate"] as? String, taskDate.beginningOfDay(in: Calendar.current).toServerDateString())
 		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, false)
 	}
 	
@@ -81,7 +81,7 @@ class EncodeTests: XCTestCase {
 		XCTAssertEqual(json["completed"] as? Bool, true)
 		XCTAssertEqual(json["description"] as? String, "Task 1")
 		XCTAssertEqual(json["notes"] as? String, "A lot of notes")
-		XCTAssertEqual(json["targetDate"] as? String, task.targetDate?.date.beginningOfDay().toServerDateString())
+		XCTAssertEqual(json["targetDate"] as? String, task.targetDate?.date.beginningOfDay(in: Calendar.current).toServerDateString())
 		XCTAssertNotNil(json["targetDate"] as? String)
 		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, false)
 		XCTAssertEqual(json.dictionary("prototype").value("uuid"), task.prototype.uuid.uuidString)
