@@ -47,8 +47,8 @@ struct TaskScheduler {
 	
 	var calendar: Calendar { return Calendar.current }
     
-    func dateComponents(for date: Date) -> DateComponents {
-        return calendar.dateComponents([.hour, .minute, .second], from: date)
+    func dateComponents(for date: Date, matching components: [Calendar.Component]) -> DateComponents {
+        return calendar.dateComponents(Set(components), from: date)
     }
     
     var currentDayOfWeek: Int? {
@@ -62,11 +62,11 @@ struct TaskScheduler {
 	func scheduleNext(from time: Date, withPattern pattern: Pattern) -> Date? {
 		switch pattern {
         case .daily: return nextTime(for: time)
-        case .weekly: return nextTime(for: time.adding(.day, value: 6))
-        case .biweekly: return nextTime(for: time.adding(.day, value: 13))
-        case .monthly: return nextTime(for: time.adding(.month, value: 1).adding(.day, value: -1))
-        case .yearly: return nextTime(for: time.adding(.year, value: 1).adding(.day, value: -1))
-        case .byDay(let repeatEvery): return nextTime(for: time.adding(.day, value: Int(repeatEvery) - 1))
+        case .weekly: return nextTime(for: time.adding(.day, value: 6, in: calendar), matchWeekday: time.weekday(in: calendar))
+        case .biweekly: return nextTime(for: time.adding(.day, value: 13, in: calendar), matchWeekday: time.weekday(in: calendar))
+        case .monthly: return nextTime(for: time.adding(.month, value: 1, in: calendar).adding(.day, value: -1, in: calendar), matchDay: time.day(in: calendar))
+        case .yearly: return nextTime(for: time.adding(.year, value: 1, in: calendar).adding(.day, value: -1, in: calendar), matchDay: time.day(in: calendar), matchMonth: time.month(in: calendar))
+        case .byDay(let repeatEvery): return nextTime(for: time.adding(.day, value: Int(repeatEvery) - 1, in: calendar))
         case let .byWeek(repeatEvery, weekDays):
 			return nextTimeByWeek(for: time, repeatEvery: Int(repeatEvery), weekDays: weekDays.sorted(by: { $0.numberInWeek(for: calendar) < $1.numberInWeek(for: calendar) }))
         case let .byMonthDays(repeatEvery, days):
@@ -74,32 +74,38 @@ struct TaskScheduler {
 		}
 	}
     
-    func nextTime(for value: Date) -> Date? {
-        let components = dateComponents(for: value)
-
-        let matchingComponents = DateComponents(calendar: calendar, hour: components.hour, minute: components.minute, second: components.second)
+    func nextTime(for value: Date, matchWeekday: Int? = nil, matchDay: Int? = nil, matchMonth: Int? = nil) -> Date? {
+        let components = dateComponents(for: value, matching: [.hour, .minute, .second])
+        
+        let matchingComponents = DateComponents(calendar: calendar,
+                                                month: matchMonth,
+                                                day: matchDay,
+                                                hour: components.hour,
+                                                minute: components.minute,
+                                                second: components.second,
+                                                weekday: matchWeekday)
 		let after = value < Date() ? Date() : value
 
         return calendar.nextDate(after: after,
                                  matching: matchingComponents,
-                                 matchingPolicy: .nextTimePreservingSmallerComponents,
+                                 matchingPolicy: .strict,
                                  repeatedTimePolicy: .first,
                                  direction: .forward)
     }
     
     func nextTimeByWeek(for value: Date, repeatEvery: Int, weekDays: [DayOfWeek]) -> Date? {
 		guard weekDays.count > 0 else {
-			return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1))
+			return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1, in: calendar))
 		}
 		
 		guard let currentDayOfWeekNumber = currentDayOfWeek,
 			let currentDayOfWeek = DayOfWeek(rawValue: currentDayOfWeekNumber) else {
-				return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1))
+				return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1, in: calendar))
 		}
 		
         let nextDayOfWeek = weekDays.first(where: { $0.numberInWeek(for: calendar) > currentDayOfWeek.numberInWeek(for: calendar) })//.filter({ $0.rawValue > currentDayOfWeek }).first
         
-        let components = dateComponents(for: value)
+        let components = dateComponents(for: value, matching: [.hour, .minute, .second])
 		
 		let matchingComponents = DateComponents(calendar: calendar,
 		                                        hour: components.hour,
@@ -108,7 +114,7 @@ struct TaskScheduler {
 		                                        weekday: nextDayOfWeek?.rawValue ?? weekDays.first?.rawValue)
 
 		
-		return calendar.nextDate(after: nextDayOfWeek != nil ? value : value.adding(.day, value: (repeatEvery * 7) - 1),
+		return calendar.nextDate(after: nextDayOfWeek != nil ? value : value.adding(.day, value: (repeatEvery * 7) - 1, in: calendar),
 		                         matching: matchingComponents,
 		                         matchingPolicy: .nextTimePreservingSmallerComponents,
 		                         repeatedTimePolicy: .first,
@@ -117,16 +123,16 @@ struct TaskScheduler {
     
     func nextTimeByMonthDays(for value: Date, repeatEvery: Int, days: [Int]) -> Date? {
         guard days.count > 0 else {
-            return nextTime(for: value.adding(.month, value: Int(repeatEvery)).adding(.day, value: -1))
+            return nextTime(for: value.adding(.month, value: Int(repeatEvery), in: calendar).adding(.day, value: -1, in: calendar))
         }
         
         guard let currentDayOfMonth = currentDayOfMonth else {
-            return nextTime(for: value.adding(.month, value: Int(repeatEvery)).adding(.day, value: -1))
+            return nextTime(for: value.adding(.month, value: Int(repeatEvery), in: calendar).adding(.day, value: -1, in: calendar))
         }
         
         let nextDayOfMonth = days.first(where: { $0 > currentDayOfMonth })
         
-        let components = dateComponents(for: value)
+        let components = dateComponents(for: value, matching: [.hour, .minute, .second])
         
         let matchingComponents = DateComponents(calendar: calendar,
                                                 day: nextDayOfMonth ?? days.first,
@@ -134,7 +140,7 @@ struct TaskScheduler {
                                                 minute: components.minute,
                                                 second: components.second)
         
-        return calendar.nextDate(after: nextDayOfMonth != nil ? value : value.adding(.month, value: repeatEvery).beginningOfMonth(),
+        return calendar.nextDate(after: nextDayOfMonth != nil ? value : value.adding(.month, value: repeatEvery, in: calendar).beginningOfMonth(in: calendar),
                                  matching: matchingComponents,
                                  matchingPolicy: .nextTimePreservingSmallerComponents,
                                  repeatedTimePolicy: .first,

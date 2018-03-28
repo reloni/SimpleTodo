@@ -29,7 +29,7 @@ struct Task: Codable {
 	
 	// this field here for checking equality and to force UITableView to refresh
 	// when app opens on next day (when relative dates like "today" should be changed)
-	fileprivate let timestamp = Date().beginningOfDay()
+	fileprivate let timestamp = Date().beginningOfDay(in: Calendar.current)
 	
 	init(uuid: UUID, completed: Bool, description: String, notes: String?, targetDate: TaskDate?, prototype: TaskPrototype) {
 		self.uuid = uuid
@@ -76,7 +76,7 @@ struct TaskDate: Codable {
 	
 	init(date: Date, includeTime: Bool) {
 		self.includeTime = includeTime
-		self.date = includeTime ? date.setting(.second, value: 0).setting(.nanosecond, value: 0) : date.beginningOfDay()
+        self.date = includeTime ? date.setting(.second, value: 0, in: Calendar.current).setting(.nanosecond, value: 0, in: Calendar.current) : date.beginningOfDay(in: Calendar.current)
 		self.isFuture = self.date.isInFuture
 	}
 	

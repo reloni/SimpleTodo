@@ -59,64 +59,88 @@ extension Date {
 		case past
 	}
 	
-	var type: DateType {
-		if isToday {
+	func type(in calendar: Calendar) -> DateType {
+		if isToday(in: calendar) {
 			return isInPast ? .todayPast : .todayFuture
-		} else if isTomorrow {
+		} else if isTomorrow(in: calendar) {
 			return .tomorrow
-		} else if isYesterday {
+		} else if isYesterday(in: calendar) {
 			return .yesterday
-		} else if isBeforeYesterday {
+		} else if isBeforeYesterday(in: calendar) {
 			return .past
 		} else {
 			return .future
 		}
 	}
 	
-	func setting(_ component: Calendar.Component, value: Int) -> Date {
-		return Calendar.current.date(bySetting: component, value: value, of: self)!
+	func setting(_ component: Calendar.Component, value: Int, in calendar: Calendar) -> Date {
+		return calendar.date(bySetting: component, value: value, of: self)!
 	}
 	
-	func adding(_ component: Calendar.Component, value: Int) -> Date {
-		return Calendar.current.date(byAdding: component, value: value, to: self)!
+	func adding(_ component: Calendar.Component, value: Int, in calendar: Calendar) -> Date {
+		return calendar.date(byAdding: component, value: value, to: self)!
 	}
 	
-	public func beginningOfMonth() -> Date {
-		let components = Calendar.current.dateComponents([.year, .month], from: self)
-		return Calendar.current.date(from: components)!
+	public func beginningOfMonth(in calendar: Calendar) -> Date {
+		let components = calendar.dateComponents([.year, .month], from: self)
+		return calendar.date(from: components)!
 	}
 	
-	func beginningOfDay() -> Date {
-		return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
+	func beginningOfDay(in calendar: Calendar) -> Date {
+		return calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
 	}
 	
-	func beginningOfYear() -> Date {
-		return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!.setting(.month, value: 1).setting(.day, value: 1)
+	func beginningOfYear(in calendar: Calendar) -> Date {
+        return calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self)!.setting(.month, value: 1, in: calendar).setting(.day, value: 1, in: calendar)
 	}
 	
-	func endingOfDay() -> Date {
-		return Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: self)!
+	func endingOfDay(in calendar: Calendar) -> Date {
+		return calendar.date(bySettingHour: 23, minute: 59, second: 59, of: self)!
 	}
+    
+    func value(for component: Calendar.Component, in calendar: Calendar) -> DateComponents {
+        return calendar.dateComponents([component], from: self)
+    }
+    
+    func weekday(in calendar: Calendar) -> Int? {
+        return value(for: .weekday, in: calendar).weekday
+    }
+
+    func day(in calendar: Calendar) -> Int? {
+        return value(for: .day, in: calendar).day
+    }
+
+    func month(in calendar: Calendar) -> Int? {
+        return value(for: .month, in: calendar).month
+    }
 	
 	var isInPast: Bool { return self < Date() }
 	var isInFuture: Bool { return self < Date() }
-	var isToday: Bool { return Calendar.current.isDateInToday(self) }
-	var isTomorrow: Bool { return Calendar.current.isDateInTomorrow(self) }
-	var isYesterday: Bool { return Calendar.current.isDateInYesterday(self) }
-	var isWithinCurrentYear: Bool { return Calendar.current.component(.year, from: self) == Calendar.current.component(.year, from: Date()) }
-	var isWithinNext7Days: Bool {
-		let begin = Date().beginningOfDay()
-		let end = Date().adding(.day, value: 7).endingOfDay()
+	func isToday(in calendar: Calendar) -> Bool {
+        return calendar.isDateInToday(self)
+    }
+	func isTomorrow(in calendar: Calendar) -> Bool {
+        return calendar.isDateInTomorrow(self)
+    }
+	func isYesterday(in calendar: Calendar) -> Bool {
+        return calendar.isDateInYesterday(self)
+    }
+	func isWithinCurrentYear(in calendar: Calendar) -> Bool {
+        return calendar.component(.year, from: self) == calendar.component(.year, from: Date())
+    }
+	func isWithinNext7Days(in calendar: Calendar) -> Bool {
+		let begin = Date().beginningOfDay(in: calendar)
+        let end = Date().adding(.day, value: 7, in: calendar).endingOfDay(in: calendar)
 		return self > begin && self < end
 	}
 	
-	var isBeforeYesterday: Bool {
-		let yesterday = Date().adding(.day, value: -1).beginningOfDay()
+	func isBeforeYesterday(in calendar: Calendar) -> Bool {
+        let yesterday = Date().adding(.day, value: -1, in: calendar).beginningOfDay(in: calendar)
 		return self < yesterday
 	}
 	
-	var isAfterTomorrow: Bool {
-		let tomorrow = Date().adding(.day, value: 1).beginningOfDay()
+	func isAfterTomorrow(in calendar: Calendar) -> Bool {
+		let tomorrow = Date().adding(.day, value: 1, in: calendar).beginningOfDay(in: calendar)
 		return self > tomorrow
 	}
 	
@@ -146,8 +170,8 @@ extension Date {
 		return Date.serverDateFormatter.string(from: self)
 	}
 	
-	func toRelativeDate(dateFormatter formatter: DateFormatter = Date.relativeDateFormatter) -> String? {
-		switch type {
+	func toRelativeDate(dateFormatter formatter: DateFormatter = Date.relativeDateFormatter, in calendar: Calendar) -> String? {
+		switch type(in: calendar) {
 		case .todayFuture, .todayPast, .yesterday, .tomorrow:
 			return formatter.string(from: self)
 		default: return nil
@@ -158,18 +182,18 @@ extension Date {
 		return Date.serverDateFormatter.date(from: string)
 	}
 	
-	func toString(format: DisplayDateType, dateFormatter formatter: DateFormatter = Date.dateFormatter, relativeDateFormatter: DateFormatter = Date.relativeDateFormatter) -> String {
-		if case .relative = format, let spelled = toRelativeDate(dateFormatter: relativeDateFormatter) {
+	func toString(format: DisplayDateType, in calendar: Calendar, dateFormatter formatter: DateFormatter = Date.dateFormatter, relativeDateFormatter: DateFormatter = Date.relativeDateFormatter) -> String {
+		if case .relative = format, let spelled = toRelativeDate(dateFormatter: relativeDateFormatter, in: calendar) {
 			formatter.dateFormat = formatter.locale.timeFormat.rawValue
 			return format.withTime ? "\(spelled) \(formatter.string(from: self))" : spelled
 		}
 		
-		if isWithinNext7Days {
+		if isWithinNext7Days(in: calendar) {
 			formatter.dateFormat = format.withTime ? "\(DateFormat.dayOfWeek.rawValue) \(formatter.locale.timeFormat.rawValue)" : DateFormat.dayOfWeek.rawValue
 			return formatter.string(from: self)
 		}
 		
-		if isWithinCurrentYear {
+		if isWithinCurrentYear(in: calendar) {
 			formatter.dateFormat = format.withTime ? "\(DateFormat.dateWithoutYear.rawValue) \(formatter.locale.timeFormat.rawValue)" : DateFormat.dateWithoutYear.rawValue
 		} else {
 			formatter.dateFormat = format.withTime ? "\(DateFormat.dateFull.rawValue) \(formatter.locale.timeFormat.rawValue)" : DateFormat.dateFull.rawValue
