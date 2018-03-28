@@ -119,6 +119,7 @@ extension CustomTaskRepeatModeSection: AnimatableSectionModelType {
 enum CustomTaskRepeatModeSectionItem {
     case placeholder(id: String)
     case patternType(pattern: CustomRepeatPatternType)
+    case weekday(name: String, value: TaskScheduler.DayOfWeek, isSelected: Bool)
     case patternTypePicker
     case repeatEvery(value: Int)
     case repeatEveryPicker
@@ -159,6 +160,7 @@ extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
         case .placeholder(let id): return id
         case .patternTypePicker: return "patternTypePicker"
         case .repeatEveryPicker: return "repeatEveryPicker"
+        case .weekday(let value): return "\(value.name)-\(value.isSelected)"
         }
     }
 }
