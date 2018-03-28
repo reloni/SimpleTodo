@@ -75,6 +75,13 @@ class TaskSchedulerTests: XCTestCase {
         XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: 7).adding(.day, value: -2)), formatter.string(from: result))
     }
     
+    func testWeekly_inPast_3() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.day, value: -15)
+        let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .weekly)!
+        XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: 6)), formatter.string(from: result))
+    }
+    
     func testBiWeekly_inFuture() {
         let currentDate = Date()
         let taskDate = currentDate.adding(.hour, value: 3)
@@ -101,6 +108,13 @@ class TaskSchedulerTests: XCTestCase {
         let taskDate = currentDate.adding(.day, value: -2)
         let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .biweekly)!
         XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: 14).adding(.day, value: -2)), formatter.string(from: result))
+    }
+    
+    func testBiWeekly_inPast_3() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.day, value: -17)
+        let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .biweekly)!
+        XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: 4)), formatter.string(from: result))
     }
     
     func testMonthly_inFuture() {
@@ -131,6 +145,14 @@ class TaskSchedulerTests: XCTestCase {
         XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: -2).adding(.month, value: 1)), formatter.string(from: result))
     }
     
+    func testMonthly_inPast_3() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.month, value: -2).adding(.day, value: -2)
+        print(taskDate)
+        let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .monthly)!
+        XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: -2).adding(.month, value: 1)), formatter.string(from: result))
+    }
+    
     func testYearly_inFuture() {
         let currentDate = Date()
         let taskDate = currentDate.adding(.hour, value: 3)
@@ -155,6 +177,13 @@ class TaskSchedulerTests: XCTestCase {
     func testYearly_inPast_2() {
         let currentDate = Date()
         let taskDate = currentDate.adding(.day, value: -2)
+        let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .yearly)!
+        XCTAssertEqual(formatter.string(from: currentDate.adding(.year, value: 1).adding(.day, value: -2)), formatter.string(from: result))
+    }
+    
+    func testYearly_inPast_3() {
+        let currentDate = Date()
+        let taskDate = currentDate.adding(.year, value: -2).adding(.day, value: -2)
         let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .yearly)!
         XCTAssertEqual(formatter.string(from: currentDate.adding(.year, value: 1).adding(.day, value: -2)), formatter.string(from: result))
     }
@@ -282,7 +311,7 @@ class TaskSchedulerTests: XCTestCase {
 	}
     
     func testByMonthDays_1() {
-        let currentDate = Date().beginningOfMonth()
+        let currentDate = Date().beginningOfMonth(in: Calendar.current)
         let scheduler = TaskScheduler(currentDate: currentDate)
         let taskDate = currentDate.adding(.hour, value: -3)
         let result = scheduler.scheduleNext(from: taskDate, withPattern: .byMonthDays(repeatEvery: 3, days: []))!
@@ -290,7 +319,7 @@ class TaskSchedulerTests: XCTestCase {
     }
     
     func testByMonthDays_2() {
-        let currentDate = Date().beginningOfMonth()
+        let currentDate = Date().beginningOfMonth(in: Calendar.current)
         let scheduler = TaskScheduler(currentDate: currentDate)
         let taskDate = currentDate.adding(.hour, value: -3)
         let result = scheduler.scheduleNext(from: taskDate, withPattern: .byMonthDays(repeatEvery: 3, days: [1]))!
@@ -298,7 +327,7 @@ class TaskSchedulerTests: XCTestCase {
     }
     
     func testByMonthDays_3() {
-        let currentDate = Date().beginningOfMonth().adding(.day, value: 5)
+        let currentDate = Date().beginningOfMonth(in: Calendar.current).adding(.day, value: 5, in: Calendar.current)
         let scheduler = TaskScheduler(currentDate: currentDate)
         let taskDate = currentDate.adding(.hour, value: -3)
         let result = scheduler.scheduleNext(from: taskDate, withPattern: .byMonthDays(repeatEvery: 3, days: [1, 2, 4, 8]))!
@@ -306,7 +335,7 @@ class TaskSchedulerTests: XCTestCase {
     }
     
     func testByMonthDays_4() {
-        let currentDate = Date().beginningOfMonth().adding(.day, value: 9)
+        let currentDate = Date().beginningOfMonth(in: Calendar.current).adding(.day, value: 9, in: Calendar.current)
         let scheduler = TaskScheduler(currentDate: currentDate)
         let taskDate = currentDate.adding(.hour, value: 10)
         let result = scheduler.scheduleNext(from: taskDate, withPattern: .byMonthDays(repeatEvery: 3, days: [1, 2, 4, 8]))!
