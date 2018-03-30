@@ -15,6 +15,7 @@ protocol CustomTaskRepeatModeViewModelInputs {
     var patternTypeSelected: PublishSubject<Bool> { get }
     var repeatEvery: PublishSubject<Int> { get }
     var repeatEverySelected: PublishSubject<Bool> { get }
+    var weekdaySelected: PublishSubject<TaskScheduler.DayOfWeek> { get }
     var save: PublishSubject<Void> { get }
 }
 
@@ -47,7 +48,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         var taskSchedulerPattern: TaskScheduler.Pattern {
             switch pattern {
             case .day: return .byDay(repeatEvery: UInt(repeatEvery))
-            case .week: return .byWeek(repeatEvery: UInt(repeatEvery), weekDays: [])
+            case .week: return .byWeek(repeatEvery: UInt(repeatEvery), weekDays: selectedWeekdays)
             case .month: return .byMonthDays(repeatEvery: UInt(repeatEvery), days: [])
             case .year: fatalError("Not implemented")
             }
@@ -97,7 +98,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
                 .enumerated()
                 .map { ($0.element, TaskScheduler.DayOfWeek(rawValue: $0.offset + 1)!) }
                 .sorted { $0.1.numberInWeek(for: calendar) < $1.1.numberInWeek(for: calendar) }
-                .map { CustomTaskRepeatModeSectionItem.weekday(name: $0.0.capitalized, value: $0.1, isSelected: false) }
+                .map { CustomTaskRepeatModeSectionItem.weekday(name: $0.0.capitalized, value: $0.1, isSelected: selectedWeekdays.contains($0.1)) }
             
             return CustomTaskRepeatModeSection(header: "Weekdays",
                                                items: [CustomTaskRepeatModeSectionItem.placeholder(id: "WeekdaysSectionPlaceholder")] + items)
@@ -132,6 +133,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
     let patternTypeSelected = PublishSubject<Bool>()
     let repeatEvery = PublishSubject<Int>()
     let repeatEverySelected = PublishSubject<Bool>()
+    let weekdaySelected = PublishSubject<TaskScheduler.DayOfWeek>()
     let save = PublishSubject<Void>()
 	
 	let title = "Setup"
@@ -173,6 +175,17 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         
         repeatEverySelected
             .withLatestFrom(stateSubject) { return $1.new(repeatEveryExpanded: $0) }
+            .bind(to: stateSubject)
+            .disposed(by: bag)
+        
+        weekdaySelected
+            .withLatestFrom(stateSubject) { day, state in
+                if let index = state.selectedWeekdays.index(of: day) {
+                    return state.new(selectedWeekdays: state.selectedWeekdays.removed(at: index))
+                } else {
+                    return state.new(selectedWeekdays: state.selectedWeekdays.appended(day))
+                }
+            }
             .bind(to: stateSubject)
             .disposed(by: bag)
         

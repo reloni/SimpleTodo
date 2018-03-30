@@ -293,6 +293,20 @@ extension UIViewController {
 	}
 }
 
+extension Array {
+    func removed(at index: Index) -> [Element] {
+        var new = self
+        new.remove(at: index)
+        return new
+    }
+    
+    func appended(_ newElement: Element) -> [Element] {
+        var new = self
+        new.append(newElement)
+        return new
+    }
+}
+
 extension Array where Element : Hashable {
 	func distinct() -> [Element] {
 		return Set(self).map { $0 }

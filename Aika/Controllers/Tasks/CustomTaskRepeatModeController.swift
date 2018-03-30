@@ -35,7 +35,10 @@ final class CustomTaskRepeatModeController: UIViewController {
                 case .repeatEveryPicker: return self.repeatEveryPickerCell()
                 case .patternType: return self.tappableCell(for: item, tapped: { [weak self] in self?.patternTypeSelectionToggledSubject.onNext(()) })
                 case .repeatEvery: return self.tappableCell(for: item, tapped: { [weak self] in self?.repeatEverySelectionToggledSubject.onNext(()) })
-                case .weekday(let value): return self.weekdayCell(name: value.name, isSelected: value.isSelected, tapped: { })
+                case .weekday(let value):
+                    return self.weekdayCell(name: value.name,
+                                            isSelected: value.isSelected,
+                                            tapped: { [weak self] in self?.weekdaySelectedSubject.onNext(value.value) })
                 }
             },
             canEditRowAtIndexPath: { _, _ in return false })
@@ -43,6 +46,7 @@ final class CustomTaskRepeatModeController: UIViewController {
     
     let patternTypeSelectionToggledSubject = PublishSubject<Void>()
     let repeatEverySelectionToggledSubject = PublishSubject<Void>()
+    let weekdaySelectedSubject = PublishSubject<TaskScheduler.DayOfWeek>()
     let saveSubject = PublishSubject<Void>()
 	
 	let tableView = Theme.Controls.tableView().configure {
@@ -96,6 +100,10 @@ final class CustomTaskRepeatModeController: UIViewController {
         
         repeatEverySelectionToggledSubject.withLatestFrom(viewModel.state) { !$1.repeatEveryExpanded }
             .bind(to: viewModel.inputs.repeatEverySelected)
+            .disposed(by: bag)
+        
+        weekdaySelectedSubject
+            .bind(to: viewModel.inputs.weekdaySelected)
             .disposed(by: bag)
         
         saveSubject.bind(to: viewModel.inputs.save).disposed(by: bag)

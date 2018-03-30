@@ -149,6 +149,7 @@ extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
         case (.placeholder(let l), .placeholder(let r)): return l == r
         case (patternTypePicker, patternTypePicker): return true
         case (repeatEveryPicker, repeatEveryPicker): return true
+        case (.weekday(let l), .weekday(let r)): return l.name == r.name && l.value == r.value && l.isSelected == r.isSelected
         default: return false
         }
     }
@@ -160,7 +161,7 @@ extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
         case .placeholder(let id): return id
         case .patternTypePicker: return "patternTypePicker"
         case .repeatEveryPicker: return "repeatEveryPicker"
-        case .weekday(let value): return "\(value.name)-\(value.isSelected)"
+        case .weekday(let value): return value.name
         }
     }
 }
