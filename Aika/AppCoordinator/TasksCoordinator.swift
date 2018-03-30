@@ -50,7 +50,7 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 			navigationController.pushViewController(TaskRepeatModeController(viewModel: viewModel), animated: true)
 			return .just({ $0 })
 		case UIAction.showTaskCustomRepeatModeController(let currentMode):
-            let viewModel = CustomTaskRepeatModeViewModel(flowController: flowController, currentMode: currentMode)
+            let viewModel = CustomTaskRepeatModeViewModel(flowController: flowController, currentMode: currentMode, calendar: Calendar.current)
 			navigationController.pushViewController(CustomTaskRepeatModeController(viewModel: viewModel), animated: true)
 			return .just({ $0 })
 		case UIAction.dismissTaskRepeatModeController:

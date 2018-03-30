@@ -42,6 +42,8 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         let repeatEveryExpanded: Bool
         let selectedWeekdays: [TaskScheduler.DayOfWeek]
         
+        private let calendar: Calendar
+        
         var taskSchedulerPattern: TaskScheduler.Pattern {
             switch pattern {
             case .day: return .byDay(repeatEvery: UInt(repeatEvery))
@@ -51,20 +53,21 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
             }
         }
         
-        init(pattern: TaskScheduler.Pattern?) {
+        init(calendar: Calendar, pattern: TaskScheduler.Pattern?) {
             switch pattern {
             case .byDay(let repeatEvery)?:
-                self.init(pattern: .day, selectedWeekdays: [], patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
+                self.init(calendar: calendar, pattern: .day, selectedWeekdays: [], patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
             case .byWeek(let repeatEvery, let weekDays)?:
-                self.init(pattern: .week, selectedWeekdays: weekDays, patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
+                self.init(calendar: calendar, pattern: .week, selectedWeekdays: weekDays, patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
             case .byMonthDays(let repeatEvery, let days)?:
-                self.init(pattern: .month, selectedWeekdays: [], patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
+                self.init(calendar: calendar, pattern: .month, selectedWeekdays: [], patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
             default:
-                self.init(pattern: .day, selectedWeekdays: [], patternExpanded: false, repeatEvery: 1, repeatEveryExpanded: false)
+                self.init(calendar: calendar, pattern: .day, selectedWeekdays: [], patternExpanded: false, repeatEvery: 1, repeatEveryExpanded: false)
             }
         }
         
-        init(pattern: CustomRepeatPatternType, selectedWeekdays: [TaskScheduler.DayOfWeek], patternExpanded: Bool, repeatEvery: Int, repeatEveryExpanded: Bool) {
+        init(calendar: Calendar, pattern: CustomRepeatPatternType, selectedWeekdays: [TaskScheduler.DayOfWeek], patternExpanded: Bool, repeatEvery: Int, repeatEveryExpanded: Bool) {
+            self.calendar = calendar
             self.pattern = pattern
             self.selectedWeekdays = selectedWeekdays
             self.patternExpanded = patternExpanded
@@ -90,9 +93,11 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         func weekdaysSection() -> CustomTaskRepeatModeSection? {
             guard case CustomRepeatPatternType.week = pattern else { return nil }
             
-            let items = Calendar.current.weekdaySymbols.map {
-                return CustomTaskRepeatModeSectionItem.weekday(name: $0.capitalized, value: .monday, isSelected: true)
-            }
+            let items = calendar.weekdaySymbols
+                .enumerated()
+                .map { ($0.element, TaskScheduler.DayOfWeek(rawValue: $0.offset + 1)!) }
+                .sorted { $0.1.numberInWeek(for: calendar) < $1.1.numberInWeek(for: calendar) }
+                .map { CustomTaskRepeatModeSectionItem.weekday(name: $0.0.capitalized, value: $0.1, isSelected: false) }
             
             return CustomTaskRepeatModeSection(header: "Weekdays",
                                                items: [CustomTaskRepeatModeSectionItem.placeholder(id: "WeekdaysSectionPlaceholder")] + items)
@@ -110,7 +115,8 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
                 return !value
             }()
             
-            return State(pattern: pattern ?? self.pattern,
+            return State(calendar: calendar,
+                         pattern: pattern ?? self.pattern,
                          selectedWeekdays: selectedWeekdays ?? self.selectedWeekdays,
                          patternExpanded: newPatternExpanded,
                          repeatEvery: repeatEvery ?? self.repeatEvery,
@@ -140,9 +146,9 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
             .map { $0.sections }
     }
     
-    init(flowController: RxDataFlowController<AppState>, currentMode: TaskScheduler.Pattern?) {
+    init(flowController: RxDataFlowController<AppState>, currentMode: TaskScheduler.Pattern?, calendar: Calendar) {
 		self.flowController = flowController
-        stateSubject = BehaviorSubject(value: State(pattern: currentMode))
+        stateSubject = BehaviorSubject(value: State(calendar: calendar, pattern: currentMode))
         
         setupRx()
 	}
