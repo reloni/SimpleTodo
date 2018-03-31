@@ -94,8 +94,16 @@ extension TaskRepeatModeSection: SectionModelType {
 struct TaskRepeatModeSectionItem {
 	let text: String
 	let isSelected: Bool
-	let mode: TaskScheduler.Pattern?
+    let mode: TaskScheduler.Pattern?
 	let isCustom: Bool
+    let isSubtitle: Bool
+    init(text: String, isSelected: Bool, mode: TaskScheduler.Pattern?, isCustom: Bool, isSubtitle: Bool = false) {
+        self.text = text
+        self.isSelected = isSelected
+        self.mode = mode
+        self.isCustom = isCustom
+        self.isSubtitle = isSubtitle
+    }
 }
 
 struct CustomTaskRepeatModeSection {

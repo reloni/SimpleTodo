@@ -17,6 +17,12 @@ final class TaskRepeatModeController: UIViewController {
 	
 	lazy var dataSource: RxTableViewSectionedReloadDataSource<TaskRepeatModeSection> = {
 		return RxTableViewSectionedReloadDataSource<TaskRepeatModeSection>(configureCell: { [weak self] ds, tv, ip, item in
+            if item.isSubtitle {
+                let cell = SubtitleCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                cell.label.text = item.text
+                return cell
+            }
+            
 			let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! TappableCell
 
 			cell.textLabel?.text = item.text
@@ -41,8 +47,13 @@ final class TaskRepeatModeController: UIViewController {
 		})
 	}()
 	
-	let tableView = Theme.Controls.tableView().configure {
-		$0.register(TappableCell.self, forCellReuseIdentifier: "Default")
+	let tableView = Theme.Controls.tableView().configure { table in
+		table.register(TappableCell.self, forCellReuseIdentifier: "Default")
+        table.tableFooterView = UIView()
+        table.tableFooterView?.snp.makeConstraints {   
+            $0.width.equalTo(table.snp.width)
+            $0.height.equalTo(1)
+        }
 	}
 	
 	init(viewModel: TaskRepeatModeViewModel) {

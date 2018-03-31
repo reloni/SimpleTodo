@@ -9,6 +9,15 @@
 import RxDataFlow
 import RxSwift
 
+private extension TaskScheduler.Pattern {
+    var isCustom: Bool {
+        switch self {
+        case .byDay, .byMonthDays, .byWeek: return true
+        default: return false
+        }
+    }
+}
+
 final class TaskRepeatModeViewModel: ViewModelType {
     private let bag = DisposeBag()
 	let flowController: RxDataFlowController<AppState>
@@ -66,8 +75,12 @@ final class TaskRepeatModeViewModel: ViewModelType {
                      TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.monthly.description, isSelected: pattern == .monthly, mode: .monthly, isCustom: false),
                      TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.yearly.description, isSelected: pattern == .yearly, mode: .yearly, isCustom: false)]
         let standardSection = TaskRepeatModeSection(header: "Header", items: items)
+        
+        let subtitleText = pattern?.isCustom == true ? pattern!.description : ""
         let customSection = TaskRepeatModeSection(header: "Header",
-                                                  items: [TaskRepeatModeSectionItem(text: "Custom", isSelected: false, mode: nil, isCustom: true)])
+                                                  items: [TaskRepeatModeSectionItem(text: "Custom", isSelected: pattern?.isCustom == true, mode: pattern, isCustom: true),
+                                                          TaskRepeatModeSectionItem(text: subtitleText, isSelected: false, mode: nil, isCustom: false, isSubtitle: true)])
+
         return [standardSection, customSection]
     }
 }
