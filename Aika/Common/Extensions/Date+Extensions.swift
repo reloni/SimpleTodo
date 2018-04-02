@@ -20,13 +20,29 @@ extension Locale {
             return .time12
         }
     }
+    
+    static let posix: Locale = Locale(identifier: "en_US_POSIX")
 }
 
 extension Calendar {
+    static let gregorianPosix: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale.posix
+        return calendar
+    }()
+    
 	var lastWeekday: Int {
 		let tmp = 1 - firstWeekday
 		return tmp < 0 ? abs(tmp) : tmp + 7
 	}
+    
+    var weekdaySymbolsPosix: [String] {
+        return Calendar.gregorianPosix.weekdaySymbols.map { $0.capitalized }
+    }
+    
+    var shortWeekdaySymbolsPosix: [String] {
+        return Calendar.gregorianPosix.shortWeekdaySymbols.map { $0.capitalized }
+    }
 }
 
 extension Date {

@@ -94,11 +94,11 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         func weekdaysSection() -> CustomTaskRepeatModeSection? {
             guard case CustomRepeatPatternType.week = pattern else { return nil }
             
-            let items = calendar.weekdaySymbols
+            let items = calendar.weekdaySymbolsPosix
                 .enumerated()
                 .map { ($0.element, TaskScheduler.DayOfWeek(rawValue: $0.offset + 1)!) }
                 .sorted { $0.1.numberInWeek(for: calendar) < $1.1.numberInWeek(for: calendar) }
-                .map { CustomTaskRepeatModeSectionItem.weekday(name: $0.0.capitalized, value: $0.1, isSelected: selectedWeekdays.contains($0.1)) }
+                .map { CustomTaskRepeatModeSectionItem.weekday(name: $0.0, value: $0.1, isSelected: selectedWeekdays.contains($0.1)) }
             
             return CustomTaskRepeatModeSection(header: "Weekdays",
                                                items: [CustomTaskRepeatModeSectionItem.placeholder(id: "WeekdaysSectionPlaceholder")] + items)

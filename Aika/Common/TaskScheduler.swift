@@ -33,6 +33,10 @@ struct TaskScheduler {
 			let tmp = (rawValue - calendar.firstWeekday) + 1
 			return tmp <= 0 ? tmp + 7 : tmp
 		}
+        
+        var shortWeekdayPosix: String {
+            return Calendar.gregorianPosix.shortWeekdaySymbols[rawValue - 1].capitalized
+        }
 	}
 	
 	let currentDate: Date
