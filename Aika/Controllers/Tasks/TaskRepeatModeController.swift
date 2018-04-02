@@ -82,6 +82,13 @@ final class TaskRepeatModeController: UIViewController {
 		
 		bind()
 	}
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isMovingFromParentViewController {
+            viewModel.close()
+        }
+    }
 	
 	func bind() {
 		viewModel.sections

@@ -176,11 +176,11 @@ extension TaskScheduler.Pattern: Equatable {
 		case .biweekly: return ["type": "biweekly"]
 		case .monthly: return ["type": "monthly"]
 		case .yearly: return ["type": "yearly"]
-		case .byDay(let repeatEvery): return ["type": "byDay", "repeatEvery": "\(repeatEvery)"]
+		case .byDay(let repeatEvery): return ["type": "byDay", "repeatEvery": Int(repeatEvery)]
 		case let .byWeek(repeatEvery, weekDays):
-			return ["type": "byWeek", "repeatEvery": "\(repeatEvery)", "weekDays": weekDays.map { $0.rawValue }]
+			return ["type": "byWeek", "repeatEvery": Int(repeatEvery), "weekDays": weekDays.map { $0.rawValue }]
 		case let .byMonthDays(repeatEvery, days):
-			return ["type": "byMonthDays", "repeatEvery": "\(repeatEvery)", "days": days]
+			return ["type": "byMonthDays", "repeatEvery": Int(repeatEvery), "days": days]
 		}
 	}
 }

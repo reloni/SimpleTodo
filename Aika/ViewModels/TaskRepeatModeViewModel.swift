@@ -22,6 +22,7 @@ final class TaskRepeatModeViewModel: ViewModelType {
     private let bag = DisposeBag()
 	let flowController: RxDataFlowController<AppState>
     let currentPatternSubject: BehaviorSubject<TaskScheduler.Pattern?>
+    let initialPattern: TaskScheduler.Pattern?
 	
 	let title = "Repeat"
     
@@ -34,6 +35,7 @@ final class TaskRepeatModeViewModel: ViewModelType {
 	init(flowController: RxDataFlowController<AppState>, currentPattern: TaskScheduler.Pattern?) {
 		self.flowController = flowController
         self.currentPatternSubject = BehaviorSubject(value: currentPattern)
+        self.initialPattern = currentPattern
         self.sectionsSubject = BehaviorSubject(value: TaskRepeatModeViewModel.createSections(pattern: currentPattern))
         setupRx()
 	}
@@ -57,6 +59,20 @@ final class TaskRepeatModeViewModel: ViewModelType {
 		flowController.dispatch(UIAction.dismissTaskRepeatModeController)
 		flowController.dispatch(EditTaskAction.setRepeatMode(mode))
 	}
+    
+    func close() {
+        currentPatternSubject
+            .take(1)
+            .withLatestFrom(Observable.just(initialPattern)) { return ($0, $1) }
+            .filter { $0.0 != $0.1 }
+            .map { $0.0 }
+            .withLatestFrom(Observable.just(flowController)) { return($0, $1) }
+            .do(onNext: { current, flowController in
+                flowController.dispatch(EditTaskAction.setRepeatMode(current))
+            })
+            .subscribe()
+            .disposed(by: bag)
+    }
 	
 	func setCustomMode() {
         currentPatternSubject
