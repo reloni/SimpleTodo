@@ -77,7 +77,7 @@ final class WebSerivce: WebServiceType {
 				   headers: headers(withToken: tokenHeader))
         
         #if DEBUG
-            dump(instruction)
+            print(try! (try! JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]).toJsonString() ?? "")
         #endif
 		
 		return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
