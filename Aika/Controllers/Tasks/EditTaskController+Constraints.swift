@@ -32,14 +32,14 @@ extension EditTaskController {
 	}
 	
 	func targetDatePickerViewConstraints(make: ConstraintMaker) {
-		make.top.equalTo(targetDateView.snp.bottom)
+		make.top.equalTo(targetDateView.snp.bottom).offset(-1)
 		make.leading.equalTo(containerView.snp.leadingMargin)
 		make.trailing.equalTo(containerView.snp.trailingMargin)
 		datePickerHeightConstraint = make.height.equalTo(0).constraint
 	}
 	
 	func taskRepeatDescriptionViewConstraints(make: ConstraintMaker) {
-		make.top.equalTo(targetDatePickerView.snp.bottom)
+		make.top.equalTo(targetDatePickerView.snp.bottom).offset(-1)
 		make.leading.equalTo(containerView.snp.leadingMargin)
 		make.trailing.equalTo(containerView.snp.trailingMargin)
 		taskRepeatDescriptionViewHeightConstraint = make.height.equalTo(0).constraint
