@@ -97,6 +97,10 @@ extension Date {
 		return calendar.date(byAdding: component, value: value, to: self)!
 	}
 	
+    public func beginningOfWeek(in calendar: Calendar) -> Date {
+        return calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!
+    }
+    
 	public func beginningOfMonth(in calendar: Calendar) -> Date {
 		let components = calendar.dateComponents([.year, .month], from: self)
 		return calendar.date(from: components)!
@@ -149,6 +153,11 @@ extension Date {
         let end = Date().adding(.day, value: 7, in: calendar).endingOfDay(in: calendar)
 		return self > begin && self < end
 	}
+    func isWithinCurrentWeek(is calendar: Calendar) -> Bool {
+        let begin = Date().beginningOfWeek(in: calendar)
+        let end = begin.adding(.day, value: 7, in: calendar)
+        return self > begin && self < end
+    }
 	
 	func isBeforeYesterday(in calendar: Calendar) -> Bool {
         let yesterday = Date().adding(.day, value: -1, in: calendar).beginningOfDay(in: calendar)

@@ -103,11 +103,12 @@ struct TaskScheduler {
 		}
 		
 		guard let currentDayOfWeekNumber = currentDayOfWeek,
-			let currentDayOfWeek = DayOfWeek(rawValue: currentDayOfWeekNumber) else {
+			let currentDayOfWeek = DayOfWeek(rawValue: currentDayOfWeekNumber),
+            let valueDayOfWeek = DayOfWeek(rawValue: value.weekday(in: calendar)!) else {
 				return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1, in: calendar))
 		}
 		
-        let nextDayOfWeek = weekDays.first(where: { $0.numberInWeek(for: calendar) > currentDayOfWeek.numberInWeek(for: calendar) })//.filter({ $0.rawValue > currentDayOfWeek }).first
+        let nextDayOfWeek = weekDays.first(where: { $0.numberInWeek(for: calendar) > valueDayOfWeek.numberInWeek(for: calendar) })
         
         let components = dateComponents(for: value, matching: [.hour, .minute, .second])
 		
@@ -117,8 +118,7 @@ struct TaskScheduler {
 		                                        second: components.second,
 		                                        weekday: nextDayOfWeek?.rawValue ?? weekDays.first?.rawValue)
 
-		
-		return calendar.nextDate(after: nextDayOfWeek != nil ? value : value.adding(.day, value: (repeatEvery * 7) - 1, in: calendar),
+		return calendar.nextDate(after: nextDayOfWeek != nil ? value : value.adding(.day, value: ((repeatEvery == 1 ? 0 : repeatEvery) * 7) - 1, in: calendar),
 		                         matching: matchingComponents,
 		                         matchingPolicy: .nextTimePreservingSmallerComponents,
 		                         repeatedTimePolicy: .first,
