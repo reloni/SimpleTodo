@@ -13,12 +13,15 @@ import UserNotificationsUI
 import RealmSwift
 
 struct AppConstants {
-	static let baseUrl = "https://aika.cloud:443/api/v1"
-//		static let baseUrl = "http://localhost:5000/api/v1"
+    #if DEBUG
+    static let baseUrl = "https://\(ProcessInfo.processInfo.environment["HOST_OVERRIDE"] ?? "\(AppConstants.host)")/api/v1"
+    #else
+    static let baseUrl = "https://\(AppConstants.host)/api/v1"
+    #endif
 	static let host = "aika.cloud"
-	//	static let host = "dev.aika.cloud"
 	
 	static var applicationType: String {
+        
 		switch UI_USER_INTERFACE_IDIOM() {
 		case .pad: return "Aika for iPad"
 		case .phone: return "Aika for iPhone"
