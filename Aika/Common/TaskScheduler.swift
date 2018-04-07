@@ -39,28 +39,10 @@ struct TaskScheduler {
         }
 	}
 	
-	let currentDate: Date
-	
-	public init() {
-		self.init(currentDate: Date())
-	}
-	
-	init(currentDate: Date) {
-		self.currentDate = currentDate
-	}
-	
 	var calendar: Calendar { return Calendar.current }
     
     func dateComponents(for date: Date, matching components: [Calendar.Component]) -> DateComponents {
         return calendar.dateComponents(Set(components), from: date)
-    }
-    
-    var currentDayOfWeek: Int? {
-        return calendar.dateComponents([.weekday], from: currentDate).weekday
-    }
-    
-    var currentDayOfMonth: Int? {
-        return calendar.dateComponents([.day], from: currentDate).day
     }
 	
 	func scheduleNext(from time: Date, withPattern pattern: Pattern) -> Date? {
@@ -68,8 +50,8 @@ struct TaskScheduler {
         case .daily: return nextTime(for: time)
         case .weekly: return nextTime(for: time.adding(.day, value: 6, in: calendar), matchWeekday: time.weekday(in: calendar))
         case .biweekly: return nextTime(for: time.adding(.day, value: 13, in: calendar), matchWeekday: time.weekday(in: calendar))
-        case .monthly: return nextTime(for: time.adding(.month, value: 1, in: calendar).adding(.day, value: -1, in: calendar), matchDay: time.day(in: calendar))
-        case .yearly: return nextTime(for: time.adding(.year, value: 1, in: calendar).adding(.day, value: -1, in: calendar), matchDay: time.day(in: calendar), matchMonth: time.month(in: calendar))
+        case .monthly: return nextTime(for: time.adding(.month, value: 1, in: calendar).adding(.day, value: -1, in: calendar), matchDay: time.dayOfMonth(in: calendar))
+        case .yearly: return nextTime(for: time.adding(.year, value: 1, in: calendar).adding(.day, value: -1, in: calendar), matchDay: time.dayOfMonth(in: calendar), matchMonth: time.month(in: calendar))
         case .byDay(let repeatEvery): return nextTime(for: time.adding(.day, value: Int(repeatEvery) - 1, in: calendar))
         case let .byWeek(repeatEvery, weekDays):
 			return nextTimeByWeek(for: time, repeatEvery: Int(repeatEvery), weekDays: weekDays.sorted(by: { $0.numberInWeek(for: calendar) < $1.numberInWeek(for: calendar) }))
@@ -99,15 +81,13 @@ struct TaskScheduler {
     
     func nextTimeByWeek(for value: Date, repeatEvery: Int, weekDays: [DayOfWeek]) -> Date? {
 		guard weekDays.count > 0 else {
-			return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1, in: calendar))
+			return nil
 		}
 		
-		guard let currentDayOfWeekNumber = currentDayOfWeek,
-			let currentDayOfWeek = DayOfWeek(rawValue: currentDayOfWeekNumber),
-            let valueDayOfWeek = DayOfWeek(rawValue: value.weekday(in: calendar)!) else {
-				return nextTime(for: value.adding(.day, value: Int(repeatEvery * 7) - 1, in: calendar))
+		guard let weekday = value.weekday(in: calendar), let valueDayOfWeek = DayOfWeek(rawValue: weekday) else {
+				return nil
 		}
-		
+
         let nextDayOfWeek = weekDays.first(where: { $0.numberInWeek(for: calendar) > valueDayOfWeek.numberInWeek(for: calendar) })
         
         let components = dateComponents(for: value, matching: [.hour, .minute, .second])
@@ -127,14 +107,14 @@ struct TaskScheduler {
     
     func nextTimeByMonthDays(for value: Date, repeatEvery: Int, days: [Int]) -> Date? {
         guard days.count > 0 else {
-            return nextTime(for: value.adding(.month, value: Int(repeatEvery), in: calendar).adding(.day, value: -1, in: calendar))
+            return nil
         }
         
-        guard let currentDayOfMonth = currentDayOfMonth else {
-            return nextTime(for: value.adding(.month, value: Int(repeatEvery), in: calendar).adding(.day, value: -1, in: calendar))
+        guard let dayOfMonth = value.dayOfMonth(in: calendar) else {
+            return nil
         }
         
-        let nextDayOfMonth = days.first(where: { $0 > currentDayOfMonth })
+        let nextDayOfMonth = days.first(where: { $0 > dayOfMonth })
         
         let components = dateComponents(for: value, matching: [.hour, .minute, .second])
         

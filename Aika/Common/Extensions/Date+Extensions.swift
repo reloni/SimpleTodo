@@ -126,7 +126,7 @@ extension Date {
         return value(for: .weekday, in: calendar).weekday
     }
 
-    func day(in calendar: Calendar) -> Int? {
+    func dayOfMonth(in calendar: Calendar) -> Int? {
         return value(for: .day, in: calendar).day
     }
 
