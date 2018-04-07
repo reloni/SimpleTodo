@@ -245,8 +245,8 @@ class TaskSchedulerTests: XCTestCase {
 					TaskScheduler.DayOfWeek(rawValue: Calendar.current.firstWeekday + 3)!]
 		let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .byWeek(repeatEvery: 3, weekDays: days))!
 		print(formatter.string(from: currentDate.adding(.hour, value: -8).adding(.day, value: 3)))
-		XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: 7 * 3).adding(.hour, value: -8).adding(.day, value: 3)), formatter.string(from: result))
-		XCTAssertEqual(result, currentDate.adding(.day, value: 7 * 3).adding(.hour, value: -8).adding(.day, value: 3))
+		XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: 7 * 2).adding(.hour, value: -8).adding(.day, value: 3)), formatter.string(from: result))
+		XCTAssertEqual(result, currentDate.adding(.day, value: 7 * 2).adding(.hour, value: -8).adding(.day, value: 3))
 	}
 	
 	func testByWeek_5() {
@@ -279,7 +279,7 @@ class TaskSchedulerTests: XCTestCase {
 					TaskScheduler.DayOfWeek(rawValue: Calendar.current.firstWeekday + 0)!]
 		let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .byWeek(repeatEvery: 3, weekDays: days))!
 		print(formatter.string(from: currentDate.adding(.hour, value: 10).adding(.day, value: (3 * 7) + 4)))
-		XCTAssertEqual(formatter.string(from: currentDate.adding(.hour, value: 10).adding(.day, value: (3 * 7) + 4)), formatter.string(from: result))
+		XCTAssertEqual(formatter.string(from: currentDate.adding(.hour, value: 10).adding(.day, value: (2 * 7) + 4)), formatter.string(from: result))
 	}
 	
 	func testByWeek_8() {

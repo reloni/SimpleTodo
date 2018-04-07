@@ -98,9 +98,9 @@ struct TaskScheduler {
 		                                        second: components.second,
 		                                        weekday: nextDayOfWeek?.rawValue ?? weekDays.first?.rawValue)
 
-		return calendar.nextDate(after: nextDayOfWeek != nil ? value : value.adding(.day, value: ((repeatEvery == 1 ? 0 : repeatEvery) * 7) - 1, in: calendar),
+		return calendar.nextDate(after: nextDayOfWeek != nil ? value : value.adding(.day, value: (repeatEvery - 1) * 7, in: calendar),
 		                         matching: matchingComponents,
-		                         matchingPolicy: .nextTimePreservingSmallerComponents,
+		                         matchingPolicy: .strict,
 		                         repeatedTimePolicy: .first,
 		                         direction: .forward)
     }
