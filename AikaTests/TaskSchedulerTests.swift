@@ -245,8 +245,8 @@ class TaskSchedulerTests: XCTestCase {
 					TaskScheduler.DayOfWeek(rawValue: Calendar.current.firstWeekday + 3)!]
 		let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .byWeek(repeatEvery: 3, weekDays: days))!
 		print(formatter.string(from: currentDate.adding(.hour, value: -8).adding(.day, value: 3)))
-		XCTAssertEqual(formatter.string(from: currentDate.adding(.hour, value: -8).adding(.day, value: 3)), formatter.string(from: result))
-		XCTAssertEqual(result, currentDate.adding(.hour, value: -8).adding(.day, value: 3))
+		XCTAssertEqual(formatter.string(from: currentDate.adding(.day, value: 7 * 3).adding(.hour, value: -8).adding(.day, value: 3)), formatter.string(from: result))
+		XCTAssertEqual(result, currentDate.adding(.day, value: 7 * 3).adding(.hour, value: -8).adding(.day, value: 3))
 	}
 	
 	func testByWeek_5() {
@@ -288,7 +288,7 @@ class TaskSchedulerTests: XCTestCase {
 		let days = [TaskScheduler.DayOfWeek(rawValue: Calendar.current.firstWeekday + 3)!,
 					TaskScheduler.DayOfWeek(rawValue: Calendar.current.firstWeekday + 0)!]
 		let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .byWeek(repeatEvery: 1, weekDays: days))!
-		XCTAssertEqual(formatter.string(from: currentDate.adding(.hour, value: 10).adding(.day, value: 7 + 4)), formatter.string(from: result))
+		XCTAssertEqual(formatter.string(from: currentDate.adding(.hour, value: 10).adding(.day, value: 4)), formatter.string(from: result))
 	}
 	
 	func testByWeek_9() {
@@ -299,17 +299,7 @@ class TaskSchedulerTests: XCTestCase {
 		let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .byWeek(repeatEvery: 1, weekDays: days))!
 		XCTAssertEqual(formatter.string(from: currentDate.adding(.hour, value: 10).adding(.day, value: 1)), formatter.string(from: result))
 	}
-    
-//    func testByWeek_10() {
-//        let currentDate = Date().startOfWeek().adding(.day, value: 2)
-//        let scheduler = TaskScheduler(currentDate: currentDate)
-//        let taskDate = currentDate.adding(.hour, value: 10)
-//        let days = [TaskScheduler.DayOfWeek(rawValue: Calendar.current.firstWeekday + 1)!,
-//                    TaskScheduler.DayOfWeek(rawValue: Calendar.current.firstWeekday + 5)!]
-//        let result = scheduler.scheduleNext(from: taskDate, withPattern: .byWeek(repeatEvery: 1, weekDays: days))!
-//        XCTAssertEqual(formatter.string(from: currentDate.adding(.hour, value: 10).adding(.day, value: 1)), formatter.string(from: result))
-//    }
-    
+
     func testByMonthDays_1() {
         let currentDate = Date().beginningOfMonth(in: Calendar.current)
         let taskDate = currentDate.adding(.hour, value: -3)
