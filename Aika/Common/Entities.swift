@@ -14,11 +14,16 @@ import RealmSwift
 
 struct AppConstants {
     #if DEBUG
-    static let baseUrl = "https://\(ProcessInfo.processInfo.environment["HOST_OVERRIDE"] ?? "\(AppConstants.host)")/api/v1"
+    static let baseUrl = "https://\(hostOverride ?? "\(AppConstants.host)")/api/v1"
     #else
     static let baseUrl = "https://\(AppConstants.host)/api/v1"
     #endif
 	static let host = "aika.cloud"
+    
+    static var hostOverride: String? {
+        guard let host = ProcessInfo.processInfo.environment["HOST_OVERRIDE"] else { return nil }
+        return host.count > 0 ? host : nil
+    }
 	
 	static var applicationType: String {
         
