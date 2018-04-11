@@ -82,8 +82,12 @@ struct TaskRepeatModeSection {
 	var items: [Item]
 }
 
-extension TaskRepeatModeSection: SectionModelType {
+extension TaskRepeatModeSection: AnimatableSectionModelType {
 	typealias Item = TaskRepeatModeSectionItem
+    
+    var identity: String {
+        return header
+    }
 	
 	init(original: TaskRepeatModeSection, items: [TaskRepeatModeSectionItem]) {
 		self = original
@@ -103,6 +107,16 @@ struct TaskRepeatModeSectionItem {
         self.mode = mode
         self.isCustom = isCustom
         self.isSubtitle = isSubtitle
+    }
+}
+
+extension TaskRepeatModeSectionItem: Equatable, IdentifiableType {
+    static func ==(lhs: TaskRepeatModeSectionItem, rhs: TaskRepeatModeSectionItem) -> Bool {
+        return lhs.text == rhs.text && lhs.isSelected == rhs.isSelected
+    }
+    
+    var identity: String {
+        return text
     }
 }
 

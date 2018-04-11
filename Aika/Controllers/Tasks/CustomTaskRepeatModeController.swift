@@ -21,7 +21,6 @@ final class CustomTaskRepeatModeController: UIViewController {
 	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection> = {
         let animationConfiguration = AnimationConfiguration(insertAnimation: .middle, reloadAnimation: .fade, deleteAnimation: .middle)
         
-        
         return RxTableViewSectionedAnimatedDataSource<CustomTaskRepeatModeSection>(
             animationConfiguration: animationConfiguration,
             configureCell: { [unowned self] ds, tv, ip, item in

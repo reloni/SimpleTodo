@@ -90,10 +90,10 @@ final class TaskRepeatModeViewModel: ViewModelType {
                      TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.biweekly.description, isSelected: pattern == .biweekly, mode: .biweekly, isCustom: false),
                      TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.monthly.description, isSelected: pattern == .monthly, mode: .monthly, isCustom: false),
                      TaskRepeatModeSectionItem(text: TaskScheduler.Pattern.yearly.description, isSelected: pattern == .yearly, mode: .yearly, isCustom: false)]
-        let standardSection = TaskRepeatModeSection(header: "Header", items: items)
+        let standardSection = TaskRepeatModeSection(header: "Main", items: items)
         
         let subtitleText = pattern?.isCustom == true ? pattern!.description : ""
-        let customSection = TaskRepeatModeSection(header: "Header",
+        let customSection = TaskRepeatModeSection(header: "Custom",
                                                   items: [TaskRepeatModeSectionItem(text: "Custom", isSelected: pattern?.isCustom == true, mode: pattern, isCustom: true),
                                                           TaskRepeatModeSectionItem(text: subtitleText, isSelected: false, mode: nil, isCustom: false, isSubtitle: true)])
 

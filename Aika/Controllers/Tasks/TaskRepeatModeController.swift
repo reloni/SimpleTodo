@@ -15,8 +15,11 @@ final class TaskRepeatModeController: UIViewController {
 	let bag = DisposeBag()
 	let tableViewDelegate = TaskRepeatModeTableViewDelegate()
 	
-	lazy var dataSource: RxTableViewSectionedReloadDataSource<TaskRepeatModeSection> = {
-		return RxTableViewSectionedReloadDataSource<TaskRepeatModeSection>(configureCell: { [weak self] ds, tv, ip, item in
+	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<TaskRepeatModeSection> = {
+        let animationConfiguration = AnimationConfiguration(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .bottom)
+		return RxTableViewSectionedAnimatedDataSource<TaskRepeatModeSection>(
+            animationConfiguration: animationConfiguration,
+            configureCell: { [weak self] ds, tv, ip, item in
             if item.isSubtitle {
                 let cell = SubtitleCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
                 cell.label.text = item.text
