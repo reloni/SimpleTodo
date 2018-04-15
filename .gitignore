@@ -67,3 +67,4 @@ fastlane/screenshots
 /fastlane/README.md
 /static
 /.DS_Store
+/Aika.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
