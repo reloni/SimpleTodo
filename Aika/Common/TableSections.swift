@@ -116,7 +116,7 @@ extension TaskRepeatModeSectionItem: Equatable, IdentifiableType {
     }
     
     var identity: String {
-        return text
+        return isSubtitle ? "Subtitle" : text
     }
 }
 
