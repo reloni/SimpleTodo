@@ -56,6 +56,9 @@ final class TaskRepeatModeViewModel: ViewModelType {
     }
 	
 	func setNew(mode: TaskScheduler.Pattern?) {
+        // dispose subject immediately in order to prevent further changes
+        currentPatternSubject.dispose()
+        
 		flowController.dispatch(UIAction.dismissTaskRepeatModeController)
 		flowController.dispatch(EditTaskAction.setRepeatMode(mode))
 	}
