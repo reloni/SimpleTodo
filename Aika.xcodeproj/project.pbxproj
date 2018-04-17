@@ -96,6 +96,7 @@
 		6ED3F4411E7D9F6A0003C1CC /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */; };
 		6ED3F4471E7DA3D50003C1CC /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */; };
 		6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4451E7DA3D50003C1CC /* TasksController.swift */; };
+		6ED6646720866FA4001C5CFF /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6646620866FA4001C5CFF /* CalendarDateCell.swift */; };
 		6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDC4E051F9BDE180003BE92 /* Motion.framework */; };
 		6EE1C7E01FE6CC1900FFB34D /* EncodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */; };
 		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
@@ -251,6 +252,7 @@
 		6ED3F4401E7D9F6A0003C1CC /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskController.swift; sourceTree = "<group>"; };
 		6ED3F4451E7DA3D50003C1CC /* TasksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
+		6ED6646620866FA4001C5CFF /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		6EDC4E051F9BDE180003BE92 /* Motion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Motion.framework; path = Carthage/Build/iOS/Motion.framework; sourceTree = "<group>"; };
 		6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodeTests.swift; sourceTree = "<group>"; };
 		6EE247D71DF21291001A6F39 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 				6E2563192055A7F700F3297C /* PlaceholderCell.swift */,
 				6EA12B93205844DC00EE1E4B /* PickerCell.swift */,
 				6E7D17BA207011D800641665 /* SubtitleCell.swift */,
+				6ED6646620866FA4001C5CFF /* CalendarDateCell.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */,
 				6EF799631EC73E6100C9DFF0 /* ViewModelType.swift in Sources */,
 				6E06455A1E993EB600A8AA59 /* SwitchView.swift in Sources */,
+				6ED6646720866FA4001C5CFF /* CalendarDateCell.swift in Sources */,
 				6E07ED2C1EC3636A00154DF4 /* SynchronizationReducer.swift in Sources */,
 				6E19E3A11F5C166D00FDE207 /* main.swift in Sources */,
 				6E05D0041E881F0B00C293B8 /* WebService.swift in Sources */,

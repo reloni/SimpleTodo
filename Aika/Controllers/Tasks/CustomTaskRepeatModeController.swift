@@ -38,6 +38,8 @@ final class CustomTaskRepeatModeController: UIViewController {
                     return self.weekdayCell(name: value.name,
                                             isSelected: value.isSelected,
                                             tapped: { [weak self] in self?.weekdaySelectedSubject.onNext(value.value) })
+                case .monthDays(let value):
+                    return CalendarDateCell(style: .default, reuseIdentifier: nil)
                 }
             },
             canEditRowAtIndexPath: { _, _ in return false })

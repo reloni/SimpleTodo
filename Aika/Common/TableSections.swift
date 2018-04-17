@@ -142,6 +142,7 @@ enum CustomTaskRepeatModeSectionItem {
     case placeholder(id: String)
     case patternType(pattern: CustomRepeatPatternType)
     case weekday(name: String, value: TaskScheduler.DayOfWeek, isSelected: Bool)
+    case monthDays(name: String)
     case patternTypePicker
     case repeatEvery(value: Int)
     case repeatEveryPicker
@@ -184,6 +185,7 @@ extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
         case .patternTypePicker: return "patternTypePicker"
         case .repeatEveryPicker: return "repeatEveryPicker"
         case .weekday(let value): return value.name
+        case .monthDays(let value): return value
         }
     }
 }

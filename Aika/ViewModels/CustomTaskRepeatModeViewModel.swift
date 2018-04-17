@@ -77,7 +77,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         }
         
         var sections: [CustomTaskRepeatModeSection] {
-            return [basicSection(), weekdaysSection()].flatMap { $0 }
+            return [basicSection(), weekdaysSection(), monthDaysSection()].compactMap { $0 }
         }
         
         func basicSection() -> CustomTaskRepeatModeSection {
@@ -87,7 +87,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
                 patternExpanded ? CustomTaskRepeatModeSectionItem.patternTypePicker : nil,
                 CustomTaskRepeatModeSectionItem.repeatEvery(value: repeatEvery),
                 repeatEveryExpanded ? CustomTaskRepeatModeSectionItem.repeatEveryPicker : nil
-                ].flatMap { $0 }
+                ].compactMap { $0 }
             return CustomTaskRepeatModeSection(header: "Basic setup", items: basicSectionItems)
         }
         
@@ -102,6 +102,13 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
             
             return CustomTaskRepeatModeSection(header: "Weekdays",
                                                items: [CustomTaskRepeatModeSectionItem.placeholder(id: "WeekdaysSectionPlaceholder")] + items)
+        }
+        
+        func monthDaysSection() -> CustomTaskRepeatModeSection? {
+            guard case CustomRepeatPatternType.month = pattern else { return nil }
+            
+            return CustomTaskRepeatModeSection(header: "MonthDays",
+                                               items: [CustomTaskRepeatModeSectionItem.placeholder(id: "MonthDaysSectionPlaceholder")] + [CustomTaskRepeatModeSectionItem.monthDays(name: "test")])
         }
         
         func new(pattern: CustomRepeatPatternType? = nil, selectedWeekdays: [TaskScheduler.DayOfWeek]? = nil,
