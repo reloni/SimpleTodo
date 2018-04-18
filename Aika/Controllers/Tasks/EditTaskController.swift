@@ -174,7 +174,9 @@ final class EditTaskController : UIViewController {
 		state.map { $0.targetDate }.distinctUntilChanged({ $0 == $1 }).do(onNext: { [weak self] in self?.targetDatePickerView.date = $0 }).subscribe().disposed(by: bag)
 		
 		state.map { $0.description.count > 0 }.bind(to: navigationItem.rightBarButtonItem!.rx.isEnabled).disposed(by: bag)
-		state.map { $0.repeatPattern?.description ?? "" }.bind(to: taskRepeatDescriptionView.rightLabel.rx.text).disposed(by: bag)
+        state.map { $0.repeatPattern?.description ?? "" }.subscribe(onNext: { [unowned label = taskRepeatDescriptionView.rightLabel] value in
+            UIView.transition(with: label, duration: 0.3, options: .transitionCrossDissolve, animations: { label.text = value }, completion: nil)
+        }).disposed(by: bag)
 		targetDatePickerView.currentDate
 			.map { $0?.toString(format: .full(withTime: $0?.includeTime ?? false)) ?? "" }
 			.bind(to: targetDateView.textField.rx.text)

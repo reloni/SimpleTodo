@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SwitchCell: DefaultCell {
+final class SwitchCell: TappableCell {
 	var switchChanged: ((Bool) -> Void)?
 	
 	let switchView = UISwitch()

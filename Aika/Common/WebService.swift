@@ -75,6 +75,10 @@ final class WebSerivce: WebServiceType {
 				   method: .post,
 				   body: jsonData,
 				   headers: headers(withToken: tokenHeader))
+        
+        #if DEBUG
+            print(try! (try! JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]).toJsonString() ?? "")
+        #endif
 		
 		return httpClient.requestData(request, requestCacheMode: CacheMode.withoutCache)
 			.flatMap { result -> Observable<[Task]> in

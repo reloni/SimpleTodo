@@ -19,7 +19,7 @@ final class FrameworksController: UIViewController {
 	let tableViewDelegate = FrameworksTableViewDelegate()
 	
 	let tableView = Theme.Controls.tableView().configure {
-		$0.register(DefaultCell.self, forCellReuseIdentifier: "Default")
+		$0.register(TappableCell.self, forCellReuseIdentifier: "Default")
 	}
     
 	init(viewModel: FrameworksViewModel) {
@@ -60,7 +60,7 @@ final class FrameworksController: UIViewController {
 	}
 	
 	static func configureCell(dataSource ds: TableViewSectionedDataSource<FrameworksSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: FrameworkSectionItem) -> UITableViewCell {
-		let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
+		let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! TappableCell
 		cell.textLabel?.text = item.name
 		cell.accessoryType = .disclosureIndicator
 		cell.preservesSuperviewLayoutMargins = false
@@ -78,7 +78,7 @@ final class FrameworksController: UIViewController {
 
 final class FrameworksTableViewDelegate : NSObject, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
+		guard let cell = tableView.cellForRow(at: indexPath) as? TappableCell else { return }
 		
 		cell.tapped?()
 	}

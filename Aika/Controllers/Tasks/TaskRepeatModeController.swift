@@ -11,15 +11,23 @@ import RxSwift
 import RxDataSources
 
 final class TaskRepeatModeController: UIViewController {
-	
 	let viewModel: TaskRepeatModeViewModel
 	let bag = DisposeBag()
 	let tableViewDelegate = TaskRepeatModeTableViewDelegate()
 	
-	lazy var dataSource: RxTableViewSectionedReloadDataSource<TaskRepeatModeSection> = {
-		return RxTableViewSectionedReloadDataSource<TaskRepeatModeSection>(configureCell: { [weak self] ds, tv, ip, item in
-			let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! DefaultCell
-			
+	lazy var dataSource: RxTableViewSectionedAnimatedDataSource<TaskRepeatModeSection> = {
+        let animationConfiguration = AnimationConfiguration(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .bottom)
+		return RxTableViewSectionedAnimatedDataSource<TaskRepeatModeSection>(
+            animationConfiguration: animationConfiguration,
+            configureCell: { [weak self] ds, tv, ip, item in
+            if item.isSubtitle {
+                let cell = SubtitleCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                cell.label.text = item.text
+                return cell
+            }
+            
+			let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! TappableCell
+
 			cell.textLabel?.text = item.text
 			if item.isSelected {
 				cell.imageView?.image = Theme.Images.checked.resize(toWidth: 22)
@@ -28,16 +36,27 @@ final class TaskRepeatModeController: UIViewController {
 			}
 			cell.preservesSuperviewLayoutMargins = false
 			
+			cell.selectionStyle = .none
+			
 			cell.tapped = {
-				self?.viewModel.setNew(mode: item.mode)
+				if item.isCustom {
+					self?.viewModel.setCustomMode()
+				} else {
+					self?.viewModel.setNew(mode: item.mode)
+				}
 			}
 			
 			return cell
 		})
 	}()
 	
-	let tableView = Theme.Controls.tableView().configure {
-		$0.register(DefaultCell.self, forCellReuseIdentifier: "Default")
+	let tableView = Theme.Controls.tableView().configure { table in
+		table.register(TappableCell.self, forCellReuseIdentifier: "Default")
+        table.tableFooterView = UIView()
+        table.tableFooterView?.snp.makeConstraints {   
+            $0.width.equalTo(table.snp.width)
+            $0.height.equalTo(1)
+        }
 	}
 	
 	init(viewModel: TaskRepeatModeViewModel) {
@@ -66,6 +85,13 @@ final class TaskRepeatModeController: UIViewController {
 		
 		bind()
 	}
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isMovingFromParentViewController {
+            viewModel.close()
+        }
+    }
 	
 	func bind() {
 		viewModel.sections
@@ -90,7 +116,7 @@ final class TaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
+		guard let cell = tableView.cellForRow(at: indexPath) as? TappableCell else { return }
 
 		cell.tapped?()
 	}
