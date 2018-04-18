@@ -144,7 +144,7 @@ enum CustomTaskRepeatModeSectionItem {
     case weekday(name: String, value: TaskScheduler.DayOfWeek, isSelected: Bool)
     case monthDays(name: String)
     case patternTypePicker
-    case repeatEvery(value: Int)
+    case repeatEvery(value: Int, pattern: CustomRepeatPatternType)
     case repeatEveryPicker
 	
 	var mainText: String {
@@ -158,7 +158,7 @@ enum CustomTaskRepeatModeSectionItem {
 	var detailText: String {
 		switch self {
 		case .patternType(let p): return p.rawValue
-		case .repeatEvery(let v): return "\(v)"
+		case .repeatEvery(let value, let pattern): return "\(value) \(pattern.repeatEveryDisplayValue)"
         default: return ""
 		}
 	}

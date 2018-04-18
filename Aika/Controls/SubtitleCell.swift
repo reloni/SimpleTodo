@@ -24,7 +24,7 @@ final class SubtitleCell: UITableViewCell {
     }
     
     func setup() {
-        
+        selectionStyle = .none
         contentView.addSubview(label)
         backgroundColor = Theme.Colors.isabelline
         

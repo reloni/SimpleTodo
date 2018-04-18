@@ -24,7 +24,7 @@ protocol CustomTaskRepeatModeViewModelOutputs {
     var repeatEveryItems: Observable<[[CustomStringConvertible]]> { get }
 }
 
-private extension CustomRepeatPatternType {
+extension CustomRepeatPatternType {
     var repeatEveryDisplayValue: String {
         switch self {
         case .day: return "Day(s)"
@@ -60,7 +60,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
                 self.init(calendar: calendar, pattern: .day, selectedWeekdays: [], patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
             case .byWeek(let repeatEvery, let weekDays)?:
                 self.init(calendar: calendar, pattern: .week, selectedWeekdays: weekDays, patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
-            case .byMonthDays(let repeatEvery, let days)?:
+            case .byMonthDays(let repeatEvery, _)?:
                 self.init(calendar: calendar, pattern: .month, selectedWeekdays: [], patternExpanded: false, repeatEvery: Int(repeatEvery), repeatEveryExpanded: false)
             default:
                 self.init(calendar: calendar, pattern: .day, selectedWeekdays: [], patternExpanded: false, repeatEvery: 1, repeatEveryExpanded: false)
@@ -85,7 +85,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
                 CustomTaskRepeatModeSectionItem.placeholder(id: "BasicSectionPlaceholder"),
                 CustomTaskRepeatModeSectionItem.patternType(pattern: pattern),
                 patternExpanded ? CustomTaskRepeatModeSectionItem.patternTypePicker : nil,
-                CustomTaskRepeatModeSectionItem.repeatEvery(value: repeatEvery),
+                CustomTaskRepeatModeSectionItem.repeatEvery(value: repeatEvery, pattern: pattern),
                 repeatEveryExpanded ? CustomTaskRepeatModeSectionItem.repeatEveryPicker : nil
                 ].compactMap { $0 }
             return CustomTaskRepeatModeSection(header: "Basic setup", items: basicSectionItems)
@@ -229,7 +229,7 @@ extension CustomTaskRepeatModeViewModel: CustomTaskRepeatModeViewModelOutputs {
     
     var patternTypetems: Observable<[[CustomStringConvertible]]> {
         return Observable.just([[CustomRepeatPatternType.day,
-                                 CustomRepeatPatternType.week,
-                                 CustomRepeatPatternType.month]])
+                                 CustomRepeatPatternType.week/*,
+                                 CustomRepeatPatternType.month*/]])
     }
 }
