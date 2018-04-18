@@ -20,13 +20,29 @@ extension Locale {
             return .time12
         }
     }
+    
+    static let posix: Locale = Locale(identifier: "en_US_POSIX")
 }
 
 extension Calendar {
+    static let gregorianPosix: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale.posix
+        return calendar
+    }()
+    
 	var lastWeekday: Int {
 		let tmp = 1 - firstWeekday
 		return tmp < 0 ? abs(tmp) : tmp + 7
 	}
+    
+    var weekdaySymbolsPosix: [String] {
+        return Calendar.gregorianPosix.weekdaySymbols.map { $0.capitalized }
+    }
+    
+    var shortWeekdaySymbolsPosix: [String] {
+        return Calendar.gregorianPosix.shortWeekdaySymbols.map { $0.capitalized }
+    }
 }
 
 extension Date {
@@ -81,6 +97,10 @@ extension Date {
 		return calendar.date(byAdding: component, value: value, to: self)!
 	}
 	
+    public func beginningOfWeek(in calendar: Calendar) -> Date {
+        return calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!
+    }
+    
 	public func beginningOfMonth(in calendar: Calendar) -> Date {
 		let components = calendar.dateComponents([.year, .month], from: self)
 		return calendar.date(from: components)!
@@ -106,7 +126,7 @@ extension Date {
         return value(for: .weekday, in: calendar).weekday
     }
 
-    func day(in calendar: Calendar) -> Int? {
+    func dayOfMonth(in calendar: Calendar) -> Int? {
         return value(for: .day, in: calendar).day
     }
 
@@ -133,6 +153,11 @@ extension Date {
         let end = Date().adding(.day, value: 7, in: calendar).endingOfDay(in: calendar)
 		return self > begin && self < end
 	}
+    func isWithinCurrentWeek(is calendar: Calendar) -> Bool {
+        let begin = Date().beginningOfWeek(in: calendar)
+        let end = begin.adding(.day, value: 7, in: calendar)
+        return self > begin && self < end
+    }
 	
 	func isBeforeYesterday(in calendar: Calendar) -> Bool {
         let yesterday = Date().adding(.day, value: -1, in: calendar).beginningOfDay(in: calendar)

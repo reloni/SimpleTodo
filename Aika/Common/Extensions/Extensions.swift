@@ -83,7 +83,7 @@ extension TaskScheduler.Pattern {
 		case .monthly: return "Every month"
 		case .yearly: return "Every year"
 		case .byDay(let repeatEvery): return "Every \(repeatEvery) day(s)"
-		case let .byWeek(repeatEvery, _): return "Every \(repeatEvery) week(s)"
+        case let .byWeek(repeatEvery, days): return "Every \(repeatEvery) week(s) at (\(days.map { $0.shortWeekdayPosix }.joined(separator: ", ")))"
 		case let .byMonthDays(repeatEvery, _): return "Every \(repeatEvery) month(s)"
 		}
 	}
@@ -291,6 +291,20 @@ extension UIViewController {
 		actions.forEach { alert.addAction($0) }
 		return alert
 	}
+}
+
+extension Array {
+    func removed(at index: Index) -> [Element] {
+        var new = self
+        new.remove(at: index)
+        return new
+    }
+    
+    func appended(_ newElement: Element) -> [Element] {
+        var new = self
+        new.append(newElement)
+        return new
+    }
 }
 
 extension Array where Element : Hashable {
