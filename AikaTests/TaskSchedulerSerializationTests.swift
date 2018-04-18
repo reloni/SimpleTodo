@@ -22,16 +22,16 @@ class TaskSchedulerSerializationTests: XCTestCase {
         
         let byDay = TaskScheduler.Pattern.byDay(repeatEvery: 5).toJson()
         XCTAssertEqual(byDay["type"] as? String, "byDay")
-        XCTAssertEqual(byDay["repeatEvery"] as? String, "5")
+        XCTAssertEqual(byDay["repeatEvery"] as? Int, 5)
         
         let byWeek = TaskScheduler.Pattern.byWeek(repeatEvery: 3, weekDays: [.monday, .tuesday, .friday]).toJson()
         XCTAssertEqual(byWeek["type"] as? String, "byWeek")
-        XCTAssertEqual(byWeek["repeatEvery"] as? String, "3")
+        XCTAssertEqual(byWeek["repeatEvery"] as? Int, 3)
         XCTAssertEqual(byWeek["weekDays"] as! [Int], [2, 3, 6])
         
         let byMonthDays = TaskScheduler.Pattern.byMonthDays(repeatEvery: 8, days: [3, 6, 8, 22, 30]).toJson()
         XCTAssertEqual(byMonthDays["type"] as? String, "byMonthDays")
-        XCTAssertEqual(byMonthDays["repeatEvery"] as? String, "8")
+        XCTAssertEqual(byMonthDays["repeatEvery"] as? Int, 8)
         XCTAssertEqual(byMonthDays["days"] as! [UInt], [3, 6, 8, 22, 30])
     }
 	

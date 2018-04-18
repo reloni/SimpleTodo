@@ -13,12 +13,20 @@ import UserNotificationsUI
 import RealmSwift
 
 struct AppConstants {
-	static let baseUrl = "https://aika.cloud:443/api/v1"
-//		static let baseUrl = "http://localhost:5000/api/v1"
+    #if DEBUG
+    static let baseUrl = "https://\(hostOverride ?? "\(AppConstants.host)")/api/v1"
+    #else
+    static let baseUrl = "https://\(AppConstants.host)/api/v1"
+    #endif
 	static let host = "aika.cloud"
-	//	static let host = "dev.aika.cloud"
+    
+    static var hostOverride: String? {
+        guard let host = ProcessInfo.processInfo.environment["HOST_OVERRIDE"] else { return nil }
+        return host.count > 0 ? host : nil
+    }
 	
 	static var applicationType: String {
+        
 		switch UI_USER_INTERFACE_IDIOM() {
 		case .pad: return "Aika for iPad"
 		case .phone: return "Aika for iPhone"
@@ -45,6 +53,15 @@ enum IconBadgeStyle: String {
 	case overdue
 	case today
 	case all
+}
+
+enum CustomRepeatPatternType: String, CustomStringConvertible {
+    case day = "Daily"
+    case week = "Weekly"
+    case month = "Monthly"
+    case year = "Yearly"
+    
+    var description: String { return rawValue }
 }
 
 enum AuthenticationError : Error {

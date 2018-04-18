@@ -32,7 +32,7 @@ final class SettingsController : UIViewController {
 		
 		table.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		
-		table.register(DefaultCell.self, forCellReuseIdentifier: "Default")
+		table.register(TappableCell.self, forCellReuseIdentifier: "Default")
 		
 		return table
 	}()
@@ -140,7 +140,7 @@ final class SettingsController : UIViewController {
 			}
 			return cell
 		case .iconBadgeStyle(let data):
-			let cell = DefaultCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
+			let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
 			SettingsController.configure(cell: cell)
 			SettingsController.configureTextCell(cell, with: data)
 			cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
@@ -171,8 +171,8 @@ final class SettingsController : UIViewController {
 		cell.switchChanged = { [weak viewModel] isOn in viewModel?.isPushNotificationsEnabled = isOn }
 	}
 	
-	static func dequeueAndConfigureDefaultCell(for indexPath: IndexPath, with data: (title: String, image: UIImage), in table: UITableView) -> DefaultCell {
-		let cell = table.dequeueReusableCell(withIdentifier: "Default", for: indexPath) as! DefaultCell
+	static func dequeueAndConfigureDefaultCell(for indexPath: IndexPath, with data: (title: String, image: UIImage), in table: UITableView) -> TappableCell {
+		let cell = table.dequeueReusableCell(withIdentifier: "Default", for: indexPath) as! TappableCell
 		SettingsController.configure(cell: cell)
 		SettingsController.configure(defaultCell: cell, with: data)
 		return cell
@@ -192,7 +192,7 @@ final class SettingsController : UIViewController {
 		cell.tintColor = Theme.Colors.pumkin
 	}
 	
-	static func configure(defaultCell cell: DefaultCell, with data: (title: String, image: UIImage)) {
+	static func configure(defaultCell cell: TappableCell, with data: (title: String, image: UIImage)) {
 		cell.textLabel?.text = data.title
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 		cell.accessoryType = .disclosureIndicator
@@ -266,7 +266,7 @@ final class SettingsTableViewDelegate : NSObject, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
+		guard let cell = tableView.cellForRow(at: indexPath) as? TappableCell else { return }
 		
 		cell.tapped?()
 	}

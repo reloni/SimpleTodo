@@ -82,7 +82,7 @@ final class SettingsViewModel: ViewModelType {
 		let actions: [RxActionType?] = [PushNotificationsAction.switchNotificationSubscription(subscribed: isPushNotificationsEnabled),
 									   UIAction.dismissSettingsController,
 									   pushNotificationSwitchAnalyticalAction()]
-		flowController.dispatch(RxCompositeAction(actions: actions.flatMap { $0 }))
+		flowController.dispatch(RxCompositeAction(actions: actions.compactMap { $0 }))
 	}
 	
 	func pushNotificationSwitchAnalyticalAction() -> AnalyticalAction? {
