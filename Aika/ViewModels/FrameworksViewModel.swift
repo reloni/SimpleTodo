@@ -30,6 +30,10 @@ final class FrameworksViewModel: ViewModelType {
 		let section = FrameworksSection(header: "", items: FrameworksViewModel.frameworks)
 			return .just([section])
 	}()
+    
+    func openUrl(for item: FrameworkSectionItem) {
+        flowController.dispatch(UIAction.showSafari(item.url))
+    }
 	
 	init(flowController: RxDataFlowController<AppState>) {
 		self.flowController = flowController

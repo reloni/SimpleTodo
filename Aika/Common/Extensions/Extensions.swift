@@ -13,6 +13,26 @@ import RxSwift
 import Material
 import RxDataFlow
 
+extension UIWindow {
+    func topMostViewController() -> UIViewController? {
+        guard let rootViewController = self.rootViewController else { return nil }
+        return topViewController(for: rootViewController)
+    }
+    
+    func topViewController(for rootViewController: UIViewController?) -> UIViewController? {
+        guard let rootViewController = rootViewController else { return nil }
+        
+        guard let presentedViewController = rootViewController.presentedViewController else { return rootViewController }
+        
+        switch presentedViewController {
+        case let vc as UINavigationController: return topViewController(for: vc.viewControllers.last)
+        case let vc as UITabBarController: return topViewController(for: vc.selectedViewController)
+        default: return topViewController(for: presentedViewController)
+        }
+    }
+    
+}
+
 extension RxDataFlowController {
     public func dispatchAfter(_ interval: DispatchTimeInterval, action: RxActionType) {
         DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + interval) {

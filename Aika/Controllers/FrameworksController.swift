@@ -14,8 +14,16 @@ import RxDataSources
 final class FrameworksController: UIViewController {
 	let viewModel: FrameworksViewModel
 	let bag = DisposeBag()
-	
-	let dataSource = RxTableViewSectionedReloadDataSource<FrameworksSection>(configureCell: FrameworksController.configureCell)
+    
+    lazy var dataSource: RxTableViewSectionedReloadDataSource<FrameworksSection> = {
+        let configureCell: FrameworksControllerConfigureCell = { [weak self] ds, tv, ip, item -> UITableViewCell in
+            guard let vm = self?.viewModel else { return UITableViewCell() }
+            return FrameworksController.configureCell(dataSource: ds, tableView: tv, indexPath: ip, item: item, viewModel: vm)
+        }
+        
+        return RxTableViewSectionedReloadDataSource<FrameworksSection>(configureCell: configureCell)
+    }()
+    
 	let tableViewDelegate = FrameworksTableViewDelegate()
 	
 	let tableView = Theme.Controls.tableView().configure {
@@ -59,7 +67,7 @@ final class FrameworksController: UIViewController {
 		tableView.rx.setDelegate(tableViewDelegate).disposed(by: bag)
 	}
 	
-	static func configureCell(dataSource ds: TableViewSectionedDataSource<FrameworksSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: FrameworkSectionItem) -> UITableViewCell {
+    static func configureCell(dataSource ds: TableViewSectionedDataSource<FrameworksSection>, tableView tv: UITableView, indexPath ip: IndexPath, item: FrameworkSectionItem, viewModel: FrameworksViewModel) -> UITableViewCell {
 		let cell = tv.dequeueReusableCell(withIdentifier: "Default", for: ip) as! TappableCell
 		cell.textLabel?.text = item.name
 		cell.accessoryType = .disclosureIndicator
@@ -68,8 +76,8 @@ final class FrameworksController: UIViewController {
 		cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		cell.selectionStyle = .none
 		
-		cell.tapped = {
-			UIApplication.shared.open(item.url)
+		cell.tapped = { [weak viewModel] in
+            viewModel?.openUrl(for: item)
 		}
 		
 		return cell
