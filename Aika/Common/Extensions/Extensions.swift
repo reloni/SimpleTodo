@@ -35,10 +35,8 @@ extension UIWindow {
 
 extension RxDataFlowController {
     public func dispatchAfter(_ interval: DispatchTimeInterval, action: RxActionType) {
-        DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + interval) {
-            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + interval) {
-                self.dispatch(action)
-            }
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + interval) {
+            self.dispatch(action)
         }
     }
 }
