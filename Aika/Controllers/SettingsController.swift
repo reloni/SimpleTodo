@@ -124,12 +124,12 @@ final class SettingsController : UIViewController {
 			}
 			return cell
 		case .text(let data):
-			let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
+            let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "value1")
 			SettingsController.configure(cell: cell)
 			SettingsController.configureTextCell(cell, with: data)
 			return cell
 		case .pushNotificationsSwitch(let data):
-			let cell = SwitchCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Switch")
+            let cell = SwitchCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Switch")
 			ctrl?.configure(pushNotificationCell: cell, data: data)
 			return cell
 		case .email(let data):
@@ -140,7 +140,7 @@ final class SettingsController : UIViewController {
 			}
 			return cell
 		case .iconBadgeStyle(let data):
-			let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: "value1")
+            let cell = TappableCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "value1")
 			SettingsController.configure(cell: cell)
 			SettingsController.configureTextCell(cell, with: data)
 			cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)

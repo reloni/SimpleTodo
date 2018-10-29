@@ -79,7 +79,7 @@ extension ApplicationCoordinatorType {
 	
 	func set(newRootController controller: UIViewController) {
 		transition {
-			self.window.rootViewController?.childViewControllers.forEach { $0.dismiss(animated: false, completion: nil) }
+            self.window.rootViewController?.children.forEach { $0.dismiss(animated: false, completion: nil) }
 			self.window.rootViewController?.dismiss(animated: false, completion: nil)
 			self.window.rootViewController = controller
 		}
@@ -95,7 +95,7 @@ extension ApplicationCoordinatorType {
 	}
 	
 	func transition(withDuration duration: TimeInterval = 0.5,
-	                options: UIViewAnimationOptions = [UIViewAnimationOptions.transitionCrossDissolve],
+                    options: UIView.AnimationOptions = [UIView.AnimationOptions.transitionCrossDissolve],
 					animations: @escaping (() -> Void)) {
 		UIView.transition(with: window,
 		                  duration: duration,

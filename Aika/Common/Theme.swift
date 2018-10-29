@@ -19,13 +19,13 @@ final class Theme {
 				$0.separatorInset = .zero
 				$0.contentInset = .zero
 				$0.estimatedRowHeight = 50
-				$0.rowHeight = UITableViewAutomaticDimension
+                $0.rowHeight = UITableView.automaticDimension
 				$0.tableFooterView = UIView()
 				$0.backgroundColor = Theme.Colors.isabelline
 			}
 		}
 		
-		static func textView(withStyle style: UIFontTextStyle) -> TextView {
+        static func textView(withStyle style: UIFont.TextStyle) -> TextView {
 			return TextView().configure {
 				$0.font = UIFont.preferredFont(forTextStyle: style)
 				$0.placeholderLabel.font = UIFont.preferredFont(forTextStyle: style)
@@ -33,14 +33,14 @@ final class Theme {
 			}
 		}
 		
-		static func label(withStyle style: UIFontTextStyle) -> UILabel {
+        static func label(withStyle style: UIFont.TextStyle) -> UILabel {
 			return UILabel().configure {
 				$0.font = UIFont.preferredFont(forTextStyle: style)
 				$0.adjustsFontForContentSizeCategory = true
 			}
 		}
 		
-		static func textField(withStyle style: UIFontTextStyle) -> TextField {
+        static func textField(withStyle style: UIFont.TextStyle) -> TextField {
 			return TextField().configure {
 				$0.font = UIFont.preferredFont(forTextStyle: style)
 				$0.adjustsFontForContentSizeCategory = true
@@ -51,7 +51,7 @@ final class Theme {
 			}
 		}
 		
-		static func uiTextField(withStyle style: UIFontTextStyle) -> UITextField {
+        static func uiTextField(withStyle style: UIFont.TextStyle) -> UITextField {
 			return UITextField().configure {
 				$0.font = UIFont.preferredFont(forTextStyle: style)
 				$0.adjustsFontForContentSizeCategory = true

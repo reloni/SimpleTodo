@@ -10,7 +10,7 @@ import UIKit
 
 final class TasksTableBackground: UIView {
 	let titleLabel: UILabel = {
-		let lbl = Theme.Controls.label(withStyle: UIFontTextStyle.title1)
+        let lbl = Theme.Controls.label(withStyle: UIFont.TextStyle.title1)
 		lbl.text = "No tasks"
 		lbl.adjustsFontSizeToFitWidth = true
 		lbl.minimumScaleFactor = 0.5
@@ -19,7 +19,7 @@ final class TasksTableBackground: UIView {
 	}()
 	
 	let subtitleLabel: UILabel = {
-		let lbl = Theme.Controls.label(withStyle: UIFontTextStyle.title2)
+        let lbl = Theme.Controls.label(withStyle: UIFont.TextStyle.title2)
 		lbl.text = "Press \"+\" button to add new task"
 		lbl.adjustsFontSizeToFitWidth = true
 		lbl.minimumScaleFactor = 0.5

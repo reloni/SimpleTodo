@@ -19,7 +19,7 @@ final class ActivityView: UIView {
 	}()
 	
 	let spinner: UIActivityIndicatorView = {
-		let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
 		spinner.color = Theme.Colors.isabelline
 		return spinner
 	}()
@@ -61,7 +61,7 @@ final class ActivityView: UIView {
 		let av = ActivityView()
 		av.frame = window.frame
 		window.addSubview(av)
-		window.bringSubview(toFront: av)
+        window.bringSubviewToFront(av)
 		av.spinner.startAnimating()
 		UIView.animate(withDuration: 0.3) {
 			av.blurView.effect = UIBlurEffect(style: .regular)

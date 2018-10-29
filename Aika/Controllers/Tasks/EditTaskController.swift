@@ -144,12 +144,12 @@ final class EditTaskController : UIViewController {
 	}
 	
 	func bind() {
-		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow).observeOn(MainScheduler.instance)
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification).observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: notification.keyboardHeight() + 25)
 			}).disposed(by: bag)
 		
-		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillHide).observeOn(MainScheduler.instance)
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification).observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)

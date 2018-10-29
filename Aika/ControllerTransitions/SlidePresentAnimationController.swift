@@ -109,7 +109,7 @@ final class SlideDismissAnimationController: NSObject, UIViewControllerAnimatedT
 		}()
 
 		transitionContext.containerView.addSubview(toViewController.view)
-		transitionContext.containerView.sendSubview(toBack: toViewController.view)
+        transitionContext.containerView.sendSubviewToBack(toViewController.view)
 		
 		UIView.animate(withDuration: transitionDuration(using: transitionContext),
 		               delay: 0.0,

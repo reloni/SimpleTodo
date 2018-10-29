@@ -28,12 +28,12 @@ public extension UIWindow {
 			
 			/// Return the media timing function associated with curve
 			internal var function: CAMediaTimingFunction {
-				let key: String!
+				let key: CAMediaTimingFunctionName!
 				switch self {
-				case .linear:		key = kCAMediaTimingFunctionLinear
-				case .easeIn:		key = kCAMediaTimingFunctionEaseIn
-				case .easeOut:		key = kCAMediaTimingFunctionEaseOut
-				case .easeInOut:	key = kCAMediaTimingFunctionEaseInEaseOut
+                case .linear:		key = CAMediaTimingFunctionName.linear
+                case .easeIn:		key = CAMediaTimingFunctionName.easeIn
+                case .easeOut:		key = CAMediaTimingFunctionName.easeOut
+                case .easeInOut:	key = CAMediaTimingFunctionName.easeInEaseOut
 				}
 				return CAMediaTimingFunction(name: key)
 			}
@@ -58,19 +58,19 @@ public extension UIWindow {
 			/// - Returns: transition
 			internal func transition() -> CATransition {
 				let transition = CATransition()
-				transition.type = kCATransitionPush
+                transition.type = CATransitionType.push
 				switch self {
 				case .fade:
-					transition.type = kCATransitionFade
+                    transition.type = CATransitionType.fade
 					transition.subtype = nil
 				case .toLeft:
-					transition.subtype = kCATransitionFromLeft
+                    transition.subtype = CATransitionSubtype.fromLeft
 				case .toRight:
-					transition.subtype = kCATransitionFromRight
+                    transition.subtype = CATransitionSubtype.fromRight
 				case .toTop:
-					transition.subtype = kCATransitionFromTop
+                    transition.subtype = CATransitionSubtype.fromTop
 				case .toBottom:
-					transition.subtype = kCATransitionFromBottom
+                    transition.subtype = CATransitionSubtype.fromBottom
 				}
 				return transition
 			}

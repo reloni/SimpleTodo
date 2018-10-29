@@ -58,19 +58,19 @@ final class AuthenticationController : UIViewController {
 	let googleLoginButton = Button().configure {
 		_ = configureDefaultLoginButton($0)
 		$0.title = "Log in with Google"
-		$0.setImage(Theme.Images.google.resize(toWidth: 22), for: UIControlState.normal)
+        $0.setImage(Theme.Images.google.resize(toWidth: 22), for: UIControl.State.normal)
 	}
 	
 	let facebookLoginButton = Button().configure {
 		_ = configureDefaultLoginButton($0)
 		$0.title = "Log in with Facebook"
-		$0.setImage(Theme.Images.facebook.resize(toWidth: 22), for: UIControlState.normal)
+        $0.setImage(Theme.Images.facebook.resize(toWidth: 22), for: UIControl.State.normal)
 	}
 	
 	let passwordLoginButton = Button().configure {
 		_ = configureDefaultLoginButton($0)
 		$0.title = "Log in with password"
-		$0.setImage(Theme.Images.password.resize(toWidth: 22), for: UIControlState.normal)
+        $0.setImage(Theme.Images.password.resize(toWidth: 22), for: UIControl.State.normal)
 	}
 	
 	let emailTextField = Theme.Controls.textField(withStyle: .body).configure {
@@ -107,9 +107,9 @@ final class AuthenticationController : UIViewController {
 		$0.titleColor = Theme.Colors.blueberry
 	}
 	
-	let lostPasswordLabel = Theme.Controls.label(withStyle: UIFontTextStyle.caption2).configure {
+    let lostPasswordLabel = Theme.Controls.label(withStyle: UIFont.TextStyle.caption2).configure {
 		let attributedText = NSMutableAttributedString(string: "Lost password?")
-		attributedText.addAttribute(NSAttributedStringKey.underlineStyle , value: NSUnderlineStyle.styleSingle.rawValue, range: NSMakeRange(0, attributedText.string.count))
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributedText.string.count))
 		$0.attributedText = attributedText
 		$0.textColor = Theme.Colors.blueberry
 		$0.textAlignment = .center
@@ -196,12 +196,12 @@ final class AuthenticationController : UIViewController {
 	}
 	
 	func bind() {
-		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow)
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: notification.keyboardHeight() + 25)
 			}).disposed(by: bag)
 		
-		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillHide)
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification)
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)
@@ -248,7 +248,7 @@ final class AuthenticationController : UIViewController {
 		viewModel.errors.subscribe().disposed(by: bag)
 		
 		if viewModel.mode == .logIn {
-			lostPasswordLabel.rx.tapGesture().when(UIGestureRecognizerState.recognized)
+            lostPasswordLabel.rx.tapGesture().when(UIGestureRecognizer.State.recognized)
 				.subscribe(onNext: { [weak self] recognizer in self?.showResetEmailDialog(recognizer: recognizer) }).disposed(by: bag)
 			
 			let recognizer = UITapGestureRecognizer(target: self, action: #selector(changeServer))

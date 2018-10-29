@@ -35,7 +35,7 @@ class SnackView: UIView {
 		remove(from: window)
 		sv.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
 		window.addSubview(sv)
-		window.bringSubview(toFront: sv)
+        window.bringSubviewToFront(sv)
 		UIView.animate(withDuration: 0.3) {
 			sv.frame = CGRect(x: 0, y: window.frame.height - height, width: window.frame.width, height: height)
 		}
