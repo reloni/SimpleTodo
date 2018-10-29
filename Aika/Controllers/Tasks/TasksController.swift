@@ -180,7 +180,7 @@ final class TasksController : UIViewController {
 
 final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 	var currentExpandedIndexPath: IndexPath? = nil
-	@available(iOS 11.0, *)
+
 	static func createAction(title: String, backgroundColor: UIColor, image: UIImage?, completionHandler: @escaping () -> Bool) -> UIContextualAction {
 		let action = UIContextualAction(style: .normal,
 		                                title: title,
@@ -216,7 +216,6 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		tableView.scrollToNearestSelectedRow(at: .none, animated: true)
 	}
 	
-	@available(iOS 11.0, *)
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return nil }
 		
@@ -231,7 +230,6 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
 	}
 	
-	@available(iOS 11.0, *)
 	func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return nil }
 		

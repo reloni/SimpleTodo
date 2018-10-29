@@ -1004,7 +1004,7 @@
 					"$(PROJECT_DIR)/Carthage",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "-fembed-bitcode";
@@ -1039,7 +1039,7 @@
 					"$(PROJECT_DIR)/Carthage",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "-fembed-bitcode";
