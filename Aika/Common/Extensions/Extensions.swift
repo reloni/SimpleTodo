@@ -340,3 +340,10 @@ extension Dictionary where Key == String, Value == Any {
 		return UInt(exactly: self[key] as? Int ?? -1)
 	}
 }
+
+extension String {
+    func toJson() -> [String: Any]? {
+        guard let data = self.data(using: .utf8) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any]
+    }
+}

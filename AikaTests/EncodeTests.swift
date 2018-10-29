@@ -68,7 +68,9 @@ class EncodeTests: XCTestCase {
 		XCTAssertNotNil(json["targetDate"] as? String)
 		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, true)
 		XCTAssertEqual(json.dictionary("prototype").value("uuid"), task.prototype.uuid.uuidString)
-		XCTAssertEqual(json.dictionary("prototype").stringValue("cronExpression"), "{\"type\":\"byDay\",\"repeatEvery\":2}")
+        let cronJson = json.dictionary("prototype").stringValue("cronExpression")?.toJson()
+        XCTAssertEqual(cronJson?.stringValue("type"), "byDay")
+        XCTAssertEqual(cronJson?.toUint("repeatEvery"), 2)
 	}
 	
 	func testEncodeTask_3() {
@@ -85,6 +87,8 @@ class EncodeTests: XCTestCase {
 		XCTAssertNotNil(json["targetDate"] as? String)
 		XCTAssertEqual(json["targetDateIncludeTime"] as? Bool, false)
 		XCTAssertEqual(json.dictionary("prototype").value("uuid"), task.prototype.uuid.uuidString)
-		XCTAssertEqual(json.dictionary("prototype").stringValue("cronExpression"), "{\"type\":\"biweekly\"}")
+        let cronJson = json.dictionary("prototype").stringValue("cronExpression")?.toJson()
+        XCTAssertEqual(cronJson?.stringValue("type"), "biweekly")
+        XCTAssertEqual(cronJson?.toUint("repeatEvery"), nil)
 	}
 }
