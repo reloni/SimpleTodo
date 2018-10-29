@@ -11,7 +11,7 @@ import SnapKit
 import UIKit
 
 final class TableSectionHeader: UITableViewHeaderFooterView {
-	let label = Theme.Controls.label(withStyle: UIFontTextStyle.caption1)
+    let label = Theme.Controls.label(withStyle: UIFont.TextStyle.caption1)
 	
 	init() {
 		super.init(reuseIdentifier: nil)

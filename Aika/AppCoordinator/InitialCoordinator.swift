@@ -9,6 +9,7 @@
 import RxDataFlow
 import RxSwift
 import UIKit
+import SafariServices
 
 protocol ApplicationCoordinatorType {
 	var window: UIWindow { get }
@@ -40,6 +41,9 @@ extension ApplicationCoordinatorType {
 			guard let controller = data.inController.value else { return .just({ $0 }) }
 			showActionSheet(in: controller, withTitle: data.title, message: data.message, actions: data.actions, sourceView: data.sourceView)
 			return .just({ $0 })
+        case UIAction.showSafari(let url):
+            showSafari(for: url)
+            return .just({ $0 })
 		default: return nil
 		}
 	}
@@ -75,7 +79,7 @@ extension ApplicationCoordinatorType {
 	
 	func set(newRootController controller: UIViewController) {
 		transition {
-			self.window.rootViewController?.childViewControllers.forEach { $0.dismiss(animated: false, completion: nil) }
+            self.window.rootViewController?.children.forEach { $0.dismiss(animated: false, completion: nil) }
 			self.window.rootViewController?.dismiss(animated: false, completion: nil)
 			self.window.rootViewController = controller
 		}
@@ -91,7 +95,7 @@ extension ApplicationCoordinatorType {
 	}
 	
 	func transition(withDuration duration: TimeInterval = 0.5,
-	                options: UIViewAnimationOptions = [UIViewAnimationOptions.transitionCrossDissolve],
+                    options: UIView.AnimationOptions = [UIView.AnimationOptions.transitionCrossDissolve],
 					animations: @escaping (() -> Void)) {
 		UIView.transition(with: window,
 		                  duration: duration,
@@ -99,6 +103,10 @@ extension ApplicationCoordinatorType {
 		                  animations: animations,
 		                  completion: nil)
 	}
+    
+    func showSafari(for url: URL) {
+        window.topMostViewController()?.present(SFSafariViewController(url: url), animated: true, completion: nil)
+    }
 	
 	func showSpinner() {
 		ActivityView.show(in: window)

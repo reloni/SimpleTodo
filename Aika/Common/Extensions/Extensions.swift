@@ -13,12 +13,30 @@ import RxSwift
 import Material
 import RxDataFlow
 
+extension UIWindow {
+    func topMostViewController() -> UIViewController? {
+        guard let rootViewController = self.rootViewController else { return nil }
+        return topViewController(for: rootViewController)
+    }
+    
+    func topViewController(for rootViewController: UIViewController?) -> UIViewController? {
+        guard let rootViewController = rootViewController else { return nil }
+        
+        guard let presentedViewController = rootViewController.presentedViewController else { return rootViewController }
+        
+        switch presentedViewController {
+        case let vc as UINavigationController: return topViewController(for: vc.viewControllers.last)
+        case let vc as UITabBarController: return topViewController(for: vc.selectedViewController)
+        default: return topViewController(for: presentedViewController)
+        }
+    }
+    
+}
+
 extension RxDataFlowController {
     public func dispatchAfter(_ interval: DispatchTimeInterval, action: RxActionType) {
-        DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + interval) {
-            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + interval) {
-                self.dispatch(action)
-            }
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + interval) {
+            self.dispatch(action)
         }
     }
 }
@@ -91,11 +109,11 @@ extension TaskScheduler.Pattern {
 
 extension Notification {
 	func keyboardHeight() -> CGFloat {
-		return (userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
+        return (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
 	}
 	
 	func statusBarFrame() -> CGRect {
-		return userInfo?[UIApplicationStatusBarFrameUserInfoKey] as! CGRect
+        return userInfo?[UIApplication.statusBarFrameUserInfoKey] as! CGRect
 	}
 }
 
@@ -321,4 +339,11 @@ extension Dictionary where Key == String, Value == Any {
 	func toUint(_ key: String) -> UInt? {
 		return UInt(exactly: self[key] as? Int ?? -1)
 	}
+}
+
+extension String {
+    func toJson() -> [String: Any]? {
+        guard let data = self.data(using: .utf8) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any]
+    }
 }

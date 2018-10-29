@@ -40,27 +40,27 @@ final class EditTaskController : UIViewController {
 		$0.layer.borderWidth = 0.5
 		$0.isScrollEnabled = false
 		$0.placeholderLabel.text = "Task description"
-		$0.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 15)
+		$0.textContainerInset = UIEdgeInsets(top: 15, left: 5, bottom: 15, right: 15)
 	}
 	
 	let targetDateView = TargetDateView().configure {
 		$0.borderColor = Theme.Colors.romanSilver
 		$0.layer.borderWidth = 0.5
-		$0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 	}
 	
 	let targetDatePickerView = DatePickerView().configure {
 		$0.alpha = 0
 		$0.borderColor = Theme.Colors.romanSilver
 		$0.layer.borderWidth = 0.5
-		$0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 		$0.date = nil
 	}
 	
 	let taskRepeatDescriptionView = TaskRepeatDescriptionView().configure {
 		$0.borderColor = Theme.Colors.romanSilver
 		$0.layer.borderWidth = 0.5
-		$0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 	}
 	
 	let notesLabel = Theme.Controls.label(withStyle: .body).configure {
@@ -70,7 +70,7 @@ final class EditTaskController : UIViewController {
 	
 	let notesWrapper = UIView().configure {
 		$0.backgroundColor = Theme.Colors.white
-		$0.layoutEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		$0.layoutEdgeInsets = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 		$0.borderColor = Theme.Colors.romanSilver
 		$0.layer.borderWidth = 0.5
 	}
@@ -79,6 +79,8 @@ final class EditTaskController : UIViewController {
 		$0.axis = .vertical
 		$0.distribution = .fill
 		$0.spacing = 10
+        $0.layoutMargins = UIEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
+        $0.isLayoutMarginsRelativeArrangement = true
 		$0.addArrangedSubview(self.notesLabel)
 		$0.addArrangedSubview(self.notesTextField)
 	}
@@ -107,7 +109,6 @@ final class EditTaskController : UIViewController {
 		super.viewDidLoad()
 		
 		title = viewModel.title
-		
 		view.backgroundColor = Theme.Colors.isabelline
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
@@ -143,12 +144,12 @@ final class EditTaskController : UIViewController {
 	}
 	
 	func bind() {
-		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillShow).observeOn(MainScheduler.instance)
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification).observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: notification.keyboardHeight() + 25)
 			}).disposed(by: bag)
 		
-		NotificationCenter.default.rx.notification(NSNotification.Name.UIKeyboardWillHide).observeOn(MainScheduler.instance)
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification).observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] notification in
 				self?.scrollView.updatecontentInsetFor(keyboardHeight: 0)
 			}).disposed(by: bag)

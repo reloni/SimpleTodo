@@ -10,6 +10,7 @@ import Foundation
 import RxDataSources
 
 typealias TasksControllerConfigureCell = (TableViewSectionedDataSource<TaskSection>, UITableView, IndexPath, TaskSection.Item) -> UITableViewCell
+typealias FrameworksControllerConfigureCell = (TableViewSectionedDataSource<FrameworksSection>, UITableView, IndexPath, FrameworksSection.Item) -> UITableViewCell
 
 struct TaskSection {
 	var header: String

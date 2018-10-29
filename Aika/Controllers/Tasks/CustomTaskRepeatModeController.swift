@@ -26,7 +26,7 @@ final class CustomTaskRepeatModeController: UIViewController {
             configureCell: { [unowned self] ds, tv, ip, item in
                 switch item {
                 case .placeholder:
-                    let cell = PlaceholderCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                    let cell = PlaceholderCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: nil)
                     cell.contentView.backgroundColor = Theme.Colors.isabelline
                     cell.selectionStyle = .none
                     return cell
@@ -84,7 +84,7 @@ final class CustomTaskRepeatModeController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if isMovingFromParentViewController {
+        if isMovingFromParent {
             saveSubject.onNext(())
         }
     }
@@ -113,7 +113,7 @@ final class CustomTaskRepeatModeController: UIViewController {
 	}
     
     func tappableCell(for item: CustomTaskRepeatModeSectionItem, tapped: @escaping () -> Void) -> TappableCell {
-        let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        let cell = TappableCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
         cell.textLabel?.text = item.mainText
         cell.detailTextLabel?.text = item.detailText
         cell.selectionStyle = .none
@@ -122,7 +122,7 @@ final class CustomTaskRepeatModeController: UIViewController {
     }
     
     func weekdayCell(name: String, isSelected: Bool, tapped: @escaping () -> Void) -> TappableCell {
-        let cell = TappableCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        let cell = TappableCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
         cell.textLabel?.text = name
         if isSelected {
             cell.accessoryView = UIImageView(image: Theme.Images.checked.resize(toWidth: 22))
@@ -138,7 +138,7 @@ final class CustomTaskRepeatModeController: UIViewController {
 
     
     func repeatEveryPickerCell() -> PickerCell {
-        let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+        let cell = PickerCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: nil)
         
         viewModel.outputs.repeatEveryItems
             .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))
@@ -157,7 +157,7 @@ final class CustomTaskRepeatModeController: UIViewController {
     }
     
     func patternTypePickerCell() -> PickerCell {
-        let cell = PickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+        let cell = PickerCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: nil)
         
         viewModel.outputs.patternTypetems
             .bind(to: cell.picker.rx.items(adapter: CustomTaskRepeatModePickerViewViewAdapter()))

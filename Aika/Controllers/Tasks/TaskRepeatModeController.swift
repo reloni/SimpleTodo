@@ -21,7 +21,7 @@ final class TaskRepeatModeController: UIViewController {
             animationConfiguration: animationConfiguration,
             configureCell: { [weak self] ds, tv, ip, item in
             if item.isSubtitle {
-                let cell = SubtitleCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                let cell = SubtitleCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: nil)
                 cell.label.text = item.text
                 return cell
             }
@@ -88,7 +88,7 @@ final class TaskRepeatModeController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if isMovingFromParentViewController {
+        if isMovingFromParent {
             viewModel.close()
         }
     }

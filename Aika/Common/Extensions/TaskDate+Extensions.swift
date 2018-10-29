@@ -23,9 +23,9 @@ extension TaskDate {
 		let str = NSMutableAttributedString(string: toString(format: format))
 		
 		let range = NSRange(location: 0, length: str.length)
-		str.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
+        str.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
 		if let underlineColor = underlineColor {
-			str.addAttribute(NSAttributedStringKey.underlineColor, value: underlineColor, range: range)
+            str.addAttribute(NSAttributedString.Key.underlineColor, value: underlineColor, range: range)
 		}
 		
 		return str

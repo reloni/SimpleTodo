@@ -45,8 +45,8 @@ final class SwitchView : UIView {
 		wrapper.addArrangedSubview(titleLabel)
 		wrapper.addArrangedSubview(switchControl)
 		
-		titleLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.horizontal)
-		switchControl.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.horizontal)
+        titleLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: NSLayoutConstraint.Axis.horizontal)
+        switchControl.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: NSLayoutConstraint.Axis.horizontal)
 		
 		wrapper.snp.makeConstraints(makeWrapperConstraints)
 	}

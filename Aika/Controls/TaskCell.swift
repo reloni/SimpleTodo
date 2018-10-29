@@ -79,7 +79,7 @@ final class TaskCell : UITableViewCell {
 	var editTapped: (() -> ())?
 	var deleteTapped: (() -> ())?
 	
-	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setup()
 	}
@@ -94,14 +94,14 @@ final class TaskCell : UITableViewCell {
 		contentView.addSubview(targetDate)
 		contentView.addSubview(repeatImage)
 		
-		taskDescription.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.vertical)
-		taskDescription.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.vertical)
+        taskDescription.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: NSLayoutConstraint.Axis.vertical)
+        taskDescription.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: NSLayoutConstraint.Axis.vertical)
 		
-		targetDate.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 999), for: UILayoutConstraintAxis.vertical)
-		targetDate.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: UILayoutConstraintAxis.vertical)
+        targetDate.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 999), for: NSLayoutConstraint.Axis.vertical)
+        targetDate.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: NSLayoutConstraint.Axis.vertical)
 		
 		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.isabelline }
-		actionsStack.subviews.last?.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: UILayoutConstraintAxis.horizontal)
+        actionsStack.subviews.last?.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: NSLayoutConstraint.Axis.horizontal)
 		
 		completeActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
 			self?.completeTapped?()

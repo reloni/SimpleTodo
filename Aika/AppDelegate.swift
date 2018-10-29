@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return RxDataFlowController(reducer: rootReducer, initialState: initialState)
 	}()
 	
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		#if !DEBUG
 			Fabric.with([Answers.self, Crashlytics.self])
 		#endif
@@ -80,11 +80,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
-	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
 		return Auth0.resumeAuth(url, options: options)
 	}
 	
-	func setupPushNotifications(withLaunchOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+    func setupPushNotifications(withLaunchOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
 		let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false,
 		                             kOSSettingsKeyInAppLaunchURL: true]
 		

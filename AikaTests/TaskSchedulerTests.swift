@@ -125,7 +125,7 @@ class TaskSchedulerTests: XCTestCase {
     }
     
     func testMonthly_inFuture_2() {
-        let currentDate = Date()
+        let currentDate = Date().setting(.day, value: 27, in: Calendar.current)
         let taskDate = currentDate.adding(.month, value: 3)
         let result = defaultTaskScheduler.scheduleNext(from: taskDate, withPattern: .monthly)!
         XCTAssertEqual(formatter.string(from: currentDate.adding(.month, value: 1).adding(.month, value: 3)), formatter.string(from: result))

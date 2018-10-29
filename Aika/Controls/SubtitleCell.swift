@@ -9,11 +9,11 @@
 import UIKit
 
 final class SubtitleCell: UITableViewCell {
-    let label = Theme.Controls.label(withStyle: UIFontTextStyle.footnote).configure {
+    let label = Theme.Controls.label(withStyle: UIFont.TextStyle.footnote).configure {
         $0.textAlignment = .center
         $0.textColor = Theme.Colors.romanSilver
     }
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
