@@ -13,7 +13,7 @@ private func delegateClassName() -> String? {
     return NSClassFromString("XCTestCase") == nil ? NSStringFromClass(AppDelegate.self) : nil
 }
 
-UIApplicationMain(
+_ = UIApplicationMain(
     CommandLine.argc,
     UnsafeMutableRawPointer(CommandLine.unsafeArgv)
         .bindMemory(

@@ -27,4 +27,4 @@ mv -f $SYMROOT/universal/$FRAMEWORK_PATH $SYMROOT/iOS/$FRAMEWORK_PATH
 rm -rf $SYMROOT/temp
 rm -rf $SYMROOT/universal
 
-echo "complete build $FRAMEWORK"
+echo "$(tput setaf 2)complete build $FRAMEWORK"
