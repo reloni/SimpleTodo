@@ -5,8 +5,10 @@ set -e
 carthage update --no-build --no-use-binaries
 mkdir -p Carthage/Build/iOS
 
-sh ./Scripts/BuildStaticFramework.sh RxSwift RxSwift RxSwift-iOS staticlib
-sh ./Scripts/BuildStaticFramework.sh RxSwift RxCocoa RxCocoa-iOS staticlib
+sh ./Scripts/BuildStaticFramework.sh RxSwift RxSwift RxSwift-iOS mh_dylib
+sh ./Scripts/BuildStaticFramework.sh RxSwift RxRelay RxRelay mh_dylib
+sh ./Scripts/BuildStaticFramework.sh RxSwift RxCocoa RxCocoa-iOS mh_dylib
+
 sh ./Scripts/BuildStaticFramework.sh SnapKit SnapKit SnapKit staticlib
 sh ./Scripts/BuildStaticFramework.sh SimpleKeychain SimpleKeychain SimpleKeychain-iOS staticlib
 

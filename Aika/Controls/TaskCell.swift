@@ -147,13 +147,10 @@ final class TaskCell : UITableViewCell {
 		maker.trailing.equalTo(contentView.snp.trailing)
 		maker.bottom.equalTo(contentView.snp.bottom)
 	}
-	
+
 	override func updateConstraints() {
 		super.updateConstraints()
-		
-		taskDescription.snp.updateConstraints(makeTaskDescriptionConstraints)
-		targetDate.snp.updateConstraints(makeTargetDateConstraints)
+
 		actionsStack.snp.updateConstraints(makeActionsStackConstraints)
-		repeatImage.snp.updateConstraints(makeRepeatImageConstraints(maker:))
 	}
 }
