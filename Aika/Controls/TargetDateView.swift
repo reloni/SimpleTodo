@@ -44,7 +44,7 @@ final class TargetDateView : UIView {
 	}
 	
 	func setup() {
-		backgroundColor = Theme.Colors.white
+		backgroundColor = Theme.Colors.background
 		
 		addSubview(textField)
 		addSubview(clearButton)

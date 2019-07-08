@@ -11,7 +11,7 @@ import UIKit
 final class SubtitleCell: UITableViewCell {
     let label = Theme.Controls.label(withStyle: UIFont.TextStyle.footnote).configure {
         $0.textAlignment = .center
-        $0.textColor = Theme.Colors.romanSilver
+        $0.textColor = Theme.Colors.secondaryLabel
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,7 +26,7 @@ final class SubtitleCell: UITableViewCell {
     func setup() {
         selectionStyle = .none
         contentView.addSubview(label)
-        backgroundColor = Theme.Colors.isabelline
+        backgroundColor = Theme.Colors.background
         
         label.snp.makeConstraints {
             $0.edges.equalTo(contentView.snp.margins)

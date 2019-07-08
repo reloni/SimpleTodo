@@ -20,7 +20,7 @@ final class TaskRepeatDescriptionView: UIView {
 	
 	let rightLabel: UILabel = {
 		let label = Theme.Controls.label(withStyle: .body)
-		label.textColor = Theme.Colors.romanSilver
+		label.textColor = Theme.Colors.secondaryLabel
 		label.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .horizontal)
 		label.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
 		label.textAlignment = .right
@@ -46,7 +46,7 @@ final class TaskRepeatDescriptionView: UIView {
 	
 	func setup() {
 		clipsToBounds = true
-		backgroundColor = Theme.Colors.white
+		backgroundColor = Theme.Colors.background
 		
 		addSubview(leftLabel)
 		addSubview(rightLabel)

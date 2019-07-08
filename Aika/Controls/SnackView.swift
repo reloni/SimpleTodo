@@ -52,7 +52,7 @@ class SnackView: UIView {
 class MessageSnackView: SnackView {
 	let messageLabel: UILabel = {
 		let label = Theme.Controls.label(withStyle: .body)
-		label.textColor = Theme.Colors.white
+		label.textColor = Theme.Colors.whiteColor
 		label.lineBreakMode = .byTruncatingMiddle
 		label.textAlignment = .center
 		label.minimumScaleFactor = 0.5

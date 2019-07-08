@@ -129,9 +129,9 @@ extension TextView {
 	static var generic: TextView {
 		let text = Theme.Controls.textView(withStyle: .body)
 
-		text.backgroundColor = Theme.Colors.white
-		text.placeholderLabel.textColor = Theme.Colors.romanSilver
-		text.borderColor = Theme.Colors.romanSilver
+		text.backgroundColor = Theme.Colors.background
+		text.placeholderLabel.textColor = Theme.Colors.secondaryLabel
+		text.borderColor = Theme.Colors.gray
 		text.layer.borderWidth = 0.5
 		text.isScrollEnabled = false
 		

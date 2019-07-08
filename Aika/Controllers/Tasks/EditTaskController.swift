@@ -30,13 +30,13 @@ final class EditTaskController : UIViewController {
 	
 	let containerView = UIView().configure {
 		$0.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		$0.backgroundColor = Theme.Colors.isabelline
+		$0.backgroundColor = Theme.Colors.background
 	}
 	
 	let descriptionTextField = Theme.Controls.textView(withStyle: .body).configure {
-		$0.backgroundColor = Theme.Colors.white
-		$0.placeholderLabel.textColor = Theme.Colors.romanSilver
-		$0.borderColor = Theme.Colors.romanSilver
+		$0.backgroundColor = Theme.Colors.background
+		$0.placeholderLabel.textColor = Theme.Colors.secondaryLabel
+		$0.borderColor = Theme.Colors.gray
 		$0.layer.borderWidth = 0.5
 		$0.isScrollEnabled = false
 		$0.placeholderLabel.text = "Task description"
@@ -44,21 +44,21 @@ final class EditTaskController : UIViewController {
 	}
 	
 	let targetDateView = TargetDateView().configure {
-		$0.borderColor = Theme.Colors.romanSilver
+		$0.borderColor = Theme.Colors.gray
 		$0.layer.borderWidth = 0.5
 		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 	}
 	
 	let targetDatePickerView = DatePickerView().configure {
 		$0.alpha = 0
-		$0.borderColor = Theme.Colors.romanSilver
+		$0.borderColor = Theme.Colors.gray
 		$0.layer.borderWidth = 0.5
 		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 		$0.date = nil
 	}
 	
 	let taskRepeatDescriptionView = TaskRepeatDescriptionView().configure {
-		$0.borderColor = Theme.Colors.romanSilver
+		$0.borderColor = Theme.Colors.gray
 		$0.layer.borderWidth = 0.5
 		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 	}
@@ -69,9 +69,9 @@ final class EditTaskController : UIViewController {
 	}
 	
 	let notesWrapper = UIView().configure {
-		$0.backgroundColor = Theme.Colors.white
+		$0.backgroundColor = Theme.Colors.background
 		$0.layoutEdgeInsets = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
-		$0.borderColor = Theme.Colors.romanSilver
+		$0.borderColor = Theme.Colors.gray
 		$0.layer.borderWidth = 0.5
 	}
 	
@@ -88,8 +88,8 @@ final class EditTaskController : UIViewController {
 	let notesTextField = Theme.Controls.textView(withStyle: .callout).configure {
 		$0.layoutEdgeInsets = .zero
 		$0.textContainerInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
-		$0.textColor = Theme.Colors.romanSilver
-		$0.backgroundColor = Theme.Colors.white
+		$0.textColor = Theme.Colors.secondaryLabel
+		$0.backgroundColor = Theme.Colors.background
 		$0.isScrollEnabled = false
 	}
 	
@@ -109,7 +109,7 @@ final class EditTaskController : UIViewController {
 		super.viewDidLoad()
 		
 		title = viewModel.title
-		view.backgroundColor = Theme.Colors.isabelline
+		view.backgroundColor = Theme.Colors.background
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		

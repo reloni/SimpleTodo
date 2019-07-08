@@ -21,7 +21,7 @@ final class Theme {
 				$0.estimatedRowHeight = 50
                 $0.rowHeight = UITableView.automaticDimension
 				$0.tableFooterView = UIView()
-				$0.backgroundColor = Theme.Colors.isabelline
+				$0.backgroundColor = Theme.Colors.background
 			}
 		}
 		
@@ -73,7 +73,7 @@ final class Theme {
 		static let clock = UIImage(named: "Clock")!.tint(with: Theme.Colors.blueberry)!
 		static let delete = UIImage(named: "Delete")!.tint(with: Theme.Colors.blueberry)!
 		static let edit = UIImage(named: "Edit")!.tint(with: Theme.Colors.blueberry)!
-		static let refresh = UIImage(named: "Refresh")!.tint(with: Theme.Colors.romanSilver)!
+		static let refresh = UIImage(named: "Refresh")!.tint(with: Theme.Colors.gray)!
 		static let calendar = UIImage(named: "Calendar")!.tint(with: Theme.Colors.blueberry)!
 		static let pushNotification = UIImage(named: "Push notification")!.tint(with: Theme.Colors.blueberry)!
 		static let settings = UIImage(named: "Settings")!.tint(with: Theme.Colors.blueberry)!
@@ -84,29 +84,33 @@ final class Theme {
 		static let add = UIImage(named: "Add")!.tint(with: Theme.Colors.blueberry)!
 		static let sourceCode = UIImage(named: "Source code")!.tint(with: Theme.Colors.blueberry)!
 		static let frameworks = UIImage(named: "Frameworks")!.tint(with: Theme.Colors.blueberry)!
-		static let email = UIImage(named: "Email")!.tint(with: Theme.Colors.white)!
-		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.white)!
-		static let accessoryArrow = UIImage(named: "Accessory arrow")!.tint(with: Theme.Colors.romanSilver)!
+		static let email = UIImage(named: "Email")!.tint(with: Theme.Colors.whiteColor)!
+		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.whiteColor)!
+		static let accessoryArrow = UIImage(named: "Accessory arrow")!.tint(with: Theme.Colors.gray)!
 		static let questionMark = UIImage(named: "Question mark")!.tint(with: Theme.Colors.blueberry)!
-		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.white)!
-		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.white)!
+		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.whiteColor)!
+		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.whiteColor)!
 		static let badge = UIImage(named: "Badge")!.tint(with: Theme.Colors.blueberry)!
-        static let empty = checked.tint(with: Theme.Colors.white)!
+        static let empty = checked.tint(with: Theme.Colors.whiteColor)!
 	}
 	
 	final class Colors {
-		static let white = UIColor.white
-		static let black = UIColor.black
+		static let whiteColor = UIColor.white
+//		static let black = UIColor.black
 		static let clear = UIColor.clear
 		
-		static let darkSpringGreen = UIColor(red: 17/255, green: 134/255, blue: 72/255, alpha: 1)
+		static let darkSpringGreen = UIColor.systemGreen//UIColor(red: 17/255, green: 134/255, blue: 72/255, alpha: 1)
 		
-		static let pumkinLight = UIColor(red: 250/255, green: 217/255, blue: 97/255, alpha: 1)
-		static let pumkin = UIColor(red: 247/255, green: 107/255, blue: 28/255, alpha: 1)
-		static let blueberry = UIColor(red: 67/255, green: 146/255, blue: 241/255, alpha: 1)
-		static let upsdelRed = UIColor(red: 176/255, green: 32/255, blue: 50/255, alpha: 1)
-		static let romanSilver = UIColor(red: 133/255, green: 138/255, blue: 149/255, alpha: 1)
-		static let isabelline = UIColor(red: 237/255, green: 236/255, blue: 236/255, alpha: 1)
-		
+		static let pumkinLight = UIColor.systemYellow//UIColor(red: 250/255, green: 217/255, blue: 97/255, alpha: 1)
+		static let pumkin = UIColor.systemOrange//UIColor(red: 247/255, green: 107/255, blue: 28/255, alpha: 1)
+		static let blueberry = UIColor.systemBlue//UIColor(red: 67/255, green: 146/255, blue: 241/255, alpha: 1)
+		static let upsdelRed = UIColor.systemRed//UIColor(red: 176/255, green: 32/255, blue: 50/255, alpha: 1)
+//		static let romanSilver = //UIColor(red: 133/255, green: 138/255, blue: 149/255, alpha: 1)
+//		static let isabelline = UIColor(red: 237/255, green: 236/255, blue: 236/255, alpha: 1)
+        static let secondaryBackground = UIColor.secondarySystemBackground
+        static let background = UIColor.systemBackground
+		static let label = UIColor.label
+        static let secondaryLabel = UIColor.secondaryLabel
+        static let gray = UIColor.systemGray
 	}
 }

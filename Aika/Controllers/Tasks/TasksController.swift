@@ -38,8 +38,8 @@ final class TasksController : UIViewController {
 	
 	let addTaskButton = FABButton(image: Theme.Images.add.resize(toWidth: 55)).configure {
 		$0.contentEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
-		$0.pulseColor = Theme.Colors.white
-		$0.backgroundColor = Theme.Colors.white
+		$0.pulseColor = Theme.Colors.whiteColor
+		$0.backgroundColor = Theme.Colors.secondaryBackground
 	}
 
 	init(viewModel: TasksViewModel) {
@@ -62,7 +62,7 @@ final class TasksController : UIViewController {
 		view.addSubview(tableView)
 		view.addSubview(addTaskButton)
 		
-		view.backgroundColor = Theme.Colors.isabelline
+		view.backgroundColor = Theme.Colors.background
 		view.layoutEdgeInsets = .zero
 		
 		title = viewModel.title

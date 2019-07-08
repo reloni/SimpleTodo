@@ -97,13 +97,13 @@ final class AuthenticationController : UIViewController {
 	
 	let actionButton = Button().configure {
 		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		$0.pulseColor = Theme.Colors.white
-		$0.titleColor = Theme.Colors.white
+		$0.pulseColor = Theme.Colors.whiteColor
+		$0.titleColor = Theme.Colors.whiteColor
 	}
 	
 	let supplementalButton = Button().configure {
 		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		$0.pulseColor = Theme.Colors.white
+		$0.pulseColor = Theme.Colors.whiteColor
 		$0.titleColor = Theme.Colors.blueberry
 	}
 	
@@ -125,8 +125,8 @@ final class AuthenticationController : UIViewController {
 		button.contentHorizontalAlignment = .center
 		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		button.backgroundColor = Theme.Colors.clear
-		button.pulseColor = Theme.Colors.white
-		button.titleColor = Theme.Colors.white
+		button.pulseColor = Theme.Colors.whiteColor
+		button.titleColor = Theme.Colors.whiteColor
 		return button
 	}
 	

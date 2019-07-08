@@ -53,7 +53,7 @@ final class SettingsController : UIViewController {
 		view.addSubview(tableView)
 		
 		title = viewModel.title
-		view.backgroundColor = Theme.Colors.isabelline
+		view.backgroundColor = Theme.Colors.background
 		
 		tableView.snp.makeConstraints {
 			$0.top.equalTo(view.snp.topMargin)
@@ -203,7 +203,7 @@ final class SettingsController : UIViewController {
 	static func configure(switchCell cell: SwitchCell, with data: (title: String, subtitle: String?, image: UIImage)) {
 		cell.textLabel?.text = data.title
 		cell.detailTextLabel?.text = data.subtitle
-		cell.detailTextLabel?.textColor = Theme.Colors.romanSilver
+		cell.detailTextLabel?.textColor = Theme.Colors.secondaryLabel
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 	}
 	
