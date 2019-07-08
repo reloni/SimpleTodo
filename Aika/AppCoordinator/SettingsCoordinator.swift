@@ -43,9 +43,6 @@ struct SettingsCoordinator : ApplicationCoordinatorType {
 	}
 	
 	func dismissSettingsController() -> Observable<RxStateMutator<AppState>> {
-		let transitionDelegate = TransitionDelegate(dismissalController: SlideDismissAnimationController(mode: .toRight))
-		navigationController.transitioningDelegate = transitionDelegate
-		
 		navigationController.dismiss(animated: true, completion: nil)
 		
 		let parentCoordinator = parent
