@@ -187,7 +187,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         
         weekdaySelected
             .withLatestFrom(stateSubject) { day, state in
-                if let index = state.selectedWeekdays.index(of: day) {
+                if let index = state.selectedWeekdays.firstIndex(of: day) {
                     return state.new(selectedWeekdays: state.selectedWeekdays.removed(at: index))
                 } else {
                     return state.new(selectedWeekdays: state.selectedWeekdays.appended(day))

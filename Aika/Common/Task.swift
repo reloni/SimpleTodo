@@ -114,7 +114,7 @@ struct TaskPrototype: Codable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		uuid = try container.decode(UUID.self, forKey: .uuid)
-		repeatPattern = (try? container.decodeIfPresent(TaskScheduler.Pattern.self, forKey: .repeatPattern)) ?? nil
+		repeatPattern = (((try? container.decodeIfPresent(TaskScheduler.Pattern.self, forKey: .repeatPattern)) as TaskScheduler.Pattern??)) ?? nil
 	}
 	
 	func encode(to encoder: Encoder) throws {
