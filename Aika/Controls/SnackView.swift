@@ -23,7 +23,7 @@ class SnackView: UIView {
 	}
 	
 	func setup() {
-		backgroundColor = Theme.Colors.upsdelRed.withAlphaComponent(0.8)
+		backgroundColor = Theme.Colors.red.withAlphaComponent(0.8)
 	}
 	
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

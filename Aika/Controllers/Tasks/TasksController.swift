@@ -220,11 +220,11 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return nil }
 		
 		let deleteAction = TasksTableViewDelegate.createAction(title: "Delete",
-		                                                       backgroundColor: Theme.Colors.upsdelRed,
+		                                                       backgroundColor: Theme.Colors.red,
 		                                                       image: Theme.Images.delete.tint(with: .white)!.resize(toWidth: 22),
 		                                                       completionHandler: { [weak cell] in cell?.deleteTapped?(); return true })
 		let editAction = TasksTableViewDelegate.createAction(title: "Edit",
-		                                                       backgroundColor: Theme.Colors.blueberry,
+		                                                       backgroundColor: Theme.Colors.blue,
 		                                                       image: Theme.Images.edit.tint(with: .white)!.resize(toWidth: 22),
 		                                                       completionHandler: { [weak cell] in cell?.editTapped?(); return true })
 		return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
@@ -234,7 +234,7 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return nil }
 		
 		let completeAction = TasksTableViewDelegate.createAction(title: "Complete",
-		                                                     backgroundColor: Theme.Colors.darkSpringGreen,
+		                                                     backgroundColor: Theme.Colors.green,
 		                                                     image: Theme.Images.checked.tint(with: .white)!.resize(toWidth: 22),
 		                                                     completionHandler: { [weak cell] in cell?.completeTapped?(); return true })
 		return UISwipeActionsConfiguration(actions: [completeAction])

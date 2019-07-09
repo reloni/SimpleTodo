@@ -47,8 +47,8 @@ final class Theme {
 			return TextField().configure {
 				$0.font = UIFont.preferredFont(forTextStyle: style)
 				$0.adjustsFontForContentSizeCategory = true
-				$0.dividerActiveColor = Theme.Colors.blueberry
-				$0.placeholderActiveColor = Theme.Colors.blueberry
+				$0.dividerActiveColor = Theme.Colors.blue
+				$0.placeholderActiveColor = Theme.Colors.blue
                 $0.placeholderNormalColor = Theme.Colors.secondaryLabel
                 $0.detailColor = Theme.Colors.secondaryLabel
 				$0.placeholderActiveScale = 0.85
@@ -75,40 +75,38 @@ final class Theme {
 	}
 	
 	final class Images {
-		static let checked = UIImage(named: "Checked")!.tint(with: Theme.Colors.blueberry)!
-		static let clock = UIImage(named: "Clock")!.tint(with: Theme.Colors.blueberry)!
-		static let delete = UIImage(named: "Delete")!.tint(with: Theme.Colors.blueberry)!
-		static let edit = UIImage(named: "Edit")!.tint(with: Theme.Colors.blueberry)!
+		static let checked = UIImage(named: "Checked")!.tint(with: Theme.Colors.blue)!
+		static let clock = UIImage(named: "Clock")!.tint(with: Theme.Colors.blue)!
+		static let delete = UIImage(named: "Delete")!.tint(with: Theme.Colors.blue)!
+		static let edit = UIImage(named: "Edit")!.tint(with: Theme.Colors.blue)!
 		static let refresh = UIImage(named: "Refresh")!.tint(with: Theme.Colors.gray)!
-		static let calendar = UIImage(named: "Calendar")!.tint(with: Theme.Colors.blueberry)!
-		static let pushNotification = UIImage(named: "Push notification")!.tint(with: Theme.Colors.blueberry)!
-		static let settings = UIImage(named: "Settings")!.tint(with: Theme.Colors.blueberry)!
-		static let info = UIImage(named: "Info")!.tint(with: Theme.Colors.blueberry)!
-		static let deleteAccount = UIImage(named: "Delete account")!.tint(with: Theme.Colors.upsdelRed)!
-		static let exit = UIImage(named: "Exit")!.tint(with: Theme.Colors.upsdelRed)!
-		static let deleteCache = UIImage(named: "Delete cache")!.tint(with: Theme.Colors.upsdelRed)!
-		static let add = UIImage(named: "Add")!.tint(with: Theme.Colors.blueberry)!
-		static let sourceCode = UIImage(named: "Source code")!.tint(with: Theme.Colors.blueberry)!
-		static let frameworks = UIImage(named: "Frameworks")!.tint(with: Theme.Colors.blueberry)!
+		static let calendar = UIImage(named: "Calendar")!.tint(with: Theme.Colors.blue)!
+		static let pushNotification = UIImage(named: "Push notification")!.tint(with: Theme.Colors.blue)!
+		static let settings = UIImage(named: "Settings")!.tint(with: Theme.Colors.blue)!
+		static let info = UIImage(named: "Info")!.tint(with: Theme.Colors.blue)!
+		static let deleteAccount = UIImage(named: "Delete account")!.tint(with: Theme.Colors.red)!
+		static let exit = UIImage(named: "Exit")!.tint(with: Theme.Colors.red)!
+		static let deleteCache = UIImage(named: "Delete cache")!.tint(with: Theme.Colors.red)!
+		static let add = UIImage(named: "Add")!.tint(with: Theme.Colors.blue)!
+		static let sourceCode = UIImage(named: "Source code")!.tint(with: Theme.Colors.blue)!
+		static let frameworks = UIImage(named: "Frameworks")!.tint(with: Theme.Colors.blue)!
 		static let email = UIImage(named: "Email")!.tint(with: Theme.Colors.label)!
 		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.label)!
 		static let accessoryArrow = UIImage(named: "Accessory arrow")!.tint(with: Theme.Colors.gray)!
-		static let questionMark = UIImage(named: "Question mark")!.tint(with: Theme.Colors.blueberry)!
+		static let questionMark = UIImage(named: "Question mark")!.tint(with: Theme.Colors.blue)!
 		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.label)!
 		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.label)!
-		static let badge = UIImage(named: "Badge")!.tint(with: Theme.Colors.blueberry)!
+		static let badge = UIImage(named: "Badge")!.tint(with: Theme.Colors.blue)!
         static let empty = checked.tint(with: Theme.Colors.background)!
 	}
 	
 	final class Colors {
 		static let whiteColor = UIColor.white
 		static let clear = UIColor.clear
-		static let darkSpringGreen = UIColor.systemGreen
+		static let green = UIColor.systemGreen
         static let yellow = UIColor.systemYellow
-//		static let pumkinLight = UIColor.systemYellow
-//		static let pumkin = UIColor.systemOrange
-		static let blueberry = UIColor.systemBlue
-		static let upsdelRed = UIColor.systemRed
+		static let blue = UIColor.systemBlue
+		static let red = UIColor.systemRed
         static let secondaryBackground = UIColor.secondarySystemBackground
         static let background = UIColor.systemBackground
 		static let label = UIColor.label

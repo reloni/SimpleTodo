@@ -104,14 +104,14 @@ final class AuthenticationController : UIViewController {
 	let supplementalButton = Button().configure {
 		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
 		$0.pulseColor = Theme.Colors.secondaryBackground
-		$0.titleColor = Theme.Colors.blueberry
+		$0.titleColor = Theme.Colors.blue
 	}
 	
     let lostPasswordLabel = Theme.Controls.label(withStyle: UIFont.TextStyle.caption2).configure {
 		let attributedText = NSMutableAttributedString(string: "Lost password?")
         attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributedText.string.count))
 		$0.attributedText = attributedText
-		$0.textColor = Theme.Colors.blueberry
+		$0.textColor = Theme.Colors.blue
 		$0.textAlignment = .center
 	}
 	

@@ -13,9 +13,9 @@ extension TaskDate {
 		switch date.type(in: Calendar.current) {
 		case .todayPast: fallthrough
 		case .past: fallthrough
-		case .yesterday: return Theme.Colors.upsdelRed
+		case .yesterday: return Theme.Colors.red
 		case .tomorrow: return Theme.Colors.yellow
-		default: return Theme.Colors.darkSpringGreen
+		default: return Theme.Colors.green
 		}
 	}
 	
