@@ -30,6 +30,7 @@ final class Theme {
 			return TextView().configure {
 				$0.font = UIFont.preferredFont(forTextStyle: style)
 				$0.placeholderLabel.font = UIFont.preferredFont(forTextStyle: style)
+                $0.textColor = Theme.Colors.label
 				$0.adjustsFontForContentSizeCategory = true
 			}
 		}
@@ -92,22 +93,17 @@ final class Theme {
 		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.whiteColor)!
 		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.whiteColor)!
 		static let badge = UIImage(named: "Badge")!.tint(with: Theme.Colors.blueberry)!
-        static let empty = checked.tint(with: Theme.Colors.whiteColor)!
+        static let empty = checked.tint(with: Theme.Colors.background)!
 	}
 	
 	final class Colors {
 		static let whiteColor = UIColor.white
-//		static let black = UIColor.black
 		static let clear = UIColor.clear
-		
-		static let darkSpringGreen = UIColor.systemGreen//UIColor(red: 17/255, green: 134/255, blue: 72/255, alpha: 1)
-		
-		static let pumkinLight = UIColor.systemYellow//UIColor(red: 250/255, green: 217/255, blue: 97/255, alpha: 1)
-		static let pumkin = UIColor.systemOrange//UIColor(red: 247/255, green: 107/255, blue: 28/255, alpha: 1)
-		static let blueberry = UIColor.systemBlue//UIColor(red: 67/255, green: 146/255, blue: 241/255, alpha: 1)
-		static let upsdelRed = UIColor.systemRed//UIColor(red: 176/255, green: 32/255, blue: 50/255, alpha: 1)
-//		static let romanSilver = //UIColor(red: 133/255, green: 138/255, blue: 149/255, alpha: 1)
-//		static let isabelline = UIColor(red: 237/255, green: 236/255, blue: 236/255, alpha: 1)
+		static let darkSpringGreen = UIColor.systemGreen
+		static let pumkinLight = UIColor.systemYellow
+		static let pumkin = UIColor.systemOrange
+		static let blueberry = UIColor.systemBlue
+		static let upsdelRed = UIColor.systemRed
         static let secondaryBackground = UIColor.secondarySystemBackground
         static let background = UIColor.systemBackground
 		static let label = UIColor.label
