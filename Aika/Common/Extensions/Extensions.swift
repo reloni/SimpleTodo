@@ -111,10 +111,6 @@ extension Notification {
 	func keyboardHeight() -> CGFloat {
         return (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
 	}
-	
-	func statusBarFrame() -> CGRect {
-        return userInfo?[UIApplication.statusBarFrameUserInfoKey] as! CGRect
-	}
 }
 
 extension TextField {
