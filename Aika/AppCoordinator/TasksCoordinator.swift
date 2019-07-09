@@ -29,15 +29,16 @@ struct TasksCoordinator : ApplicationCoordinatorType {
 		
 		switch action {
 		case UIAction.showEditTaskController(let task):
-			let viewModel = EditTaskViewModel(task: task, flowController: flowController)
+            let viewModel = EditTaskViewModel(task: task, flowController: flowController)
 			navigationController.pushViewController(EditTaskController(viewModel: viewModel), animated: true)
 			return .just({ $0 })
 		case UIAction.dismisEditTaskController:
 			navigationController.popViewController(animated: true)
 			return .just({ $0 })
 		case UIAction.showSettingsController:
-			let controller = GenericNavigationController(rootViewController: SettingsController(viewModel: SettingsViewModel(flowController: flowController)))
-			
+            let root = SettingsController(viewModel: SettingsViewModel(flowController: flowController))
+			let controller = GenericNavigationController(rootViewController: root)
+            controller.presentationController?.delegate = root
 			let coordinator = SettingsCoordinator(parent: self,
 			                                      navigationController: controller, flowController: flowController)
 			navigationController.present(coordinator.navigationController, animated: true, completion: nil)

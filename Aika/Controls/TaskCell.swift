@@ -100,7 +100,7 @@ final class TaskCell : UITableViewCell {
         targetDate.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 999), for: NSLayoutConstraint.Axis.vertical)
         targetDate.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: NSLayoutConstraint.Axis.vertical)
 		
-		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.background }
+		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.secondaryBackground }
         actionsStack.subviews.last?.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: NSLayoutConstraint.Axis.horizontal)
 		
 		completeActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in

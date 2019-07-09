@@ -31,7 +31,7 @@ final class TableSectionHeader: UITableViewHeaderFooterView {
 		contentView.addSubview(label)
 		
 		clipsToBounds = true
-		contentView.backgroundColor = Theme.Colors.background
+		contentView.backgroundColor = Theme.Colors.secondaryBackground
 		contentView.alpha = 1
 		
 		label.snp.makeConstraints { $0.edges.equalTo(contentView.snp.margins) }

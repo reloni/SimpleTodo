@@ -26,7 +26,7 @@ final class SubtitleCell: UITableViewCell {
     func setup() {
         selectionStyle = .none
         contentView.addSubview(label)
-        backgroundColor = Theme.Colors.background
+        backgroundColor = Theme.Colors.secondaryBackground
         
         label.snp.makeConstraints {
             $0.edges.equalTo(contentView.snp.margins)

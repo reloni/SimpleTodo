@@ -21,7 +21,8 @@ final class Theme {
 				$0.estimatedRowHeight = 50
                 $0.rowHeight = UITableView.automaticDimension
 				$0.tableFooterView = UIView()
-				$0.backgroundColor = Theme.Colors.background
+				$0.backgroundColor = Theme.Colors.secondaryBackground
+                $0.separatorColor = UIColor.opaqueSeparator
 			}
 		}
 		

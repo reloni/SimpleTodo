@@ -111,7 +111,7 @@ final class TaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let header = UITableViewHeaderFooterView()
         header.backgroundView = UIView()
-        header.backgroundView?.backgroundColor = Theme.Colors.clear
+        header.backgroundView?.backgroundColor = Theme.Colors.secondaryBackground
         return header
 	}
 	

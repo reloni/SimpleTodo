@@ -49,7 +49,7 @@ final class SettingsController : UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+        
 		view.addSubview(tableView)
 		
 		title = viewModel.title
@@ -270,4 +270,10 @@ final class SettingsTableViewDelegate : NSObject, UITableViewDelegate {
 		
 		cell.tapped?()
 	}
+}
+
+extension SettingsController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return false
+    }
 }

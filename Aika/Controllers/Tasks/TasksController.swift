@@ -201,7 +201,7 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		
 		cell.isExpanded = !cell.isExpanded
 		
-		animateCellExpansion(tableView: tableView)
+        animateCellExpansion(tableView: tableView, indexPath: indexPath)
 	}
 
 	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -210,10 +210,10 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		cell.isExpanded = false
 	}
 
-	func animateCellExpansion(tableView: UITableView) {
+    func animateCellExpansion(tableView: UITableView, indexPath: IndexPath) {
 		tableView.beginUpdates()
 		tableView.endUpdates()
-		tableView.scrollToNearestSelectedRow(at: .none, animated: true)
+        tableView.scrollToRow(at: indexPath, at: .none, animated: true)
 	}
 	
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

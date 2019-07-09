@@ -30,7 +30,7 @@ final class EditTaskController : UIViewController {
 	
 	let containerView = UIView().configure {
 		$0.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		$0.backgroundColor = Theme.Colors.background
+		$0.backgroundColor = Theme.Colors.secondaryBackground
 	}
 	
 	let descriptionTextField = Theme.Controls.textView(withStyle: .body).configure {
@@ -109,7 +109,7 @@ final class EditTaskController : UIViewController {
 		super.viewDidLoad()
 		
 		title = viewModel.title
-		view.backgroundColor = Theme.Colors.background
+		view.backgroundColor = Theme.Colors.secondaryBackground
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		
