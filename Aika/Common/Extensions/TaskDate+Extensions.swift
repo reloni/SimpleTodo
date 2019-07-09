@@ -14,7 +14,7 @@ extension TaskDate {
 		case .todayPast: fallthrough
 		case .past: fallthrough
 		case .yesterday: return Theme.Colors.upsdelRed
-		case .tomorrow: return Theme.Colors.pumkinLight
+		case .tomorrow: return Theme.Colors.yellow
 		default: return Theme.Colors.darkSpringGreen
 		}
 	}

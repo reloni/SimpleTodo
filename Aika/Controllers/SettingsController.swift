@@ -189,7 +189,6 @@ final class SettingsController : UIViewController {
 		cell.textLabel?.text = data.title
 		cell.imageView?.image = data.image?.resize(toWidth: 22)
 		cell.detailTextLabel?.text = data.value
-		cell.tintColor = Theme.Colors.pumkin
 	}
 	
 	static func configure(defaultCell cell: TappableCell, with data: (title: String, image: UIImage)) {
@@ -197,7 +196,6 @@ final class SettingsController : UIViewController {
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 		cell.accessoryType = .disclosureIndicator
 		cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
-		cell.tintColor = Theme.Colors.pumkin
 	}
 	
 	static func configure(switchCell cell: SwitchCell, with data: (title: String, subtitle: String?, image: UIImage)) {

@@ -38,6 +38,7 @@ final class Theme {
         static func label(withStyle style: UIFont.TextStyle) -> UILabel {
 			return UILabel().configure {
 				$0.font = UIFont.preferredFont(forTextStyle: style)
+                $0.textColor = Theme.Colors.label
 				$0.adjustsFontForContentSizeCategory = true
 			}
 		}
@@ -48,8 +49,11 @@ final class Theme {
 				$0.adjustsFontForContentSizeCategory = true
 				$0.dividerActiveColor = Theme.Colors.blueberry
 				$0.placeholderActiveColor = Theme.Colors.blueberry
+                $0.placeholderNormalColor = Theme.Colors.secondaryLabel
+                $0.detailColor = Theme.Colors.secondaryLabel
 				$0.placeholderActiveScale = 0.85
 				$0.placeholderVerticalOffset = 5
+                $0.textColor = Theme.Colors.label
 			}
 		}
 		
@@ -86,12 +90,12 @@ final class Theme {
 		static let add = UIImage(named: "Add")!.tint(with: Theme.Colors.blueberry)!
 		static let sourceCode = UIImage(named: "Source code")!.tint(with: Theme.Colors.blueberry)!
 		static let frameworks = UIImage(named: "Frameworks")!.tint(with: Theme.Colors.blueberry)!
-		static let email = UIImage(named: "Email")!.tint(with: Theme.Colors.whiteColor)!
-		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.whiteColor)!
+		static let email = UIImage(named: "Email")!.tint(with: Theme.Colors.label)!
+		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.label)!
 		static let accessoryArrow = UIImage(named: "Accessory arrow")!.tint(with: Theme.Colors.gray)!
 		static let questionMark = UIImage(named: "Question mark")!.tint(with: Theme.Colors.blueberry)!
-		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.whiteColor)!
-		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.whiteColor)!
+		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.label)!
+		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.label)!
 		static let badge = UIImage(named: "Badge")!.tint(with: Theme.Colors.blueberry)!
         static let empty = checked.tint(with: Theme.Colors.background)!
 	}
@@ -100,8 +104,9 @@ final class Theme {
 		static let whiteColor = UIColor.white
 		static let clear = UIColor.clear
 		static let darkSpringGreen = UIColor.systemGreen
-		static let pumkinLight = UIColor.systemYellow
-		static let pumkin = UIColor.systemOrange
+        static let yellow = UIColor.systemYellow
+//		static let pumkinLight = UIColor.systemYellow
+//		static let pumkin = UIColor.systemOrange
 		static let blueberry = UIColor.systemBlue
 		static let upsdelRed = UIColor.systemRed
         static let secondaryBackground = UIColor.secondarySystemBackground

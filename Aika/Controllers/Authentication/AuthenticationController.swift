@@ -97,13 +97,13 @@ final class AuthenticationController : UIViewController {
 	
 	let actionButton = Button().configure {
 		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		$0.pulseColor = Theme.Colors.whiteColor
-		$0.titleColor = Theme.Colors.whiteColor
+		$0.pulseColor = Theme.Colors.secondaryBackground
+		$0.titleColor = Theme.Colors.label
 	}
 	
 	let supplementalButton = Button().configure {
 		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		$0.pulseColor = Theme.Colors.whiteColor
+		$0.pulseColor = Theme.Colors.secondaryBackground
 		$0.titleColor = Theme.Colors.blueberry
 	}
 	
@@ -116,7 +116,7 @@ final class AuthenticationController : UIViewController {
 	}
 	
 	let gradientLayer = CAGradientLayer().configure {
-		$0.colors = [Theme.Colors.pumkinLight.cgColor, Theme.Colors.pumkin.cgColor]
+		$0.colors = [Theme.Colors.background.cgColor, Theme.Colors.secondaryBackground.cgColor]
 	}
 	
 	static func configureDefaultLoginButton(_ button: Button) -> Button {
@@ -125,8 +125,8 @@ final class AuthenticationController : UIViewController {
 		button.contentHorizontalAlignment = .center
 		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 		button.backgroundColor = Theme.Colors.clear
-		button.pulseColor = Theme.Colors.whiteColor
-		button.titleColor = Theme.Colors.whiteColor
+		button.pulseColor = Theme.Colors.secondaryBackground
+		button.titleColor = Theme.Colors.label
 		return button
 	}
 	
