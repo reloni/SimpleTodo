@@ -224,7 +224,7 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		                                                       image: Theme.Images.delete.tint(with: .white)!.resize(toWidth: 22),
 		                                                       completionHandler: { [weak cell] in cell?.deleteTapped?(); return true })
 		let editAction = TasksTableViewDelegate.createAction(title: "Edit",
-		                                                       backgroundColor: Theme.Colors.blue,
+		                                                       backgroundColor: Theme.Colors.tint,
 		                                                       image: Theme.Images.edit.tint(with: .white)!.resize(toWidth: 22),
 		                                                       completionHandler: { [weak cell] in cell?.editTapped?(); return true })
 		return UISwipeActionsConfiguration(actions: [deleteAction, editAction])

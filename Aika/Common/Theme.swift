@@ -47,8 +47,8 @@ final class Theme {
 			return TextField().configure {
 				$0.font = UIFont.preferredFont(forTextStyle: style)
 				$0.adjustsFontForContentSizeCategory = true
-				$0.dividerActiveColor = Theme.Colors.blue
-				$0.placeholderActiveColor = Theme.Colors.blue
+				$0.dividerActiveColor = Theme.Colors.tint
+				$0.placeholderActiveColor = Theme.Colors.tint
                 $0.placeholderNormalColor = Theme.Colors.secondaryLabel
                 $0.detailColor = Theme.Colors.secondaryLabel
 				$0.placeholderActiveScale = 0.85
@@ -75,28 +75,28 @@ final class Theme {
 	}
 	
 	final class Images {
-		static let checked = UIImage(named: "Checked")!.tint(with: Theme.Colors.blue)!
-		static let clock = UIImage(named: "Clock")!.tint(with: Theme.Colors.blue)!
-		static let delete = UIImage(named: "Delete")!.tint(with: Theme.Colors.blue)!
-		static let edit = UIImage(named: "Edit")!.tint(with: Theme.Colors.blue)!
+		static let checked = UIImage(named: "Checked")!.tint(with: Theme.Colors.tint)!
+		static let clock = UIImage(named: "Clock")!.tint(with: Theme.Colors.tint)!
+		static let delete = UIImage(named: "Delete")!.tint(with: Theme.Colors.tint)!
+		static let edit = UIImage(named: "Edit")!.tint(with: Theme.Colors.tint)!
 		static let refresh = UIImage(named: "Refresh")!.tint(with: Theme.Colors.gray)!
-		static let calendar = UIImage(named: "Calendar")!.tint(with: Theme.Colors.blue)!
-		static let pushNotification = UIImage(named: "Push notification")!.tint(with: Theme.Colors.blue)!
-		static let settings = UIImage(named: "Settings")!.tint(with: Theme.Colors.blue)!
-		static let info = UIImage(named: "Info")!.tint(with: Theme.Colors.blue)!
+		static let calendar = UIImage(named: "Calendar")!.tint(with: Theme.Colors.tint)!
+		static let pushNotification = UIImage(named: "Push notification")!.tint(with: Theme.Colors.tint)!
+		static let settings = UIImage(named: "Settings")!.tint(with: Theme.Colors.tint)!
+		static let info = UIImage(named: "Info")!.tint(with: Theme.Colors.tint)!
 		static let deleteAccount = UIImage(named: "Delete account")!.tint(with: Theme.Colors.red)!
 		static let exit = UIImage(named: "Exit")!.tint(with: Theme.Colors.red)!
 		static let deleteCache = UIImage(named: "Delete cache")!.tint(with: Theme.Colors.red)!
-		static let add = UIImage(named: "Add")!.tint(with: Theme.Colors.blue)!
-		static let sourceCode = UIImage(named: "Source code")!.tint(with: Theme.Colors.blue)!
-		static let frameworks = UIImage(named: "Frameworks")!.tint(with: Theme.Colors.blue)!
+		static let add = UIImage(named: "Add")!.tint(with: Theme.Colors.tint)!
+		static let sourceCode = UIImage(named: "Source code")!.tint(with: Theme.Colors.tint)!
+		static let frameworks = UIImage(named: "Frameworks")!.tint(with: Theme.Colors.tint)!
 		static let email = UIImage(named: "Email")!.tint(with: Theme.Colors.label)!
 		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.label)!
 		static let accessoryArrow = UIImage(named: "Accessory arrow")!.tint(with: Theme.Colors.gray)!
-		static let questionMark = UIImage(named: "Question mark")!.tint(with: Theme.Colors.blue)!
+		static let questionMark = UIImage(named: "Question mark")!.tint(with: Theme.Colors.tint)!
 		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.label)!
 		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.label)!
-		static let badge = UIImage(named: "Badge")!.tint(with: Theme.Colors.blue)!
+		static let badge = UIImage(named: "Badge")!.tint(with: Theme.Colors.tint)!
         static let empty = checked.tint(with: Theme.Colors.background)!
 	}
 	
@@ -105,7 +105,7 @@ final class Theme {
 		static let clear = UIColor.clear
 		static let green = UIColor.systemGreen
         static let yellow = UIColor.systemYellow
-		static let blue = UIColor.systemBlue
+        static let tint = UIColor.init(named: "Tint")!
 		static let red = UIColor.systemRed
         static let secondaryBackground = UIColor.secondarySystemBackground
         static let background = UIColor.systemBackground
