@@ -26,7 +26,7 @@ final class Theme {
 			}
 		}
 		
-        static func uiTextView(withStyle style: UIFont.TextStyle) -> UITextView {
+        static func textView(withStyle style: UIFont.TextStyle) -> UITextView {
             return UITextView().configure {
                 $0.font = UIFont.preferredFont(forTextStyle: style)
                 $0.textColor = Theme.Colors.label
