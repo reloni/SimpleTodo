@@ -33,13 +33,11 @@ final class EditTaskController : UIViewController {
 		$0.backgroundColor = Theme.Colors.secondaryBackground
 	}
 	
-	let descriptionTextField = Theme.Controls.textView(withStyle: .body).configure {
+	let descriptionTextField = Theme.Controls.uiTextView(withStyle: .body).configure {
 		$0.backgroundColor = Theme.Colors.background
-		$0.placeholderLabel.textColor = Theme.Colors.secondaryLabel
 		$0.borderColor = Theme.Colors.gray
 		$0.layer.borderWidth = 0.5
 		$0.isScrollEnabled = false
-		$0.placeholderLabel.text = "Task description"
 		$0.textContainerInset = UIEdgeInsets(top: 15, left: 5, bottom: 15, right: 15)
 	}
 	
@@ -85,9 +83,9 @@ final class EditTaskController : UIViewController {
 		$0.addArrangedSubview(self.notesTextField)
 	}
 	
-	let notesTextField = Theme.Controls.textView(withStyle: .callout).configure {
+	let notesTextField = Theme.Controls.uiTextView(withStyle: .callout).configure {
 		$0.layoutEdgeInsets = .zero
-		$0.textContainerInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
+		$0.textContainerInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
 		$0.textColor = Theme.Colors.secondaryLabel
 		$0.backgroundColor = Theme.Colors.background
 		$0.isScrollEnabled = false

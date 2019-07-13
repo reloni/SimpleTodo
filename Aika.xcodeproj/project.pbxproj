@@ -12,7 +12,6 @@
 		6E04922D1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E04922C1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift */; };
 		6E04922F1F5F269800E7C7D2 /* EditTaskController+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E04922E1F5F269800E7C7D2 /* EditTaskController+Constraints.swift */; };
 		6E05D0041E881F0B00C293B8 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E05D0031E881F0B00C293B8 /* WebService.swift */; };
-		6E0645581E990D1500A8AA59 /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0645571E990D1500A8AA59 /* TextViewCell.swift */; };
 		6E06455A1E993EB600A8AA59 /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0645591E993EB600A8AA59 /* SwitchView.swift */; };
 		6E07B8931EBDB4D900ADA5A8 /* Auth0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E07B8921EBDB4D900ADA5A8 /* Auth0.framework */; };
 		6E07B8951EBDB9A700ADA5A8 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */; };
@@ -159,7 +158,6 @@
 		6E04922C1F5F191300E7C7D2 /* TaskRepeatModeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskRepeatModeViewModel.swift; sourceTree = "<group>"; };
 		6E04922E1F5F269800E7C7D2 /* EditTaskController+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditTaskController+Constraints.swift"; sourceTree = "<group>"; };
 		6E05D0031E881F0B00C293B8 /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
-		6E0645571E990D1500A8AA59 /* TextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		6E0645591E993EB600A8AA59 /* SwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchView.swift; sourceTree = "<group>"; };
 		6E07B8921EBDB4D900ADA5A8 /* Auth0.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Auth0.framework; path = Carthage/Build/iOS/Auth0.framework; sourceTree = "<group>"; };
 		6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
@@ -460,7 +458,6 @@
 			children = (
 				6EB36A791E1ED9CA006B5239 /* TaskCell.swift */,
 				6E8845CB1E24056000EA3C2A /* TaskActionView.swift */,
-				6E0645571E990D1500A8AA59 /* TextViewCell.swift */,
 				6E0645591E993EB600A8AA59 /* SwitchView.swift */,
 				6EC7AC361E9A37EF005CDF5F /* DatePickerView.swift */,
 				6EC7AC381E9A3C6B005CDF5F /* TargetDateView.swift */,
@@ -822,7 +819,6 @@
 				6EC7AC391E9A3C6B005CDF5F /* TargetDateView.swift in Sources */,
 				6E53A1EB1FED859A000F48D5 /* Date+Extensions.swift in Sources */,
 				6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */,
-				6E0645581E990D1500A8AA59 /* TextViewCell.swift in Sources */,
 				6E04922B1F5F18E100E7C7D2 /* TaskRepeatModeController.swift in Sources */,
 				6E07B8971EBDBC9800ADA5A8 /* AuthenticationService.swift in Sources */,
 			);

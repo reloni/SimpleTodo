@@ -26,14 +26,13 @@ final class Theme {
 			}
 		}
 		
-        static func textView(withStyle style: UIFont.TextStyle) -> TextView {
-			return TextView().configure {
-				$0.font = UIFont.preferredFont(forTextStyle: style)
-				$0.placeholderLabel.font = UIFont.preferredFont(forTextStyle: style)
+        static func uiTextView(withStyle style: UIFont.TextStyle) -> UITextView {
+            return UITextView().configure {
+                $0.font = UIFont.preferredFont(forTextStyle: style)
                 $0.textColor = Theme.Colors.label
-				$0.adjustsFontForContentSizeCategory = true
-			}
-		}
+                $0.adjustsFontForContentSizeCategory = true
+            }
+        }
 		
         static func label(withStyle style: UIFont.TextStyle) -> UILabel {
 			return UILabel().configure {

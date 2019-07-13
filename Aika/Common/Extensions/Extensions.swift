@@ -121,20 +121,6 @@ extension TextField {
 	}
 }
 
-extension TextView {	
-	static var generic: TextView {
-		let text = Theme.Controls.textView(withStyle: .body)
-
-		text.backgroundColor = Theme.Colors.background
-		text.placeholderLabel.textColor = Theme.Colors.secondaryLabel
-		text.borderColor = Theme.Colors.gray
-		text.layer.borderWidth = 0.5
-		text.isScrollEnabled = false
-		
-		return text
-	}
-}
-
 extension UIScrollView {
 	func updatecontentInsetFor(keyboardHeight: CGFloat) {
 		contentInset = UIEdgeInsets(top: contentInset.top, left: contentInset.left, bottom: keyboardHeight + 25, right: contentInset.right)
