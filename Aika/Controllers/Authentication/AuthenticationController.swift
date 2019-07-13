@@ -75,24 +75,16 @@ final class AuthenticationController : UIViewController {
 	
 	let emailTextField = Theme.Controls.textField(withStyle: .body).configure {
 		$0.placeholder = "Email"
-		$0.detail = "Enter your email"
 		$0.keyboardType = .emailAddress
 		$0.autocapitalizationType = .none
 		$0.returnKeyType = .next
-		$0.isClearIconButtonEnabled = true
-		$0.leftView = UIImageView(image: Theme.Images.email.resize(toWidth: 22))
-		$0.leftViewOffset = 0
 	}
 	
 	let passwordTextField = Theme.Controls.textField(withStyle: .body).configure {
 		$0.placeholder = "Password"
-		$0.detail = "Enter your password"
 		$0.isSecureTextEntry = true
 		$0.keyboardType = .default
 		$0.returnKeyType = .done
-		$0.isClearIconButtonEnabled = true
-		$0.leftView = UIImageView(image: Theme.Images.password.resize(toWidth: 22))
-		$0.leftViewOffset = 0
 	}
 	
 	let actionButton = Button().configure {

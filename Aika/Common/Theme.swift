@@ -42,21 +42,7 @@ final class Theme {
 			}
 		}
 		
-        static func textField(withStyle style: UIFont.TextStyle) -> TextField {
-			return TextField().configure {
-				$0.font = UIFont.preferredFont(forTextStyle: style)
-				$0.adjustsFontForContentSizeCategory = true
-				$0.dividerActiveColor = Theme.Colors.tint
-				$0.placeholderActiveColor = Theme.Colors.tint
-                $0.placeholderNormalColor = Theme.Colors.secondaryLabel
-                $0.detailColor = Theme.Colors.secondaryLabel
-				$0.placeholderActiveScale = 0.85
-				$0.placeholderVerticalOffset = 5
-                $0.textColor = Theme.Colors.label
-			}
-		}
-		
-        static func uiTextField(withStyle style: UIFont.TextStyle) -> UITextField {
+        static func textField(withStyle style: UIFont.TextStyle) -> UITextField {
 			return UITextField().configure {
 				$0.font = UIFont.preferredFont(forTextStyle: style)
 				$0.adjustsFontForContentSizeCategory = true

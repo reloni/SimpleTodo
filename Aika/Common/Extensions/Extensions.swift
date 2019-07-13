@@ -113,14 +113,6 @@ extension Notification {
 	}
 }
 
-extension TextField {
-	static var base: TextField {
-		let field = Theme.Controls.textField(withStyle: .body)
-		field.isClearIconButtonEnabled = true
-		return field
-	}
-}
-
 extension UIScrollView {
 	func updatecontentInsetFor(keyboardHeight: CGFloat) {
 		contentInset = UIEdgeInsets(top: contentInset.top, left: contentInset.left, bottom: keyboardHeight + 25, right: contentInset.right)

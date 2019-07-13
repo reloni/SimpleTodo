@@ -12,7 +12,7 @@ import Material
 
 final class TargetDateView : UIView {	
 	let textField: UITextField = {
-		let field = Theme.Controls.uiTextField(withStyle: .body)
+		let field = Theme.Controls.textField(withStyle: .body)
 		field.placeholder = "Due date"
 		field.isEnabled = false
 		field.setContentHuggingPriority(UILayoutPriority(rawValue: 751), for: .horizontal)
