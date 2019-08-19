@@ -11,7 +11,7 @@ import UIKit
 
 extension AuthenticationController {
 	func scrollViewConstraints(maker: ConstraintMaker) {
-		maker.edges.equalTo(view).inset(UIEdgeInsets.zero)
+        maker.edges.equalTo(view.snp.margins).inset(UIEdgeInsets.zero)
 	}
 	
 	func topContainerViewConstraints(maker: ConstraintMaker) {
@@ -74,7 +74,7 @@ extension AuthenticationController {
 	}
 	
 	func passwordTextFieldConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(emailTextField.snp.bottom).offset(20).priority(999)
+		maker.top.equalTo(emailTextField.snp.bottom).offset(10).priority(999)
 		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
 		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
 	}
