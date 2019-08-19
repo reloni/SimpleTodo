@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import SnapKit
-import Material
 import RxCocoa
 
 final class AuthenticationController : UIViewController {
@@ -55,21 +54,18 @@ final class AuthenticationController : UIViewController {
 		$0.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
 	}
 	
-	let googleLoginButton = Button().configure {
-		_ = configureDefaultLoginButton($0)
-		$0.title = "Log in with Google"
+    let googleLoginButton = configureDefaultLoginButton(UIButton()).configure {
+        $0.setTitle("Log in with Google", for: .normal)
         $0.setImage(Theme.Images.google.resize(toWidth: 22), for: UIControl.State.normal)
 	}
 	
-	let facebookLoginButton = Button().configure {
-		_ = configureDefaultLoginButton($0)
-		$0.title = "Log in with Facebook"
+	let facebookLoginButton = configureDefaultLoginButton(UIButton()).configure {
+        $0.setTitle("Log in with Facebook", for: .normal)
         $0.setImage(Theme.Images.facebook.resize(toWidth: 22), for: UIControl.State.normal)
 	}
 	
-	let passwordLoginButton = Button().configure {
-		_ = configureDefaultLoginButton($0)
-		$0.title = "Log in with password"
+	let passwordLoginButton = configureDefaultLoginButton(UIButton()).configure {
+        $0.setTitle("Log in with password", for: .normal)
         $0.setImage(Theme.Images.password.resize(toWidth: 22), for: UIControl.State.normal)
 	}
 	
@@ -89,16 +85,14 @@ final class AuthenticationController : UIViewController {
         $0.borderStyle = .roundedRect
 	}
 	
-	let actionButton = Button().configure {
+	let actionButton = UIButton().configure {
 		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		$0.pulseColor = Theme.Colors.secondaryBackground
-		$0.titleColor = Theme.Colors.label
+        $0.setTitleColor(Theme.Colors.label, for: .normal)
 	}
 	
-	let supplementalButton = Button().configure {
+	let supplementalButton = UIButton().configure {
 		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		$0.pulseColor = Theme.Colors.secondaryBackground
-		$0.titleColor = Theme.Colors.tint
+		$0.setTitleColor(Theme.Colors.tint, for: .normal)
 	}
 	
     let lostPasswordLabel = Theme.Controls.label(withStyle: UIFont.TextStyle.caption2).configure {
@@ -112,17 +106,16 @@ final class AuthenticationController : UIViewController {
 	let gradientLayer = CAGradientLayer().configure {
 		$0.colors = [Theme.Colors.background.cgColor, Theme.Colors.secondaryBackground.cgColor]
 	}
-	
-	static func configureDefaultLoginButton(_ button: Button) -> Button {
-		button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-		button.layer.cornerRadius = 3
-		button.contentHorizontalAlignment = .center
-		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-		button.backgroundColor = Theme.Colors.clear
-		button.pulseColor = Theme.Colors.secondaryBackground
-		button.titleColor = Theme.Colors.label
-		return button
-	}
+    
+    static func configureDefaultLoginButton(_ button: UIButton) -> UIButton {
+        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        button.layer.cornerRadius = 3
+        button.contentHorizontalAlignment = .center
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        button.backgroundColor = Theme.Colors.clear
+        button.setTitleColor(Theme.Colors.label, for: .normal)
+        return button
+    }
 	
 	init(viewModel: AuthenticationViewModel) {
 		self.viewModel = viewModel
@@ -138,8 +131,8 @@ final class AuthenticationController : UIViewController {
 		
 		view.layer.insertSublayer(gradientLayer, at: 0)
 		
-		actionButton.title = viewModel.actionButtonTitle
-		supplementalButton.title = viewModel.supplementalButtonTitle
+        actionButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        supplementalButton.setTitle(viewModel.supplementalButtonTitle, for: .normal)
 		
 		view.backgroundColor = UIColor.white
 		
@@ -252,7 +245,6 @@ final class AuthenticationController : UIViewController {
 		}
 	}
 	
-	
 	@objc func changeServer() {
 		let alert = createAlertContoller(withTitle: "Server host", message: "")
 		
@@ -310,4 +302,10 @@ extension AuthenticationController : UITextFieldDelegate {
 		}
 		return true
 	}
+}
+
+extension AuthenticationController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return false
+    }
 }
