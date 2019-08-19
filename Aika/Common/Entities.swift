@@ -45,6 +45,7 @@ struct AppConstants {
 	
 	static var isIPhoneX: Bool {
 		return UIScreen.main.fixedCoordinateSpace.bounds.size.height == 812
+            || UIScreen.main.fixedCoordinateSpace.bounds.size.height == 896
 	}
 }
 
