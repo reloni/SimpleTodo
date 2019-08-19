@@ -78,6 +78,7 @@ final class AuthenticationController : UIViewController {
 		$0.keyboardType = .emailAddress
 		$0.autocapitalizationType = .none
 		$0.returnKeyType = .next
+        $0.borderStyle = .roundedRect
 	}
 	
 	let passwordTextField = Theme.Controls.textField(withStyle: .body).configure {
@@ -85,6 +86,7 @@ final class AuthenticationController : UIViewController {
 		$0.isSecureTextEntry = true
 		$0.keyboardType = .default
 		$0.returnKeyType = .done
+        $0.borderStyle = .roundedRect
 	}
 	
 	let actionButton = Button().configure {

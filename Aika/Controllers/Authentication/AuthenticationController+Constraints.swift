@@ -74,7 +74,7 @@ extension AuthenticationController {
 	}
 	
 	func passwordTextFieldConstraints(maker: ConstraintMaker) {
-		maker.top.equalTo(emailTextField.snp.bottom).offset(50).priority(999)
+		maker.top.equalTo(emailTextField.snp.bottom).offset(20).priority(999)
 		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
 		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
 	}
