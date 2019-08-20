@@ -34,28 +34,28 @@ final class EditTaskController : UIViewController {
 	
 	let descriptionTextField = Theme.Controls.textView(withStyle: .body).configure {
 		$0.backgroundColor = Theme.Colors.background
-		$0.borderColor = Theme.Colors.gray
+        $0.layer.borderColor = Theme.Colors.gray.cgColor
 		$0.layer.borderWidth = 0.5
 		$0.isScrollEnabled = false
 		$0.textContainerInset = UIEdgeInsets(top: 15, left: 5, bottom: 15, right: 15)
 	}
 	
 	let targetDateView = TargetDateView().configure {
-		$0.borderColor = Theme.Colors.gray
+        $0.layer.borderColor = Theme.Colors.gray.cgColor
 		$0.layer.borderWidth = 0.5
 		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 	}
 	
 	let targetDatePickerView = DatePickerView().configure {
 		$0.alpha = 0
-		$0.borderColor = Theme.Colors.gray
+        $0.layer.borderColor = Theme.Colors.gray.cgColor
 		$0.layer.borderWidth = 0.5
 		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 		$0.date = nil
 	}
 	
 	let taskRepeatDescriptionView = TaskRepeatDescriptionView().configure {
-		$0.borderColor = Theme.Colors.gray
+        $0.layer.borderColor = Theme.Colors.gray.cgColor
 		$0.layer.borderWidth = 0.5
 		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 	}
@@ -67,8 +67,8 @@ final class EditTaskController : UIViewController {
 	
 	let notesWrapper = UIView().configure {
 		$0.backgroundColor = Theme.Colors.background
-		$0.layoutEdgeInsets = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
-		$0.borderColor = Theme.Colors.gray
+//		$0.layoutEdgeInsets = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
+        $0.layer.borderColor = Theme.Colors.gray.cgColor
 		$0.layer.borderWidth = 0.5
 	}
 	
@@ -83,7 +83,7 @@ final class EditTaskController : UIViewController {
 	}
 	
 	let notesTextField = Theme.Controls.textView(withStyle: .callout).configure {
-		$0.layoutEdgeInsets = .zero
+//		$0.layoutEdgeInsets = .zero
 		$0.textContainerInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
 		$0.textColor = Theme.Colors.secondaryLabel
 		$0.backgroundColor = Theme.Colors.background

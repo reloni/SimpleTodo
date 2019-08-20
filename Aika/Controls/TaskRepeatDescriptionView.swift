@@ -29,7 +29,7 @@ final class TaskRepeatDescriptionView: UIView {
 	
 	let arrowImage: UIImageView = {
 		let image = UIImageView(image: Theme.Images.accessoryArrow)
-		image.layoutEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+//		image.layoutEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 		image.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .vertical)
 		image.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .horizontal)
 		return image
