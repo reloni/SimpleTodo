@@ -96,9 +96,7 @@
 		6ED3F4471E7DA3D50003C1CC /* EditTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4441E7DA3D50003C1CC /* EditTaskController.swift */; };
 		6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4451E7DA3D50003C1CC /* TasksController.swift */; };
 		6ED6646720866FA4001C5CFF /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6646620866FA4001C5CFF /* CalendarDateCell.swift */; };
-		6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDC4E051F9BDE180003BE92 /* Motion.framework */; };
 		6EE1C7E01FE6CC1900FFB34D /* EncodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */; };
-		6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247D71DF21291001A6F39 /* Material.framework */; };
 		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
 		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
 		6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EEC0D4B200908D5000EBDB2 /* Answers.framework */; };
@@ -277,7 +275,6 @@
 				6E9B88A320276B8D007F3DEB /* RxDataFlow.framework in Frameworks */,
 				6E9B88A420276B8D007F3DEB /* RxHttpClient.framework in Frameworks */,
 				6EEC0D4C200908D5000EBDB2 /* Answers.framework in Frameworks */,
-				6EDC4E061F9BDE190003BE92 /* Motion.framework in Frameworks */,
 				6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */,
 				6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */,
 				6E5BA8AB1EEEF40F00B61645 /* Crashlytics.framework in Frameworks */,
@@ -290,7 +287,6 @@
 				6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */,
 				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
 				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
-				6EE247DF1DF21291001A6F39 /* Material.framework in Frameworks */,
 				6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */,
 				6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */,
 				6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */,

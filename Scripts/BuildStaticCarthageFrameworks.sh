@@ -25,11 +25,6 @@ ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/RxDataSources/Carthage
 sh ./Scripts/BuildStaticFramework.sh RxDataSources Differentiator Differentiator staticlib
 sh ./Scripts/BuildStaticFramework.sh RxDataSources RxDataSources RxDataSources staticlib
 
-sh ./Scripts/BuildStaticFramework.sh Motion Motion "Motion iOS" staticlib
-
-ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/Material/Carthage"
-sh ./Scripts/BuildStaticFramework.sh Material Material "Material" staticlib
-
 sh ./Scripts/BuildStaticFramework.sh JWTDecode.swift JWTDecode "JWTDecode-iOS" staticlib
 
 ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/Auth0.swift/Carthage"
