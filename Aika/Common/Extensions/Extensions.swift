@@ -10,7 +10,6 @@ import Foundation
 import RxHttpClient
 import UIKit
 import RxSwift
-import Material
 import RxDataFlow
 
 extension UIWindow {

@@ -11,7 +11,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
-import Material
 import SnapKit
 
 final class TasksController : UIViewController {
@@ -35,12 +34,12 @@ final class TasksController : UIViewController {
 		$0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
 		$0.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 	}
-	
-	let addTaskButton = FABButton(image: Theme.Images.add.resize(toWidth: 55)).configure {
-		$0.contentEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
-		$0.pulseColor = Theme.Colors.whiteColor
-		$0.backgroundColor = Theme.Colors.secondaryBackground
-	}
+
+    let addTaskButton = UIButton().configure {
+        $0.setImage(Theme.Images.add.resize(toWidth: 55), for: .normal)
+        $0.contentEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
+        $0.backgroundColor = Theme.Colors.secondaryBackground
+    }
 
 	init(viewModel: TasksViewModel) {
 		self.viewModel = viewModel
