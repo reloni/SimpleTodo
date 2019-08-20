@@ -81,6 +81,10 @@ final class TasksController : UIViewController {
 
 		viewModel.synchronize()
 	}
+    
+    override func viewWillLayoutSubviews() {
+        addTaskButton.layer.cornerRadius = addTaskButton.bounds.height / 2
+    }
 	
 	func bind() {
 		let sectionsObservable = viewModel.taskSections.share(replay: 1, scope: .forever)
@@ -166,7 +170,7 @@ final class TasksController : UIViewController {
 		maker.top.equalTo(view.snp.topMargin)
 		maker.leading.equalTo(view.snp.leading)
 		maker.trailing.equalTo(view.snp.trailing)
-		maker.bottom.equalTo(view.snp.bottomMargin)
+		maker.bottom.equalTo(view.snp.bottom)
 	}
 	
 	func addTaskButtonConstraints(maker: ConstraintMaker) {
