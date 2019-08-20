@@ -12,6 +12,32 @@ import UIKit
 import RxSwift
 import RxDataFlow
 
+extension UIImage {
+  func resize(toWidth w: CGFloat) -> UIImage? {
+      return internalResize(toWidth: w)
+  }
+  
+  private func internalResize(toWidth tw: CGFloat = 0, toHeight th: CGFloat = 0) -> UIImage? {
+      var w: CGFloat?
+      var h: CGFloat?
+      
+      if 0 < tw {
+          h = size.height * tw / size.width
+      } else if 0 < th {
+          w = size.width * th / size.height
+      }
+      
+      let g: UIImage?
+      let t: CGRect = CGRect(x: 0, y: 0, width: w ?? tw, height: h ?? th)
+      UIGraphicsBeginImageContextWithOptions(t.size, false, UIScreen.main.scale)
+      draw(in: t, blendMode: .normal, alpha: 1)
+      g = UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+      
+      return g
+  }
+}
+
 extension UIWindow {
     func topMostViewController() -> UIViewController? {
         guard let rootViewController = self.rootViewController else { return nil }

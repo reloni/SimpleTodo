@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Material
 
 final class Theme {
 	final class Controls {
@@ -60,29 +59,29 @@ final class Theme {
 	}
 	
 	final class Images {
-		static let checked = UIImage(named: "Checked")!.tint(with: Theme.Colors.tint)!
-		static let clock = UIImage(named: "Clock")!.tint(with: Theme.Colors.tint)!
-		static let delete = UIImage(named: "Delete")!.tint(with: Theme.Colors.tint)!
-		static let edit = UIImage(named: "Edit")!.tint(with: Theme.Colors.tint)!
-		static let refresh = UIImage(named: "Refresh")!.tint(with: Theme.Colors.gray)!
-		static let calendar = UIImage(named: "Calendar")!.tint(with: Theme.Colors.tint)!
-		static let pushNotification = UIImage(named: "Push notification")!.tint(with: Theme.Colors.tint)!
-		static let settings = UIImage(named: "Settings")!.tint(with: Theme.Colors.tint)!
-		static let info = UIImage(named: "Info")!.tint(with: Theme.Colors.tint)!
-		static let deleteAccount = UIImage(named: "Delete account")!.tint(with: Theme.Colors.red)!
-		static let exit = UIImage(named: "Exit")!.tint(with: Theme.Colors.red)!
-		static let deleteCache = UIImage(named: "Delete cache")!.tint(with: Theme.Colors.red)!
-		static let add = UIImage(named: "Add")!.tint(with: Theme.Colors.tint)!
-		static let sourceCode = UIImage(named: "Source code")!.tint(with: Theme.Colors.tint)!
-		static let frameworks = UIImage(named: "Frameworks")!.tint(with: Theme.Colors.tint)!
-		static let email = UIImage(named: "Email")!.tint(with: Theme.Colors.label)!
-		static let password = UIImage(named: "Password")!.tint(with: Theme.Colors.label)!
-		static let accessoryArrow = UIImage(named: "Accessory arrow")!.tint(with: Theme.Colors.gray)!
-		static let questionMark = UIImage(named: "Question mark")!.tint(with: Theme.Colors.tint)!
-		static let google = UIImage(named: "Google")!.tint(with: Theme.Colors.label)!
-		static let facebook = UIImage(named: "Facebook")!.tint(with: Theme.Colors.label)!
-		static let badge = UIImage(named: "Badge")!.tint(with: Theme.Colors.tint)!
-        static let empty = checked.tint(with: Theme.Colors.background)!
+        static let checked = UIImage(named: "Checked")!.withTintColor(Theme.Colors.tint)
+		static let clock = UIImage(named: "Clock")!.withTintColor(Theme.Colors.tint)
+		static let delete = UIImage(named: "Delete")!.withTintColor(Theme.Colors.tint)
+		static let edit = UIImage(named: "Edit")!.withTintColor(Theme.Colors.tint)
+		static let refresh = UIImage(named: "Refresh")!.withTintColor(Theme.Colors.gray)
+        static let calendar = UIImage(named: "Calendar")!.withTintColor(Theme.Colors.tint)
+		static let pushNotification = UIImage(named: "Push notification")!.withTintColor(Theme.Colors.tint)
+		static let settings = UIImage(named: "Settings")!.withTintColor(Theme.Colors.tint)
+		static let info = UIImage(named: "Info")!.withTintColor(Theme.Colors.tint)
+		static let deleteAccount = UIImage(named: "Delete account")!.withTintColor(Theme.Colors.red)
+		static let exit = UIImage(named: "Exit")!.withTintColor(Theme.Colors.red)
+		static let deleteCache = UIImage(named: "Delete cache")!.withTintColor(Theme.Colors.red)
+		static let add = UIImage(named: "Add")!.withTintColor(Theme.Colors.tint)
+		static let sourceCode = UIImage(named: "Source code")!.withTintColor(Theme.Colors.tint)
+		static let frameworks = UIImage(named: "Frameworks")!.withTintColor(Theme.Colors.tint)
+		static let email = UIImage(named: "Email")!.withTintColor(Theme.Colors.label)
+		static let password = UIImage(named: "Password")!.withTintColor(Theme.Colors.label)
+		static let accessoryArrow = UIImage(named: "Accessory arrow")!.withTintColor(Theme.Colors.gray)
+		static let questionMark = UIImage(named: "Question mark")!.withTintColor(Theme.Colors.tint)
+		static let google = UIImage(named: "Google")!.withTintColor(Theme.Colors.label)
+		static let facebook = UIImage(named: "Facebook")!.withTintColor(Theme.Colors.label)
+		static let badge = UIImage(named: "Badge")!.withTintColor(Theme.Colors.tint)
+        static let empty = checked.withTintColor(Theme.Colors.background)
 	}
 	
 	final class Colors {
