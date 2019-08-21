@@ -45,7 +45,9 @@ final class AuthenticationController : UIViewController {
 		$0.clipsToBounds = true
 		$0.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 		$0.addSubview(self.actionButton)
+        $0.addSubview(self.emailImage)
 		$0.addSubview(self.emailTextField)
+        $0.addSubview(self.passwordImage)
 		$0.addSubview(self.passwordTextField)
 		$0.addSubview(self.supplementalButton)
 	}
@@ -68,6 +70,11 @@ final class AuthenticationController : UIViewController {
         $0.setTitle("Log in with password", for: .normal)
         $0.setImage(Theme.Images.password.resize(toWidth: 22), for: UIControl.State.normal)
 	}
+    
+    let emailImage = UIImageView(image: Theme.Images.email).configure {
+        $0.setContentHuggingPriority(UILayoutPriority(1000), for: .vertical)
+        $0.contentMode = .scaleToFill
+    }
 	
 	let emailTextField = Theme.Controls.textField(withStyle: .body).configure {
 		$0.placeholder = "Email"
@@ -76,6 +83,11 @@ final class AuthenticationController : UIViewController {
 		$0.returnKeyType = .next
         $0.borderStyle = .roundedRect
 	}
+    
+    let passwordImage = UIImageView(image: Theme.Images.password).configure {
+        $0.setContentHuggingPriority(UILayoutPriority(1000), for: .vertical)
+        $0.contentMode = .scaleToFill
+    }
 	
 	let passwordTextField = Theme.Controls.textField(withStyle: .body).configure {
 		$0.placeholder = "Password"
@@ -147,10 +159,12 @@ final class AuthenticationController : UIViewController {
 		topOffsetView.snp.makeConstraints(topOffsetViewConstraints)
 		bottomOffsetView.snp.makeConstraints(bottomOffsetViewConstraints)
 		actionButton.snp.makeConstraints(loginButtonConstraints)
+        passwordImage.snp.makeConstraints(passwordImageConstraints)
 		passwordTextField.snp.makeConstraints(passwordTextFieldConstraints)
 		googleLoginButton.snp.makeConstraints(googleLoginButtonConstraints)
 		facebookLoginButton.snp.makeConstraints(facebookLoginButtonConstraints)
 		passwordLoginButton.snp.makeConstraints(passwordLoginButtonConstraints)
+        emailImage.snp.makeConstraints(emailImageConstraints)
 		emailTextField.snp.makeConstraints(emailTextFieldConstraints)
 		scrollView.snp.makeConstraints(scrollViewConstraints)
 		supplementalButton.snp.makeConstraints(registrationButtonConstraints)

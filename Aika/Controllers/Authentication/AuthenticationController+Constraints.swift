@@ -66,16 +66,30 @@ extension AuthenticationController {
 		maker.trailing.equalTo(authenticationTypeContainerView.snp.trailingMargin)
 		maker.bottom.equalTo(authenticationTypeContainerView.snp.bottomMargin)
 	}
+    
+    func emailImageConstraints(maker: ConstraintMaker) {
+        maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
+        maker.trailing.equalTo(emailTextField.snp.leading).offset(-5)
+        maker.centerY.equalTo(emailTextField.snp.centerY)
+        maker.height.equalTo(emailImage.snp.width)
+        maker.height.equalTo(25)
+    }
 	
 	func emailTextFieldConstraints(maker: ConstraintMaker) {
 		maker.top.equalTo(passwordEnterContainerView.snp.topMargin)
-		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
 		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
 	}
+    
+    func passwordImageConstraints(maker: ConstraintMaker) {
+        maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
+        maker.trailing.equalTo(passwordTextField.snp.leading).offset(-5)
+        maker.centerY.equalTo(passwordTextField.snp.centerY)
+        maker.height.equalTo(passwordImage.snp.width)
+        maker.height.equalTo(25)
+    }
 	
 	func passwordTextFieldConstraints(maker: ConstraintMaker) {
 		maker.top.equalTo(emailTextField.snp.bottom).offset(10).priority(999)
-		maker.leading.equalTo(passwordEnterContainerView.snp.leadingMargin)
 		maker.trailing.equalTo(passwordEnterContainerView.snp.trailingMargin)
 	}
 	
