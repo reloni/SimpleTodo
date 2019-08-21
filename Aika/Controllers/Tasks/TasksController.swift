@@ -62,9 +62,8 @@ final class TasksController : UIViewController {
 		view.addSubview(addTaskButton)
 		
 		view.backgroundColor = Theme.Colors.background
-//		view.layoutEdgeInsets = .zero
-		
-		title = viewModel.title
+
+        title = viewModel.title
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: Theme.Images.settings.resize(toWidth: 22),
 		                                                    style: .plain,

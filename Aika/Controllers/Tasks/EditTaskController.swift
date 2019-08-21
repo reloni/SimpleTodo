@@ -67,7 +67,6 @@ final class EditTaskController : UIViewController {
 	
 	let notesWrapper = UIView().configure {
 		$0.backgroundColor = Theme.Colors.background
-//		$0.layoutEdgeInsets = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
         $0.layer.borderColor = Theme.Colors.gray.cgColor
 		$0.layer.borderWidth = 0.5
 	}
@@ -83,7 +82,6 @@ final class EditTaskController : UIViewController {
 	}
 	
 	let notesTextField = Theme.Controls.textView(withStyle: .callout).configure {
-//		$0.layoutEdgeInsets = .zero
 		$0.textContainerInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
 		$0.textColor = Theme.Colors.secondaryLabel
 		$0.backgroundColor = Theme.Colors.background
