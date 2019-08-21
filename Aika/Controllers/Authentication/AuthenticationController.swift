@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import SnapKit
-import Material
 import RxCocoa
 
 final class AuthenticationController : UIViewController {
@@ -46,7 +45,9 @@ final class AuthenticationController : UIViewController {
 		$0.clipsToBounds = true
 		$0.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 		$0.addSubview(self.actionButton)
+        $0.addSubview(self.emailImage)
 		$0.addSubview(self.emailTextField)
+        $0.addSubview(self.passwordImage)
 		$0.addSubview(self.passwordTextField)
 		$0.addSubview(self.supplementalButton)
 	}
@@ -55,80 +56,78 @@ final class AuthenticationController : UIViewController {
 		$0.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
 	}
 	
-	let googleLoginButton = Button().configure {
-		_ = configureDefaultLoginButton($0)
-		$0.title = "Log in with Google"
+    let googleLoginButton = configureDefaultLoginButton(UIButton()).configure {
+        $0.setTitle("Log in with Google", for: .normal)
         $0.setImage(Theme.Images.google.resize(toWidth: 22), for: UIControl.State.normal)
 	}
 	
-	let facebookLoginButton = Button().configure {
-		_ = configureDefaultLoginButton($0)
-		$0.title = "Log in with Facebook"
+	let facebookLoginButton = configureDefaultLoginButton(UIButton()).configure {
+        $0.setTitle("Log in with Facebook", for: .normal)
         $0.setImage(Theme.Images.facebook.resize(toWidth: 22), for: UIControl.State.normal)
 	}
 	
-	let passwordLoginButton = Button().configure {
-		_ = configureDefaultLoginButton($0)
-		$0.title = "Log in with password"
+	let passwordLoginButton = configureDefaultLoginButton(UIButton()).configure {
+        $0.setTitle("Log in with password", for: .normal)
         $0.setImage(Theme.Images.password.resize(toWidth: 22), for: UIControl.State.normal)
 	}
+    
+    let emailImage = UIImageView(image: Theme.Images.email).configure {
+        $0.setContentHuggingPriority(UILayoutPriority(1000), for: .vertical)
+        $0.contentMode = .scaleToFill
+    }
 	
 	let emailTextField = Theme.Controls.textField(withStyle: .body).configure {
 		$0.placeholder = "Email"
-		$0.detail = "Enter your email"
 		$0.keyboardType = .emailAddress
 		$0.autocapitalizationType = .none
 		$0.returnKeyType = .next
-		$0.isClearIconButtonEnabled = true
-		$0.leftView = UIImageView(image: Theme.Images.email.resize(toWidth: 22))
-		$0.leftViewOffset = 0
+        $0.borderStyle = .roundedRect
 	}
+    
+    let passwordImage = UIImageView(image: Theme.Images.password).configure {
+        $0.setContentHuggingPriority(UILayoutPriority(1000), for: .vertical)
+        $0.contentMode = .scaleToFill
+    }
 	
 	let passwordTextField = Theme.Controls.textField(withStyle: .body).configure {
 		$0.placeholder = "Password"
-		$0.detail = "Enter your password"
 		$0.isSecureTextEntry = true
 		$0.keyboardType = .default
 		$0.returnKeyType = .done
-		$0.isClearIconButtonEnabled = true
-		$0.leftView = UIImageView(image: Theme.Images.password.resize(toWidth: 22))
-		$0.leftViewOffset = 0
+        $0.borderStyle = .roundedRect
 	}
 	
-	let actionButton = Button().configure {
+	let actionButton = UIButton().configure {
 		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		$0.pulseColor = Theme.Colors.white
-		$0.titleColor = Theme.Colors.white
+        $0.setTitleColor(Theme.Colors.label, for: .normal)
 	}
 	
-	let supplementalButton = Button().configure {
+	let supplementalButton = UIButton().configure {
 		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-		$0.pulseColor = Theme.Colors.white
-		$0.titleColor = Theme.Colors.blueberry
+		$0.setTitleColor(Theme.Colors.tint, for: .normal)
 	}
 	
     let lostPasswordLabel = Theme.Controls.label(withStyle: UIFont.TextStyle.caption2).configure {
 		let attributedText = NSMutableAttributedString(string: "Lost password?")
         attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributedText.string.count))
 		$0.attributedText = attributedText
-		$0.textColor = Theme.Colors.blueberry
+		$0.textColor = Theme.Colors.tint
 		$0.textAlignment = .center
 	}
 	
 	let gradientLayer = CAGradientLayer().configure {
-		$0.colors = [Theme.Colors.pumkinLight.cgColor, Theme.Colors.pumkin.cgColor]
+		$0.colors = [Theme.Colors.background.cgColor, Theme.Colors.secondaryBackground.cgColor]
 	}
-	
-	static func configureDefaultLoginButton(_ button: Button) -> Button {
-		button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-		button.layer.cornerRadius = 3
-		button.contentHorizontalAlignment = .center
-		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-		button.backgroundColor = Theme.Colors.clear
-		button.pulseColor = Theme.Colors.white
-		button.titleColor = Theme.Colors.white
-		return button
-	}
+    
+    static func configureDefaultLoginButton(_ button: UIButton) -> UIButton {
+        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        button.layer.cornerRadius = 3
+        button.contentHorizontalAlignment = .center
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        button.backgroundColor = Theme.Colors.clear
+        button.setTitleColor(Theme.Colors.label, for: .normal)
+        return button
+    }
 	
 	init(viewModel: AuthenticationViewModel) {
 		self.viewModel = viewModel
@@ -144,8 +143,8 @@ final class AuthenticationController : UIViewController {
 		
 		view.layer.insertSublayer(gradientLayer, at: 0)
 		
-		actionButton.title = viewModel.actionButtonTitle
-		supplementalButton.title = viewModel.supplementalButtonTitle
+        actionButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        supplementalButton.setTitle(viewModel.supplementalButtonTitle, for: .normal)
 		
 		view.backgroundColor = UIColor.white
 		
@@ -160,10 +159,12 @@ final class AuthenticationController : UIViewController {
 		topOffsetView.snp.makeConstraints(topOffsetViewConstraints)
 		bottomOffsetView.snp.makeConstraints(bottomOffsetViewConstraints)
 		actionButton.snp.makeConstraints(loginButtonConstraints)
+        passwordImage.snp.makeConstraints(passwordImageConstraints)
 		passwordTextField.snp.makeConstraints(passwordTextFieldConstraints)
 		googleLoginButton.snp.makeConstraints(googleLoginButtonConstraints)
 		facebookLoginButton.snp.makeConstraints(facebookLoginButtonConstraints)
 		passwordLoginButton.snp.makeConstraints(passwordLoginButtonConstraints)
+        emailImage.snp.makeConstraints(emailImageConstraints)
 		emailTextField.snp.makeConstraints(emailTextFieldConstraints)
 		scrollView.snp.makeConstraints(scrollViewConstraints)
 		supplementalButton.snp.makeConstraints(registrationButtonConstraints)
@@ -258,7 +259,6 @@ final class AuthenticationController : UIViewController {
 		}
 	}
 	
-	
 	@objc func changeServer() {
 		let alert = createAlertContoller(withTitle: "Server host", message: "")
 		
@@ -316,4 +316,10 @@ extension AuthenticationController : UITextFieldDelegate {
 		}
 		return true
 	}
+}
+
+extension AuthenticationController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return false
+    }
 }

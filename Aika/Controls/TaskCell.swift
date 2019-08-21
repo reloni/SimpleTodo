@@ -26,7 +26,7 @@ final class TaskCell : UITableViewCell {
 	
 	let targetDate: UILabel = {
 		let text = Theme.Controls.label(withStyle: .footnote)
-		text.textColor = Theme.Colors.romanSilver
+		text.textColor = Theme.Colors.secondaryLabel
 		return text
 	}()
 	
@@ -53,7 +53,6 @@ final class TaskCell : UITableViewCell {
 		stack.axis = .horizontal
 		stack.distribution = .fillEqually
 		stack.spacing = 0
-		stack.layoutEdgeInsets = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
 		
 		stack.addArrangedSubview(self.completeActionView)
 		stack.addArrangedSubview(self.editActionView)
@@ -100,7 +99,7 @@ final class TaskCell : UITableViewCell {
         targetDate.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 999), for: NSLayoutConstraint.Axis.vertical)
         targetDate.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: NSLayoutConstraint.Axis.vertical)
 		
-		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.isabelline }
+		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.secondaryBackground }
         actionsStack.subviews.last?.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: NSLayoutConstraint.Axis.horizontal)
 		
 		completeActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
@@ -147,13 +146,10 @@ final class TaskCell : UITableViewCell {
 		maker.trailing.equalTo(contentView.snp.trailing)
 		maker.bottom.equalTo(contentView.snp.bottom)
 	}
-	
+
 	override func updateConstraints() {
 		super.updateConstraints()
-		
-		taskDescription.snp.updateConstraints(makeTaskDescriptionConstraints)
-		targetDate.snp.updateConstraints(makeTargetDateConstraints)
+
 		actionsStack.snp.updateConstraints(makeActionsStackConstraints)
-		repeatImage.snp.updateConstraints(makeRepeatImageConstraints(maker:))
 	}
 }

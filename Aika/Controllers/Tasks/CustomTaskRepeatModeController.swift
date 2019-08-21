@@ -27,7 +27,7 @@ final class CustomTaskRepeatModeController: UIViewController {
                 switch item {
                 case .placeholder:
                     let cell = PlaceholderCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: nil)
-                    cell.contentView.backgroundColor = Theme.Colors.isabelline
+                    cell.contentView.backgroundColor = Theme.Colors.secondaryBackground
                     cell.selectionStyle = .none
                     return cell
                 case .patternTypePicker: return self.patternTypePickerCell()
@@ -70,7 +70,7 @@ final class CustomTaskRepeatModeController: UIViewController {
 		view.addSubview(tableView)
 		
 		title = viewModel.title
-		view.backgroundColor = Theme.Colors.isabelline
+		view.backgroundColor = Theme.Colors.secondaryBackground
 		
         tableView.snp.makeConstraints {
             $0.top.equalTo(view.snp.topMargin)

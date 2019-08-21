@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		// workaround over asynchronous flowController action dispatch
         window?.rootViewController = UIViewController()
-		window?.backgroundColor = Theme.Colors.white
+		window?.backgroundColor = Theme.Colors.background
         window?.makeKeyAndVisible()
 
 		return true

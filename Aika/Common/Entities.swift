@@ -26,8 +26,7 @@ struct AppConstants {
     }
 	
 	static var applicationType: String {
-        
-		switch UI_USER_INTERFACE_IDIOM() {
+		switch UIDevice.current.userInterfaceIdiom {
 		case .pad: return "Aika for iPad"
 		case .phone: return "Aika for iPhone"
 		default: return "Aika for unknown device :)"
@@ -46,6 +45,7 @@ struct AppConstants {
 	
 	static var isIPhoneX: Bool {
 		return UIScreen.main.fixedCoordinateSpace.bounds.size.height == 812
+            || UIScreen.main.fixedCoordinateSpace.bounds.size.height == 896
 	}
 }
 

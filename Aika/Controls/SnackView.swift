@@ -23,7 +23,7 @@ class SnackView: UIView {
 	}
 	
 	func setup() {
-		backgroundColor = Theme.Colors.upsdelRed.withAlphaComponent(0.8)
+		backgroundColor = Theme.Colors.red.withAlphaComponent(0.8)
 	}
 	
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -52,7 +52,7 @@ class SnackView: UIView {
 class MessageSnackView: SnackView {
 	let messageLabel: UILabel = {
 		let label = Theme.Controls.label(withStyle: .body)
-		label.textColor = Theme.Colors.white
+		label.textColor = Theme.Colors.whiteColor
 		label.lineBreakMode = .byTruncatingMiddle
 		label.textAlignment = .center
 		label.minimumScaleFactor = 0.5

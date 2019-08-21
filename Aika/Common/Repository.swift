@@ -24,7 +24,7 @@ class RealmTaskPrototype: Object {
 		self.init()
 		
 		uuid = prototype.uuid.uuidString
-		repeatPattern = (try? prototype.repeatPattern?.toJson().toJsonString()) ?? nil
+		repeatPattern = (((try? prototype.repeatPattern?.toJson().toJsonString()) as String??)) ?? nil
 	}
 	
 	func toStruct() -> TaskPrototype {
@@ -33,7 +33,7 @@ class RealmTaskPrototype: Object {
 	}
 	
 	func update(with prototype: TaskPrototype) {
-		repeatPattern = (try? prototype.repeatPattern?.toJson().toJsonString()) ?? nil
+		repeatPattern = (((try? prototype.repeatPattern?.toJson().toJsonString()) as String??)) ?? nil
 	}
 }
 
