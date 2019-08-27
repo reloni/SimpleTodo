@@ -18,7 +18,9 @@ final class AuthenticationController : UIViewController {
 	var authenticationTypeContainerHeightConstraint: Constraint!
 	var passwordContainerHeightConstraint: Constraint!
 	
-	let scrollView = Theme.Controls.scrollView()
+    let scrollView = Theme.Controls.scrollView().configure {
+        $0.automaticallyAdjustsScrollIndicatorInsets = false
+    }
 	
 	lazy var topContainerView = UIView().configure {
 		$0.clipsToBounds = true
