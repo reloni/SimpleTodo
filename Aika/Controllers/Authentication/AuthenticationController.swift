@@ -100,8 +100,7 @@ final class AuthenticationController : UIViewController {
 	}
 	
 	let actionButton = UIButton().configure {
-		$0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        $0.setTitleColor(Theme.Colors.label, for: .normal)
+        $0.setTitleColor(Theme.Colors.tint, for: .normal)
 	}
 	
 	let supplementalButton = UIButton().configure {
@@ -126,8 +125,7 @@ final class AuthenticationController : UIViewController {
         button.layer.cornerRadius = 3
         button.contentHorizontalAlignment = .center
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button.backgroundColor = Theme.Colors.clear
-        button.setTitleColor(Theme.Colors.label, for: .normal)
+        button.setTitleColor(Theme.Colors.tint, for: .normal)
         return button
     }
 	
