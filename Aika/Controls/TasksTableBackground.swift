@@ -20,7 +20,7 @@ final class TasksTableBackground: UIView {
 	
 	let subtitleLabel: UILabel = {
         let lbl = Theme.Controls.label(withStyle: UIFont.TextStyle.title2)
-		lbl.text = "Press \"+\" button to add new task"
+		lbl.text = "Press \"+\" button to add a new task"
 		lbl.adjustsFontSizeToFitWidth = true
 		lbl.minimumScaleFactor = 0.5
 		lbl.textAlignment = .center

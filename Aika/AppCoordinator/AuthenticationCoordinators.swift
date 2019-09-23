@@ -29,7 +29,7 @@ struct AuthenticationCoordinator : ApplicationCoordinatorType {
 		switch action {
 		case UIAction.showFirebaseRegistrationController:
 			let registrationController = AuthenticationController(viewModel: AuthenticationViewModel(flowController: flowController, mode: .registration))
-            registrationController.modalTransitionStyle = .flipHorizontal
+            registrationController.presentationController?.delegate = registrationController
 			let coordinator = FirebaseRegistrationCoordinator(parent: self, controller: registrationController, flowController: flowController)
 			controller.present(coordinator.controller, animated: true, completion: nil)
 			return .just({ $0.mutation.new(coordinator: coordinator) })

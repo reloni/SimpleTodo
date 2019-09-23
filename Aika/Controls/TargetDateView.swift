@@ -8,31 +8,28 @@
 
 import UIKit
 import SnapKit
-import Material
 
 final class TargetDateView : UIView {	
 	let textField: UITextField = {
-		let field = Theme.Controls.uiTextField(withStyle: .body)
+		let field = Theme.Controls.textField(withStyle: .body)
 		field.placeholder = "Due date"
 		field.isEnabled = false
 		field.setContentHuggingPriority(UILayoutPriority(rawValue: 751), for: .horizontal)
 		field.setContentHuggingPriority(UILayoutPriority(rawValue: 751), for: .vertical)
 		return field
 	}()
-	
-	let clearButton: Button = {
-		let button = Button(image: Theme.Images.delete)
-		button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .vertical)
-		button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .horizontal)
-		return button
-	}()
-	
-	let calendarButton: Button = {
-		let button = Button(image: Theme.Images.calendar)
-		button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .vertical)
-		button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .horizontal)
-		return button
-	}()
+    
+    let clearButton = UIButton().configure { button in
+        button.setImage(Theme.Images.delete, for: .normal)
+        button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .vertical)
+        button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .horizontal)
+    }
+    
+    let calendarButton = UIButton().configure { button in
+        button.setImage(Theme.Images.calendar, for: .normal)
+        button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .vertical)
+        button.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .horizontal)
+    }
 	
 	init() {
 		super.init(frame: CGRect.zero)
@@ -44,7 +41,7 @@ final class TargetDateView : UIView {
 	}
 	
 	func setup() {
-		backgroundColor = Theme.Colors.white
+		backgroundColor = Theme.Colors.background
 		
 		addSubview(textField)
 		addSubview(clearButton)

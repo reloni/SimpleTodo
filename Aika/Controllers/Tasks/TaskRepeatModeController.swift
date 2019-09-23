@@ -74,7 +74,7 @@ final class TaskRepeatModeController: UIViewController {
 		view.addSubview(tableView)
 		
 		title = viewModel.title
-		view.backgroundColor = Theme.Colors.isabelline
+		view.backgroundColor = Theme.Colors.background
 		
 		tableView.snp.makeConstraints {
 			$0.top.equalTo(view.snp.topMargin)
@@ -111,7 +111,7 @@ final class TaskRepeatModeTableViewDelegate : NSObject, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let header = UITableViewHeaderFooterView()
         header.backgroundView = UIView()
-        header.backgroundView?.backgroundColor = Theme.Colors.clear
+        header.backgroundView?.backgroundColor = Theme.Colors.secondaryBackground
         return header
 	}
 	

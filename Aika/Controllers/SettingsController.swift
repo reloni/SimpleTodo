@@ -49,11 +49,11 @@ final class SettingsController : UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+        
 		view.addSubview(tableView)
 		
 		title = viewModel.title
-		view.backgroundColor = Theme.Colors.isabelline
+		view.backgroundColor = Theme.Colors.background
 		
 		tableView.snp.makeConstraints {
 			$0.top.equalTo(view.snp.topMargin)
@@ -189,7 +189,6 @@ final class SettingsController : UIViewController {
 		cell.textLabel?.text = data.title
 		cell.imageView?.image = data.image?.resize(toWidth: 22)
 		cell.detailTextLabel?.text = data.value
-		cell.tintColor = Theme.Colors.pumkin
 	}
 	
 	static func configure(defaultCell cell: TappableCell, with data: (title: String, image: UIImage)) {
@@ -197,13 +196,12 @@ final class SettingsController : UIViewController {
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 		cell.accessoryType = .disclosureIndicator
 		cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
-		cell.tintColor = Theme.Colors.pumkin
 	}
 	
 	static func configure(switchCell cell: SwitchCell, with data: (title: String, subtitle: String?, image: UIImage)) {
 		cell.textLabel?.text = data.title
 		cell.detailTextLabel?.text = data.subtitle
-		cell.detailTextLabel?.textColor = Theme.Colors.romanSilver
+		cell.detailTextLabel?.textColor = Theme.Colors.secondaryLabel
 		cell.imageView?.image = data.image.resize(toWidth: 22)
 	}
 	
@@ -270,4 +268,10 @@ final class SettingsTableViewDelegate : NSObject, UITableViewDelegate {
 		
 		cell.tapped?()
 	}
+}
+
+extension SettingsController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return false
+    }
 }

@@ -10,8 +10,33 @@ import Foundation
 import RxHttpClient
 import UIKit
 import RxSwift
-import Material
 import RxDataFlow
+
+extension UIImage {
+  func resize(toWidth w: CGFloat) -> UIImage? {
+      return internalResize(toWidth: w)
+  }
+  
+  private func internalResize(toWidth tw: CGFloat = 0, toHeight th: CGFloat = 0) -> UIImage? {
+      var w: CGFloat?
+      var h: CGFloat?
+      
+      if 0 < tw {
+          h = size.height * tw / size.width
+      } else if 0 < th {
+          w = size.width * th / size.height
+      }
+      
+      let g: UIImage?
+      let t: CGRect = CGRect(x: 0, y: 0, width: w ?? tw, height: h ?? th)
+      UIGraphicsBeginImageContextWithOptions(t.size, false, UIScreen.main.scale)
+      draw(in: t, blendMode: .normal, alpha: 1)
+      g = UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+      
+      return g
+  }
+}
 
 extension UIWindow {
     func topMostViewController() -> UIViewController? {
@@ -110,32 +135,6 @@ extension TaskScheduler.Pattern {
 extension Notification {
 	func keyboardHeight() -> CGFloat {
         return (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
-	}
-	
-	func statusBarFrame() -> CGRect {
-        return userInfo?[UIApplication.statusBarFrameUserInfoKey] as! CGRect
-	}
-}
-
-extension TextField {
-	static var base: TextField {
-		let field = Theme.Controls.textField(withStyle: .body)
-		field.isClearIconButtonEnabled = true
-		return field
-	}
-}
-
-extension TextView {	
-	static var generic: TextView {
-		let text = Theme.Controls.textView(withStyle: .body)
-
-		text.backgroundColor = Theme.Colors.white
-		text.placeholderLabel.textColor = Theme.Colors.romanSilver
-		text.borderColor = Theme.Colors.romanSilver
-		text.layer.borderWidth = 0.5
-		text.isScrollEnabled = false
-		
-		return text
 	}
 }
 

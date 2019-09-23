@@ -12,15 +12,15 @@ import SnapKit
 final class ActivityView: UIView {
 	let spinnerContainer: UIView = {
 		var view = UIView()
-		view.backgroundColor = Theme.Colors.romanSilver.withAlphaComponent(0.4)
+		view.backgroundColor = Theme.Colors.gray.withAlphaComponent(0.4)
 		view.clipsToBounds = true
 		view.layer.cornerRadius = 10
 		return view
 	}()
 	
 	let spinner: UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
-		spinner.color = Theme.Colors.isabelline
+        let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+		spinner.color = Theme.Colors.background
 		return spinner
 	}()
 	

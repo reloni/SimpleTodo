@@ -16,7 +16,7 @@ final class DatePickerView : UIView {
 	let datePicker: UIDatePicker = {
 		let picker = UIDatePicker()
 		picker.minimumDate = Date()
-		picker.setValue(Theme.Colors.black, forKeyPath: "textColor")
+//		picker.setValue(Theme.Colors.label, forKeyPath: "textColor")
 		picker.setValue(true, forKey: "highlightsToday")
 		return picker
 	}()
@@ -55,7 +55,7 @@ final class DatePickerView : UIView {
 	func setup() {
 		clipsToBounds = true
 		
-		backgroundColor = Theme.Colors.white
+		backgroundColor = Theme.Colors.background
 		
 		addSubview(datePicker)
 		addSubview(timeModeSwitcher)

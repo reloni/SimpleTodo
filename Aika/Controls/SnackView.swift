@@ -9,7 +9,6 @@
 import UIKit
 
 class SnackView: UIView {
-	static let height: CGFloat = AppConstants.isIPhoneX ? 66 : 44
 	let hideByTouch: Bool
 	
 	init(hideByTouch: Bool = true) {
@@ -23,7 +22,7 @@ class SnackView: UIView {
 	}
 	
 	func setup() {
-		backgroundColor = Theme.Colors.upsdelRed.withAlphaComponent(0.8)
+		backgroundColor = Theme.Colors.red.withAlphaComponent(0.8)
 	}
 	
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -33,18 +32,33 @@ class SnackView: UIView {
 	
 	static func show(snackView sv: SnackView, in window: UIWindow) {
 		remove(from: window)
-		sv.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
-		window.addSubview(sv)
+
+        window.addSubview(sv)
         window.bringSubviewToFront(sv)
-		UIView.animate(withDuration: 0.3) {
-			sv.frame = CGRect(x: 0, y: window.frame.height - height, width: window.frame.width, height: height)
+        
+        sv.isHidden = true
+        
+        sv.snp.makeConstraints {
+            $0.leading.equalTo(window.snp.leading)
+            $0.trailing.equalTo(window.snp.trailing)
+            $0.bottom.equalTo(window.snp.bottom)
+        }
+        
+        sv.setNeedsLayout()
+        sv.layoutIfNeeded()
+        
+        sv.frame = CGRect(x: 0, y: sv.frame.origin.y + sv.frame.height, width: sv.frame.width, height: sv.frame.height)
+        sv.isHidden = false
+        
+		UIView.animate(withDuration: 0.4) {
+            sv.frame = CGRect(x: 0, y: sv.frame.origin.y - sv.frame.height, width: sv.frame.width, height: sv.frame.height)
 		}
 	}
 	
 	static func remove(from window: UIWindow) {
 		guard let sv = window.subviews.last as? SnackView else { return}
-		UIView.animate(withDuration: 0.3,
-		               animations: { sv.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height) },
+		UIView.animate(withDuration: 0.4,
+		               animations: { sv.frame = CGRect(x: 0, y: sv.frame.origin.y + sv.frame.height, width: sv.frame.width, height: sv.frame.height) },
 		               completion: { _ in sv.removeFromSuperview() })
 	}
 }
@@ -52,8 +66,9 @@ class SnackView: UIView {
 class MessageSnackView: SnackView {
 	let messageLabel: UILabel = {
 		let label = Theme.Controls.label(withStyle: .body)
-		label.textColor = Theme.Colors.white
-		label.lineBreakMode = .byTruncatingMiddle
+		label.textColor = Theme.Colors.whiteColor
+        label.numberOfLines = 0
+		label.lineBreakMode = .byWordWrapping
 		label.textAlignment = .center
 		label.minimumScaleFactor = 0.5
 		label.adjustsFontSizeToFitWidth = true
@@ -62,7 +77,10 @@ class MessageSnackView: SnackView {
 	
 	init(message: String, hideByTouch: Bool = true) {
 		messageLabel.text = message
+        
 		super.init(hideByTouch: hideByTouch)
+        
+        self.layoutMargins = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -75,7 +93,7 @@ class MessageSnackView: SnackView {
 		addSubview(messageLabel)
 		
 		messageLabel.snp.makeConstraints {
-			$0.edges.equalTo(snp.edges)
+			$0.edges.equalTo(snp.margins)
 		}
 	}
 }

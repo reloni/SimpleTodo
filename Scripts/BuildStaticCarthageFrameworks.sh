@@ -5,8 +5,10 @@ set -e
 carthage update --no-build --no-use-binaries
 mkdir -p Carthage/Build/iOS
 
-sh ./Scripts/BuildStaticFramework.sh RxSwift RxSwift RxSwift-iOS staticlib
-sh ./Scripts/BuildStaticFramework.sh RxSwift RxCocoa RxCocoa-iOS staticlib
+sh ./Scripts/BuildStaticFramework.sh RxSwift RxSwift RxSwift-iOS mh_dylib
+sh ./Scripts/BuildStaticFramework.sh RxSwift RxRelay RxRelay mh_dylib
+sh ./Scripts/BuildStaticFramework.sh RxSwift RxCocoa RxCocoa-iOS mh_dylib
+
 sh ./Scripts/BuildStaticFramework.sh SnapKit SnapKit SnapKit staticlib
 sh ./Scripts/BuildStaticFramework.sh SimpleKeychain SimpleKeychain SimpleKeychain-iOS staticlib
 
@@ -22,11 +24,6 @@ sh ./Scripts/BuildStaticFramework.sh RxDataFlow RxDataFlow RxDataFlow-iOS static
 ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/RxDataSources/Carthage"
 sh ./Scripts/BuildStaticFramework.sh RxDataSources Differentiator Differentiator staticlib
 sh ./Scripts/BuildStaticFramework.sh RxDataSources RxDataSources RxDataSources staticlib
-
-sh ./Scripts/BuildStaticFramework.sh Motion Motion "Motion iOS" staticlib
-
-ln -sf "$(pwd)/Carthage/Build" "$(pwd)/Carthage/Checkouts/Material/Carthage"
-sh ./Scripts/BuildStaticFramework.sh Material Material "Material" staticlib
 
 sh ./Scripts/BuildStaticFramework.sh JWTDecode.swift JWTDecode "JWTDecode-iOS" staticlib
 

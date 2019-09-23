@@ -11,7 +11,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
-import Material
 import SnapKit
 
 final class TasksController : UIViewController {
@@ -35,12 +34,12 @@ final class TasksController : UIViewController {
 		$0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
 		$0.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
 	}
-	
-	let addTaskButton = FABButton(image: Theme.Images.add.resize(toWidth: 55)).configure {
-		$0.contentEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
-		$0.pulseColor = Theme.Colors.white
-		$0.backgroundColor = Theme.Colors.white
-	}
+
+    let addTaskButton = UIButton().configure {
+        $0.setImage(Theme.Images.add.resize(toWidth: 55), for: .normal)
+        $0.contentEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
+        $0.backgroundColor = Theme.Colors.secondaryBackground
+    }
 
 	init(viewModel: TasksViewModel) {
 		self.viewModel = viewModel
@@ -62,10 +61,9 @@ final class TasksController : UIViewController {
 		view.addSubview(tableView)
 		view.addSubview(addTaskButton)
 		
-		view.backgroundColor = Theme.Colors.isabelline
-		view.layoutEdgeInsets = .zero
-		
-		title = viewModel.title
+		view.backgroundColor = Theme.Colors.background
+
+        title = viewModel.title
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: Theme.Images.settings.resize(toWidth: 22),
 		                                                    style: .plain,
@@ -82,6 +80,10 @@ final class TasksController : UIViewController {
 
 		viewModel.synchronize()
 	}
+    
+    override func viewWillLayoutSubviews() {
+        addTaskButton.layer.cornerRadius = addTaskButton.bounds.height / 2
+    }
 	
 	func bind() {
 		let sectionsObservable = viewModel.taskSections.share(replay: 1, scope: .forever)
@@ -167,7 +169,7 @@ final class TasksController : UIViewController {
 		maker.top.equalTo(view.snp.topMargin)
 		maker.leading.equalTo(view.snp.leading)
 		maker.trailing.equalTo(view.snp.trailing)
-		maker.bottom.equalTo(view.snp.bottomMargin)
+		maker.bottom.equalTo(view.snp.bottom)
 	}
 	
 	func addTaskButtonConstraints(maker: ConstraintMaker) {
@@ -201,7 +203,7 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		
 		cell.isExpanded = !cell.isExpanded
 		
-		animateCellExpansion(tableView: tableView)
+        animateCellExpansion(tableView: tableView, indexPath: indexPath)
 	}
 
 	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -210,22 +212,22 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		cell.isExpanded = false
 	}
 
-	func animateCellExpansion(tableView: UITableView) {
+    func animateCellExpansion(tableView: UITableView, indexPath: IndexPath) {
 		tableView.beginUpdates()
 		tableView.endUpdates()
-		tableView.scrollToNearestSelectedRow(at: .none, animated: true)
+        tableView.scrollToRow(at: indexPath, at: .none, animated: true)
 	}
 	
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return nil }
 		
 		let deleteAction = TasksTableViewDelegate.createAction(title: "Delete",
-		                                                       backgroundColor: Theme.Colors.upsdelRed,
-		                                                       image: Theme.Images.delete.tint(with: .white)!.resize(toWidth: 22),
+		                                                       backgroundColor: Theme.Colors.red,
+                                                               image: Theme.Images.delete.withTintColor(Theme.Colors.whiteColor).resize(toWidth: 22),
 		                                                       completionHandler: { [weak cell] in cell?.deleteTapped?(); return true })
 		let editAction = TasksTableViewDelegate.createAction(title: "Edit",
-		                                                       backgroundColor: Theme.Colors.blueberry,
-		                                                       image: Theme.Images.edit.tint(with: .white)!.resize(toWidth: 22),
+		                                                       backgroundColor: Theme.Colors.tint,
+		                                                       image: Theme.Images.edit.withTintColor(Theme.Colors.whiteColor).resize(toWidth: 22),
 		                                                       completionHandler: { [weak cell] in cell?.editTapped?(); return true })
 		return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
 	}
@@ -234,8 +236,8 @@ final class TasksTableViewDelegate : NSObject, UITableViewDelegate {
 		guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else { return nil }
 		
 		let completeAction = TasksTableViewDelegate.createAction(title: "Complete",
-		                                                     backgroundColor: Theme.Colors.darkSpringGreen,
-		                                                     image: Theme.Images.checked.tint(with: .white)!.resize(toWidth: 22),
+		                                                     backgroundColor: Theme.Colors.green,
+		                                                     image: Theme.Images.checked.withTintColor(Theme.Colors.whiteColor).resize(toWidth: 22),
 		                                                     completionHandler: { [weak cell] in cell?.completeTapped?(); return true })
 		return UISwipeActionsConfiguration(actions: [completeAction])
 	}
