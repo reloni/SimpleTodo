@@ -137,6 +137,7 @@ struct Auth0AuthenticationService: AuthenticationServiceType {
 			let socialAuth: (String) -> Void = { provider in
 				Auth0
 					.webAuth()
+                    .useLegacyAuthentication()
 					.scope("openid profile offline_access")
 					.connection(provider)
 					.parameters(["device": AppConstants.applicationDeviceInfo])

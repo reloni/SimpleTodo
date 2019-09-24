@@ -5,6 +5,6 @@ github "Reloni/RxDataFlow" == 1.0.0
 github "RxSwiftCommunity/RxDataSources" == 4.0.1
 github "RxSwiftCommunity/RxGesture" == 3.0.0
 github "OneSignal/OneSignal-iOS-SDK" == 2.10.0
-github "auth0/Auth0.swift" == 1.16.1
+github "auth0/Auth0.swift" == 1.18.0
 github "auth0/JWTDecode.swift" == 2.3.0
 github "realm/realm-cocoa" == 3.17.0
