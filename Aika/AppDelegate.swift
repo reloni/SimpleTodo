@@ -11,8 +11,6 @@ import RxHttpClient
 import RxDataFlow
 import RxSwift
 import OneSignal
-import Fabric
-import Crashlytics
 import Auth0
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -52,9 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 	
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		#if !DEBUG
-			Fabric.with([Answers.self, Crashlytics.self])
-		#endif
 
 		window = UIWindow(frame: UIScreen.main.bounds)
 		
