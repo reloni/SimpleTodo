@@ -12,6 +12,7 @@ import RxDataFlow
 import RxSwift
 import OneSignal
 import Auth0
+import BackgroundTasks
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
@@ -57,7 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		setupPushNotifications(withLaunchOptions: launchOptions)
 		
-		UIApplication.shared.setMinimumBackgroundFetchInterval(60 * 60 * 6)
+        setupBackgroundRefresh()
+        scheduleBackgroundRefresh()
 		
 		flowController.dispatch(SynchronizationAction.updateConfiguration)
         flowController.dispatch(UIAction.showRootController)
@@ -74,6 +76,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		return true
 	}
+    
+    func setupBackgroundRefresh() {
+        guard let id = Bundle.main.bundleIdentifier else { return }
+        BGTaskScheduler.shared.register(
+            forTaskWithIdentifier: "\(id).backgroundRefresh",
+            using: DispatchQueue.global()
+        ) { [weak self] task in
+            self?.handleBackgroundRefresh(task)
+        }
+    }
+    
+    private func handleBackgroundRefresh(_ task: BGTask) {
+        task.setTaskCompleted(success: true)
+    }
+    
+    private func scheduleBackgroundRefresh() {
+        do {
+            guard let id = Bundle.main.bundleIdentifier else { return }
+            let request = BGAppRefreshTaskRequest(identifier: "\(id).backgroundRefresh")
+            request.earliestBeginDate = Date().adding(.hour, value: 1, in: .current)
+            try BGTaskScheduler.shared.submit(request)
+        } //catch let _ as BGTaskScheduler.Error { }
+        catch { }
+    }
 	
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
 		return Auth0.resumeAuth(url, options: options)
@@ -108,12 +134,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		refreshInBackground(with: completionHandler)
 	}
 	
-	func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-		refreshInBackground(with: completionHandler)
-	}
-	
 	func applicationWillResignActive(_ application: UIApplication) {
 		flowController.dispatch(SystemAction.updateIconBadge)
+        scheduleBackgroundRefresh()
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 	}
