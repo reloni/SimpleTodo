@@ -13,7 +13,7 @@ EXPORT_PATH_SUFFIX="$5"
 eval SYMROOT="$(pwd)/Carthage/Build"
 
 (cd Carthage/Checkouts/$CARTHAGE_PATH && xcodebuild -scheme "$SCHEME" -sdk "iphoneos" -configuration Release ONLY_ACTIVE_ARCH=NO MACH_O_TYPE=$MACH_O_TYPE SYMROOT="$SYMROOT/temp" BITCODE_GENERATION_MODE=bitcode OTHER_CFLAGS="-fembed-bitcode" build)
-(cd Carthage/Checkouts/$CARTHAGE_PATH && xcodebuild -scheme "$SCHEME" -sdk "iphonesimulator" -configuration Release ONLY_ACTIVE_ARCH=NO MACH_O_TYPE=$MACH_O_TYPE SYMROOT="$SYMROOT/temp" build)
+(cd Carthage/Checkouts/$CARTHAGE_PATH && xcodebuild -scheme "$SCHEME" -sdk "iphonesimulator" -configuration Release ARCHS=x86_64 ONLY_ACTIVE_ARCH=NO MACH_O_TYPE=$MACH_O_TYPE SYMROOT="$SYMROOT/temp" build)
 
 cp -RL $SYMROOT/temp/Release-iphoneos$EXPORT_PATH_SUFFIX/ $SYMROOT/universal
 if [ -d "$SYMROOT/temp/Release-iphonesimulator$EXPORT_PATH_SUFFIX/$FRAMEWORK_PATH/Modules/$FRAMEWORK.swiftmodule" ]; then
