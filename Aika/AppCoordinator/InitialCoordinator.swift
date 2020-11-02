@@ -37,9 +37,9 @@ extension ApplicationCoordinatorType {
 		case UIAction.hideSpinner:
 			hideSpinner()
 			return .just({ $0 })
-		case UIAction.showActionSheet(let data):
-			guard let controller = data.inController.value else { return .just({ $0 }) }
-			showActionSheet(in: controller, withTitle: data.title, message: data.message, actions: data.actions, sourceView: data.sourceView)
+		case let UIAction.showActionSheet(inController, title, message, actions, sourceView):
+			guard let controller = inController.value else { return .just({ $0 }) }
+			showActionSheet(in: controller, withTitle: title, message: message, actions: actions, sourceView: sourceView)
 			return .just({ $0 })
         case UIAction.showSafari(let url):
             showSafari(for: url)

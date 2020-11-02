@@ -91,58 +91,58 @@ final class SettingsController : UIViewController {
 							  viewController controller: SettingsController) -> UITableViewCell {
 		weak var ctrl = controller
 		switch item {
-		case .frameworks(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+		case let .frameworks(title, image):
+			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: (title, image), in: tv)
 			cell.tapped = { [weak controller] in controller?.viewModel.showFramwrorks() }
 			return cell
-		case .deleteAccount(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+		case let .deleteAccount(title, image):
+			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: (title, image), in: tv)
 			cell.tapped = { [weak controller, weak cell] in
 				guard let cell = cell else { return }
 				controller?.showDeleteUserAlert(sourceView: cell)
 			}
 			return cell
-		case .exit(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+		case let .exit(title, image):
+			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: (title, image), in: tv)
 			cell.tapped = { [weak controller, weak cell] in
 				guard let cell = cell else { return }
 				controller?.showLogOffAlert(sourceView: cell)
 			}
 			return cell
-		case .deleteLocalCache(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+		case let .deleteLocalCache(title, image):
+			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: (title, image), in: tv)
 			cell.tapped = { [weak controller, weak cell] in
 				guard let cell = cell else { return }
 				controller?.showDeleteCacheAlert(sourceView: cell)
 			}
 			return cell
-		case .sourceCode(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+		case let .sourceCode(title, image):
+			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: (title, image), in: tv)
 			cell.tapped = { [weak controller] in
 				UIApplication.shared.open(URL(string: "https://github.com/reloni/SimpleTodo")!)
 				controller?.viewModel.flowController.dispatch(AnalyticalAction.viewSourceCode)
 			}
 			return cell
-		case .text(let data):
+		case let .text(title, value, image):
             let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "value1")
 			SettingsController.configure(cell: cell)
-			SettingsController.configureTextCell(cell, with: data)
+			SettingsController.configureTextCell(cell, with: (title, value, image))
 			return cell
-		case .pushNotificationsSwitch(let data):
+		case let .pushNotificationsSwitch(title, subtitle, image):
             let cell = SwitchCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Switch")
-			ctrl?.configure(pushNotificationCell: cell, data: data)
+			ctrl?.configure(pushNotificationCell: cell, data: (title, subtitle, image))
 			return cell
-		case .email(let data):
-			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: data, in: tv)
+		case let .email(title, image):
+			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: (title, image), in: tv)
 			cell.tapped = { [weak controller] in
 				guard let object = controller else { return }
 				SettingsController.composeEmail(in: object)
 			}
 			return cell
-		case .iconBadgeStyle(let data):
+		case let .iconBadgeStyle(title, value, image):
             let cell = TappableCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "value1")
 			SettingsController.configure(cell: cell)
-			SettingsController.configureTextCell(cell, with: data)
+			SettingsController.configureTextCell(cell, with: (title, value, image))
 			cell.accessoryView = UIImageView(image: Theme.Images.accessoryArrow)
 			cell.tapped = { [weak controller, weak cell] in
 				guard let cell = cell else { return }
