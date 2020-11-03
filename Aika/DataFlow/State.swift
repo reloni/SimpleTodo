@@ -44,7 +44,8 @@ struct AppState : RxStateType {
 	let webService: WebServiceType
 	let repository: RepositoryType
 	let syncStatus: SynchronizationStatus
-	var badgeStyle: IconBadgeStyle { return UserDefaults.standard.iconBadgeStyle }
+	var badgeStyle: IconBadgeStyle { UserDefaults.standard.iconBadgeStyle }
+    var taskIncludeTime: Bool { UserDefaults.standard.taskIncludeTime }
 }
 
 struct AppStateMutation {

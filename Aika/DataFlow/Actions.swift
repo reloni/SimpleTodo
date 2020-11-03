@@ -18,6 +18,7 @@ enum SystemAction: RxActionType {
 	case updateIconBadge
 	case invoke(handler: () -> ())
 	case setBadgeStyle(IconBadgeStyle)
+    case setIncludeTime(Bool)
 }
 
 enum AnalyticalAction: RxActionType {

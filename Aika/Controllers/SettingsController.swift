@@ -132,6 +132,10 @@ final class SettingsController : UIViewController {
             let cell = SwitchCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Switch")
 			ctrl?.configure(pushNotificationCell: cell, data: (title, subtitle, image))
 			return cell
+        case let .includeTimeSwitch(title, subtitle, image):
+            let cell = SwitchCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Switch")
+            ctrl?.configure(includeTimeCell: cell, data: (title, subtitle, image))
+            return cell
 		case let .email(title, image):
 			let cell = SettingsController.dequeueAndConfigureDefaultCell(for: ip, with: (title, image), in: tv)
 			cell.tapped = { [weak controller] in
@@ -170,6 +174,15 @@ final class SettingsController : UIViewController {
 		
 		cell.switchChanged = { [weak viewModel] isOn in viewModel?.isPushNotificationsEnabled = isOn }
 	}
+    
+    func configure(includeTimeCell cell: SwitchCell, data: (title: String, subtitle: String?, image: UIImage)) {
+        SettingsController.configure(cell: cell)
+        SettingsController.configure(switchCell: cell, with: data)
+        
+        cell.switchView.setOn(viewModel.taskIncludeTime, animated: false)
+        
+        cell.switchChanged = { [weak viewModel] isOn in viewModel?.taskIncludeTime = isOn }
+    }
 	
 	static func dequeueAndConfigureDefaultCell(for indexPath: IndexPath, with data: (title: String, image: UIImage), in table: UITableView) -> TappableCell {
 		let cell = table.dequeueReusableCell(withIdentifier: "Default", for: indexPath) as! TappableCell

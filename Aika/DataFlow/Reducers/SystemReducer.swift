@@ -25,6 +25,9 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> Observable
 	case .setBadgeStyle(let style)?:
 		UserDefaults.standard.iconBadgeStyle = style
 		return .just({ $0 })
+    case .setIncludeTime(let value):
+        UserDefaults.standard.taskIncludeTime = value
+        return .just({ $0 })
 	default: return .empty()
 	}
 }

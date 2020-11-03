@@ -15,6 +15,8 @@ final class SettingsViewModel: ViewModelType {
 
 	let isPushNotificationsAllowed: Observable<Bool>
 	var isPushNotificationsEnabled: Bool
+    
+    var taskIncludeTime: Bool
 	
 	let title = "Settings"
 	
@@ -40,6 +42,7 @@ final class SettingsViewModel: ViewModelType {
 
 		isPushNotificationsAllowed = flowController.currentState.state.authentication.settings?.pushNotificationsAllowed ?? .just(false)
 		isPushNotificationsEnabled = flowController.currentState.state.authentication.settings?.pushNotificationsEnabled ?? false
+        taskIncludeTime = flowController.currentState.state.taskIncludeTime
 	}
 	
 	static func buidSections(for state: AppState) -> Observable<[SettingsSection]> {
@@ -49,7 +52,9 @@ final class SettingsViewModel: ViewModelType {
 			
 			let pushSection = SettingsSection(header: "NOTIFICATIONS",
 			                                  items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification),
-			                                          .iconBadgeStyle(title: "Badge", value: badgeDescription, image: Theme.Images.badge)])
+			                                          .iconBadgeStyle(title: "Badge", value: badgeDescription, image: Theme.Images.badge),
+                                                      .includeTimeSwitch(title: "Include time", subtitle: "Include Time default value for a new task", image: Theme.Images.badge)
+                                              ])
 			
 			let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
 			let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
@@ -79,10 +84,11 @@ final class SettingsViewModel: ViewModelType {
 	}
 	
 	func done() {
-		let actions: [RxActionType?] = [PushNotificationsAction.switchNotificationSubscription(subscribed: isPushNotificationsEnabled),
-									   UIAction.dismissSettingsController,
-									   pushNotificationSwitchAnalyticalAction()]
-		flowController.dispatch(RxCompositeAction(actions: actions.compactMap { $0 }))
+        let actions: [RxActionType?] = [PushNotificationsAction.switchNotificationSubscription(subscribed: isPushNotificationsEnabled),
+                                        SystemAction.setIncludeTime(taskIncludeTime),
+                                        UIAction.dismissSettingsController,
+                                        pushNotificationSwitchAnalyticalAction()]
+        flowController.dispatch(RxCompositeAction(actions: actions.compactMap { $0 }))
 	}
 	
 	func pushNotificationSwitchAnalyticalAction() -> AnalyticalAction? {

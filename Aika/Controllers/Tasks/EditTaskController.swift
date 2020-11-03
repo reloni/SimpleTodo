@@ -46,13 +46,15 @@ final class EditTaskController : UIViewController {
 		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 	}
 	
-	let targetDatePickerView = DatePickerView().configure {
-		$0.alpha = 0
-        $0.layer.borderColor = Theme.Colors.gray.cgColor
-		$0.layer.borderWidth = 0.5
-		$0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
-		$0.date = nil
-	}
+    lazy var targetDatePickerView = {
+        DatePickerView().configure {
+            $0.alpha = 0
+            $0.layer.borderColor = Theme.Colors.gray.cgColor
+            $0.layer.borderWidth = 0.5
+            $0.layoutMargins = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
+            $0.date = nil
+        }
+	}()
 	
 	let taskRepeatDescriptionView = TaskRepeatDescriptionView().configure {
         $0.layer.borderColor = Theme.Colors.gray.cgColor
