@@ -52,8 +52,8 @@ final class SettingsViewModel: ViewModelType {
 			
 			let pushSection = SettingsSection(header: "NOTIFICATIONS",
 			                                  items: [.pushNotificationsSwitch(title: "Receive push notifications", subtitle: pushSubtitle, image: Theme.Images.pushNotification),
-			                                          .iconBadgeStyle(title: "Badge", value: badgeDescription, image: Theme.Images.badge),
-                                                      .includeTimeSwitch(title: "Include time", subtitle: "Include Time default value for a new task", image: Theme.Images.clock)
+                                                      .includeTimeSwitch(title: "Include time", subtitle: "Include Time default value for a new task", image: Theme.Images.clock),
+			                                          .iconBadgeStyle(title: "Badge", value: badgeDescription, image: Theme.Images.badge)
                                               ])
 			
 			let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
