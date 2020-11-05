@@ -18,6 +18,7 @@ final class EditTaskViewModel: ViewModelType {
 		let datePickerExpanded: Bool
 		let currentTask: Task?
 		let repeatPattern: TaskScheduler.Pattern?
+        let includeTimeDefaultValue: Bool
 		
 		func new(description: String? = nil, notes: String? = nil, targetDate: TaskDate?? = nil, datePickerExpanded: Bool? = nil, repeatPattern: TaskScheduler.Pattern?? = nil) -> State {
 			return State(description: description ?? self.description,
@@ -25,7 +26,8 @@ final class EditTaskViewModel: ViewModelType {
 			             targetDate: targetDate ?? self.targetDate,
 			             datePickerExpanded: datePickerExpanded ?? self.datePickerExpanded,
 			             currentTask: self.currentTask,
-			             repeatPattern: repeatPattern ?? self.repeatPattern)
+			             repeatPattern: repeatPattern ?? self.repeatPattern,
+                         includeTimeDefaultValue: includeTimeDefaultValue)
 		}
 	}
 	
@@ -44,7 +46,8 @@ final class EditTaskViewModel: ViewModelType {
 		                         targetDate: task?.targetDate, 
 		                         datePickerExpanded: false, 
 		                         currentTask: task,
-		                         repeatPattern: task?.prototype.repeatPattern)
+		                         repeatPattern: task?.prototype.repeatPattern,
+                                 includeTimeDefaultValue: flowController.currentState.state.taskIncludeTime)
 		localStateSubject = BehaviorSubject(value: initialState)
 
 		title = {
@@ -88,7 +91,7 @@ final class EditTaskViewModel: ViewModelType {
 			datePickerExpanded.withLatestFrom(currentLocalState) { return ($1, $0) }
 				.do(onNext: { [weak localStateSubject] in
 					if $0.1, $0.0.targetDate == nil {
-						localStateSubject?.onNext($0.0.new(targetDate: TaskDate(date: Date(), includeTime: true), datePickerExpanded: $0.1))
+                        localStateSubject?.onNext($0.0.new(targetDate: TaskDate(date: Date(), includeTime: $0.0.includeTimeDefaultValue), datePickerExpanded: $0.1))
 					} else {
 						localStateSubject?.onNext($0.0.new(datePickerExpanded: $0.1))
 					}

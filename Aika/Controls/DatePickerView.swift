@@ -12,12 +12,15 @@ import RxSwift
 
 final class DatePickerView : UIView {
 	let bag = DisposeBag()
-	
+    
 	let datePicker: UIDatePicker = {
 		let picker = UIDatePicker()
 		picker.minimumDate = Date()
-//		picker.setValue(Theme.Colors.label, forKeyPath: "textColor")
-		picker.setValue(true, forKey: "highlightsToday")
+        if #available(iOS 14.0, *) {
+            picker.preferredDatePickerStyle = .inline
+        } else {
+            picker.setValue(true, forKey: "highlightsToday")
+        }
 		return picker
 	}()
 
@@ -43,13 +46,14 @@ final class DatePickerView : UIView {
 		}
 	}
 	
-	init() {
-		super.init(frame: CGRect.zero)
+    init() {
+        super.init(frame: CGRect.zero)
+        
 		setup()
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
+		fatalError()
 	}
 	
 	func setup() {

@@ -208,7 +208,7 @@ final class CustomTaskRepeatModeViewModel: ViewModelType {
         case TaskScheduler.Pattern.byDay(let repeatEvery) where repeatEvery == 1: return TaskScheduler.Pattern.daily
         case TaskScheduler.Pattern.byDay(let repeatEvery) where repeatEvery == 7: return TaskScheduler.Pattern.weekly
         case TaskScheduler.Pattern.byDay(let repeatEvery) where repeatEvery == 14: return TaskScheduler.Pattern.biweekly
-        case TaskScheduler.Pattern.byWeek(let value) where value.weekDays.count == 0: return TaskScheduler.Pattern.weekly
+        case let TaskScheduler.Pattern.byWeek(_, weekDays) where weekDays.count == 0: return TaskScheduler.Pattern.weekly
         default: return value
         }
     }

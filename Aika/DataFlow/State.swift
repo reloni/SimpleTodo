@@ -25,14 +25,14 @@ enum Authentication {
 	
 	var settings: UserSettings? {
 		switch self {
-		case .authenticated(let data): return data.1
+        case let .authenticated(_, userSettings): return userSettings
 		default: return nil
 		}
 	}
 	
 	var info: AuthenticationInfo? {
-		guard case .authenticated(let data) = self else { return nil }
-		return data.0
+		guard case let .authenticated(info, _) = self else { return nil }
+		return info
 	}
 }
 
@@ -44,7 +44,8 @@ struct AppState : RxStateType {
 	let webService: WebServiceType
 	let repository: RepositoryType
 	let syncStatus: SynchronizationStatus
-	var badgeStyle: IconBadgeStyle { return UserDefaults.standard.iconBadgeStyle }
+	var badgeStyle: IconBadgeStyle { UserDefaults.standard.iconBadgeStyle }
+    var taskIncludeTime: Bool { UserDefaults.standard.taskIncludeTime }
 }
 
 struct AppStateMutation {

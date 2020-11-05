@@ -226,6 +226,15 @@ extension UserDefaults {
 			set(newValue, forKey: "serverHost")
 		}
 	}
+    
+    var taskIncludeTime: Bool {
+        get {
+            return self.object(forKey: "taskIncludeTime") as? Bool ?? true
+        }
+        set {
+            set(newValue, forKey: "taskIncludeTime")
+        }
+    }
 }
 
 extension IconBadgeStyle {

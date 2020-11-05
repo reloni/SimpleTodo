@@ -34,10 +34,10 @@ final class CustomTaskRepeatModeController: UIViewController {
                 case .repeatEveryPicker: return self.repeatEveryPickerCell()
                 case .patternType: return self.tappableCell(for: item, tapped: { [weak self] in self?.patternTypeSelectionToggledSubject.onNext(()) })
                 case .repeatEvery: return self.tappableCell(for: item, tapped: { [weak self] in self?.repeatEverySelectionToggledSubject.onNext(()) })
-                case .weekday(let value):
-                    return self.weekdayCell(name: value.name,
-                                            isSelected: value.isSelected,
-                                            tapped: { [weak self] in self?.weekdaySelectedSubject.onNext(value.value) })
+                case let .weekday(name, value, isSelected):
+                    return self.weekdayCell(name: name,
+                                            isSelected: isSelected,
+                                            tapped: { [weak self] in self?.weekdaySelectedSubject.onNext(value) })
                 case .monthDays(let value):
                     return CalendarDateCell(style: .default, reuseIdentifier: nil)
                 }

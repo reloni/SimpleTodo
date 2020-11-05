@@ -45,6 +45,7 @@ extension SettingsSection : SectionModelType {
 
 enum SettingsSectonItem {
 	case pushNotificationsSwitch(title: String, subtitle: String?, image: UIImage)
+    case includeTimeSwitch(title: String, subtitle: String?, image: UIImage)
 	case frameworks(title: String, image: UIImage)
 	case sourceCode(title: String, image: UIImage)
 	case deleteAccount(title: String, image: UIImage)
@@ -169,11 +170,11 @@ extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
     static func ==(lhs: CustomTaskRepeatModeSectionItem, rhs: CustomTaskRepeatModeSectionItem) -> Bool {
         switch(lhs, rhs) {
         case (.patternType(let l), .patternType(let r)): return l.rawValue == r.rawValue
-        case (.repeatEvery(let l), .repeatEvery(let r)): return l == r
+        case let (.repeatEvery(lValue, lPattern), .repeatEvery(rValue, rPattern)): return lValue == rValue && lPattern == rPattern
         case (.placeholder(let l), .placeholder(let r)): return l == r
         case (patternTypePicker, patternTypePicker): return true
         case (repeatEveryPicker, repeatEveryPicker): return true
-        case (.weekday(let l), .weekday(let r)): return l.name == r.name && l.value == r.value && l.isSelected == r.isSelected
+        case let (.weekday(lName, lValue, lIsSelected), .weekday(rName, rValue, rIsSelected)): return lName == rName && lValue == rValue && lIsSelected == rIsSelected
         default: return false
         }
     }
@@ -185,7 +186,7 @@ extension CustomTaskRepeatModeSectionItem: Equatable, IdentifiableType {
         case .placeholder(let id): return id
         case .patternTypePicker: return "patternTypePicker"
         case .repeatEveryPicker: return "repeatEveryPicker"
-        case .weekday(let value): return value.name
+        case let .weekday(name, _, _): return name
         case .monthDays(let value): return value
         }
     }
