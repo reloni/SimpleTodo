@@ -17,7 +17,7 @@ final class DatePickerView : UIView {
 		let picker = UIDatePicker()
 		picker.minimumDate = Date()
         if #available(iOS 14.0, *) {
-            picker.preferredDatePickerStyle = .inline
+            picker.preferredDatePickerStyle = .wheels
         } else {
             picker.setValue(true, forKey: "highlightsToday")
         }
