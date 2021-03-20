@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxDataFlow
-import RxGesture
+//import RxGesture
 
 final class EditTaskController : UIViewController {
 	enum DatePickerExpandMode {
@@ -156,7 +156,8 @@ final class EditTaskController : UIViewController {
 		let datePickerExpanded = targetDateView.calendarButton.rx.tap
 			.withLatestFrom(state.map { !$0.datePickerExpanded })
 		
-		let editRepeatModeEvent = taskRepeatDescriptionView.rx.tapGesture().when(.recognized).flatMap { _ in Observable<Void>.just(()) }
+//		let editRepeatModeEvent = taskRepeatDescriptionView.rx.tapGesture().when(.recognized).flatMap { _ in Observable<Void>.just(()) }
+        let editRepeatModeEvent = Observable<Void>.empty()
 		
 		viewModel.subscribe(taskDescription: descriptionTextField.rx.didChange.map { [weak self] _ in return self?.descriptionTextField.text ?? "" }.distinctUntilChanged(),
 		                    taskNotes: notesTextField.rx.didChange.map { [weak self] _ in return self?.notesTextField.text }.distinctUntilChanged { $0 == $1 },

@@ -6,6 +6,7 @@
 //  Copyright © 2017 Anton Efimenko. All rights reserved.
 //
 
+import Foundation
 import Auth0
 import JWTDecode
 import RxSwift

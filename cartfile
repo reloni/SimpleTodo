@@ -1,10 +1,9 @@
 github "ReactiveX/RxSwift" == 5.1.1
 github "SnapKit/SnapKit" == 5.0.0
-github "RxSwiftCommunity/RxHttpClient" == 1.2.0
-github "Reloni/RxDataFlow" == 1.0.0
+github "RxSwiftCommunity/RxHttpClient" "xcode-12"
+github "Reloni/RxDataFlow" "1.0.0-xcframework"
 github "RxSwiftCommunity/RxDataSources" == 4.0.1
-github "RxSwiftCommunity/RxGesture" == 3.0.0
 github "OneSignal/OneSignal-iOS-SDK" == 2.11.0
-github "auth0/Auth0.swift" == 1.18.0
+github "auth0/Auth0.swift" == 1.32.0
 github "auth0/JWTDecode.swift" == 2.3.1
 github "realm/realm-cocoa" == 5.4.7

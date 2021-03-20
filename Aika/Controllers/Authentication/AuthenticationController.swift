@@ -249,8 +249,8 @@ final class AuthenticationController : UIViewController {
 		viewModel.errors.subscribe().disposed(by: bag)
 		
 		if viewModel.mode == .logIn {
-            lostPasswordLabel.rx.tapGesture().when(UIGestureRecognizer.State.recognized)
-				.subscribe(onNext: { [weak self] recognizer in self?.showResetEmailDialog(recognizer: recognizer) }).disposed(by: bag)
+//            lostPasswordLabel.rx.tapGesture().when(UIGestureRecognizer.State.recognized)
+//				.subscribe(onNext: { [weak self] recognizer in self?.showResetEmailDialog(recognizer: recognizer) }).disposed(by: bag)
 			
 			let recognizer = UITapGestureRecognizer(target: self, action: #selector(changeServer))
 			recognizer.numberOfTapsRequired = 5

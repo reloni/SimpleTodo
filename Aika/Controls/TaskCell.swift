@@ -9,7 +9,7 @@
 import Foundation
 import SnapKit
 import UIKit
-import RxGesture
+//import RxGesture
 import RxSwift
 
 final class TaskCell : UITableViewCell {
@@ -102,15 +102,15 @@ final class TaskCell : UITableViewCell {
 		actionsStack.subviews.forEach { $0.backgroundColor = Theme.Colors.secondaryBackground }
         actionsStack.subviews.last?.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: NSLayoutConstraint.Axis.horizontal)
 		
-		completeActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
-			self?.completeTapped?()
-		}).disposed(by: bag)
-		editActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
-			self?.editTapped?()
-		}).disposed(by: bag)
-		deleteActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
-			self?.deleteTapped?()
-		}).disposed(by: bag)
+//		completeActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+//			self?.completeTapped?()
+//		}).disposed(by: bag)
+//		editActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+//			self?.editTapped?()
+//		}).disposed(by: bag)
+//		deleteActionView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+//			self?.deleteTapped?()
+//		}).disposed(by: bag)
 		
 		taskDescription.snp.makeConstraints(makeTaskDescriptionConstraints)
 		targetDate.snp.makeConstraints(makeTargetDateConstraints)

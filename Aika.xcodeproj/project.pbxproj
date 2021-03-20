@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,7 +13,6 @@
 		6E04922F1F5F269800E7C7D2 /* EditTaskController+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E04922E1F5F269800E7C7D2 /* EditTaskController+Constraints.swift */; };
 		6E05D0041E881F0B00C293B8 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E05D0031E881F0B00C293B8 /* WebService.swift */; };
 		6E06455A1E993EB600A8AA59 /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0645591E993EB600A8AA59 /* SwitchView.swift */; };
-		6E07B8931EBDB4D900ADA5A8 /* Auth0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E07B8921EBDB4D900ADA5A8 /* Auth0.framework */; };
 		6E07B8951EBDB9A700ADA5A8 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E07B8941EBDB9A700ADA5A8 /* Auth0.plist */; };
 		6E07B8971EBDBC9800ADA5A8 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07B8961EBDBC9800ADA5A8 /* AuthenticationService.swift */; };
 		6E07ED2C1EC3636A00154DF4 /* SynchronizationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07ED2B1EC3636A00154DF4 /* SynchronizationReducer.swift */; };
@@ -21,7 +20,6 @@
 		6E15D01C1DF0A45A00B4CCA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E15D01B1DF0A45A00B4CCA7 /* AppDelegate.swift */; };
 		6E15D0231DF0A45A00B4CCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0221DF0A45A00B4CCA7 /* Assets.xcassets */; };
 		6E15D0261DF0A45A00B4CCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E15D0241DF0A45A00B4CCA7 /* LaunchScreen.storyboard */; };
-		6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E15D0641DF0B62D00B4CCA7 /* SnapKit.framework */; };
 		6E16914C1E61F63A004EE586 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E16914B1E61F63A004EE586 /* Actions.swift */; };
 		6E1888911F6AF4A900AEDB85 /* TableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1888901F6AF4A900AEDB85 /* TableSectionHeader.swift */; };
 		6E19E3A11F5C166D00FDE207 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E19E3A01F5C166D00FDE207 /* main.swift */; };
@@ -36,37 +34,28 @@
 		6E3B8A7C1EB4D42600EC932F /* SettingsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B8A7B1EB4D42600EC932F /* SettingsReducer.swift */; };
 		6E40B9C81EC60CE100411F69 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40B9C71EC60CE100411F69 /* NotificationService.swift */; };
 		6E40B9CC1EC60CE200411F69 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6E40B9C51EC60CE100411F69 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E494D891EBDD13100280F5F /* JWTDecode.framework */; };
 		6E4F11211FEE68D60093C6B9 /* DateToStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4F11201FEE68D60093C6B9 /* DateToStringTests.swift */; };
 		6E53A1EB1FED859A000F48D5 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E53A1EA1FED859A000F48D5 /* Date+Extensions.swift */; };
 		6E53A1ED1FED8633000F48D5 /* TaskDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E53A1EC1FED8633000F48D5 /* TaskDate+Extensions.swift */; };
-		6E56168A2049784F002AED8D /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
 		6E5752161E05AD06002AA9B4 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5752151E05AD06002AA9B4 /* Entities.swift */; };
-		6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5752181E05AFC4002AA9B4 /* RxDataSources.framework */; };
 		6E57521D1E05B24A002AA9B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57521C1E05B24A002AA9B4 /* Extensions.swift */; };
 		6E5C9B351E67CDBC00532B4B /* TasksCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C9B341E67CDBC00532B4B /* TasksCoordinator.swift */; };
 		6E5FD9B61E59FA0C002C71F2 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FD9B51E59FA0C002C71F2 /* TasksViewModel.swift */; };
 		6E6422DA1E180E1B00FAFFFB /* TableSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6422D91E180E1B00FAFFFB /* TableSections.swift */; };
 		6E7AAA501EB4DB8800F2ACC3 /* GenericNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7AAA4F1EB4DB8800F2ACC3 /* GenericNavigationController.swift */; };
-		6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7B21321F83CE6100BF36AC /* Differentiator.framework */; };
 		6E7D17BB207011D800641665 /* SubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D17BA207011D800641665 /* SubtitleCell.swift */; };
 		6E86F4FC1EE3028500102AC3 /* TasksTableBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E86F4FB1EE3028500102AC3 /* TasksTableBackground.swift */; };
 		6E8845CC1E24056000EA3C2A /* TaskActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8845CB1E24056000EA3C2A /* TaskActionView.swift */; };
 		6E8A9E8D1EE7AD5800F2FA1F /* FrameworksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A9E8C1EE7AD5800F2FA1F /* FrameworksController.swift */; };
 		6E8A9E8F1EE7B02500F2FA1F /* FrameworksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A9E8E1EE7B02500F2FA1F /* FrameworksViewModel.swift */; };
-		6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8AD5B81EACD51900B0AF2D /* OneSignal.framework */; };
 		6E8AD5BB1EACEF9000B0AF2D /* PushNotificationsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AD5BA1EACEF9000B0AF2D /* PushNotificationsReducer.swift */; };
 		6E96B07B1EBAE69B0096ACFE /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07A1EBAE69B0096ACFE /* ActivityView.swift */; };
 		6E96B07F1EBC361A0096ACFE /* SnackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96B07E1EBC361A0096ACFE /* SnackView.swift */; };
 		6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E97DD1E1EF674F600542768 /* MessageUI.framework */; };
-		6E9B88A320276B8D007F3DEB /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8B0F421E60280900E2C265 /* RxDataFlow.framework */; };
-		6E9B88A420276B8D007F3DEB /* RxHttpClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DB1DF21291001A6F39 /* RxHttpClient.framework */; };
 		6E9B88A52027700B007F3DEB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9026E41E5AA56400851B4D /* SystemConfiguration.framework */; };
 		6E9B88A720277012007F3DEB /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9B88A620277012007F3DEB /* UserNotifications.framework */; };
 		6EA022C81E755A3600934BB7 /* RootReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022C71E755A3600934BB7 /* RootReducer.swift */; };
 		6EA022CA1E755A5700934BB7 /* AuthenticationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA022C91E755A5700934BB7 /* AuthenticationReducer.swift */; };
-		6EA0B47E1EC1C9F4005BA709 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47C1EC1C9F4005BA709 /* Realm.framework */; };
-		6EA0B47F1EC1C9F4005BA709 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA0B47D1EC1C9F4005BA709 /* RealmSwift.framework */; };
 		6EA0B4811EC1D25E005BA709 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA0B4801EC1D25E005BA709 /* Repository.swift */; };
 		6EA12B94205844DC00EE1E4B /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA12B93205844DC00EE1E4B /* PickerCell.swift */; };
 		6EA2C2F61F9CF9FF004A9820 /* DecodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA2C2F51F9CF9FF004A9820 /* DecodeTests.swift */; };
@@ -74,13 +63,11 @@
 		6EA5ACBD2006986C00C11172 /* RootControllerSpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA5ACBC2006986C00C11172 /* RootControllerSpringTransition.swift */; };
 		6EA7B4211E06A3940043BAA1 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA7B4201E06A3940043BAA1 /* State.swift */; };
 		6EA9C6301E2A9EFF0016C1C4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9C62F1E2A9EFF0016C1C4 /* Theme.swift */; };
-		6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA9C6311E2AA9B80016C1C4 /* RxGesture.framework */; };
 		6EAACA291EB7591D004EB190 /* TappableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAACA281EB7591D004EB190 /* TappableCell.swift */; };
 		6EAACA2D1EB75F99004EB190 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAACA2C1EB75F99004EB190 /* SwitchCell.swift */; };
 		6EAC86DC1FCAFCEF00728F59 /* RootControllerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAC86DB1FCAFCEF00728F59 /* RootControllerTransition.swift */; };
 		6EAF1B391EB5244C00C72BF5 /* InitialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAF1B381EB5244C00C72BF5 /* InitialCoordinator.swift */; };
 		6EAF1B3C1EB5297C00C72BF5 /* SlidePresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAF1B3B1EB5297C00C72BF5 /* SlidePresentAnimationController.swift */; };
-		6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB04F231EEE85F30023619A /* SimpleKeychain.framework */; };
 		6EB36A7A1E1ED9CA006B5239 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB36A791E1ED9CA006B5239 /* TaskCell.swift */; };
 		6EB66DFC1F64567F00C3DF76 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB66DFB1F64567F00C3DF76 /* Task.swift */; };
 		6EBC6A501F59104C0041456A /* TaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBC6A4F1F59104C0041456A /* TaskScheduler.swift */; };
@@ -95,13 +82,38 @@
 		6ED3F4481E7DA3D50003C1CC /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3F4451E7DA3D50003C1CC /* TasksController.swift */; };
 		6ED6646720866FA4001C5CFF /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6646620866FA4001C5CFF /* CalendarDateCell.swift */; };
 		6EE1C7E01FE6CC1900FFB34D /* EncodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE1C7DF1FE6CC1900FFB34D /* EncodeTests.swift */; };
-		6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DA1DF21291001A6F39 /* RxCocoa.framework */; };
-		6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE247DD1DF21291001A6F39 /* RxSwift.framework */; };
 		6EEF39991E61A0BA00D1C988 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF39981E61A0BA00D1C988 /* AuthenticationController.swift */; };
 		6EEF399E1E61B5C700D1C988 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEF399D1E61B5C700D1C988 /* AuthenticationViewModel.swift */; };
 		6EF1D16D1FE99006002EC506 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF1D16C1FE99006002EC506 /* Configure.swift */; };
 		6EF1D16F1FE99676002EC506 /* AuthenticationController+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF1D16E1FE99676002EC506 /* AuthenticationController+Constraints.swift */; };
 		6EF799631EC73E6100C9DFF0 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF799621EC73E6100C9DFF0 /* ViewModelType.swift */; };
+		EA30C1E92606493A00D25CED /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = EA30C1E82606493A00D25CED /* Auth0 */; };
+		EA30C1EC26064B2000D25CED /* RxCocoa.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6025DD4318000EFE15 /* RxCocoa.xcframework */; };
+		EA30C1ED26064B2000D25CED /* RxCocoa.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6025DD4318000EFE15 /* RxCocoa.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C1EE26064B2000D25CED /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6525DD4318000EFE15 /* RxSwift.xcframework */; };
+		EA30C1EF26064B2000D25CED /* RxSwift.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6525DD4318000EFE15 /* RxSwift.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C20326064E1B00D25CED /* RxDataFlow.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6825DD4318000EFE15 /* RxDataFlow.xcframework */; };
+		EA30C20426064E1B00D25CED /* RxDataFlow.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6825DD4318000EFE15 /* RxDataFlow.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C20626064E5D00D25CED /* Differentiator.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED5E25DD4318000EFE15 /* Differentiator.xcframework */; };
+		EA30C20726064E5D00D25CED /* Differentiator.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED5E25DD4318000EFE15 /* Differentiator.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C20826064E5D00D25CED /* RxDataSources.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6225DD4318000EFE15 /* RxDataSources.xcframework */; };
+		EA30C20926064E5D00D25CED /* RxDataSources.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6225DD4318000EFE15 /* RxDataSources.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C20B26064E9100D25CED /* SnapKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6725DD4318000EFE15 /* SnapKit.xcframework */; };
+		EA30C20C26064E9100D25CED /* SnapKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6725DD4318000EFE15 /* SnapKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C20E26064FBD00D25CED /* RxHttpClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6425DD4318000EFE15 /* RxHttpClient.xcframework */; };
+		EA30C20F26064FBD00D25CED /* RxHttpClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6425DD4318000EFE15 /* RxHttpClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C2182606530400D25CED /* RxRelay.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6625DD4318000EFE15 /* RxRelay.xcframework */; };
+		EA30C2192606530400D25CED /* RxRelay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6625DD4318000EFE15 /* RxRelay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C21D2606536400D25CED /* JWTDecode.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6925DD4318000EFE15 /* JWTDecode.xcframework */; };
+		EA30C21E2606536400D25CED /* JWTDecode.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6925DD4318000EFE15 /* JWTDecode.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C227260654B200D25CED /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA30C225260654B200D25CED /* RealmSwift.framework */; };
+		EA30C228260654B200D25CED /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA30C225260654B200D25CED /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA30C229260654B200D25CED /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA30C226260654B200D25CED /* Realm.framework */; };
+		EA30C22A260654B200D25CED /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA30C226260654B200D25CED /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EAB5ED8C25DD4344000EFE15 /* OneSignal.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6A25DD4318000EFE15 /* OneSignal.xcframework */; };
+		EAB5ED8D25DD4344000EFE15 /* OneSignal.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6A25DD4318000EFE15 /* OneSignal.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EAF96189260657B1004803CD /* OneSignal.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6A25DD4318000EFE15 /* OneSignal.xcframework */; };
+		EAF9618A260657B1004803CD /* OneSignal.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6A25DD4318000EFE15 /* OneSignal.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,16 +134,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6E379EB7202647050058A129 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6E40B9D01EC60CE200411F69 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -141,6 +143,39 @@
 				6E40B9CC1EC60CE200411F69 /* NotificationServiceExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA30C1F026064B2000D25CED /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EA30C20F26064FBD00D25CED /* RxHttpClient.xcframework in Embed Frameworks */,
+				EA30C2192606530400D25CED /* RxRelay.xcframework in Embed Frameworks */,
+				EA30C228260654B200D25CED /* RealmSwift.framework in Embed Frameworks */,
+				EA30C20426064E1B00D25CED /* RxDataFlow.xcframework in Embed Frameworks */,
+				EAF9618A260657B1004803CD /* OneSignal.xcframework in Embed Frameworks */,
+				EA30C1ED26064B2000D25CED /* RxCocoa.xcframework in Embed Frameworks */,
+				EA30C1EF26064B2000D25CED /* RxSwift.xcframework in Embed Frameworks */,
+				EA30C20926064E5D00D25CED /* RxDataSources.xcframework in Embed Frameworks */,
+				EA30C20C26064E9100D25CED /* SnapKit.xcframework in Embed Frameworks */,
+				EA30C22A260654B200D25CED /* Realm.framework in Embed Frameworks */,
+				EA30C21E2606536400D25CED /* JWTDecode.xcframework in Embed Frameworks */,
+				EA30C20726064E5D00D25CED /* Differentiator.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EAB5ED8E25DD4344000EFE15 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EAB5ED8D25DD4344000EFE15 /* OneSignal.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -258,6 +293,22 @@
 		6EF1D16C1FE99006002EC506 /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 		6EF1D16E1FE99676002EC506 /* AuthenticationController+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationController+Constraints.swift"; sourceTree = "<group>"; };
 		6EF799621EC73E6100C9DFF0 /* ViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		EA30C225260654B200D25CED /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/RealmSwift.framework; sourceTree = "<group>"; };
+		EA30C226260654B200D25CED /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/Realm.framework; sourceTree = "<group>"; };
+		EAB5ED5E25DD4318000EFE15 /* Differentiator.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Differentiator.xcframework; path = Carthage/Build/Differentiator.xcframework; sourceTree = "<group>"; };
+		EAB5ED5F25DD4318000EFE15 /* Realm.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Realm.xcframework; path = Carthage/Build/Realm.xcframework; sourceTree = "<group>"; };
+		EAB5ED6025DD4318000EFE15 /* RxCocoa.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxCocoa.xcframework; path = Carthage/Build/RxCocoa.xcframework; sourceTree = "<group>"; };
+		EAB5ED6125DD4318000EFE15 /* SimpleKeychain.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SimpleKeychain.xcframework; path = Carthage/Build/SimpleKeychain.xcframework; sourceTree = "<group>"; };
+		EAB5ED6225DD4318000EFE15 /* RxDataSources.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxDataSources.xcframework; path = Carthage/Build/RxDataSources.xcframework; sourceTree = "<group>"; };
+		EAB5ED6325DD4318000EFE15 /* RealmSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RealmSwift.xcframework; path = Carthage/Build/RealmSwift.xcframework; sourceTree = "<group>"; };
+		EAB5ED6425DD4318000EFE15 /* RxHttpClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxHttpClient.xcframework; path = Carthage/Build/RxHttpClient.xcframework; sourceTree = "<group>"; };
+		EAB5ED6525DD4318000EFE15 /* RxSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxSwift.xcframework; path = Carthage/Build/RxSwift.xcframework; sourceTree = "<group>"; };
+		EAB5ED6625DD4318000EFE15 /* RxRelay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxRelay.xcframework; path = Carthage/Build/RxRelay.xcframework; sourceTree = "<group>"; };
+		EAB5ED6725DD4318000EFE15 /* SnapKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SnapKit.xcframework; path = Carthage/Build/SnapKit.xcframework; sourceTree = "<group>"; };
+		EAB5ED6825DD4318000EFE15 /* RxDataFlow.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxDataFlow.xcframework; path = Carthage/Build/RxDataFlow.xcframework; sourceTree = "<group>"; };
+		EAB5ED6925DD4318000EFE15 /* JWTDecode.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = JWTDecode.xcframework; path = Carthage/Build/JWTDecode.xcframework; sourceTree = "<group>"; };
+		EAB5ED6A25DD4318000EFE15 /* OneSignal.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OneSignal.xcframework; path = Carthage/Build/OneSignal.xcframework; sourceTree = "<group>"; };
+		EAB5ED6B25DD4318000EFE15 /* Auth0.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Auth0.xcframework; path = Carthage/Build/Auth0.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,23 +316,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA30C20326064E1B00D25CED /* RxDataFlow.xcframework in Frameworks */,
 				6E9B88A720277012007F3DEB /* UserNotifications.framework in Frameworks */,
 				6E9B88A52027700B007F3DEB /* SystemConfiguration.framework in Frameworks */,
-				6E9B88A320276B8D007F3DEB /* RxDataFlow.framework in Frameworks */,
-				6E9B88A420276B8D007F3DEB /* RxHttpClient.framework in Frameworks */,
-				6E7B21331F83CE6100BF36AC /* Differentiator.framework in Frameworks */,
+				EA30C1EC26064B2000D25CED /* RxCocoa.xcframework in Frameworks */,
+				EA30C20B26064E9100D25CED /* SnapKit.xcframework in Frameworks */,
+				EA30C1EE26064B2000D25CED /* RxSwift.xcframework in Frameworks */,
+				EA30C20826064E5D00D25CED /* RxDataSources.xcframework in Frameworks */,
+				EA30C21D2606536400D25CED /* JWTDecode.xcframework in Frameworks */,
 				6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */,
-				6EB04F241EEE85F30023619A /* SimpleKeychain.framework in Frameworks */,
-				6EA0B47E1EC1C9F4005BA709 /* Realm.framework in Frameworks */,
-				6EA0B47F1EC1C9F4005BA709 /* RealmSwift.framework in Frameworks */,
-				6E494D8A1EBDD13100280F5F /* JWTDecode.framework in Frameworks */,
-				6E07B8931EBDB4D900ADA5A8 /* Auth0.framework in Frameworks */,
-				6E8AD5B91EACD51900B0AF2D /* OneSignal.framework in Frameworks */,
-				6EA9C6321E2AA9B80016C1C4 /* RxGesture.framework in Frameworks */,
-				6E57521A1E05AFC4002AA9B4 /* RxDataSources.framework in Frameworks */,
-				6EE247E21DF21291001A6F39 /* RxCocoa.framework in Frameworks */,
-				6EE247E51DF21291001A6F39 /* RxSwift.framework in Frameworks */,
-				6E15D0651DF0B62D00B4CCA7 /* SnapKit.framework in Frameworks */,
+				EA30C20E26064FBD00D25CED /* RxHttpClient.xcframework in Frameworks */,
+				EA30C1E92606493A00D25CED /* Auth0 in Frameworks */,
+				EA30C20626064E5D00D25CED /* Differentiator.xcframework in Frameworks */,
+				EAF96189260657B1004803CD /* OneSignal.xcframework in Frameworks */,
+				EA30C2182606530400D25CED /* RxRelay.xcframework in Frameworks */,
+				EA30C227260654B200D25CED /* RealmSwift.framework in Frameworks */,
+				EA30C229260654B200D25CED /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +346,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E56168A2049784F002AED8D /* OneSignal.framework in Frameworks */,
+				EAB5ED8C25DD4344000EFE15 /* OneSignal.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +421,22 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA30C226260654B200D25CED /* Realm.framework */,
+				EA30C225260654B200D25CED /* RealmSwift.framework */,
+				EAB5ED6B25DD4318000EFE15 /* Auth0.xcframework */,
+				EAB5ED5E25DD4318000EFE15 /* Differentiator.xcframework */,
+				EAB5ED6925DD4318000EFE15 /* JWTDecode.xcframework */,
+				EAB5ED6A25DD4318000EFE15 /* OneSignal.xcframework */,
+				EAB5ED5F25DD4318000EFE15 /* Realm.xcframework */,
+				EAB5ED6325DD4318000EFE15 /* RealmSwift.xcframework */,
+				EAB5ED6025DD4318000EFE15 /* RxCocoa.xcframework */,
+				EAB5ED6825DD4318000EFE15 /* RxDataFlow.xcframework */,
+				EAB5ED6225DD4318000EFE15 /* RxDataSources.xcframework */,
+				EAB5ED6425DD4318000EFE15 /* RxHttpClient.xcframework */,
+				EAB5ED6625DD4318000EFE15 /* RxRelay.xcframework */,
+				EAB5ED6525DD4318000EFE15 /* RxSwift.xcframework */,
+				EAB5ED6125DD4318000EFE15 /* SimpleKeychain.xcframework */,
+				EAB5ED6725DD4318000EFE15 /* SnapKit.xcframework */,
 				6E9B88A620277012007F3DEB /* UserNotifications.framework */,
 				6E6CAEAE2027126A00C58A73 /* Aika.xcodeproj */,
 				6EEC0D4B200908D5000EBDB2 /* Answers.framework */,
@@ -572,9 +638,8 @@
 				6E15D0141DF0A45900B4CCA7 /* Sources */,
 				6E15D0151DF0A45900B4CCA7 /* Frameworks */,
 				6E15D0161DF0A45900B4CCA7 /* Resources */,
-				6EE247D61DF21216001A6F39 /* Copy carthage frameworks */,
 				6E40B9D01EC60CE200411F69 /* Embed App Extensions */,
-				6E379EB7202647050058A129 /* Embed Frameworks */,
+				EA30C1F026064B2000D25CED /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -582,6 +647,9 @@
 				6E40B9CB1EC60CE200411F69 /* PBXTargetDependency */,
 			);
 			name = Aika;
+			packageProductDependencies = (
+				EA30C1E82606493A00D25CED /* Auth0 */,
+			);
 			productName = SimpleToDo;
 			productReference = 6E15D0181DF0A45A00B4CCA7 /* Aika.app */;
 			productType = "com.apple.product-type.application";
@@ -611,6 +679,7 @@
 				6E40B9C11EC60CE100411F69 /* Sources */,
 				6E40B9C21EC60CE100411F69 /* Frameworks */,
 				6E40B9C31EC60CE100411F69 /* Resources */,
+				EAB5ED8E25DD4344000EFE15 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -669,6 +738,9 @@
 				Base,
 			);
 			mainGroup = 6E15D00F1DF0A45900B4CCA7;
+			packageReferences = (
+				EA30C1E72606493A00D25CED /* XCRemoteSwiftPackageReference "Auth0.swift" */,
+			);
 			productRefGroup = 6E15D0191DF0A45A00B4CCA7 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -712,29 +784,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6EE247D61DF21216001A6F39 /* Copy carthage frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/OneSignal.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
-			);
-			name = "Copy carthage frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6E15D0141DF0A45900B4CCA7 /* Sources */ = {
@@ -971,7 +1020,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -993,10 +1043,14 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
+					"$(PROJECT_DIR)/Carthage/Build",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "";
 				MARKETING_VERSION = 1.5.1;
 				OTHER_CFLAGS = "-fembed-bitcode";
@@ -1005,10 +1059,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -1028,10 +1084,14 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage",
+					"$(PROJECT_DIR)/Carthage/Build",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Aika/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "";
 				MARKETING_VERSION = 1.5.1;
 				OTHER_CFLAGS = "-fembed-bitcode";
@@ -1040,9 +1100,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
@@ -1060,7 +1122,11 @@
 				);
 				INFOPLIST_FILE = AikaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1084,7 +1150,11 @@
 				);
 				INFOPLIST_FILE = AikaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.SimpleToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1105,7 +1175,11 @@
 				);
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 1.5.1;
 				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika.NotificationServiceExtension;
@@ -1127,7 +1201,11 @@
 				);
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 1.5.1;
 				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.Aika.NotificationServiceExtension;
@@ -1177,6 +1255,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EA30C1E72606493A00D25CED /* XCRemoteSwiftPackageReference "Auth0.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/Auth0.swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.32.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EA30C1E82606493A00D25CED /* Auth0 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA30C1E72606493A00D25CED /* XCRemoteSwiftPackageReference "Auth0.swift" */;
+			productName = Auth0;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6E15D0101DF0A45900B4CCA7 /* Project object */;
 }
