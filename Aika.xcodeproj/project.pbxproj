@@ -106,10 +106,8 @@
 		EA30C2192606530400D25CED /* RxRelay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6625DD4318000EFE15 /* RxRelay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA30C21D2606536400D25CED /* JWTDecode.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6925DD4318000EFE15 /* JWTDecode.xcframework */; };
 		EA30C21E2606536400D25CED /* JWTDecode.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6925DD4318000EFE15 /* JWTDecode.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EA30C227260654B200D25CED /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA30C225260654B200D25CED /* RealmSwift.framework */; };
-		EA30C228260654B200D25CED /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA30C225260654B200D25CED /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EA30C229260654B200D25CED /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA30C226260654B200D25CED /* Realm.framework */; };
-		EA30C22A260654B200D25CED /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA30C226260654B200D25CED /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA4E60532621AE92000A2DA9 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = EA4E60522621AE92000A2DA9 /* Realm */; };
+		EA4E60552621AE92000A2DA9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EA4E60542621AE92000A2DA9 /* RealmSwift */; };
 		EAB5ED8C25DD4344000EFE15 /* OneSignal.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6A25DD4318000EFE15 /* OneSignal.xcframework */; };
 		EAB5ED8D25DD4344000EFE15 /* OneSignal.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6A25DD4318000EFE15 /* OneSignal.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAF96189260657B1004803CD /* OneSignal.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5ED6A25DD4318000EFE15 /* OneSignal.xcframework */; };
@@ -153,14 +151,12 @@
 			files = (
 				EA30C20F26064FBD00D25CED /* RxHttpClient.xcframework in Embed Frameworks */,
 				EA30C2192606530400D25CED /* RxRelay.xcframework in Embed Frameworks */,
-				EA30C228260654B200D25CED /* RealmSwift.framework in Embed Frameworks */,
 				EA30C20426064E1B00D25CED /* RxDataFlow.xcframework in Embed Frameworks */,
 				EAF9618A260657B1004803CD /* OneSignal.xcframework in Embed Frameworks */,
 				EA30C1ED26064B2000D25CED /* RxCocoa.xcframework in Embed Frameworks */,
 				EA30C1EF26064B2000D25CED /* RxSwift.xcframework in Embed Frameworks */,
 				EA30C20926064E5D00D25CED /* RxDataSources.xcframework in Embed Frameworks */,
 				EA30C20C26064E9100D25CED /* SnapKit.xcframework in Embed Frameworks */,
-				EA30C22A260654B200D25CED /* Realm.framework in Embed Frameworks */,
 				EA30C21E2606536400D25CED /* JWTDecode.xcframework in Embed Frameworks */,
 				EA30C20726064E5D00D25CED /* Differentiator.xcframework in Embed Frameworks */,
 			);
@@ -295,6 +291,7 @@
 		6EF799621EC73E6100C9DFF0 /* ViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		EA30C225260654B200D25CED /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/RealmSwift.framework; sourceTree = "<group>"; };
 		EA30C226260654B200D25CED /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/Realm.framework; sourceTree = "<group>"; };
+		EA4E60462621AC20000A2DA9 /* RealmObjc.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RealmObjc.xcframework; path = Carthage/Build/RealmObjc.xcframework; sourceTree = "<group>"; };
 		EAB5ED5E25DD4318000EFE15 /* Differentiator.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Differentiator.xcframework; path = Carthage/Build/Differentiator.xcframework; sourceTree = "<group>"; };
 		EAB5ED5F25DD4318000EFE15 /* Realm.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Realm.xcframework; path = Carthage/Build/Realm.xcframework; sourceTree = "<group>"; };
 		EAB5ED6025DD4318000EFE15 /* RxCocoa.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxCocoa.xcframework; path = Carthage/Build/RxCocoa.xcframework; sourceTree = "<group>"; };
@@ -324,14 +321,14 @@
 				EA30C1EE26064B2000D25CED /* RxSwift.xcframework in Frameworks */,
 				EA30C20826064E5D00D25CED /* RxDataSources.xcframework in Frameworks */,
 				EA30C21D2606536400D25CED /* JWTDecode.xcframework in Frameworks */,
+				EA4E60552621AE92000A2DA9 /* RealmSwift in Frameworks */,
 				6E97DD1F1EF674F600542768 /* MessageUI.framework in Frameworks */,
+				EA4E60532621AE92000A2DA9 /* Realm in Frameworks */,
 				EA30C20E26064FBD00D25CED /* RxHttpClient.xcframework in Frameworks */,
 				EA30C1E92606493A00D25CED /* Auth0 in Frameworks */,
 				EA30C20626064E5D00D25CED /* Differentiator.xcframework in Frameworks */,
 				EAF96189260657B1004803CD /* OneSignal.xcframework in Frameworks */,
 				EA30C2182606530400D25CED /* RxRelay.xcframework in Frameworks */,
-				EA30C227260654B200D25CED /* RealmSwift.framework in Frameworks */,
-				EA30C229260654B200D25CED /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +418,7 @@
 		6E15D0631DF0B62D00B4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA4E60462621AC20000A2DA9 /* RealmObjc.xcframework */,
 				EA30C226260654B200D25CED /* Realm.framework */,
 				EA30C225260654B200D25CED /* RealmSwift.framework */,
 				EAB5ED6B25DD4318000EFE15 /* Auth0.xcframework */,
@@ -649,6 +647,8 @@
 			name = Aika;
 			packageProductDependencies = (
 				EA30C1E82606493A00D25CED /* Auth0 */,
+				EA4E60522621AE92000A2DA9 /* Realm */,
+				EA4E60542621AE92000A2DA9 /* RealmSwift */,
 			);
 			productName = SimpleToDo;
 			productReference = 6E15D0181DF0A45A00B4CCA7 /* Aika.app */;
@@ -740,6 +740,7 @@
 			mainGroup = 6E15D00F1DF0A45900B4CCA7;
 			packageReferences = (
 				EA30C1E72606493A00D25CED /* XCRemoteSwiftPackageReference "Auth0.swift" */,
+				EA4E60512621AE92000A2DA9 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = 6E15D0191DF0A45A00B4CCA7 /* Products */;
 			projectDirPath = "";
@@ -1265,6 +1266,14 @@
 				version = 1.32.0;
 			};
 		};
+		EA4E60512621AE92000A2DA9 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.7.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1272,6 +1281,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA30C1E72606493A00D25CED /* XCRemoteSwiftPackageReference "Auth0.swift" */;
 			productName = Auth0;
+		};
+		EA4E60522621AE92000A2DA9 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA4E60512621AE92000A2DA9 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		EA4E60542621AE92000A2DA9 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA4E60512621AE92000A2DA9 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
